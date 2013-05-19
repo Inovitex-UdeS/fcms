@@ -17,10 +17,10 @@ end
 
 # add to end of Gemfile
 group :development, :test do
-  gem 'ruby-debug19'                    # use Ruby debugger
-  gem 'database_cleaner'                # to clear Cucumber's test database between runs
-  gem 'capybara'                        # lets Cucumber pretend to be a web browser
-  gem 'launchy'                         # a useful debugging aid for user stories
+  gem 'debugger'                                # use Ruby debugger
+  gem 'database_cleaner'                        # to clear Cucumber's test database between runs
+  gem 'capybara'                                # lets Cucumber pretend to be a web browser
+  gem 'launchy'                                 # a useful debugging aid for user stories
 end
 
 # Gems used only for assets and not required

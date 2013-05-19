@@ -1,6 +1,7 @@
 # Temporary folder #
 tmp/
+log/
+*.log
 
 # Macintosh #
 .DS_Store
-

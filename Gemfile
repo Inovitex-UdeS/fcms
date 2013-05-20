@@ -13,6 +13,7 @@ group :test do
   gem 'cucumber-rails-training-wheels'
   gem 'rspec-rails'
   gem 'simplecov'
+  gem "metric_fu", "~> 4.1.3"
 end
 
 # add to end of Gemfile

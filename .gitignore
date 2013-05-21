@@ -1,9 +1,12 @@
+# Gemfile Lock #
+Gemfile.lock
+
 # Temporary folder #
 tmp/
+
+# Log files #
 log/
 *.log
 
 # Macintosh #
 .DS_Store
-
-development.log

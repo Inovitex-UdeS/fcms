@@ -6,34 +6,34 @@ gem 'rails', '3.2.13'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 group :test do
-  gem 'cucumber-rails'
-  gem 'cucumber-rails-training-wheels'
-  gem 'rspec-rails'
-  gem 'simplecov'
-  gem "metric_fu", "~> 4.1.3"
+  gem 'cucumber-rails', "1.3.1"
+  gem 'cucumber-rails-training-wheels', "1.0.0"
+  gem 'rspec-rails', "2.13.1"
+  gem 'simplecov', "0.7.1"
+  gem "metric_fu", "4.1.3"
 end
 
 # add to end of Gemfile
 group :development, :test do
-  gem 'debugger'                                # use Ruby debugger
-  gem 'database_cleaner'                        # to clear Cucumber's test database between runs
-  gem 'capybara'                                # lets Cucumber pretend to be a web browser
-  gem 'launchy'                                 # a useful debugging aid for user stories
+  gem 'debugger', "1.6.0"                                 # use Ruby debugger
+  gem 'database_cleaner', "1.0.1"                         # to clear Cucumber's test database between runs
+  gem 'capybara', "2.1.0"                                 # lets Cucumber pretend to be a web browser
+  gem 'launchy', "2.3.0"                                  # a useful debugging aid for user stories
 end
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'therubyracer'  
-  gem 'uglifier', '>= 1.0.3'
-  gem "twitter-bootstrap-rails"
+  gem 'therubyracer', "0.11.4"  
+  gem 'uglifier', "2.1.1"
+  gem "twitter-bootstrap-rails", "2.2.6"
 end
 
 # jQuery gem for javascript
-gem 'jquery-rails'
+gem 'jquery-rails', "2.2.1"
 
 # PostgreSQL gem
-gem 'pg'
+gem 'pg', "0.15.1"
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -46,4 +46,3 @@ gem 'pg'
 
 # Deploy with Capistrano
 # gem 'capistrano'
-

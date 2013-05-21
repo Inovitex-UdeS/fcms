@@ -10,3 +10,5 @@ log/
 
 # Macintosh #
 .DS_Store
+
+/.idea/

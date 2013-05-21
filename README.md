@@ -9,7 +9,7 @@ Application web développée dans le cadre d'un projet [EPICS](https://engineeri
 
         bundle install --without production
 
-2. Ne pas oublier de créer une base de données fcms dans postgresql et de modifier 'config/database.yml' en conséquence
+2. Ne pas oublier de créer une base de données fcms dans postgresql et de modifier `config/database.yml` en conséquence
 
 3. Pour exécuter les migrations
 
@@ -23,7 +23,7 @@ Application web développée dans le cadre d'un projet [EPICS](https://engineeri
 
         rails server (--debug)
 
-6. Pour consulter les métriques de l'application
+6. Pour consulter les métriques de l'application web
 
         rake metrics:all
 

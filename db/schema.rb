@@ -32,8 +32,8 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer "edition_id",                                                 :null => false
     t.integer "id",                                                         :null => false
     t.integer "class_id",                                                   :null => false
-    t.date    "sage_min"
-    t.date    "sage_max"
+    t.date    "min"
+    t.date    "max"
     t.string  "description",  :limit => 128
     t.decimal "fee",                         :precision => 19, :scale => 2
     t.integer "max_duration"
@@ -44,10 +44,10 @@ ActiveRecord::Schema.define(:version => 0) do
   add_index "agegroup", ["edition_id"], :name => "edition_id_fk"
 
   create_table "class", :force => true do |t|
-    t.string  "name",      :limit => 256, :null => false
-    t.integer "nbperfmin",                :null => false
-    t.integer "nbperfmax"
-    t.text    "DESC"
+    t.string  "name",        :limit => 256, :null => false
+    t.integer "nb_perf_min",                :null => false
+    t.integer "nb_perf_max"
+    t.text    "description"
   end
 
   add_index "class", ["id"], :name => "class_pk", :unique => true
@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string "name", :limit => 256, :null => false
   end
 
-  add_index "composer", ["id"], :name => "composers_pk", :unique => true
+  add_index "composer", ["id"], :name => "composer_pk", :unique => true
 
   create_table "config", :id => false, :force => true do |t|
     t.string "key",   :limit => 64,   :null => false
@@ -65,13 +65,10 @@ ActiveRecord::Schema.define(:version => 0) do
 
   add_index "config", ["key"], :name => "config_pk", :unique => true
 
-  create_table "contest", :id => false, :force => true do |t|
-    t.integer "room_id", :null => false
-    t.integer "id",      :null => false
+  create_table "contest", :force => true do |t|
   end
 
-  add_index "contest", ["room_id", "id"], :name => "contest_pk", :unique => true
-  add_index "contest", ["room_id"], :name => "room_id_fk"
+  add_index "contest", ["id"], :name => "contest_pk", :unique => true
 
   create_table "edition", :force => true do |t|
     t.integer "year",       :null => false
@@ -105,30 +102,25 @@ ActiveRecord::Schema.define(:version => 0) do
   end
 
   add_index "payment", ["id"], :name => "payment_pk", :unique => true
-  add_index "payment", ["payregistration_id"], :name => "payment_id_fk"
+  add_index "payment", ["payregistration_id"], :name => "payregistration_id_fk"
   add_index "payment", ["payuser_id"], :name => "payuser_id_fk"
 
   create_table "performance", :force => true do |t|
-    t.integer "room_id"
-    t.integer "contest_id"
-    t.integer "composer_id",         :null => false
     t.integer "piece_id",            :null => false
     t.integer "perfregistration_id"
   end
 
-  add_index "performance", ["composer_id", "piece_id"], :name => "piece_id_fk"
   add_index "performance", ["id"], :name => "performance_pk", :unique => true
-  add_index "performance", ["perfregistration_id"], :name => "performance_id_fk"
-  add_index "performance", ["room_id", "contest_id"], :name => "contest_id_fk"
+  add_index "performance", ["perfregistration_id"], :name => "perfregistration_id_fk"
+  add_index "performance", ["piece_id"], :name => "piece_id_fk"
 
-  create_table "piece", :id => false, :force => true do |t|
+  create_table "piece", :force => true do |t|
     t.integer "composer_id",                :null => false
-    t.integer "id",                         :null => false
     t.string  "title",       :limit => 256, :null => false
   end
 
-  add_index "piece", ["composer_id", "id"], :name => "piece_pk", :unique => true
   add_index "piece", ["composer_id"], :name => "composer_id_fk"
+  add_index "piece", ["id"], :name => "piece_pk", :unique => true
 
   create_table "registration", :force => true do |t|
     t.integer "user_owner_id",   :null => false
@@ -172,14 +164,14 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string  "postal_code",    :limit => 256
   end
 
-  add_index "school", ["id"], :name => "sch_pk", :unique => true
+  add_index "school", ["id"], :name => "school_pk", :unique => true
   add_index "school", ["schoolboard_id"], :name => "schoolboard_id_fk"
 
   create_table "schoolboard", :force => true do |t|
     t.string "name", :limit => 128, :null => false
   end
 
-  add_index "schoolboard", ["id"], :name => "boa_pk", :unique => true
+  add_index "schoolboard", ["id"], :name => "schoolboard_pk", :unique => true
 
   create_table "userregistration", :id => false, :force => true do |t|
     t.integer "instrument_id",   :null => false
@@ -206,13 +198,10 @@ ActiveRecord::Schema.define(:version => 0) do
   add_foreign_key "agegroup", "class", :name => "fk_agegroup_class_id_class", :column => "class_id", :dependent => :restrict
   add_foreign_key "agegroup", "edition", :name => "fk_agegroup_edition_i_edition", :dependent => :restrict
 
-  add_foreign_key "contest", "room", :name => "fk_contest_room_id_room", :dependent => :restrict
-
   add_foreign_key "payment", "USER", :name => "fk_payment_payuser_i_user", :column => "payuser_id", :dependent => :restrict
   add_foreign_key "payment", "registration", :name => "fk_payment_payregist_registra", :column => "payregistration_id", :dependent => :restrict
 
-  add_foreign_key "performance", "contest", :name => "fk_performa_contest_i_contest", :column => "room_id", :primary_key => "room_id", :dependent => :restrict
-  add_foreign_key "performance", "piece", :name => "fk_performa_piece_id_piece", :column => "composer_id", :primary_key => "composer_id", :dependent => :restrict
+  add_foreign_key "performance", "piece", :name => "fk_performa_piece_id_piece", :dependent => :restrict
   add_foreign_key "performance", "registration", :name => "fk_performa_perfregis_registra", :column => "perfregistration_id", :dependent => :restrict
 
   add_foreign_key "piece", "composer", :name => "fk_piece_composer__composer", :dependent => :restrict

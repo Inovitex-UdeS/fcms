@@ -25,7 +25,7 @@ Application web développée dans le cadre d'un projet [EPICS](https://engineeri
 
 6. Pour consulter les métriques de l'application web
 
-        rake metrics:all
+        metric_fu -r
 
 ## Articles intéressants
 

@@ -37,6 +37,9 @@ gem 'pg', "0.15.1"
 gem 'foreigner', "1.4.1"
 gem 'yaml_db', "0.2.3"
 
+# Devise gem
+gem 'devise', "2.2.4"
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

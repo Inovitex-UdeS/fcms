@@ -1,10 +1,32 @@
+<%= content_for :head do %>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $('#form-login').submit(function(e) {
+        $.ajax({
+          url: $(this).attr('action'),
+          type: $(this).attr('method') || "post",
+          data: $(this).serialize(),
+          success: function(data, textStatus, jqXHR) {
+            alert("Login success");
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+            alert("Login failed");
+          }
+        });
+
+        e.preventDefault();
+      });
+    });
+  </script>
+<% end %>
+
 <div class="gradient"></div>
 
 <div class="login-page">
   <div class="login-left">
   </div>
   <div class="login-right">
-    <%= form_tag :remove => true, :action => :create do %>
+    <%= form_tag ({:action => :create}), :id => 'form-login' do %>
         <h2>Connexion</h2>
         <%= text_field_tag :user, '', :class => 'input-xlarge', :placeholder => 'exemple@xyz.com' %><br>
         <%= password_field_tag :password, '', :class => 'input-xlarge', :placeholder => 'Mot de passe' %><br>

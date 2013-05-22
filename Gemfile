@@ -24,10 +24,12 @@ end
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'therubyracer', "0.11.4"  
+  gem 'therubyracer', "0.11.4"
   gem 'uglifier', "2.1.1"
-  gem "twitter-bootstrap-rails", "2.2.6"
+  gem 'yui-compressor', "0.9.6"
 end
+
+gem "twitter-bootstrap-rails", "2.2.6"
 
 # jQuery gem for javascript
 gem 'jquery-rails', "2.2.1"

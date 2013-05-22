@@ -1,0 +1,14 @@
+<div class="gradient"></div>
+
+<div class="login-page">
+  <div class="login-left">
+  </div>
+  <div class="login-right">
+    <%= form_tag :remove => true, :action => :create do %>
+        <h2>Connexion</h2>
+        <%= text_field_tag :user, '', :class => 'input-xlarge', :placeholder => 'exemple@xyz.com' %><br>
+        <%= password_field_tag :password, '', :class => 'input-xlarge', :placeholder => 'Mot de passe' %><br>
+        <%= submit_tag "Se connecter",  :class => 'btn btn-primary' %>&nbsp;&nbsp;<%= button_tag 'Créer un compte', :class => 'btn' %>
+    <% end %>
+  </div>
+</div>

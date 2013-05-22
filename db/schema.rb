@@ -90,29 +90,30 @@ ActiveRecord::Schema.define(:version => 0) do
   add_index "instrument", ["id"], :name => "instrument_pk", :unique => true
 
   create_table "payment", :force => true do |t|
-    t.integer "payuser_id",                                                        :null => false
-    t.integer "payregistration_id",                                                :null => false
-    t.string  "mode",               :limit => 64
+    t.integer "user_id",                                                        :null => false
+    t.integer "registration_id",                                                :null => false
+    t.string  "mode",            :limit => 64
     t.integer "no_chq"
-    t.string  "name_chq",           :limit => 1024
+    t.string  "name_chq",        :limit => 1024
     t.date    "date_chq"
     t.date    "depot_date"
-    t.string  "invoice",            :limit => 50
-    t.decimal "cash",                               :precision => 19, :scale => 2
+    t.string  "invoice",         :limit => 50
+    t.decimal "cash",                            :precision => 19, :scale => 2
   end
 
   add_index "payment", ["id"], :name => "payment_pk", :unique => true
-  add_index "payment", ["payregistration_id"], :name => "payregistration_id_fk"
-  add_index "payment", ["payuser_id"], :name => "payuser_id_fk"
+  add_index "payment", ["registration_id"], :name => "payregistration_id_fk"
+  add_index "payment", ["user_id"], :name => "payuser_id_fk"
 
   create_table "performance", :force => true do |t|
-    t.integer "piece_id",            :null => false
-    t.integer "perfregistration_id"
+    t.integer "piece_id",                      :null => false
+    t.integer "registration_id"
+    t.string  "column_4",        :limit => 10
   end
 
   add_index "performance", ["id"], :name => "performance_pk", :unique => true
-  add_index "performance", ["perfregistration_id"], :name => "perfregistration_id_fk"
   add_index "performance", ["piece_id"], :name => "piece_id_fk"
+  add_index "performance", ["registration_id"], :name => "perfregistration_id_fk"
 
   create_table "piece", :force => true do |t|
     t.integer "composer_id",                :null => false
@@ -126,14 +127,14 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer "user_owner_id",   :null => false
     t.integer "school_id"
     t.integer "user_teacher_id", :null => false
-    t.integer "regedit_id",      :null => false
-    t.integer "regclass_id",     :null => false
+    t.integer "edit_id",         :null => false
+    t.integer "class_id",        :null => false
     t.integer "duration",        :null => false
   end
 
+  add_index "registration", ["class_id"], :name => "regclass_id_fk"
+  add_index "registration", ["edit_id"], :name => "regedit_id_fk"
   add_index "registration", ["id"], :name => "registration_pk", :unique => true
-  add_index "registration", ["regclass_id"], :name => "regclass_id_fk"
-  add_index "registration", ["regedit_id"], :name => "regedit_id_fk"
   add_index "registration", ["school_id"], :name => "school_id_fk"
   add_index "registration", ["user_owner_id"], :name => "user_owner_id_fk"
   add_index "registration", ["user_teacher_id"], :name => "user_teacher_id_fk"
@@ -176,49 +177,49 @@ ActiveRecord::Schema.define(:version => 0) do
   create_table "userregistration", :id => false, :force => true do |t|
     t.integer "instrument_id",   :null => false
     t.integer "registration_id", :null => false
-    t.integer "uruser_id",       :null => false
+    t.integer "user_id",         :null => false
     t.integer "id",              :null => false
   end
 
-  add_index "userregistration", ["instrument_id", "registration_id", "uruser_id", "id"], :name => "userregistration_pk", :unique => true
+  add_index "userregistration", ["instrument_id", "registration_id", "user_id", "id"], :name => "userregistration_pk", :unique => true
   add_index "userregistration", ["instrument_id"], :name => "instrument_id_fk"
   add_index "userregistration", ["registration_id"], :name => "registration_id_fk"
-  add_index "userregistration", ["uruser_id"], :name => "uruser_id_fk"
+  add_index "userregistration", ["user_id"], :name => "uruser_id_fk"
 
   create_table "userrole", :id => false, :force => true do |t|
-    t.integer "rrole_id", :null => false
-    t.integer "user_id",  :null => false
-    t.integer "id",       :null => false
+    t.integer "role_id", :null => false
+    t.integer "user_id", :null => false
+    t.integer "id",      :null => false
   end
 
-  add_index "userrole", ["rrole_id", "user_id", "id"], :name => "userrole_pk", :unique => true
-  add_index "userrole", ["rrole_id"], :name => "rrole_id_fk"
+  add_index "userrole", ["role_id", "user_id", "id"], :name => "userrole_pk", :unique => true
+  add_index "userrole", ["role_id"], :name => "rrole_id_fk"
   add_index "userrole", ["user_id"], :name => "user_id_fk"
 
   add_foreign_key "agegroup", "class", :name => "fk_agegroup_class_id_class", :column => "class_id", :dependent => :restrict
   add_foreign_key "agegroup", "edition", :name => "fk_agegroup_edition_i_edition", :dependent => :restrict
 
-  add_foreign_key "payment", "USER", :name => "fk_payment_payuser_i_user", :column => "payuser_id", :dependent => :restrict
-  add_foreign_key "payment", "registration", :name => "fk_payment_payregist_registra", :column => "payregistration_id", :dependent => :restrict
+  add_foreign_key "payment", "USER", :name => "fk_payment_payuser_i_user", :column => "user_id", :dependent => :restrict
+  add_foreign_key "payment", "registration", :name => "fk_payment_payregist_registra", :dependent => :restrict
 
   add_foreign_key "performance", "piece", :name => "fk_performa_piece_id_piece", :dependent => :restrict
-  add_foreign_key "performance", "registration", :name => "fk_performa_perfregis_registra", :column => "perfregistration_id", :dependent => :restrict
+  add_foreign_key "performance", "registration", :name => "fk_performa_perfregis_registra", :dependent => :restrict
 
   add_foreign_key "piece", "composer", :name => "fk_piece_composer__composer", :dependent => :restrict
 
   add_foreign_key "registration", "USER", :name => "fk_registra_user_owne_user", :column => "user_owner_id", :dependent => :restrict
   add_foreign_key "registration", "USER", :name => "fk_registra_user_teac_user", :column => "user_teacher_id", :dependent => :restrict
-  add_foreign_key "registration", "class", :name => "fk_registra_regclass__class", :column => "regclass_id", :dependent => :restrict
-  add_foreign_key "registration", "edition", :name => "fk_registra_regedit_i_edition", :column => "regedit_id", :dependent => :restrict
+  add_foreign_key "registration", "class", :name => "fk_registra_regclass__class", :column => "class_id", :dependent => :restrict
+  add_foreign_key "registration", "edition", :name => "fk_registra_regedit_i_edition", :column => "edit_id", :dependent => :restrict
   add_foreign_key "registration", "school", :name => "fk_registra_school_id_school", :dependent => :restrict
 
   add_foreign_key "school", "schoolboard", :name => "fk_school_schoolboa_schoolbo", :dependent => :restrict
 
-  add_foreign_key "userregistration", "USER", :name => "fk_userregi_uruser_id_user", :column => "uruser_id", :dependent => :restrict
+  add_foreign_key "userregistration", "USER", :name => "fk_userregi_uruser_id_user", :column => "user_id", :dependent => :restrict
   add_foreign_key "userregistration", "instrument", :name => "fk_userregi_instrumen_instrume", :dependent => :restrict
   add_foreign_key "userregistration", "registration", :name => "fk_userregi_registrat_registra", :dependent => :restrict
 
   add_foreign_key "userrole", "USER", :name => "fk_userrole_user_id_user", :column => "user_id", :dependent => :restrict
-  add_foreign_key "userrole", "role", :name => "fk_userrole_rrole_id_role", :column => "rrole_id", :dependent => :restrict
+  add_foreign_key "userrole", "role", :name => "fk_userrole_rrole_id_role", :dependent => :restrict
 
 end

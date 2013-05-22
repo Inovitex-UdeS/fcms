@@ -5,7 +5,7 @@ function testJS() {
   $("h1").text("WOW! jQuery is working!");
   $("#smallText").text("I can even change the small text with id!");
 
- // create table
+ // index table
   var $table = $('<table>');
 
   // caption

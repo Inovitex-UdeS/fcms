@@ -57,4 +57,6 @@ Fcms::Application.routes.draw do
   # match ':controller(/:action(/:id))(.:format)'
   
   match '/test' => 'test#show'
+  match '/login' => 'login#index'
+  match '/login/create' => "login#create", :via => :post
 end

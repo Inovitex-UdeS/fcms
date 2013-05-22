@@ -11,19 +11,23 @@ Application web développée dans le cadre d'un projet [EPICS](https://engineeri
 
 2. Ne pas oublier de créer une base de données fcms dans postgresql et de modifier `config/database.yml` en conséquence
 
-3. Pour exécuter les migrations
+3. Il faut ensuite appliquer le schéma sur la base de données
+
+        rake db:schema:load
+
+4. Pour exécuter les migrations
 
         rake db:migrate
 
-4. Pour populer la base de données
+5. Pour populer la base de données
 
         rake db:seed
 
-5. Démarrer le serveur
+6. Démarrer le serveur
 
         rails server (--debug)
 
-6. Pour consulter les métriques de l'application web
+7. Pour consulter les métriques de l'application web
 
         metric_fu -r
 

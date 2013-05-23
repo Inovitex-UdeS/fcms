@@ -36,8 +36,7 @@ gem 'jquery-rails', "2.2.1"
 
 # PostgreSQL gem
 gem 'pg', "0.15.1"
-gem 'foreigner', "1.4.1"
-gem 'yaml_db', "0.2.3"
+gem 'foreigner', "1.4.1" 
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

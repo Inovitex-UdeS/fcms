@@ -16,8 +16,7 @@
             <%= f.password_field :password, :placeholder => 'Mot de passe', :class => 'input-xlarge' %><br />
 
             <% if devise_mapping.rememberable? -%>
-                <%= f.check_box :remember_me, :class => 'checkbox inline' %>
-                <%= f.label :remember_me, "Rester connecter", :class => 'checkbox inline' %><br />
+              <label class="checkbox"> <%= f.check_box :remember_me, :class => 'checkbox' %> Rester connecter </label>
             <% end -%>
 
             <%= f.submit "Se connecter", :class => 'btn btn-primary' %>

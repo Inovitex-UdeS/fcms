@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+
+  self.table_name = "USER"
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable

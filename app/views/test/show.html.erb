@@ -1,21 +1,4 @@
-<%= content_for :head do %>
-  <script type="text/javascript">
-    // On page ready
-    $(document).ready(function() {
-        testJS();
-    });
-  </script>
-<% end %>
-
-<div class="container">
-    <div class="hero-unit">
-        <h1>Bootstrap jsFiddle Skeleton</h1>
-        <p id="smallText">Fork this fiddle to test your Bootstrap stuff.</p>
-        <center><div id="dynamicTable"></div></center>
-        <p>
-            <a class="btn btn-primary btn-large" href="http://twitter.github.com/bootstrap/index.html" target="_blank">
-                Learn more about Bootstrap
-            </a>
-        </p>
-    </div>
-</div>
+<%= "I can do stuff on a user"if can? :dostuff, User%>      <br/>
+<%= "I can read on a user"if can? :read, User%>      <br/>
+<%= "I can manage on a user"if can? :manage, User%>      <br/>
+<%= "I cannot manage on a user"if cannot? :manage, User%>      <br/>

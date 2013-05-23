@@ -4,6 +4,7 @@ class TestController < ApplicationController
   end
 
   def show
-    authorize! :dostuff, User, :message => "Unable to manage this shit."
+    authorize! :manage, User, :message => "Unable to manage this shit."
+
   end
 end

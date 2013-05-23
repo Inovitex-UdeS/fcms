@@ -1,5 +1,5 @@
 class Role < ActiveRecord::Base
-  # attr_accessible :title, :body
+  attr_accessible :id, :name
 
 
   # For Authorizations

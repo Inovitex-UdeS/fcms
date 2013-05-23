@@ -1,0 +1,10 @@
+
+<div class="container">
+  <div class="hero-unit">
+    <h1>Bienvenue!</h1>
+        <p>Utilisateur: <%= current_user.email %></p>
+    <p>
+      <%= link_to "Déconnexion", destroy_user_session_path, :method => :delete, :class => 'btn' %>
+    </p>
+  </div>
+</div>

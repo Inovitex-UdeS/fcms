@@ -10,7 +10,7 @@ group :test do
   gem 'cucumber-rails-training-wheels', "1.0.0"
   gem 'rspec-rails', "2.13.1"
   gem 'simplecov', "0.7.1"
-  gem "metric_fu", "4.1.3"
+  #gem "metric_fu", "4.1.3"
 end
 
 # add to end of Gemfile
@@ -37,6 +37,9 @@ gem 'jquery-rails', "2.2.1"
 # PostgreSQL gem
 gem 'pg', "0.15.1"
 gem 'foreigner', "1.4.1" 
+
+# Devise gem
+gem 'devise', "2.2.4"
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

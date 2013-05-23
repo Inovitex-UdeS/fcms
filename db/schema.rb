@@ -11,22 +11,36 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 0) do
+ActiveRecord::Schema.define(:version => 20130522201536) do
 
   create_table "USER", :force => true do |t|
-    t.string  "last_name",   :limit => 64,  :null => false
-    t.string  "first_name",  :limit => 64,  :null => false
-    t.string  "telephone",   :limit => 16,  :null => false
-    t.string  "address",     :limit => 256
-    t.string  "address2",    :limit => 256
-    t.string  "city",        :limit => 256
-    t.string  "province",    :limit => 256
-    t.boolean "gender"
-    t.string  "postal_code", :limit => 256
-    t.date    "birthday",                   :null => false
+    t.string   "last_name",              :limit => 64,  :default => "",           :null => false
+    t.string   "first_name",             :limit => 64,  :default => "",           :null => false
+    t.string   "telephone",              :limit => 16,  :default => "",           :null => false
+    t.string   "address",                :limit => 256
+    t.string   "address2",               :limit => 256
+    t.string   "city",                   :limit => 256
+    t.string   "province",               :limit => 256
+    t.boolean  "gender"
+    t.string   "postal_code",            :limit => 256
+    t.date     "birthday",                              :default => '1971-01-01', :null => false
+    t.string   "email",                                 :default => "",           :null => false
+    t.string   "encrypted_password",                    :default => "",           :null => false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",                         :default => 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
+  add_index "USER", ["email"], :name => "index_USER_on_email", :unique => true
   add_index "USER", ["id"], :name => "user_pk", :unique => true
+  add_index "USER", ["reset_password_token"], :name => "index_USER_on_reset_password_token", :unique => true
 
   create_table "agegroup", :id => false, :force => true do |t|
     t.integer "edition_id",                                                 :null => false

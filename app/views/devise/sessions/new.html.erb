@@ -21,7 +21,7 @@
             <% end -%>
 
             <%= f.submit "Se connecter", :class => 'btn btn-primary' %>
-            <%= f.button "Créer un compte", :class => 'btn' %>
+            <%= link_to "Se créer un compte", new_registration_path(resource_name), :class => 'btn' %>
 
         <% end %>
 

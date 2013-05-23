@@ -33,8 +33,18 @@ When /^I sign in with an invalid password$/ do
   sign_out
   visit '/users/sign_in'
 
-  fill_in 'user_email', :with => @visitor[:name]
+  fill_in 'user_email', :with => @visitor[:email]
   fill_in 'user_password', :with => @visitor[:wrong_password]
+  click_button "Se connecter"
+end
+
+When /^I sign in with an invalid email$/ do
+  create_user
+  sign_out
+  visit '/users/sign_in'
+
+  fill_in 'user_email', :with => @visitor[:wrong_email]
+  fill_in 'user_password', :with => @visitor[:password]
   click_button "Se connecter"
 end
 

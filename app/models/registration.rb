@@ -3,16 +3,22 @@ class Registration < ActiveRecord::Base
   attr_accessible :id, :duration
 
   # association macros
-  belongs_to :payment
   has_many :performances
 
-  belongs_to :classe   # À VÉRIFIER.
+  belongs_to :category
   belongs_to :edition
 
+  belongs_to :owner, :class_name => 'User', :foreign_key => "user_owner_id"
+  belongs_to :teacher,:class_name => 'User', :foreign_key => "user_teacher_id"
 
+
+  has_and_belongs_to_many :instruments , :join_table => :registrations_users
+  has_and_belongs_to_many :users , :join_table => :registrations_users
+
+  belongs_to :school
 
   # and validation macros
-  validates :id, presence: true
+  #validates :id, presence: true
   #validates :username, presence: true
   #validates :username, uniqueness: { case_sensitive: false }
   #validates :username, format: { with: /\A[A-Za-z][A-Za-z0-9._-]{2,19}\z/ }

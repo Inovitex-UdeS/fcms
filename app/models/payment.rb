@@ -1,5 +1,5 @@
 class Payment < ActiveRecord::Base
-  attr_accessible :id, :mode, :no_chq, :name_chq, :date_chq, :depot_date, :invoice, :cash
+  attr_accessible  :mode, :no_chq, :name_chq, :date_chq, :depot_date, :invoice, :cash
 
   # association macros
   belongs_to :registrations, :users

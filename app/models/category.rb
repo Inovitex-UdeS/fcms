@@ -1,3 +1,5 @@
 class Category < ActiveRecord::Base
-  # attr_accessible :title, :body
+  #associations
+  has_many :agegroup
+  has_many :registration
 end

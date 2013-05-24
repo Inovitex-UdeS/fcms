@@ -143,7 +143,7 @@ ActiveRecord::Schema.define(:version => 20130522201536) do
   add_index "registrations", ["user_owner_id"], :name => "user_owner_id_fk"
   add_index "registrations", ["user_teacher_id"], :name => "user_teacher_id_fk"
 
-  create_table "registrations_users", :force => true do |t|
+  create_table "registrations_users", :id => false, :force => true do |t|
     t.integer  "instrument_id",   :null => false
     t.integer  "registration_id", :null => false
     t.integer  "user_id",         :null => false
@@ -151,8 +151,7 @@ ActiveRecord::Schema.define(:version => 20130522201536) do
     t.datetime "updated_at",      :null => false
   end
 
-  add_index "registrations_users", ["id"], :name => "registrations_users_id_pk", :unique => true
-  add_index "registrations_users", ["instrument_id", "registration_id", "user_id"], :name => "registrations_users_pk", :unique => true
+  add_index "registrations_users", ["registration_id", "user_id"], :name => "registrations_users_pk", :unique => true
   add_index "registrations_users", ["instrument_id"], :name => "instrument_id_fk"
   add_index "registrations_users", ["registration_id"], :name => "registration_id_fk"
   add_index "registrations_users", ["user_id"], :name => "uruser_id_fk"
@@ -165,7 +164,7 @@ ActiveRecord::Schema.define(:version => 20130522201536) do
 
   add_index "roles", ["id"], :name => "roles_pk", :unique => true
 
-  create_table "roles_users", :force => true do |t|
+  create_table "roles_users", :id => false, :force => true do |t|
     t.integer  "role_id",    :null => false
     t.integer  "user_id",    :null => false
     t.datetime "created_at", :null => false

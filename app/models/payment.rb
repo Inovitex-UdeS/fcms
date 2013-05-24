@@ -1,5 +1,7 @@
 class Payment < ActiveRecord::Base
-  # association macros
-  belongs_to :registrations, :users
+
+  # Association macros
+  belongs_to :registration
+  belongs_to :user
 
 end

@@ -1,5 +1,6 @@
 class Agegroup < ActiveRecord::Base
-  #associations
+
+  # Association macros
   belongs_to :category
   belongs_to :edition
 

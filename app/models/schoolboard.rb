@@ -1,5 +1,8 @@
 class Schoolboard < ActiveRecord::Base
-  has_many :schools
+
+    # Association macros
+    has_many :schools
+
 end
 
 

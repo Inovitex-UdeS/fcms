@@ -1,3 +1,7 @@
 class Edition < ActiveRecord::Base
-  # attr_accessible :title, :body
+
+  # Association macros
+  has_many :agegroups
+  has_many :registrations
+
 end

@@ -1,7 +1,7 @@
 #!/usr/bin/ruby
 # encoding: ISO-8859-1
 
-# fetch_school.rb v1.1
+# fetch_school.rb v1.2
 # INOVITEX Team - S6 Genie Info
 # Mathieu Paquette <m.paquette@inovitex.com>
 
@@ -151,7 +151,9 @@ cities.each { |city|
     nb_iteration = ((nb_organization / 10.0) + 0.4).round
 
     # parsing the post page
-    regexp = /<a href="rechercheOrganisme.do;jsessionid=[^>]*>(.*?)<\/a><\/td>
+    regexp = /<td><img src="\/gdunojrecherche\/images\/.*"  title="(.*?)" \/><\/td>
+<td>
+<a href="rechercheOrganisme.do;jsessionid=[^>]*>(.*?)<\/a><\/td>
 <td[^>]*>(.*?)<\/td>
 <td[^>]*>(.*?)<\/td>/i
     school_result = content.scan(regexp)
@@ -169,11 +171,11 @@ cities.each { |city|
     end
 
     school_result.each { |school|
-      formated_school = HTMLEntities.new.decode(school[0])
+      formated_school = HTMLEntities.new.decode(school[1])
       if schools_full.has_key?(formated_school)
         puts formated_school + " already exist in the hash"
       else
-        schools_full[formated_school] = { "city" => HTMLEntities.new.decode(school[1]), "telephone" => HTMLEntities.new.decode(school[2]) }
+        schools_full[formated_school] = { "school_type" => school[0].gsub(/&nbsp;/i," ").force_encoding('iso-8859-1').encode('utf-8'), "city" => HTMLEntities.new.decode(school[2]), "telephone" => HTMLEntities.new.decode(school[3]) }
       end
     }
 
@@ -187,6 +189,7 @@ File.open(school_file, 'a+') { |file|
 
   schools_full.each { |key, value|
     file.write("\"" + key + "\"" + ",")
+    file.write("\"" + value["school_type"] + "\"" + ",")
     file.write("\"" + value["city"] + "\"" + ",")
     file.write("\"" + value["telephone"] + "\"" + "\n")
   }

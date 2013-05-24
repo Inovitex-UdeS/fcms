@@ -6,6 +6,6 @@ class Piece < ActiveRecord::Base
   belongs_to :composer
 
   # Attributes
-  attr_accessible :title
+  attr_accessible :title, :composer_id
 
 end

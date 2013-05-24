@@ -4,9 +4,9 @@ class User < ActiveRecord::Base
   has_many :payments
   has_many :registrations_users
   has_many :instruments, :through => :registrations_users
+  has_many :registrations, :through => :registrations_users
 
-  has_and_belongs_to_many :registrations
-  has_and_belongs_to_many :roles # For authorizations
+  has_and_belongs_to_many :roles
 
   # Attributes
   attr_accessible :last_name, :first_name, :telephone, :address, :city, :province,

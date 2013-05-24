@@ -6,6 +6,6 @@ class School < ActiveRecord::Base
   belongs_to :schoolboard
 
   # Attributes
-  attr_accessible :name, :telephone, :address, :city, :province, :postal_code
+  attr_accessible :name, :telephone, :address, :city, :province, :postal_code, :schoolboard_id
 
 end

@@ -1,6 +1,11 @@
 class User < ActiveRecord::Base
+  # Attributes
+  attr_accessible :role, :email, :password, :password_confirmation, :remember_me
 
-  self.table_name = "USER"
+  # Association macros (has_many)
+  has_many :payments
+  has_and_belongs_to_many :role , :join_table => :userrole   # For authorizations
+
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
@@ -8,13 +13,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  # Setup accessible (or protected) attributes for your model
-  attr_accessible :role, :email, :password, :password_confirmation, :remember_me
-  # attr_accessible :title, :body
 
-
-  # For authorizations
-  has_and_belongs_to_many :role , :join_table => :userrole
 
   def has_role?(role_sym)
     if not role_sym .is_a? (:administrateur.class)

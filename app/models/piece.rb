@@ -1,3 +1,4 @@
 class Piece < ActiveRecord::Base
-  # attr_accessible :title, :body
+  has_many :performances
+  belongs_to :composer
 end

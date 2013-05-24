@@ -1,8 +1,4 @@
 class Registration < ActiveRecord::Base
-
-  attr_accessible :id, :duration
-
-  # association macros
   has_many :performances
 
   belongs_to :category
@@ -10,7 +6,6 @@ class Registration < ActiveRecord::Base
 
   belongs_to :owner, :class_name => 'User', :foreign_key => "user_owner_id"
   belongs_to :teacher,:class_name => 'User', :foreign_key => "user_teacher_id"
-
 
   has_and_belongs_to_many :instruments , :join_table => :registrations_users
   has_and_belongs_to_many :users , :join_table => :registrations_users

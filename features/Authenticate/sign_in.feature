@@ -5,15 +5,24 @@ Feature: Sign in
 
   Background:
     Given I exist as a user
-
-  Scenario: User enters wrong password
-    Given I am not logged in
-    When I sign in with an invalid password
-    Then I see an invalid login message
-    And I should be signed out
+    And I am not logged in
+    And I am on the sign in page
 
   Scenario: User enters wrong email
-    Given I am not logged in
-    When I sign in with an invalid email
-    Then I see an invalid login message
-    And I should be signed out
+    When I fill in "user_email" with "tes@cucumber.com"
+    And I fill in "user_password" with "12test123"
+    And I press "Se connecter"
+    Then I should see "Invalid email or password."
+
+  Scenario: User enters wrong password
+    When I fill in "user_email" with "test@cucumber.com"
+    And I fill in "user_password" with "12test123"
+    And I press "Se connecter"
+    Then I should see "Invalid email or password."
+
+  Scenario: User enters valid credentials
+    When I fill in "user_email" with "test@cucumber.com"
+    And I fill in "user_password" with "123test123"
+    And I press "Se connecter"
+    Then I should see "Bienvenue!"
+

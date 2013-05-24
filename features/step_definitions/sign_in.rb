@@ -19,10 +19,6 @@ def sign_out
 end
 
 ### Given ###
-Given /^I am not logged in$/ do
-  sign_out
-end
-
 Given /^I exist as a user$/ do
   create_guest
   create_user
@@ -32,32 +28,6 @@ Given /^I am a guest$/ do
   create_guest
 end
 
-### When ###
-When /^I sign in with an invalid password$/ do
-  create_user
+Given /^I am not logged in$/ do
   sign_out
-  visit '/users/sign_in'
-
-  fill_in 'user_email', :with => @visitor[:email]
-  fill_in 'user_password', :with => @visitor[:wrong_password]
-  click_button "Se connecter"
-end
-
-When /^I sign in with an invalid email$/ do
-  create_user
-  sign_out
-  visit '/users/sign_in'
-
-  fill_in 'user_email', :with => @visitor[:wrong_email]
-  fill_in 'user_password', :with => @visitor[:password]
-  click_button "Se connecter"
-end
-
-### Then ###
-Then /^I see an invalid login message$/ do
-  page.should have_content "Invalid email or password."
-end
-
-Then /^I should be signed out$/ do
-  page.should have_content "Connexion"
 end

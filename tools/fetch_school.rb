@@ -1,12 +1,19 @@
 #!/usr/bin/ruby
 # encoding: ISO-8859-1
 
+# fetch_school.rb v1.0
+# INOVITEX Team - S6 Genie Info
+# Mathieu Paquette <m.paquette@inovitex.com>
+
 require 'net/http'
 require 'net/https'
 require 'htmlentities'
 
 school_file = "eastern_schools.csv"
 
+schools_full = Hash.new
+
+# http://www.mamrot.gouv.qc.ca/repertoire-des-municipalites/fiche/region/05/
 cities = [
           "Asbestos",
           "Ascot Corner",
@@ -99,7 +106,8 @@ cities = [
           "Wotton"
 ]
 
-#cities = ["Austin", "Danville", "Asbestos"]
+#cities = ["Danville", "Danville", "Asbestos", "Austin"]
+#cities = ["Danville"]
 
 cities.each { |city|
 
@@ -160,18 +168,28 @@ cities.each { |city|
       school_result += content.scan(regexp)
     end
 
-    file = File.open(school_file, 'a+')
     school_result.each { |school|
-      file.write(HTMLEntities.new.decode(school[0]) + ",")
-      file.write(HTMLEntities.new.decode(school[1]) + ",")
-      file.write(HTMLEntities.new.decode(school[2]) + ",")
-      file.write(nb_organization.to_i.to_s + ",")
-      file.write(nb_iteration.to_s + "\n")
+      formated_school = HTMLEntities.new.decode(school[0])
+      if schools_full.has_key?(formated_school)
+        puts formated_school + " already exist in the hash"
+      else
+        schools_full[formated_school] = { "city" => HTMLEntities.new.decode(school[1]), "telephone" => HTMLEntities.new.decode(school[2]) }
+      end
     }
-    file.close
+
   else
     print city + " has no result\n"
   end
 
 }
-puts "script finished!"
+
+File.open(school_file, 'a+') { |file|
+
+  schools_full.each { |key, value|
+    file.write(key + ",")
+    file.write(value["city"] + ",")
+    file.write(value["telephone"] + "\n")
+  }
+}
+
+puts "Script finished!"

@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(:version => 20130522201536) do
   create_table "agegroups", :id => false, :force => true do |t|
     t.integer  "edition_id",                  :null => false
     t.integer  "id",                          :null => false
-    t.integer  "class_id",                    :null => false
+    t.integer  "category_id",                 :null => false
     t.date     "min"
     t.date     "max"
     t.string   "description",  :limit => 128
@@ -26,11 +26,11 @@ ActiveRecord::Schema.define(:version => 20130522201536) do
     t.datetime "updated_at",                  :null => false
   end
 
-  add_index "agegroups", ["class_id"], :name => "class_id_fk"
+  add_index "agegroups", ["category_id"], :name => "category_id_fk"
   add_index "agegroups", ["edition_id", "id"], :name => "agegroups_pk", :unique => true
   add_index "agegroups", ["edition_id"], :name => "edition_id_fk"
 
-  create_table "classes", :force => true do |t|
+  create_table "categories", :force => true do |t|
     t.string   "name",        :limit => 256, :null => false
     t.integer  "nb_perf_min",                :null => false
     t.integer  "nb_perf_max"
@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(:version => 20130522201536) do
     t.datetime "updated_at",                 :null => false
   end
 
-  add_index "classes", ["id"], :name => "classes_pk", :unique => true
+  add_index "categories", ["id"], :name => "categories_pk", :unique => true
 
   create_table "composers", :force => true do |t|
     t.string "name", :limit => 256, :null => false
@@ -132,13 +132,13 @@ ActiveRecord::Schema.define(:version => 20130522201536) do
     t.integer  "school_id"
     t.integer  "user_teacher_id", :null => false
     t.integer  "edition_id",      :null => false
-    t.integer  "class_id",        :null => false
+    t.integer  "category_id",     :null => false
     t.integer  "duration",        :null => false
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
   end
 
-  add_index "registrations", ["class_id"], :name => "regclass_id_fk"
+  add_index "registrations", ["category_id"], :name => "regcategory_id_fk"
   add_index "registrations", ["edition_id"], :name => "regedit_id_fk"
   add_index "registrations", ["id"], :name => "registrations_pk", :unique => true
   add_index "registrations", ["school_id"], :name => "school_id_fk"
@@ -243,7 +243,7 @@ ActiveRecord::Schema.define(:version => 20130522201536) do
   add_index "users", ["id"], :name => "users_pk", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
-  add_foreign_key "agegroups", "classes", :name => "fk_agegroup_class_id_classes", :dependent => :restrict
+  add_foreign_key "agegroups", "categories", :name => "fk_agegroup_category_id_categories", :dependent => :restrict
   add_foreign_key "agegroups", "editions", :name => "fk_agegroup_edition_i_editions", :dependent => :restrict
 
   add_foreign_key "payments", "registrations", :name => "fk_payments_payregist_registra", :dependent => :restrict
@@ -254,7 +254,7 @@ ActiveRecord::Schema.define(:version => 20130522201536) do
 
   add_foreign_key "pieces", "composers", :name => "fk_pieces_composer__composer", :dependent => :restrict
 
-  add_foreign_key "registrations", "classes", :name => "fk_registra_regclass__classes", :dependent => :restrict
+  add_foreign_key "registrations", "categories", :name => "fk_registra_regcategory__categories", :dependent => :restrict
   add_foreign_key "registrations", "editions", :name => "fk_registra_regedit_i_editions", :dependent => :restrict
   add_foreign_key "registrations", "schools", :name => "fk_registra_school_id_schools", :dependent => :restrict
   add_foreign_key "registrations", "users", :name => "fk_registra_user_owne_users", :column => "user_owner_id", :dependent => :restrict

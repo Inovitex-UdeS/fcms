@@ -6,6 +6,10 @@ class Registration < ActiveRecord::Base
   belongs_to :payment
   has_many :performances
 
+  belongs_to :classe   # À VÉRIFIER.
+  belongs_to :edition
+
+
 
   # and validation macros
   validates :id, presence: true

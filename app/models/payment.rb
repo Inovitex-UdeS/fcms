@@ -4,4 +4,7 @@ class Payment < ActiveRecord::Base
   belongs_to :registration
   belongs_to :user
 
+  # Attributes
+  attr_accessible :mode, :no_chq, :name_chq , :date_chq, :depot_date, :invoice, :cash
+
 end

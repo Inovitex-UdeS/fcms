@@ -154,7 +154,7 @@ ActiveRecord::Schema.define(:version => 20130522201536) do
     t.datetime "updated_at",      :null => false
   end
 
-  add_index "registrations_users", ["instrument_id", "registration_id", "user_id", "id"], :name => "registrations_users_pk", :unique => true
+  add_index "registrations_users", ["instrument_id", "registration_id", "user_id"], :name => "registrations_users_pk", :unique => true
   add_index "registrations_users", ["instrument_id"], :name => "instrument_id_fk"
   add_index "registrations_users", ["registration_id"], :name => "registration_id_fk"
   add_index "registrations_users", ["user_id"], :name => "uruser_id_fk"

@@ -5,4 +5,7 @@ class Piece < ActiveRecord::Base
 
   belongs_to :composer
 
+  # Attributes
+  attr_accessible :title
+
 end

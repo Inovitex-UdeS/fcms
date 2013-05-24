@@ -5,4 +5,7 @@ class Instrument < ActiveRecord::Base
   has_many :users, :through => :registrations_users
   has_many :registrations, :through => :registrations_users
 
+  # Attributes
+  attr_accessible :name
+
 end

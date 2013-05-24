@@ -8,6 +8,11 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :registrations
   has_and_belongs_to_many :roles # For authorizations
 
+  # Attributes
+  attr_accessible :last_name, :first_name, :telephone, :address, :city, :province,
+                  :gender, :postal_code, :birthday, :email, :password,
+                  :password_confirmation, :remember_me
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable

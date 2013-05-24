@@ -1,7 +1,7 @@
 #!/usr/bin/ruby
 # encoding: ISO-8859-1
 
-# fetch_school.rb v1.0
+# fetch_school.rb v1.1
 # INOVITEX Team - S6 Genie Info
 # Mathieu Paquette <m.paquette@inovitex.com>
 
@@ -186,9 +186,9 @@ cities.each { |city|
 File.open(school_file, 'a+') { |file|
 
   schools_full.each { |key, value|
-    file.write(key + ",")
-    file.write(value["city"] + ",")
-    file.write(value["telephone"] + "\n")
+    file.write("\"" + key + "\"" + ",")
+    file.write("\"" + value["city"] + "\"" + ",")
+    file.write("\"" + value["telephone"] + "\"" + "\n")
   }
 }
 

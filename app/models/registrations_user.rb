@@ -5,7 +5,4 @@ class RegistrationsUser < ActiveRecord::Base
   belongs_to :registration
   belongs_to :user
 
-  # Attributes
-  attr_accessible :instrument_id, :registration_id, :user_id
-
 end

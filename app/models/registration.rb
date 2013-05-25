@@ -12,7 +12,4 @@ class Registration < ActiveRecord::Base
   belongs_to :teacher,:class_name => 'User', :foreign_key => 'user_teacher_id'
   belongs_to :school
 
-  # Attributes
-  attr_accessible :duration, :category_id, :edition_id, :user_owner_id, :user_teacher_id, :school
-
 end

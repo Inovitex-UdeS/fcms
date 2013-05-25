@@ -4,8 +4,6 @@ class Performance < ActiveRecord::Base
   belongs_to :piece
   belongs_to :registration
 
-  attr_accessible :piece_id, :registration_id
-
 end
 
 

@@ -1,9 +1,7 @@
 class Role < ActiveRecord::Base
 
   # Association macros
-  has_and_belongs_to_many :users # For authorizations
-
-  # Attributes
-  attr_accessible :name
+  has_many :roles_users
+  has_many :users, :through => :roles_users # For authorizations
 
 end

@@ -6,6 +6,19 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+# Users
+user1 = User.create(last_name: 'Gauthier', first_name: 'Jean-Philippe', telephone: '819-843-7004', address: '112 rue rene', city: 'Magog', province: 'Quebec', gender: true, postal_code: 'J1X3W5', birthday: '1991-07-29', email: 'j-p.g@hotmail.com', password: 'password')
+user2 = User.create(last_name: 'Paquette', first_name: 'Daniel', telephone: '111-111-1111', address: '1111 rue argyll', city: 'Sherbrooke', province: 'Quebec', gender: true, postal_code: 'J1Z8V4', birthday: '1980-05-12', email: 'dp@me.com', password: 'password')
+
+# Roles
+role1 = Role.create(name: 'participant')
+role2 = Role.create(name: 'professeur')
+role3 = Role.create(name: 'administrateur')
+
+# Users_Roles
+user1.roles << role1
+user2.roles << role2
+
 # Edition
 edition1 = Edition.create(year: 2007, limit_date: '2007-02-01')
 
@@ -31,19 +44,6 @@ school1 = School.create(schoolboard_id: schoolboard1.id, name: 'Seminaire de She
 
 # Instruments
 instrument1 = Instrument.create(name: 'Guitare')
-
-# Roles
-role1 = Role.create(name: 'participant')
-role2 = Role.create(name: 'professeur')
-role3 = Role.create(name: 'administrateur')
-
-# Users
-user1 = User.create(last_name: 'Gauthier', first_name: 'Jean-Philippe', telephone: '819-843-7004', address: '112 rue rene', city: 'Magog', province: 'Quebec', gender: true, postal_code: 'J1X3W5', birthday: '1991-07-29', email: 'j-p.g@hotmail.com', password: 'password')
-user2 = User.create(last_name: 'Paquette', first_name: 'Daniel', telephone: '111-111-1111', address: '1111 rue argyll', city: 'Sherbrooke', province: 'Quebec', gender: true, postal_code: 'J1Z8V4', birthday: '1980-05-12', email: 'dp@me.com', password: 'password')
-
-# Users_Roles
-userrole1 = RolesUser.create(user_id: user1.id, role_id: role1.id)
-userrole2 = RolesUser.create(user_id: user2.id, role_id: role2.id)
 
 # Registration
 registration1 = Registration.create(user_teacher_id: user2.id, user_owner_id: user1.id, school_id: school1.id, edition_id: edition1.id, category_id: category1.id, duration: 5)

@@ -4,8 +4,4 @@ class Agegroup < ActiveRecord::Base
   belongs_to :category
   belongs_to :edition
 
-  # Attributes
-  attr_accessible :min, :max, :fee, :max_duration,
-                  :category_id, :edition_id
-
 end

@@ -2,16 +2,11 @@ class User < ActiveRecord::Base
 
   # Association macros
   has_many :payments
+  has_many :roles_users
   has_many :registrations_users
+  has_many :roles, :through => :roles_users
   has_many :instruments, :through => :registrations_users
   has_many :registrations, :through => :registrations_users
-
-  has_and_belongs_to_many :roles
-
-  # Attributes
-  attr_accessible :last_name, :first_name, :telephone, :address, :city, :province,
-                  :gender, :postal_code, :birthday, :email, :password,
-                  :password_confirmation, :remember_me
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,

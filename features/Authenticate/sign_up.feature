@@ -5,7 +5,7 @@ Feature: Sign up
 
   Background:
     Given I am a guest
-    And I visit sign up page
+    And I am on the sign up page
 
   Scenario: Sign up with valid credentials
     When I sign up with valid credentials

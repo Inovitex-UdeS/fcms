@@ -31,3 +31,9 @@ end
 Given /^I am not logged in$/ do
   sign_out
 end
+
+
+
+
+
+<%= u.radio_button_tag (:gender, "Masculin") %>

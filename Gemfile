@@ -45,7 +45,7 @@ gem 'foreigner', '1.4.1'
 gem 'devise', '2.2.4'
 
 # Authorizations
-gem 'cancan', "1.6.10"
+gem 'cancan', '1.6.10'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

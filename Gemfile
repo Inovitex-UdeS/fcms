@@ -22,6 +22,7 @@ group :development, :test do
   gem 'rspec-rails', '2.13.1'
   gem 'cucumber-rails', '1.3.1', :require => false
   gem 'cucumber-rails-training-wheels', '1.0.0'
+  gem 'email_spec'
 end
 
 # Gems used only for assets and not required

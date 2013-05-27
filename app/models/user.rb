@@ -8,11 +8,10 @@ class User < ActiveRecord::Base
   has_many :instruments, :through => :registrations_users
   has_many :registrations, :through => :registrations_users
 
-  # Include default devise modules. Others available are:
-  # :token_authenticatable, :confirmable,
-  # :lockable, :timeoutable and :omniauthable
+  # Include default devise modules.
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable,
+         :token_authenticatable, :confirmable, :lockable
 
   def has_role?(role_sym)
     if not role_sym .is_a? (:administrateur.class)

@@ -1,3 +1,7 @@
 class Agegroup < ActiveRecord::Base
-  # attr_accessible :title, :body
+
+  # Association macros
+  belongs_to :category
+  belongs_to :edition
+
 end

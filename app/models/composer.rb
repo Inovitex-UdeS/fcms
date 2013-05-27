@@ -1,3 +1,6 @@
 class Composer < ActiveRecord::Base
-  # attr_accessible :title, :body
+
+  # Association macros
+  has_many :pieces
+
 end

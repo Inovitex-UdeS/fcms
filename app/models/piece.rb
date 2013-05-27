@@ -1,3 +1,8 @@
 class Piece < ActiveRecord::Base
-  # attr_accessible :title, :body
+
+  # Association macros
+  has_many :performances
+
+  belongs_to :composer
+
 end

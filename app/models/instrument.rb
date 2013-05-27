@@ -1,3 +1,8 @@
 class Instrument < ActiveRecord::Base
-  # attr_accessible :title, :body
+
+  # Association macros
+  has_many :registrations_users
+  has_many :users, :through => :registrations_users
+  has_many :registrations, :through => :registrations_users
+
 end

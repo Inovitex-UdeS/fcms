@@ -1,4 +1,4 @@
-class Edition < ActiveRecord::Base
+class Category < ActiveRecord::Base
 
   # Association macros
   has_many :agegroups

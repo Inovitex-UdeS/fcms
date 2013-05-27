@@ -13,10 +13,9 @@
 
 ActiveRecord::Schema.define(:version => 20130522201536) do
 
-  create_table "agegroups", :id => false, :force => true do |t|
+  create_table "agegroups", :force => true do |t|
     t.integer  "edition_id",                  :null => false
-    t.integer  "id",                          :null => false
-    t.integer  "class_id",                    :null => false
+    t.integer  "category_id",                 :null => false
     t.date     "min"
     t.date     "max"
     t.string   "description",  :limit => 128
@@ -26,11 +25,11 @@ ActiveRecord::Schema.define(:version => 20130522201536) do
     t.datetime "updated_at",                  :null => false
   end
 
-  add_index "agegroups", ["class_id"], :name => "class_id_fk"
+  add_index "agegroups", ["category_id"], :name => "category_id_fk"
   add_index "agegroups", ["edition_id", "id"], :name => "agegroups_pk", :unique => true
   add_index "agegroups", ["edition_id"], :name => "edition_id_fk"
 
-  create_table "classes", :force => true do |t|
+  create_table "categories", :force => true do |t|
     t.string   "name",        :limit => 256, :null => false
     t.integer  "nb_perf_min",                :null => false
     t.integer  "nb_perf_max"
@@ -39,7 +38,7 @@ ActiveRecord::Schema.define(:version => 20130522201536) do
     t.datetime "updated_at",                 :null => false
   end
 
-  add_index "classes", ["id"], :name => "classes_pk", :unique => true
+  add_index "categories", ["id"], :name => "categories_pk", :unique => true
 
   create_table "composers", :force => true do |t|
     t.string "name", :limit => 256, :null => false
@@ -47,7 +46,7 @@ ActiveRecord::Schema.define(:version => 20130522201536) do
 
   add_index "composers", ["id"], :name => "composers_pk", :unique => true
 
-  create_table "configs", :id => false, :force => true do |t|
+  create_table "configs", :force => true do |t|
     t.string   "key",        :limit => 64,   :null => false
     t.string   "value",      :limit => 1024
     t.datetime "created_at",                 :null => false
@@ -72,8 +71,7 @@ ActiveRecord::Schema.define(:version => 20130522201536) do
 
   add_index "editions", ["id"], :name => "editions_pk", :unique => true
 
-  create_table "evaluations", :id => false, :force => true do |t|
-    t.integer  "id",         :null => false
+  create_table "evaluations", :force => true do |t|
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -132,13 +130,13 @@ ActiveRecord::Schema.define(:version => 20130522201536) do
     t.integer  "school_id"
     t.integer  "user_teacher_id", :null => false
     t.integer  "edition_id",      :null => false
-    t.integer  "class_id",        :null => false
+    t.integer  "category_id",     :null => false
     t.integer  "duration",        :null => false
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
   end
 
-  add_index "registrations", ["class_id"], :name => "regclass_id_fk"
+  add_index "registrations", ["category_id"], :name => "regcategory_id_fk"
   add_index "registrations", ["edition_id"], :name => "regedit_id_fk"
   add_index "registrations", ["id"], :name => "registrations_pk", :unique => true
   add_index "registrations", ["school_id"], :name => "school_id_fk"
@@ -149,13 +147,12 @@ ActiveRecord::Schema.define(:version => 20130522201536) do
     t.integer  "instrument_id",   :null => false
     t.integer  "registration_id", :null => false
     t.integer  "user_id",         :null => false
-    t.integer  "id",              :null => false
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
   end
 
-  add_index "registrations_users", ["instrument_id", "registration_id", "user_id", "id"], :name => "registrations_users_pk", :unique => true
   add_index "registrations_users", ["instrument_id"], :name => "instrument_id_fk"
+  add_index "registrations_users", ["registration_id", "user_id"], :name => "registrations_users_pk", :unique => true
   add_index "registrations_users", ["registration_id"], :name => "registration_id_fk"
   add_index "registrations_users", ["user_id"], :name => "uruser_id_fk"
 
@@ -170,7 +167,6 @@ ActiveRecord::Schema.define(:version => 20130522201536) do
   create_table "roles_users", :id => false, :force => true do |t|
     t.integer  "role_id",    :null => false
     t.integer  "user_id",    :null => false
-    t.integer  "id",         :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -237,13 +233,24 @@ ActiveRecord::Schema.define(:version => 20130522201536) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
+    t.integer  "failed_attempts",                       :default => 0
+    t.string   "unlock_token"
+    t.datetime "locked_at"
+    t.string   "authentication_token"
   end
 
+  add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
+  add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["id"], :name => "users_pk", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+  add_index "users", ["unlock_token"], :name => "index_users_on_unlock_token", :unique => true
 
-  add_foreign_key "agegroups", "classes", :name => "fk_agegroup_class_id_classes", :dependent => :restrict
+  add_foreign_key "agegroups", "categories", :name => "fk_agegroup_category_id_categories", :dependent => :restrict
   add_foreign_key "agegroups", "editions", :name => "fk_agegroup_edition_i_editions", :dependent => :restrict
 
   add_foreign_key "payments", "registrations", :name => "fk_payments_payregist_registra", :dependent => :restrict
@@ -254,7 +261,7 @@ ActiveRecord::Schema.define(:version => 20130522201536) do
 
   add_foreign_key "pieces", "composers", :name => "fk_pieces_composer__composer", :dependent => :restrict
 
-  add_foreign_key "registrations", "classes", :name => "fk_registra_regclass__classes", :dependent => :restrict
+  add_foreign_key "registrations", "categories", :name => "fk_registra_regcategory__categories", :dependent => :restrict
   add_foreign_key "registrations", "editions", :name => "fk_registra_regedit_i_editions", :dependent => :restrict
   add_foreign_key "registrations", "schools", :name => "fk_registra_school_id_schools", :dependent => :restrict
   add_foreign_key "registrations", "users", :name => "fk_registra_user_owne_users", :column => "user_owner_id", :dependent => :restrict

@@ -1,3 +1,8 @@
 class School < ActiveRecord::Base
-  # attr_accessible :title, :body
+
+  # Association macros
+  has_many :registrations
+
+  belongs_to :schoolboard
+
 end

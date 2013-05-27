@@ -1,25 +1,23 @@
 class User < ActiveRecord::Base
-  # Attributes
-  attr_accessible :role, :email, :password, :password_confirmation, :remember_me
 
-  # Association macros (has_many)
+  # Association macros
   has_many :payments
-  has_and_belongs_to_many :role , :join_table => :userrole   # For authorizations
+  has_many :roles_users
+  has_many :registrations_users
+  has_many :roles, :through => :roles_users
+  has_many :instruments, :through => :registrations_users
+  has_many :registrations, :through => :registrations_users
 
-
-  # Include default devise modules. Others available are:
-  # :token_authenticatable, :confirmable,
-  # :lockable, :timeoutable and :omniauthable
+  # Include default devise modules.
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
-
-
+         :recoverable, :rememberable, :trackable, :validatable,
+         :token_authenticatable, :confirmable, :lockable
 
   def has_role?(role_sym)
     if not role_sym .is_a? (:administrateur.class)
       role_sym = role_sym.parameterize.underscore.to_sym
     end
-
-    role.any? { |r| r.name.underscore.to_sym == role_sym }
+    roles.any? { |r| r.name.underscore.to_sym == role_sym }
   end
+
 end

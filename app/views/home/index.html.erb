@@ -4,6 +4,7 @@
     <h1>Bienvenue!</h1>
         <p>Utilisateur: <%= current_user.email %></p>
     <p>
+      <%= link_to "Page de profil", edit_user_path(current_user), :class => 'btn' %>
       <%= link_to "Déconnexion", destroy_user_session_path, :method => :delete, :class => 'btn' %>
     </p>
   </div>

@@ -9,11 +9,12 @@
   <%= javascript_include_tag 'application' %>
   <%= javascript_include_tag params[:controller] %>
   <%= csrf_meta_tags %>
+
   <%= render :partial => "layouts/header" %>
   <%= yield :head %>
 </head>
 <body>
-  <%= yield %>
+    <%= yield %>
 </body>
 <footer>
   <%= render :partial => "layouts/footer" %>

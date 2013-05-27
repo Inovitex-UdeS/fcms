@@ -21,6 +21,9 @@ module Fcms
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
+    # For heroku deploy
+    config.assets.initialize_on_precompile = false
+
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/extras)
 

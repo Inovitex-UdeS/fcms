@@ -6,6 +6,8 @@ require 'capybara'
 require 'capybara/dsl'
 require 'capybara/cucumber'
 require 'selenium-webdriver'
+require 'email_spec'
+require 'email_spec/cucumber'
 
 #Capybara.default_driver = :selenium
 Capybara.javascript_driver = :webkit

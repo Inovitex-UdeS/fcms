@@ -4,24 +4,61 @@ Feature: Sign up
   I want to be able to sign up
 
   Background:
-    Given I am a guest
-    And I visit sign up page
+    Given I am not logged in
+    And I am on the sign up page
 
   Scenario: Sign up with valid credentials
-    When I sign up with valid credentials
-    Then I should be signed in
+    When I fill in "user_first_name" with "Tests"
+    And I fill in "user_last_name" with "Nom"
+    And I fill in "user_telephone" with "8195555555"
+    And I fill in "user_birthday" with "2001-01-01"
+    And I fill in "user_email" with "tests@inovitex.com"
+    And I fill in "user_password" with "123test123"
+    And I fill in "user_password_confirmation" with "123test123"
+    And I press "S'enregistrer"
+    Then "tests@inovitex.com" should receive an email
+    When I open the email
+    Then I should see "Confirm my account" in the email body
+    When I follow "Confirm my account" in the email
+    Then I should see "Bienvenue!"
 
-  Scenario: Sign up with invalid email
-    When I sign up with an invalid email
-    Then I should see a prohibited saving message
-    And I should see an invalid email message
+  Scenario: Invalid password
+    When I fill in "user_first_name" with "Tests"
+    And I fill in "user_last_name" with "Nom"
+    And I fill in "user_telephone" with "8195555555"
+    And I fill in "user_birthday" with "2001-01-01"
+    And I fill in "user_email" with "tests@inovitex.com"
+    And I press "S'enregistrer"
+    Then I should see "Password can't be blank"
+    When I fill in "user_first_name" with "Tests"
+    And I fill in "user_last_name" with "Nom"
+    And I fill in "user_password" with "123"
+    And I fill in "user_password_confirmation" with "123"
+    And I press "S'enregistrer"
+    Then I should see "Password is too short (minimum is 8 characters)"
 
-  Scenario: Sign up with a password too short
-    When I sign up with a short password
-    Then I should see a prohibited saving message
-    And I should see a password too short message
+  Scenario: Invalid password confirmation
+    When I fill in "user_first_name" with "Tests"
+    And I fill in "user_last_name" with "Nom"
+    And I fill in "user_telephone" with "8195555555"
+    And I fill in "user_birthday" with "2001-01-01"
+    And I fill in "user_email" with "tests@inovitex.com"
+    And I fill in "user_password" with "123test123"
+    And I fill in "user_password_confirmation" with "12test123"
+    And I press "S'enregistrer"
+    Then I should see "Password doesn't match confirmation"
 
-  Scenario: Sign up with invalid password confirmation
-    When I sign up with an invalid password confirmation
-    Then I should see a prohibited saving message
-    And I should see an invalid password confirmation message
+  Scenario: Unique email address
+    Given I exist as a user
+    When I fill in "user_first_name" with "Tests"
+    And I fill in "user_last_name" with "Nom"
+    And I fill in "user_telephone" with "8195555555"
+    And I fill in "user_birthday" with "2001-01-01"
+    And I fill in "user_email" with "tests@inovitex.com"
+    And I fill in "user_password" with "123test123"
+    And I fill in "user_password_confirmation" with "123test123"
+    And I press "S'enregistrer"
+    Then I should see "Email has already been taken"
+
+
+

@@ -9,19 +9,19 @@ Feature: Sign in
     And I am on the sign in page
 
   Scenario: User enters wrong email
-    When I fill in "user_email" with "tes@cucumber.com"
+    When I fill in "user_email" with "test@inovitex.com"
     And I fill in "user_password" with "12test123"
     And I press "Se connecter"
     Then I should see "Invalid email or password."
 
   Scenario: User enters wrong password
-    When I fill in "user_email" with "test@cucumber.com"
+    When I fill in "user_email" with "tests@inovitex.com"
     And I fill in "user_password" with "12test123"
     And I press "Se connecter"
     Then I should see "Invalid email or password."
 
   Scenario: User enters valid credentials
-    When I fill in "user_email" with "test@cucumber.com"
+    When I fill in "user_email" with "tests@inovitex.com"
     And I fill in "user_password" with "123test123"
     And I press "Se connecter"
     Then I should see "Bienvenue!"

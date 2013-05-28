@@ -3,7 +3,7 @@
 <div class="row">
   <div class="profile-page">
     <%= form_for(@user) do |f| %>
-        <%= render 'shared/error_messages', object: f.object %>
+
 
         <div class="col">
             <div class="profile-left">
@@ -29,23 +29,27 @@
 
         <div class="col">
             <div class="profile-right">
-              <%= f.label :telephone, "Téléphone" %>
-              <%= f.telephone_field :telephone, :class => 'input-xlarge' %>
+              <%= f.fields_for :contactinfo do |c| %>
+                  <%= c.label :telephone, "Téléphone" %>
+                  <%= c.telephone_field :telephone, :class => 'input-xlarge' %>
 
-              <%= f.label :address, "Adresse 1" %>
-              <%= f.text_field :address, :class => 'input-xlarge' %>
+                  <%= c.label :address, "Adresse 1" %>
+                  <%= c.text_field :address, :class => 'input-xlarge' %>
 
-              <%= f.label :address2, "Adresse 2" %>
-              <%= f.text_field :address2, :class => 'input-xlarge' %>
+                  <%= c.label :address2, "Adresse 2" %>
+                  <%= c.text_field :address2, :class => 'input-xlarge' %>
 
-              <%= f.label :postal_code, "Code postal" %>
-              <%= f.text_field :postal_code, :class => 'input-xlarge' %>
+                  <%= c.label :postal_code, "Code postal" %>
+                  <%= c.text_field :postal_code, :class => 'input-xlarge' %>
 
-              <%= f.label :city, "Ville" %>
-              <%= f.text_field :city, :class => 'input-xlarge' %>
+                  <%= c.fields_for :city do |city| %>
+                      <%= city.label :city, "Ville" %>
+                      <%= city.text_field :name, :class => 'input-xlarge' %>
+                  <% end %>
 
-              <%= f.label :province, "Province" %>
-              <%= f.text_field :province, :class => 'input-xlarge' %>
+                  <%= c.label :province, "Province" %>
+                  <%= c.text_field :province, :class => 'input-xlarge' %>
+              <% end %>
             </div>
         </div>
 

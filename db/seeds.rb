@@ -6,10 +6,19 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+# Cities
+city1 = City.create(name: 'Magog')
+city2 = City.create(name: 'Sherbrooke')
+
+contact1 = Contactinfo.create(telephone: '819-843-7004', address: '112 rue rene', city_id: city1.id, province: 'Quebec', postal_code: 'J1X3W5')
+contact2 = Contactinfo.create(telephone: '111-111-1111', address: '1111 rue argyll', city_id: city2.id, province: 'Quebec', postal_code: 'J1Z8V4')
+contact3 = Contactinfo.create(telephone: '911', address: '007 thugstreet', city_id: city2.id, province: 'Quebec',  postal_code: 'J1Z8V4')
+contact4 = Contactinfo.create(telephone: '819-563-2050', address: '195 rue Marquette', city_id: city2.id, province: 'Quebec', postal_code: 'J1H1L6')
+
 # Users
-user1 = User.create(last_name: 'Gauthier', first_name: 'Jean-Philippe', telephone: '819-843-7004', address: '112 rue rene', city: 'Magog', province: 'Quebec', gender: true, postal_code: 'J1X3W5', birthday: '1991-07-29', email: 'j-p.g@hotmail.com', password: 'password', confirmed_at: '2013-05-28 02:01:11.70392')
-user2 = User.create(last_name: 'Paquette', first_name: 'Daniel', telephone: '111-111-1111', address: '1111 rue argyll', city: 'Sherbrooke', province: 'Quebec', gender: true, postal_code: 'J1Z8V4', birthday: '1980-05-12', email: 'dp@me.com', password: 'password', confirmed_at: '2013-05-28 02:01:11.70392')
-user3 = User.create(last_name: 'Mine', first_name: 'Ad', telephone: '911', address: '007 thugstreet', city: 'Sherbrooke', province: 'Quebec', gender: true, postal_code: 'J1Z8V4', birthday: '1980-05-12', email: 'admin@admin.com', password: 'password', confirmed_at: '2013-05-28 02:01:11.70392')
+user1 = User.create(last_name: 'Gauthier', first_name: 'Jean-Philippe', gender: true, birthday: '1991-07-29', email: 'j-p.g@hotmail.com', password: 'password', contactinfo_id: contact1.id, confirmed_at: '2013-05-28 02:01:11.70392')
+user2 = User.create(last_name: 'Paquette', first_name: 'Daniel', gender: true, birthday: '1980-05-12', email: 'dp@me.com', password: 'password', contactinfo_id: contact2.id,confirmed_at: '2013-05-28 02:01:11.70392')
+user3 = User.create(last_name: 'Mine', first_name: 'Ad', gender: true, birthday: '1980-05-12', email: 'admin@admin.com', password: 'password', contactinfo_id: contact3.id,confirmed_at: '2013-05-28 02:01:11.70392')
 
 # Roles
 role1 = Role.create(name: 'participant')
@@ -66,8 +75,11 @@ piece2 = Piece.create(composer_id: composer2.id, title: 'Canarios')
 # Schoolbaords
 schoolboard1 = Schoolboard.create(name: 'Commission Scolaire des Sommets')
 
+# Schooltype
+schooltype1 = Schooltype.create(name: 'Ecole secondaire privee')
+
 # School
-school1 = School.create(schoolboard_id: schoolboard1.id, name: 'Seminaire de Sherbrooke', telephone: '819-563-2050', address: '195 rue Marquette', city: 'Sherbrooke', province: 'Quebec', postal_code: 'J1H1L6')
+school1 = School.create(schoolboard_id: schoolboard1.id, schooltype_id: schooltype1.id, contactinfo_id: contact4.id, name: 'Seminaire de Sherbrooke')
 
 # Instruments
 instrument1 = Instrument.create(name: 'Guitare')

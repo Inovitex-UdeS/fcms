@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
   has_many :instruments, :through => :registrations_users
   has_many :registrations, :through => :registrations_users
 
+  belongs_to :contactinfo
+
   # Include default devise modules.
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,

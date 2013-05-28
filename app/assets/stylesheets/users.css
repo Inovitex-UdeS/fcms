@@ -2,3 +2,8 @@
   Place all the styles related to the matching controller here.
   They will automatically be included in application.css.
 */
+
+h1 { text-align: center }
+.profile-page { margin:auto; width:568px; height:450px; }
+.col { display: table-cell; vertical-align: middle; }
+.profile-left {padding-right: 25px}

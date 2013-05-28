@@ -1,45 +1,53 @@
 <h1>Page de profil</h1>
 
 <div class="row">
-  <div class="span6 offset3">
+  <div class="profile-page">
     <%= form_for(@user) do |f| %>
         <%= render 'shared/error_messages', object: f.object %>
 
-        <%= f.label :first_name, "Prénom" %>
-        <%= f.text_field :first_name, :class => 'input-xlarge' %>
+        <div class="col">
+            <div class="profile-left">
+              <%= f.label :first_name, "Prénom" %>
+              <%= f.text_field :first_name, :class => 'input-xlarge' %>
 
-        <%= f.label :last_name, "Nom de famille" %>
-        <%= f.text_field :last_name, :class => 'input-xlarge' %>
+              <%= f.label :last_name, "Nom de famille" %>
+              <%= f.text_field :last_name, :class => 'input-xlarge' %>
 
-        <%= f.label :birthday, "Date de naissance" %>
-        <%= f.text_field :birthday, :class => 'input-xlarge' %>
+              <%= f.label :birthday, "Date de naissance" %>
+              <%= f.text_field :birthday, :class => 'input-xlarge' %>
 
-        <%= f.label :telephone, "Téléphone" %>
-        <%= f.telephone_field :telephone, :class => 'input-xlarge' %>
+              <%= f.label :email, "Courriel" %>
+              <%= f.text_field :email, :class => 'input-xlarge' %>
 
-        <%= f.label :address, "Adresse 1" %>
-        <%= f.text_field :address, :class => 'input-xlarge' %>
+              <%= f.label :password, "Mot de passe" %>
+              <%= f.password_field :password, :class => 'input-xlarge' %>
 
-        <%= f.label :address2, "Adresse 2" %>
-        <%= f.text_field :address2, :class => 'input-xlarge' %>
+              <%= f.label :password_confirmation, "Confirmation du mot de passe" %>
+              <%= f.password_field :password_confirmation, :class => 'input-xlarge' %>
+            </div>
+        </div>
 
-        <%= f.label :postal_code, "Code postal" %>
-        <%= f.text_field :postal_code, :class => 'input-xlarge' %>
+        <div class="col">
+            <div class="profile-right">
+              <%= f.label :telephone, "Téléphone" %>
+              <%= f.telephone_field :telephone, :class => 'input-xlarge' %>
 
-        <%= f.label :city, "Ville" %>
-        <%= f.text_field :city, :class => 'input-xlarge' %>
+              <%= f.label :address, "Adresse 1" %>
+              <%= f.text_field :address, :class => 'input-xlarge' %>
 
-        <%= f.label :province, "Province" %>
-        <%= f.text_field :province, :class => 'input-xlarge' %>
+              <%= f.label :address2, "Adresse 2" %>
+              <%= f.text_field :address2, :class => 'input-xlarge' %>
 
-        <%= f.label :email, "Courriel" %>
-        <%= f.text_field :email, :class => 'input-xlarge' %>
+              <%= f.label :postal_code, "Code postal" %>
+              <%= f.text_field :postal_code, :class => 'input-xlarge' %>
 
-        <%= f.label :password, "Mot de passe" %>
-        <%= f.password_field :password, :class => 'input-xlarge' %>
+              <%= f.label :city, "Ville" %>
+              <%= f.text_field :city, :class => 'input-xlarge' %>
 
-        <%= f.label :password_confirmation, "Confirmation du mot de passe" %>
-        <%= f.password_field :password_confirmation, :class => 'input-xlarge' %>
+              <%= f.label :province, "Province" %>
+              <%= f.text_field :province, :class => 'input-xlarge' %>
+            </div>
+        </div>
 
         </br>
 

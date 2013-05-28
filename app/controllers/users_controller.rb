@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  puts 'Hello'
+
   def edit
     @user = User.find(params[:id])
   end

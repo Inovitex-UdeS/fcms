@@ -11,16 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130522201536) do
+ActiveRecord::Schema.define(:version => 20130528050615) do
 
   create_table "agegroups", :force => true do |t|
-    t.integer "edition_id",                  :null => false
-    t.integer "category_id",                 :null => false
-    t.date    "min"
-    t.date    "max"
-    t.string  "description",  :limit => 128
-    t.integer "fee"
-    t.integer "max_duration"
+    t.integer  "edition_id",                  :null => false
+    t.integer  "category_id",                 :null => false
+    t.date     "min"
+    t.date     "max"
+    t.string   "description",  :limit => 128
+    t.integer  "fee"
+    t.integer  "max_duration"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "agegroups", ["category_id"], :name => "category_id_fk"
@@ -28,24 +30,30 @@ ActiveRecord::Schema.define(:version => 20130522201536) do
   add_index "agegroups", ["id"], :name => "agegroups_pk", :unique => true
 
   create_table "categories", :force => true do |t|
-    t.string  "name",        :limit => 256, :null => false
-    t.integer "nb_perf_min",                :null => false
-    t.integer "nb_perf_max"
-    t.text    "description"
+    t.string   "name",        :limit => 256, :null => false
+    t.integer  "nb_perf_min",                :null => false
+    t.integer  "nb_perf_max"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "categories", ["id"], :name => "categories_pk", :unique => true
   add_index "categories", ["name"], :name => "ak_name_categori", :unique => true
 
   create_table "cities", :force => true do |t|
-    t.string "name", :limit => 64, :null => false
+    t.string   "name",       :limit => 64, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "cities", ["id"], :name => "cities_pk", :unique => true
   add_index "cities", ["name"], :name => "ak_name_cities", :unique => true
 
   create_table "composers", :force => true do |t|
-    t.string "name", :limit => 256, :null => false
+    t.string   "name",       :limit => 256, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "composers", ["id"], :name => "composers_pk", :unique => true
@@ -59,12 +67,14 @@ ActiveRecord::Schema.define(:version => 20130522201536) do
   add_index "configs", ["key"], :name => "configs_pk", :unique => true
 
   create_table "contactinfos", :force => true do |t|
-    t.integer "city_id",                    :null => false
-    t.string  "telephone",   :limit => 16
-    t.string  "address",     :limit => 256
-    t.string  "address2",    :limit => 256
-    t.string  "postal_code", :limit => 6
-    t.string  "province",    :limit => 256
+    t.integer  "city_id",                    :null => false
+    t.string   "telephone",   :limit => 16
+    t.string   "address",     :limit => 256
+    t.string   "address2",    :limit => 256
+    t.string   "postal_code", :limit => 6
+    t.string   "province",    :limit => 256
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "contactinfos", ["city_id"], :name => "city_id_fk"
@@ -76,8 +86,10 @@ ActiveRecord::Schema.define(:version => 20130522201536) do
   add_index "contests", ["id"], :name => "contests_pk", :unique => true
 
   create_table "editions", :force => true do |t|
-    t.integer "year",       :null => false
-    t.date    "limit_date"
+    t.integer  "year",       :null => false
+    t.date     "limit_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "editions", ["id"], :name => "editions_pk", :unique => true
@@ -90,22 +102,26 @@ ActiveRecord::Schema.define(:version => 20130522201536) do
   add_index "evaluations", ["id"], :name => "evaluations_pk", :unique => true
 
   create_table "instruments", :force => true do |t|
-    t.string "name", :limit => 64, :null => false
+    t.string   "name",       :limit => 64, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "instruments", ["id"], :name => "instruments_pk", :unique => true
   add_index "instruments", ["name"], :name => "ak_name_instrume", :unique => true
 
   create_table "payments", :force => true do |t|
-    t.integer "user_id",                                                        :null => false
-    t.integer "registration_id",                                                :null => false
-    t.string  "mode",            :limit => 64
-    t.integer "no_chq"
-    t.string  "name_chq",        :limit => 1024
-    t.date    "date_chq"
-    t.date    "depot_date"
-    t.string  "invoice",         :limit => 64
-    t.decimal "cash",                            :precision => 19, :scale => 2
+    t.integer  "user_id",                                                        :null => false
+    t.integer  "registration_id",                                                :null => false
+    t.string   "mode",            :limit => 64
+    t.integer  "no_chq"
+    t.string   "name_chq",        :limit => 1024
+    t.date     "date_chq"
+    t.date     "depot_date"
+    t.string   "invoice",         :limit => 64
+    t.decimal  "cash",                            :precision => 19, :scale => 2
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "payments", ["id"], :name => "payments_pk", :unique => true
@@ -113,8 +129,10 @@ ActiveRecord::Schema.define(:version => 20130522201536) do
   add_index "payments", ["user_id"], :name => "user_id_fk"
 
   create_table "performances", :force => true do |t|
-    t.integer "piece_id",        :null => false
-    t.integer "registration_id"
+    t.integer  "piece_id",        :null => false
+    t.integer  "registration_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "performances", ["id"], :name => "performances_pk", :unique => true
@@ -122,8 +140,10 @@ ActiveRecord::Schema.define(:version => 20130522201536) do
   add_index "performances", ["registration_id"], :name => "registration_id_fk"
 
   create_table "pieces", :force => true do |t|
-    t.integer "composer_id",                :null => false
-    t.string  "title",       :limit => 256, :null => false
+    t.integer  "composer_id",                :null => false
+    t.string   "title",       :limit => 256, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "pieces", ["composer_id"], :name => "composer_id_fk"
@@ -131,13 +151,15 @@ ActiveRecord::Schema.define(:version => 20130522201536) do
   add_index "pieces", ["title"], :name => "ak_title_pieces", :unique => true
 
   create_table "registrations", :force => true do |t|
-    t.integer "user_owner_id",   :null => false
-    t.integer "school_id"
-    t.integer "registration_id"
-    t.integer "user_teacher_id", :null => false
-    t.integer "edition_id",      :null => false
-    t.integer "category_id",     :null => false
-    t.integer "duration",        :null => false
+    t.integer  "user_owner_id",   :null => false
+    t.integer  "school_id"
+    t.integer  "registration_id"
+    t.integer  "user_teacher_id", :null => false
+    t.integer  "edition_id",      :null => false
+    t.integer  "category_id",     :null => false
+    t.integer  "duration",        :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "registrations", ["category_id"], :name => "category_id_fk2"
@@ -149,9 +171,11 @@ ActiveRecord::Schema.define(:version => 20130522201536) do
   add_index "registrations", ["user_teacher_id"], :name => "user_teacher_id_fk"
 
   create_table "registrations_users", :id => false, :force => true do |t|
-    t.integer "instrument_id",   :null => false
-    t.integer "registration_id", :null => false
-    t.integer "user_id",         :null => false
+    t.integer  "instrument_id",   :null => false
+    t.integer  "registration_id", :null => false
+    t.integer  "user_id",         :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "registrations_users", ["instrument_id", "registration_id", "user_id"], :name => "registrations_users_pk", :unique => true
@@ -160,15 +184,19 @@ ActiveRecord::Schema.define(:version => 20130522201536) do
   add_index "registrations_users", ["user_id"], :name => "user_id_fk3"
 
   create_table "roles", :force => true do |t|
-    t.string "name", :limit => 256, :null => false
+    t.string   "name",       :limit => 256, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "roles", ["id"], :name => "roles_pk", :unique => true
   add_index "roles", ["name"], :name => "ak_name_roles", :unique => true
 
   create_table "roles_users", :id => false, :force => true do |t|
-    t.integer "role_id", :null => false
-    t.integer "user_id", :null => false
+    t.integer  "role_id",    :null => false
+    t.integer  "user_id",    :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "roles_users", ["role_id", "user_id"], :name => "roles_users_pk", :unique => true
@@ -185,17 +213,21 @@ ActiveRecord::Schema.define(:version => 20130522201536) do
   add_index "rooms", ["id"], :name => "rooms_pk", :unique => true
 
   create_table "schoolboards", :force => true do |t|
-    t.string "name", :limit => 128, :null => false
+    t.string   "name",       :limit => 128, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "schoolboards", ["id"], :name => "schoolboards_pk", :unique => true
   add_index "schoolboards", ["name"], :name => "ak_name_schoolbo", :unique => true
 
   create_table "schools", :force => true do |t|
-    t.integer "contactinfo_id"
-    t.integer "schooltype_id",                 :null => false
-    t.integer "schoolboard_id",                :null => false
-    t.string  "name",           :limit => 256, :null => false
+    t.integer  "contactinfo_id"
+    t.integer  "schooltype_id",                 :null => false
+    t.integer  "schoolboard_id",                :null => false
+    t.string   "name",           :limit => 256, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "schools", ["contactinfo_id"], :name => "contactinfo_id_fk2"
@@ -205,7 +237,9 @@ ActiveRecord::Schema.define(:version => 20130522201536) do
   add_index "schools", ["schooltype_id"], :name => "schooltype_id_fk"
 
   create_table "schooltypes", :force => true do |t|
-    t.string "name", :limit => 128, :null => false
+    t.string   "name",       :limit => 128, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "schooltypes", ["id"], :name => "schooltypes_pk", :unique => true
@@ -235,6 +269,8 @@ ActiveRecord::Schema.define(:version => 20130522201536) do
     t.string   "unlock_token"
     t.datetime "locked_at"
     t.string   "authentication_token"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

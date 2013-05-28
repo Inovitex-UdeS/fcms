@@ -44,7 +44,7 @@
 
                   <%= c.fields_for :city do |city| %>
                       <%= city.label :city, "Ville" %>
-                      <%= city.text_field :name, :class => 'input-xlarge' %>
+                      <%= city.text_field :name, :id => "Ville", :class => 'input-xlarge' %>
                   <% end %>
 
                   <%= c.label :province, "Province" %>

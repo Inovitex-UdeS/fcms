@@ -11,6 +11,13 @@ Given /^I visit registration page$/ do
   visit '/registration/new'
 end
 
+Given /^I am logged in$/ do
+  visit '/users/sign_in'
+  fill_in("user_email", :with => "test@inovitex.com")
+  fill_in("user_password", :with => "12test123")
+  click_button("Se connecter")
+end
+
 ### WHEN ###
 
 ### THEN ###

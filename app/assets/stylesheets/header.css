@@ -1,1 +1,41 @@
-.navbar { width: 55%; margin: 0 auto; padding-top: 10px; padding-bottom: 10px; }
+.mainbar .inbar {
+    padding: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+div.barlogo img{
+    float: left;
+    max-width: 40px;
+
+}
+
+ul.nav.mainnav {
+    margin: 0 auto;
+    width: 40% ;
+    float:none;
+}
+
+.mainbar .inbar .nav-profile {
+    float: right;
+    width:220px;
+    vertical-align: middle;
+}
+.mainbar .inbar .nav-profile img{
+    float: right;
+    width: 40px;
+    height: 40px;
+    margin: auto;
+}
+.mainbar .inbar .nav-profile a{
+    width: auto;
+    color: #777777;
+    text-decoration: underline;
+}
+
+.mainbar .inbar .nav-profile .profile-text{
+    float: right;
+    text-align: right;
+    margin-right: 15px;
+    line-height: 18px;
+}

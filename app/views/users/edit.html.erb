@@ -13,6 +13,11 @@
               <%= f.label :last_name, "Nom de famille" %>
               <%= f.text_field :last_name, :class => 'input-xlarge' %>
 
+              <%= f.label :gender, "Masculin" %>
+              <%= f.radio_button :gender, true, :id => "Masculin",  :checked => @user.gender, :class => 'optionsRadios'%>
+              <%= f.label :gender, "Féminin" %>
+              <%= f.radio_button :gender, false, :id => "Féminin", :checked => !@user.gender, :class => 'optionsRadios'%>
+
               <%= f.label :birthday, "Date de naissance" %>
               <%= f.text_field :birthday, :class => 'input-xlarge' %>
 

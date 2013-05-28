@@ -36,6 +36,7 @@ Feature: Change profile field
     And I fill in "Province" with "Ontario"
     And I fill in "Ville" with "Joliette"
     And I fill in "Mot de passe" with "12test123"
+    And I click on "Féminin"
     And I fill in "Confirmation du mot de passe" with "12test123"
     And I press "Sauvegarder"
     Then I should see "Bienvenue!"

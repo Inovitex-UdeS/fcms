@@ -25,10 +25,10 @@ user3.roles << role3
 edition1 = Edition.create(year: 2007, limit_date: '2007-02-01')
 
 # Categories
-category1 = Category.create(name: 'Répertoire', nb_perf_min: 2, nb_perf_max: 4, description:'Categorie pour le repertoire de la guitare classique')
+category1 = Category.create(name: 'Repertoire', nb_perf_min: 2, nb_perf_max: 4, description:'Categorie pour le repertoire de la guitare classique')
 category2 = Category.create(name: 'Musique Canadienne', nb_perf_min: 2, nb_perf_max: 4, description:'')
 category3 = Category.create(name: 'Festival', nb_perf_min: 2, nb_perf_max: 4, description:'')
-category4 = Category.create(name: 'Récital', nb_perf_min: 2, nb_perf_max: 4, description:'')
+category4 = Category.create(name: 'Recital', nb_perf_min: 2, nb_perf_max: 4, description:'')
 category5 = Category.create(name: 'Musique de chambre / Ensemble vocal', nb_perf_min: 2, nb_perf_max: 4, description:'')
 category6 = Category.create(name: 'Concerto / Concertino', nb_perf_min: 2, nb_perf_max: 4, description:'')
 category7 = Category.create(name: 'Concerto OSJS', nb_perf_min: 2, nb_perf_max: 4, description:'')

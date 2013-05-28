@@ -7,9 +7,9 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 # Users
-user1 = User.create(last_name: 'Gauthier', first_name: 'Jean-Philippe', telephone: '819-843-7004', address: '112 rue rene', city: 'Magog', province: 'Quebec', gender: true, postal_code: 'J1X3W5', birthday: '1991-07-29', email: 'j-p.g@hotmail.com', password: 'password')
-user2 = User.create(last_name: 'Paquette', first_name: 'Daniel', telephone: '111-111-1111', address: '1111 rue argyll', city: 'Sherbrooke', province: 'Quebec', gender: true, postal_code: 'J1Z8V4', birthday: '1980-05-12', email: 'dp@me.com', password: 'password')
-user3 = User.create(last_name: 'Mine', first_name: 'Ad', telephone: '911', address: '007 thugstreet', city: 'Sherbrooke', province: 'Quebec', gender: true, postal_code: 'J1Z8V4', birthday: '1980-05-12', email: 'admin@admin.com', password: 'password')
+user1 = User.create(last_name: 'Gauthier', first_name: 'Jean-Philippe', telephone: '819-843-7004', address: '112 rue rene', city: 'Magog', province: 'Quebec', gender: true, postal_code: 'J1X3W5', birthday: '1991-07-29', email: 'j-p.g@hotmail.com', password: 'password', confirmed_at: '2013-05-28 02:01:11.70392')
+user2 = User.create(last_name: 'Paquette', first_name: 'Daniel', telephone: '111-111-1111', address: '1111 rue argyll', city: 'Sherbrooke', province: 'Quebec', gender: true, postal_code: 'J1Z8V4', birthday: '1980-05-12', email: 'dp@me.com', password: 'password', confirmed_at: '2013-05-28 02:01:11.70392')
+user3 = User.create(last_name: 'Mine', first_name: 'Ad', telephone: '911', address: '007 thugstreet', city: 'Sherbrooke', province: 'Quebec', gender: true, postal_code: 'J1Z8V4', birthday: '1980-05-12', email: 'admin@admin.com', password: 'password', confirmed_at: '2013-05-28 02:01:11.70392')
 
 # Roles
 role1 = Role.create(name: 'participant')

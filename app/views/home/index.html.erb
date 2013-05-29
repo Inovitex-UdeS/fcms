@@ -4,7 +4,7 @@
 
 <div style="clear:both;"> <br/><br/><br/> </div>
 
-<div class="dash-page"><center><h1>Bienvenue, cher <%= current_user.roles.first.name %> !</h1></center>
+<div class="dash-page"><center><h1>Bienvenue<%= ", cher " + current_user.roles.first.name  unless current_user.roles.empty?%> !</h1></center>
   <div class="dash-left">
     <h2>Liens utiles</h2> <br/>
     <ul>
@@ -28,15 +28,4 @@
     </ul>
   </div>
 </div>
-
-<!--<div class="container">
-  <div class="hero-unit">
-    <h1>Bienvenue!</h1>
-        <p>Utilisateur: <%= current_user.email %></p>
-    <p>
-      <%= link_to "Page de profil", edit_user_path(current_user), :class => 'btn' %>
-      <%= link_to "Déconnexion", destroy_user_session_path, :method => :delete, :class => 'btn' %>
-    </p>
-  </div>
-  -->
 </div>

@@ -1,7 +1,10 @@
-<p>Hello <%= @resource.email %>!</p>
+<p>Chère/Cher <%=@resource.first_name%> <%=@resource.last_name%>!</p>
 
-<p>Your account has been locked due to an excessive number of unsuccessful sign in attempts.</p>
+<p>Il y a eu un nombre excessif de tentatives de connexion avec vos informations. Votre compte est donc temporairement verrouillé.</p>
 
-<p>Click the link below to unlock your account:</p>
+<p>Veuillez suivre le lien suivant pour déverrouiller votre compte:</p>
 
-<p><%= link_to 'Unlock my account', unlock_url(@resource, :unlock_token => @resource.unlock_token) %></p>
+<p><%= link_to 'Déverrouiller mon compte', unlock_url(@resource, :unlock_token => @resource.unlock_token) %></p>
+
+<p>Cordialement,<br>
+  L'équipe du Festival Concours de Musique de Sherbrooke</p>

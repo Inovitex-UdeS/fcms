@@ -1,5 +1,9 @@
-<p>Welcome <%= @email %>!</p>
+<p>Chère/Cher <%=@resource.first_name%> <%=@resource.last_name%>!</p>
 
-<p>You can confirm your account email through the link below:</p>
+<p>Bienvenue dans l'application web du Festival Concours de Musique de Sherbrooke. L'identifiant de votre compte est <%= @resource.email %> et il va vous permettre de vous connecter. En suivant simplement ce lien, vous serez prêt(e) en un clin d’œil:</p>
 
-<p><%= link_to 'Confirm my account', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>
+<p><%= link_to 'Confimer mon compte', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>
+
+<p>Nous espérons que vous apprécierez l'application.<br><br>
+Cordialement,<br>
+L'équipe du Festival Concours de Musique de Sherbrooke</p>

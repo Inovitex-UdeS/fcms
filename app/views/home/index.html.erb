@@ -1,5 +1,35 @@
+<div class="gradient"></div>
 
-<div class="container">
+
+
+<div style="clear:both;"> <br/><br/><br/> </div>
+
+<div class="dash-page"><center><h1>Bienvenue, cher <%= current_user.roles.first.name %> !</h1></center>
+  <div class="dash-left">
+    <h2>Liens utiles</h2> <br/>
+    <ul>
+      <li>Inscription vers la prochaine édition</li>
+      <li>Le site officiel du FCMS</li>
+      <li>Les catégories disponibles</li>
+      <li>Les bourses possibles</li>
+      <li>Les derniers lauréats</li>
+    </ul>
+  </div>
+
+
+  <div class="dash-right">
+    <h2>FAQ</h2> <br/>
+    <ul>
+      <li>Inscription vers la prochaine édition</li>
+      <li>Le site officiel du FCMS</li>
+      <li>Les catégories disponibles</li>
+      <li>Les bourses possibles</li>
+      <li>Les derniers lauréats</li>
+    </ul>
+  </div>
+</div>
+
+<!--<div class="container">
   <div class="hero-unit">
     <h1>Bienvenue!</h1>
         <p>Utilisateur: <%= current_user.email %></p>
@@ -8,4 +38,5 @@
       <%= link_to "Déconnexion", destroy_user_session_path, :method => :delete, :class => 'btn' %>
     </p>
   </div>
+  -->
 </div>

@@ -1,0 +1,29 @@
+<%= stylesheet_link_tag "header.css" %>
+<div class="navbar navbar-static-top mainbar">
+    <div class="navbar-inner inbar">
+      <div class="barlogo">
+        <%= link_to image_tag("rails.png"),  "http://www.fcmsherbrooke.com/‎"  %>
+      </div>
+
+      <ul class="nav mainnav">
+        <li><%= link_to "Accueil", '/' %></li>
+        <li><%= link_to "Mon profil", '/users/calendar' %></li>  <%# edit_user_session_path(current_user) %>
+        <li><%= link_to "Mon horaire", '/users/calendar' %></li>
+        <li><%= link_to "Mes résultats", '/users/results' %></li>
+        <li><%= link_to "Horaire détaillé", '/editions/calendar' %></li>
+        <li><%= link_to "Page d'inscription", '/users/registration' %></li>
+      </ul>
+
+      <div class="nav-profile">
+        <%=  image_tag("rails.png") %>
+        <div class="profile-text">
+          <%= link_to "admin"  , destroy_user_session_path %>  <%#edit_user_path(current_user) %>
+          <br/>
+          <%= link_to "Se déconnecter", destroy_user_session_path, :method => :delete %>
+        </div>
+      </div>
+
+          <%# link_to [current_user.first_name,  current_user.last_name].join(" ") , edit_user_session_path(current_user) %>
+
+    </div>
+</div>

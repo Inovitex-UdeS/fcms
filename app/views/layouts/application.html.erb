@@ -5,12 +5,12 @@
   <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700" rel="stylesheet" type="text/css">
   <%= favicon_link_tag       'favicon.ico' %>
   <%= stylesheet_link_tag    'application', :media => "all" %>
-  <%= stylesheet_link_tag    params[:controller] %>
+  <%= stylesheet_link_tag    params[:controller]%>
   <%= javascript_include_tag 'application' %>
   <%= javascript_include_tag params[:controller] %>
   <%= csrf_meta_tags %>
 
-  <%= render :partial => "layouts/header" %>
+  <%= render :partial => "layouts/header"  unless params[:controller].to_s.eql? "devise/sessions"%>   <%#  MIGHT NEED TO VERIFY THIS WHEN MERGING WITH USERS %>
   <%= yield :head %>
 </head>
 <body>

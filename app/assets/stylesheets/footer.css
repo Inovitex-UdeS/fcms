@@ -1,5 +1,6 @@
 .footer {
     background-color:#7c1b00; /*146-39-0 #8A2003;*/
+    position: fixed; bottom: 0; left: 0; height: auto; width: 100%; z-index: 0;
 }
 .footer, .footer a {
     color: #AB710A;
@@ -29,5 +30,7 @@
 }
 
 
-.footer .foot-partners {
+.footer .foot-partners img{
+    max-height: 140px;
 }
+

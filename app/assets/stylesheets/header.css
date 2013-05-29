@@ -1,3 +1,8 @@
+.mainbar {
+
+    position: fixed; top: 0; left: 0; height: auto; width: 100%; z-index: 1;
+}
+
 .mainbar .inbar {
     padding: 20px;
     padding-top: 10px;
@@ -12,7 +17,7 @@ div.barlogo img{
 
 ul.nav.mainnav {
     margin: 0 auto;
-    width: 40% ;
+    width: 700px ;
     float:none;
 }
 

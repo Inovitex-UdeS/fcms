@@ -2,13 +2,14 @@
   Place all the styles related to the matching controller here.
   They will automatically be included in application.css.
 */
-
+body {
+    color:#8a2003;
+}
 h1 { text-align: center }
-.profile-page { margin:auto; width:568px; height:750px;
-    overflow-y:auto;}
+
+
+.wrap { width: 100%; position: relative; top: 100px; left: 0;  }
+.profile-page { margin:auto; width:600px; height:auto;  }
 .col { display: table-cell; vertical-align: middle; }
 .profile-left {padding-right: 25px}
 
-.cn {
-    margin-top:85px;
-}

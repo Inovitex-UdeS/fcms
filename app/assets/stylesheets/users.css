@@ -4,6 +4,11 @@
 */
 
 h1 { text-align: center }
-.profile-page { margin:auto; width:568px; height:450px; }
+.profile-page { margin:auto; width:568px; height:750px;
+    overflow-y:auto;}
 .col { display: table-cell; vertical-align: middle; }
 .profile-left {padding-right: 25px}
+
+.cn {
+    margin-top:85px;
+}

@@ -10,7 +10,7 @@
   <%= javascript_include_tag params[:controller] %>
   <%= csrf_meta_tags %>
 
-  <%= render :partial => "layouts/header"  unless params[:controller].to_s.eql? "devise/sessions"%>   <%#  MIGHT NEED TO VERIFY THIS WHEN MERGING WITH USERS %>
+  <%= render :partial => "layouts/header"  unless params[:controller].to_s.include? "devise" %>   <%#  MIGHT NEED TO VERIFY THIS WHEN MERGING WITH USERS %>
   <%= yield :head %>
 </head>
 <body>

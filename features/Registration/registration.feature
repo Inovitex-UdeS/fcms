@@ -1,3 +1,4 @@
+@todo
 Feature: Registration
   In order to get register for the festival
   A user

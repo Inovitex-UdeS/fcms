@@ -1,3 +1,4 @@
+@ok
 Feature: Forgotten Password
   In order to recuperate a password when forgiven
   As a user
@@ -10,14 +11,14 @@ Feature: Forgotten Password
 
   Scenario: Using a valid email
     When I fill in "user_email" with "tests@inovitex.com"
-    And I press "Envoyer les instructions"
+    And I press "Soumettre"
     Then "tests@inovitex.com" should receive an email
     When I open the email
-    Then I should see "Change my password" in the email body
-    When I follow "Change my password" in the email
+    Then I should see "Réinitialiser mon mot de passe" in the email body
+    When I follow "Réinitialiser mon mot de passe" in the email
     Then I should see "Modifiez votre mot de passe"
 
   Scenario: Using an invalid email
     When I fill in "user_email" with "test@inovitex.com"
-    And I press "Envoyer les instructions"
-    Then I should see "Email not found"
+    And I press "Soumettre"
+    Then I should see "L'adresse courriel n'a pas été trouvé(e)"

@@ -33,10 +33,18 @@ group :assets do
   gem 'yui-compressor', '0.9.6'
 end
 
-gem 'twitter-bootstrap-rails', '2.2.6'
-
-# jQuery gem for javascript
+# Javascript and CSS libraries
 gem 'jquery-rails', '2.2.1'
+gem 'remotipart', '1.0.5'
+gem 'twitter-bootstrap-rails', '2.2.6'
+gem 'jasny_bootstrap_extension_rails', '0.0.1'
+gem 'underscore-rails', '1.4.4'
+
+# Form validation
+gem 'simple_form', '2.1.0'
+gem 'client_side_validations', '3.2.5'
+gem 'client_side_validations-simple_form', '2.1.0'
+gem 'rails-i18n', '0.7.3'
 
 # PostgreSQL gem
 gem 'pg', '0.15.1'
@@ -47,9 +55,6 @@ gem 'devise', '2.2.4'
 
 # Authorizations
 gem 'cancan', '1.6.10'
-
-# Autocomplete
-gem 'rails3-jquery-autocomplete', '1.0.11'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

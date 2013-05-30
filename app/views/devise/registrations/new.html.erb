@@ -4,18 +4,41 @@
   <div class="devise-left">
   </div>
   <div class="devise-right">
-    <h2>Enregistrement</h2>
+    <h2>Nouveau compte</h2>
+    <p>Enregistrement à l'application en ligne du<br /> Festival-Concours de Musique de Sherbrooke</p>
 
     <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-        <%= devise_error_messages! %>
-        <%= f.text_field :first_name, :autofocus => true, :placeholder => 'Prénom', :class => 'input-xlarge' %>
-        <%= f.text_field :last_name, :placeholder => 'Nom', :class => 'input-xlarge' %>
-        <%= f.text_field :birthday, :placeholder => 'Date de naissance', :class => 'input-xlarge'%>
-        <%= f.email_field :email, :placeholder => 'Courriel', :class => 'input-xlarge' %>
-        <%= f.password_field :password, :placeholder => 'Mot de passe', :class => 'input-xlarge' %>
-        <%= f.password_field :password_confirmation, :placeholder => 'Confirmez votre mot de passe', :class => 'input-xlarge'  %>
-        <br />
-        <%= f.submit "S'enregistrer", :class => 'btn btn-primary' %>
+      <%= devise_error_messages! %>
+
+      <div class="input-prepend">
+        <span class="add-on"><i class="icon-user"></i></span>
+        <%= f.text_field :first_name, :autofocus => true, :placeholder => 'Prénom', :class => 'input-medium' %>
+      </div>
+      <%= f.text_field :last_name, :placeholder => 'Nom', :class => 'input-large' %><br />
+
+      <div class="input-prepend">
+        <span class="add-on"><i class="icon-calendar"></i></span>
+        <%= f.text_field :birthday, :placeholder => 'Date de naissance', :class => 'input-medium', :'data-mask' => '9999-99-99' %><br />
+      </div>
+
+      <br />
+
+      <div class="input-prepend">
+        <span class="add-on"><i class="icon-envelope"></i></span>
+        <%= f.email_field :email, :placeholder => 'Adresse courriel', :class => 'input-medium' %><br />
+      </div>
+
+      <br />
+
+      <div class="input-prepend">
+        <span class="add-on"><i class="icon-lock"></i></span>
+        <%= f.password_field :password, :placeholder => 'Mot de passe', :class => 'input-medium' %><br />
+      </div>
+      <%= f.password_field :password_confirmation, :placeholder => 'Confirmez le mot de passe', :class => 'input-large'  %>
+
+      <br />
+
+      <%= f.submit "S'enregistrer", :class => 'btn btn-primary' %>
 
     <% end %>
 

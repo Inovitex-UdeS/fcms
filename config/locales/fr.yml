@@ -1,0 +1,14 @@
+# Sample localization file for French. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+fr:
+  activerecord:
+    models:
+      user: utilisateur
+    attributes:
+      user:
+        first_name: Le prénom
+        last_name: Le nom de famille
+        birthday: La date de naissance
+        email: L'adresse courriel
+        password: Le mot de passe

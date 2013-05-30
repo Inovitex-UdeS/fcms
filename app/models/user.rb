@@ -24,4 +24,7 @@ class User < ActiveRecord::Base
     roles.any? { |r| r.name.underscore.to_sym == role_sym }
   end
 
+  validates :first_name, :presence => true
+  validates :last_name, :presence => true
+  validates :birthday, :presence => true
 end

@@ -15,7 +15,7 @@ end
 
 # add to end of Gemfile
 group :development, :test do
-  gem 'debugger', '1.6.0'                                 # use Ruby debugger
+  #gem 'debugger', '1.6.0'                                 # use Ruby debugger
   gem 'database_cleaner', '1.0.1'                         # to clear Cucumber's test database between runs
   gem 'launchy', '2.3.0'                                  # a useful debugging aid for user stories
   gem 'better_errors', '0.8.0'

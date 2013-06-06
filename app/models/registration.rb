@@ -12,4 +12,8 @@ class Registration < ActiveRecord::Base
   belongs_to :teacher,:class_name => 'User', :foreign_key => 'user_teacher_id'
   belongs_to :school
 
+ # Nested attributes
+  accepts_nested_attributes_for :performances, allow_destroy: true
+  accepts_nested_attributes_for :users, allow_destroy: true
+
 end

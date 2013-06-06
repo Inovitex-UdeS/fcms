@@ -15,7 +15,7 @@ end
 
 # add to end of Gemfile
 group :development, :test do
-  gem 'debugger', '1.6.0'                                 # use Ruby debugger
+  #gem 'debugger', '1.6.0'                                 # use Ruby debugger
   gem 'database_cleaner', '1.0.1'                         # to clear Cucumber's test database between runs
   gem 'launchy', '2.3.0'                                  # a useful debugging aid for user stories
   gem 'better_errors', '0.8.0'
@@ -42,6 +42,7 @@ gem 'underscore-rails', '1.4.4'
 
 # Form validation
 gem 'simple_form', '2.1.0'
+gem 'nested_form', '0.3.2'
 gem 'client_side_validations', '3.2.5'
 gem 'client_side_validations-simple_form', '2.1.0'
 gem 'rails-i18n', '0.7.3'

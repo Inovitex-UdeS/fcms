@@ -16,6 +16,7 @@
 //= require jquery_ujs
 
 //  HTML forms
+//= require nested_form
 //= require jquery.remotipart
 //= require rails.validations
 //= require rails.validations.simple_form

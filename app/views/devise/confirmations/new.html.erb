@@ -1,23 +1,12 @@
-<% content_for(:head) do%>
-  <%= stylesheet_link_tag 'devise/devise' %>
-<%end%>
+<h2>Envoyer le message de confirmation</h2>
 
-<div class="gradient"></div>
+<%= form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f| %>
+  <%= devise_error_messages! %>
 
-<div class="devise-page">
-  <div class="devise-left"></div>
-  <div class="devise-right">
-    <h2>Envoyer le message de confirmation</h2>
+  <div><%= f.label :email, "Adresse courriel" %>
+  <%= f.email_field :email, :autofocus => true %></div>
 
-    <%= form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f| %>
-      <%= devise_error_messages! %>
+  <div><%= f.submit "Envoyer", :class => 'btn' %></div>
+<% end %>
 
-      <div><%= f.label :email, "Adresse courriel" %>
-      <%= f.email_field :email, :autofocus => true %></div>
-
-      <div><%= f.submit "Envoyer", :class => 'btn' %></div>
-    <% end %>
-
-    <%= render "devise/shared/links" %>
-  </div>
-</div>
+<%= render "devise/shared/links" %>

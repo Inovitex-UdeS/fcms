@@ -33,6 +33,9 @@ group :assets do
   gem 'yui-compressor', '0.9.6'
 end
 
+# Navigation
+gem 'simple-navigation', '3.11.0'
+
 # Javascript and CSS libraries
 gem 'jquery-rails', '2.2.1'
 gem 'remotipart', '1.0.5'

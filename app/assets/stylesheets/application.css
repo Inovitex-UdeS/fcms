@@ -14,6 +14,59 @@
   *= require_self
  */
 
+/* General (body, html) */
+html {
+    background-color: #fffbf4;
+}
+
+body {
+    background-color: #fffbf4;
+    background: -webkit-linear-gradient(top, #fdf0d5 0px, #fffbf4 400px);
+    background: -moz-linear-gradient(top, #fdf0d5 0px, #fffbf4 400px);
+    background: -o-linear-gradient(top, #fdf0d5 0px, #fffbf4 400px);
+    background: -ms-linear-gradient(top, #fdf0d5 0px, #fffbf4 400px);
+    background: linear-gradient(top, #fdf0d5 0px, #fffbf4 400px);
+    filter: progid:DXImageTransform.Microsoft.gradient(StartColorStr="#fdf0d5", EndColorStr="#fffbf4");
+}
+
+/* General (body, html) */
+.wrapper { margin: 20px auto; width: 1000px; position: relative; }
+
+.section { background: #fff; box-shadow: 1px 3px 8px rgba(0,0,0,0.2); margin-bottom: 16px; padding: 20px; box-sizing: border-box; }
+.section-page { width: 1000px; float: left; }
+.section-submenu { width: 225px; float: left; }
+.section-subpage { width: 755px; float: right; min-height: 500px; }
+
+.footer { text-align: center; font-size: 10px; padding-bottom: 14px; clear: both; }
+
+/* Sub-navigation */
+.section-submenu h4 { margin: 0; padding: 0; margin-bottom: 10px; }
+.section-submenu ul { margin: 0 -20px; list-style: none; }
+.section-submenu li { padding: 4px 0; }
+.section-submenu li:hover, .section-submenu li.active {
+    color: #fff;
+    text-decoration: none;
+    background-color: #0081c2;
+    background-image: -moz-linear-gradient(top,#aa0911, #8a2003);
+    background-image: -webkit-gradient(linear,0 0,0 100%,from(#aa0911),to(#8a2003));
+    background-image: -webkit-linear-gradient(top,#aa0911, #8a2003);
+    background-image: -o-linear-gradient(top,#aa0911, #8a2003);
+    background-image: linear-gradient(to bottom,#aa0911, #8a2003);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffaa0911',endColorstr='#ff8a2003',GradientType=0);
+}
+.section-submenu li:hover > a, .section-submenu li.active > a { color: #fff; text-decoration: none; }
+.section-submenu li a { padding: 0 20px; }
+.section-submenu li.divider {
+    height: 1px;
+    margin: 5px 1px;
+    padding: 0;
+    overflow: hidden;
+    background-color: #e5e5e5;
+    border-bottom: 1px solid #fff;
+}
+
+/* JavaScript functions */
 .fcms-message {
     position: fixed;
     top: 50px;
@@ -23,3 +76,4 @@
     -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.3), inset 0 0 0 #000;
     box-shadow: 0 1px 2px rgba(0,0,0,0.3), inset 0 0 0 #000;
 }
+

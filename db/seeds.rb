@@ -1,3 +1,4 @@
+#encoding: utf-8
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 #
@@ -10,10 +11,10 @@
 city1 = City.create(name: 'Magog')
 city2 = City.create(name: 'Sherbrooke')
 
-contact1 = Contactinfo.create(telephone: '819-843-7004', address: '112 rue rene', city_id: city1.id, province: 'Quebec', postal_code: 'J1X3W5')
-contact2 = Contactinfo.create(telephone: '111-111-1111', address: '1111 rue argyll', city_id: city2.id, province: 'Quebec', postal_code: 'J1Z8V4')
-contact3 = Contactinfo.create(telephone: '911', address: '007 thugstreet', city_id: city2.id, province: 'Quebec',  postal_code: 'J1Z8V4')
-contact4 = Contactinfo.create(telephone: '819-563-2050', address: '195 rue Marquette', city_id: city2.id, province: 'Quebec', postal_code: 'J1H1L6')
+contact1 = Contactinfo.create(telephone: '819-843-7004', address: '112 rue rene', city_id: city1.id, province: 'Québec', postal_code: 'J1X3W5')
+contact2 = Contactinfo.create(telephone: '111-111-1111', address: '1111 rue argyll', city_id: city2.id, province: 'Québec', postal_code: 'J1Z8V4')
+contact3 = Contactinfo.create(telephone: '911', address: '007 thugstreet', city_id: city2.id, province: 'Québec',  postal_code: 'J1Z8V4')
+contact4 = Contactinfo.create(telephone: '819-563-2050', address: '195 rue Marquette', city_id: city2.id, province: 'Québec', postal_code: 'J1H1L6')
 
 # Users
 user1 = User.create(last_name: 'Gauthier', first_name: 'Jean-Philippe', gender: true, birthday: '1991-07-29', email: 'j-p.g@hotmail.com', password: 'password', contactinfo_id: contact1.id, confirmed_at: '2013-05-28 02:01:11.70392')
@@ -34,12 +35,13 @@ user3.roles << role3
 edition1 = Edition.create(year: 2007, limit_date: '2007-02-01')
 
 # Categories
-category1 = Category.create(name: 'Repertoire', nb_perf_min: 2, nb_perf_max: 4, description:'Categorie pour le repertoire de la guitare classique')
+category1 = Category.create(name: 'Répertoire', nb_perf_min: 2, nb_perf_max: 4, description:'Categorie pour le repertoire de la guitare classique')
 category2 = Category.create(name: 'Musique Canadienne', nb_perf_min: 2, nb_perf_max: 4, description:'')
 category3 = Category.create(name: 'Festival', nb_perf_min: 2, nb_perf_max: 4, description:'')
-category4 = Category.create(name: 'Recital', nb_perf_min: 2, nb_perf_max: 4, description:'')
-category5 = Category.create(name: 'Musique de chambre / Ensemble vocal', nb_perf_min: 2, nb_perf_max: 4, description:'')
-category6 = Category.create(name: 'Concerto / Concertino', nb_perf_min: 2, nb_perf_max: 4, description:'')
+category4 = Category.create(name: 'Récital', nb_perf_min: 2, nb_perf_max: 4, description:'')
+category4 = Category.create(name: 'Musique de chambre ', nb_perf_min: 2, nb_perf_max: 4, description:'')
+category5 = Category.create(name: 'Ensemble', nb_perf_min: 2, nb_perf_max: 4, description:'')
+category6 = Category.create(name: 'Concertino', nb_perf_min: 2, nb_perf_max: 4, description:'')
 category7 = Category.create(name: 'Concerto OSJS', nb_perf_min: 2, nb_perf_max: 4, description:'')
 
 # AgeGroups

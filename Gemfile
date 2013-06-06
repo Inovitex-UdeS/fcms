@@ -42,6 +42,7 @@ gem 'underscore-rails', '1.4.4'
 
 # Form validation
 gem 'simple_form', '2.1.0'
+gem 'nested_form', '0.3.2'
 gem 'client_side_validations', '3.2.5'
 gem 'client_side_validations-simple_form', '2.1.0'
 gem 'rails-i18n', '0.7.3'

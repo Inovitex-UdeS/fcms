@@ -1,0 +1,5 @@
+<tr class="fields">
+  <td><%= f.input :email, :label => false %></td>
+  <td><%= f.association :instruments, prompt: "Choisissez un instrument", :label => false, as: :collection_select %></td>
+  <td><%= f.link_to_remove 'Supprimer', :class => 'btn' %></td>
+</tr>

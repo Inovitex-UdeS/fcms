@@ -7,11 +7,16 @@ Feature: Change profile field
   Background:
     Given I exist as a user
     And I am logged in
-    And I visit the profile page
+    And I am on the profile page
+
+  Scenario: Verify if I'm on the profile page
+    Given I am on the profile page
+    Then I should see "Page de Profil"
+
 
   Scenario: Successful name and address change
-    When I fill in "Adresse 1" with "666 Hellstreet"
-    And I fill in "Nom de famille" with "Satan"
+    When I fill in "Nom de Famille" with "Satan"
+    And I fill in "Adresse 1" with "666 Hellstreet"
     And I fill in "Mot de passe" with "12test123"
     And I fill in "Confirmation du mot de passe" with "12test123"
     And I press "Sauvegarder"

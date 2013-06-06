@@ -17,6 +17,9 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :token_authenticatable, :confirmable, :lockable
 
+  # Scopes
+  scope :with_role, lambda{ |role| joins(:roles).where(:roles => {:name => role}) }
+
   def has_role?(role_sym)
     if not role_sym .is_a? (:administrateur.class)
       role_sym = role_sym.parameterize.underscore.to_sym

@@ -28,6 +28,9 @@ module NavigationHelpers
     when /^the registration\s?page$/
       '/registration/new'
 
+    when /^the profile\s?page$/
+      edit_user_path(@u)
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #

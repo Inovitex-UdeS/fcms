@@ -1,7 +1,7 @@
 <h1>Page de profil</h1>
 
   <div class="profile-page">
-    <%= form_for(@user) do |f| %>
+    <%= simple_form_for(@user) do |f| %>
 
 
         <div class="col">
@@ -46,10 +46,7 @@
                   <%= c.label :postal_code, "Code postal" %>
                   <%= c.text_field :postal_code, :class => 'input-xlarge' %>
 
-                  <%= c.fields_for :city do |city| %>
-                      <%= city.label :city, "Ville" %>
-                      <%= city.text_field :name, :id => "Ville", :class => 'input-xlarge' %>
-                  <% end %>
+                  <%= c.association :city %>
 
                   <%= c.label :province, "Province" %>
                   <%= c.text_field :province, :class => 'input-xlarge' %>

@@ -1,0 +1,21 @@
+<table id='registrations' class='table'>
+  <thead><tr>
+    <th>ID</th>
+    <th>École</th>
+    <th>Responsable</th>
+    <th>Durée (minutes)</th>
+    <th></th>
+  </tr></thead>
+  <tbody>
+  <% RegistrationsUser.find_all_by_user_id(current_user.id).each do |regusr| %>
+      <% reg = Registration.find(regusr.registration_id)  %>
+      <tr>
+        <td><%= reg.id %> </td>
+        <td><%= reg.school.name %> </td>
+        <td><%= reg.owner.first_name + " " + reg.owner.last_name  %></td>
+        <td><%= reg.duration.to_s  %></td>
+      </tr>
+      <br/>
+  <% end %>
+  </tbody>
+</table>

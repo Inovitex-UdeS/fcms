@@ -48,7 +48,10 @@
                   <%= c.label :postal_code, "Code postal" %>
                   <%= c.text_field :postal_code, :class => 'input-xlarge' %>
 
-                  <%= c.association :city %>
+                  <%= c.fields_for :city do |v| %>
+                    <%= v.label :name, "Ville" %>
+                    <%= v.text_field :name, 'id' => 'input-cities' %>
+                  <% end %>
 
                   <%= c.label :province, "Province" %>
                   <%= c.text_field :province, :class => 'input-xlarge' %>

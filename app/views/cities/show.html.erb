@@ -1,26 +1,11 @@
 <% content_for(:head) do %>
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $('#input-cities').typeahead({
-                source: function (query, process) {
-                    return $.get('/cities/autocomplete_city_name', { term: query }, function (data) {
-                        labels = [];
 
-                        $.each(data, function (i) {
-                            labels.push(data[i].label);
-                        })
-
-                        return process(labels);
-                    });
-                }
-            });
-        });
-    </script>
 <% end %>
 
 <h1>Welcome!</h1>
 <%= form_for @city do |f| %>
     <%=f.label :name %>
-    <%= f.text_field :name, :id => "input-cities" %>
 
+
+    <%= f.text_field :name, 'id' => 'input-cities' %>
 <% end %>

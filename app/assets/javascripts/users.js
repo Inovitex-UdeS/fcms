@@ -10,7 +10,7 @@ $(document).ready(function() {
     var labels, mapped
     $("#input-cities").typeahead({
         source: function (query, process) {
-            $.get('/cities/autocomplete', { q: query }, function (data) {
+            $.get('/autocomplete/cities', { q: query }, function (data) {
                 labels = []
                 mapped = {}
 

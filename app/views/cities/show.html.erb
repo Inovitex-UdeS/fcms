@@ -1,11 +1,5 @@
-<% content_for(:head) do %>
-
-<% end %>
-
 <h1>Welcome!</h1>
 <%= form_for @city do |f| %>
     <%=f.label :name %>
-
-
     <%= f.text_field :name, 'id' => 'input-cities' %>
 <% end %>

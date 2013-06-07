@@ -6,12 +6,10 @@ Fcms::Application.routes.draw do
   resources :users
   resources :registrations
   resources :categories
-  resources :cities do
-    collection do
-      get 'autocomplete'
-    end
-  end
-  
+  resources :cities
+
+  get 'autocomplete/cities'
+  get 'autocomplete/schools'
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

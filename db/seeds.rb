@@ -6,15 +6,28 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+require 'csv'
+
+
+
 
 # Cities
-city1 = City.create(name: 'Magog')
-city2 = City.create(name: 'Sherbrooke')
+CSV.foreach("#{Rails.root}/tools/eastern_cities.csv") do |row|
+  if !City.exists?(:name => row[1])
+    City.create(name: row[1])
+  end
+end
+CSV.foreach("#{Rails.root}/tools/eastern_schools.csv", :headers => true) do |row|
+  if !City.exists?(:name => row[2])
+    City.create(name: row[2])
+  end
+end
 
-contact1 = Contactinfo.create(telephone: '819-843-7004', address: '112 rue rene', city_id: city1.id, province: 'Québec', postal_code: 'J1X3W5')
-contact2 = Contactinfo.create(telephone: '111-111-1111', address: '1111 rue argyll', city_id: city2.id, province: 'Québec', postal_code: 'J1Z8V4')
-contact3 = Contactinfo.create(telephone: '911', address: '007 thugstreet', city_id: city2.id, province: 'Québec',  postal_code: 'J1Z8V4')
-contact4 = Contactinfo.create(telephone: '819-563-2050', address: '195 rue Marquette', city_id: city2.id, province: 'Québec', postal_code: 'J1H1L6')
+# ContactInfos
+contact1 = Contactinfo.create(telephone: '819-843-7004', address: '112 rue rene', city_id: City.where(:name => 'Magog').first.id, province: 'Québec', postal_code: 'J1X3W5')
+contact2 = Contactinfo.create(telephone: '111-111-1111', address: '1111 rue argyll', city_id: City.where(:name => 'Sherbrooke').first.id, province: 'Québec', postal_code: 'J1Z8V4')
+contact3 = Contactinfo.create(telephone: '911', address: '007 thugstreet', city_id: City.where(:name => 'Sherbrooke').first.id, province: 'Québec',  postal_code: 'J1Z8V4')
+contact4 = Contactinfo.create(telephone: '819-563-2050', address: '195 rue Marquette', city_id: City.where(:name => 'Sherbrooke').first.id, province: 'Québec', postal_code: 'J1H1L6')
 
 # Users
 user1 = User.create(last_name: 'Gauthier', first_name: 'Jean-Philippe', gender: true, birthday: '1991-07-29', email: 'j-p.g@hotmail.com', password: 'password', contactinfo_id: contact1.id, confirmed_at: '2013-05-28 02:01:11.70392')
@@ -77,17 +90,23 @@ piece2 = Piece.create(composer_id: composer2.id, title: 'Canarios')
 # Schoolbaords
 schoolboard1 = Schoolboard.create(name: 'Commission Scolaire des Sommets')
 
-# Schooltype
-schooltype1 = Schooltype.create(name: 'Ecole secondaire privee')
+# Schooltypes
+CSV.foreach("#{Rails.root}/tools/eastern_schools.csv", :headers => true) do |row|
+  if !Schooltype.exists?(:name => row[1])
+    Schooltype.create(name: row[1])
+  end
+end
 
-# School
-school1 = School.create(schoolboard_id: schoolboard1.id, schooltype_id: schooltype1.id, contactinfo_id: contact4.id, name: 'Seminaire de Sherbrooke')
+# Schools
+CSV.foreach("#{Rails.root}/tools/eastern_schools.csv", :headers => true) do |row|
+  School.create(name: row[0], contactinfo_id: contact4.id, schooltype_id: Schooltype.where(:name => row[1]).first.id, schoolboard_id: schoolboard1.id)
+end
 
 # Instruments
 instrument1 = Instrument.create(name: 'Guitare')
 
 # Registration
-registration1 = Registration.create(user_teacher_id: user2.id, user_owner_id: user1.id, school_id: school1.id, edition_id: edition1.id, category_id: category1.id, duration: 5)
+registration1 = Registration.create(user_teacher_id: user2.id, user_owner_id: user1.id, school_id: School.where(:name => 'École secondaire de la Ruche').first.id, edition_id: edition1.id, category_id: category1.id, duration: 5)
 
 # Payments
 payment1 = Payment.create(user_id: user1.id, registration_id: registration1.id, mode: 'Cheque', no_chq: 1, name_chq: 'Jean-Philippe Gauthier', date_chq: '2007-05-05', depot_date: '2007-05-05', invoice: 'invoice1', cash: 38)

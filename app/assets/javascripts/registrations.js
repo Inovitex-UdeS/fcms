@@ -51,3 +51,25 @@ $(document).on('nested:fieldRemoved', function(event){
     field.remove();
     calculateTotDuration();
 })
+
+// Autocomplete
+$(document).ready(function(){
+
+    var labels, mapped
+    $("#input-schools").typeahead({
+        source: function (query, process) {
+            $.get('/autocomplete/schools', { q: query }, function (data) {
+                labels = []
+                mapped = {}
+
+                $.each(data, function (i, item) {
+                    mapped[item.label] = item.value
+                    labels.push(item.label)
+                })
+
+                process(labels)
+            })
+        }
+    });
+
+});

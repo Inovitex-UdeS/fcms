@@ -33,6 +33,9 @@ group :assets do
   gem 'yui-compressor', '0.9.6'
 end
 
+# Navigation
+gem 'simple-navigation', '3.11.0'
+
 # Javascript and CSS libraries
 gem 'jquery-rails', '2.2.1'
 gem 'remotipart', '1.0.5'
@@ -56,6 +59,9 @@ gem 'devise', '2.2.4'
 
 # Authorizations
 gem 'cancan', '1.6.10'
+
+# Autocomplete
+gem 'rails3-jquery-autocomplete', '1.0.11'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

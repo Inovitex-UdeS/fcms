@@ -10,13 +10,59 @@
   <%= javascript_include_tag params[:controller] %>
   <%= csrf_meta_tags %>
 
-  <%= render :partial => "layouts/header"  unless params[:controller].to_s.include? "devise" %>   <%#  MIGHT NEED TO VERIFY THIS WHEN MERGING WITH USERS %>
   <%= yield :head %>
 </head>
 <body>
-    <%= yield %>
+
+  <% if user_signed_in? %>
+
+    <div class="navbar navbar-static-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="#">FCMS</a>
+          <%= render_navigation(:context => :main, :level => 1) %>
+          <%= render_navigation(:context => :user, :expand_all => true) %>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrapper">
+
+      <% if controller.controller_name == 'home' && false %>
+        <div class="section section-page">
+          <%= yield %>
+        </div>
+
+      <% else %>
+        <div class="section section-submenu">
+          <h4><%= simple_format active_navigation_item_name(:context => :main, :level => 1) %></h4>
+          <%= render_navigation(:context => :main, :level => 2) %>
+        </div>
+        <div class="section section-subpage">
+          <%= yield %>
+        </div>
+      <% end %>
+
+      <div class="footer">
+        ©2013 Festival-Concours de Musique de Sherbrooke  |  Développé par <a href="http://www.inovitex.com/">Inovitex</a>.
+      </div>
+
+    </div>
+
+  <% else %>
+
+    <% content_for(:head) do %>
+      <%= stylesheet_link_tag 'devise/devise' %>
+    <%end%>
+
+    <div class="devise-page">
+      <div class="devise-left"></div>
+      <div class="devise-right">
+        <%= yield %>
+      </div>
+    </div>
+
+  <% end %>
+
 </body>
-<footer>
-  <%# render :partial => "layouts/footer" %>
-</footer>
 </html>

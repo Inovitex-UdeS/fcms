@@ -1,45 +1,35 @@
-<div class="gradient"></div>
+<h2>Connexion</h2>
 
-<div class="devise-page">
-    <div class="devise-left">
-    </div>
-    <div class="devise-right">
-        <h2>Connexion</h2>
+<% if notice -%>
+  <p class="notice"><%= notice %></p>
+<% end -%>
+<% if alert -%>
+  <p class="alert alert-danger"><%= alert %></p>
+<% end -%>
 
-        <% if notice -%>
-          <p class="notice"><%= notice %></p>
-        <% end -%>
-        <% if alert -%>
-          <p class="alert alert-danger"><%= alert %></p>
-        <% end -%>
+<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
 
-        <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+  <div class="input-prepend">
+    <span class="add-on"><i class="icon-envelope"></i></span>
+    <%= f.email_field :email, :autofocus => true, :placeholder => 'exemple@xyz.com', :class => 'input-xlarge' %><br />
+  </div>
 
-          <div class="input-prepend">
-            <span class="add-on"><i class="icon-envelope"></i></span>
-            <%= f.email_field :email, :autofocus => true, :placeholder => 'exemple@xyz.com', :class => 'input-xlarge' %><br />
-          </div>
+  <br />
 
-          <br />
+  <div class="input-prepend">
+    <span class="add-on"><i class="icon-lock"></i></span>
+    <%= f.password_field :password, :placeholder => 'Mot de passe', :class => 'input-xlarge' %><br />
+  </div>
 
-          <div class="input-prepend">
-            <span class="add-on"><i class="icon-lock"></i></span>
-            <%= f.password_field :password, :placeholder => 'Mot de passe', :class => 'input-xlarge' %><br />
-          </div>
+  <div style="margin-bottom: 10px;">
+    <%= f.submit "Se connecter", :class => 'btn btn-primary' %>
+    <%= link_to "Se créer un compte", new_registration_path(resource_name), :class => 'btn' %>
+  </div>
 
-          <div style="margin-bottom: 10px;">
-            <%= f.submit "Se connecter", :class => 'btn btn-primary' %>
-            <%= link_to "Se créer un compte", new_registration_path(resource_name), :class => 'btn' %>
-          </div>
+  <% if devise_mapping.rememberable? -%>
+    <label class="checkbox"> <%= f.check_box :remember_me, :class => 'checkbox' %> Rester connecter </label>
+  <% end -%>
 
-          <% if devise_mapping.rememberable? -%>
-            <label class="checkbox"> <%= f.check_box :remember_me, :class => 'checkbox' %> Rester connecter </label>
-          <% end -%>
+  <%= render "devise/shared/links" %>
 
-          <%= render "devise/shared/links" %>
-
-        <% end %>
-
-    </div>
-</div>
-
+<% end %>

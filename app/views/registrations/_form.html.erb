@@ -7,7 +7,7 @@
     <%= f.label :school, 'Institution scolaire' %>
     <%= f.text_field :school, 'id' => 'input-schools' %>
 
-    <%= f.association :school, prompt: "Choisissez une école", label: 'Institution scolaire' %>
+    <%# f.association :school, prompt: "Choisissez une école", label: 'Institution scolaire' %>
     <%= f.association :instruments, prompt: "Choisissez un instrument", label: 'Instrument', as: :collection_select %>
     <h3>Programme musical</h3>
     <%= f.association :category, prompt: "Choisissez une classe", label: 'Classe', :input_html => {:onchange => "changeCategory(this.value)"} %>

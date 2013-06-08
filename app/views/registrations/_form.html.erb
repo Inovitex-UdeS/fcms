@@ -1,13 +1,49 @@
-<h1>Inscription au festival</h1><hr>
+<h1>Formulaire d'inscription au concours</h1><hr/>
 
 <%= simple_nested_form_for @registration do |f| %>
+
+    <h3>Informations générales</h3>
+    <table>
+      <tbody>
+      <tr>
+        <td></td>
+        <td>Professeur</td>
+        <td><%= f.association :teacher, collection: User.with_role('professeur') , prompt: "Choisissez un professeur", label_method: lambda { |usr| usr.first_name + " " + usr.last_name + ", (" + usr.email + ")"},label: false %></td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <td></td>
+        <td>École fréquentée</td>
+        <td><%= f.association :school, collection: School.all(order: 'name'), prompt: "Choisissez une école", label: false %> </td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <td></td>
+        <td>Catégorie d'inscription</td>
+        <td><%= f.association :category, prompt: "Choisissez une catégorie", label: false, :input_html => {:onchange => "changeCategory(this.value)"} %></td>
+        <td></td>
+      </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+<!--
     <h3>Professeur</h3>
-    <%= f.association :teacher, collection: User.with_role('professeur').pluck(:email) , prompt: "Choisissez un professeur", label: 'Courriel du professeur' %>
+    <%# f.association :teacher, collection: User.with_role('professeur') , prompt: "Choisissez un professeur", label: 'Courriel du professeur', label_method: lambda { |usr| usr.first_name + " " + usr.last_name + ", (" + usr.email + ")"} %>
     <h3>Informations personnelles</h3>
-    <%= f.association :school, prompt: "Choisissez une école", label: 'Institution scolaire' %>
-    <%= f.association :instruments, prompt: "Choisissez un instrument", label: 'Instrument', as: :collection_select %>
+    <%# f.association :school, prompt: "Choisissez une école", label: 'Institution scolaire' %>
+    <%# f.association :instruments, prompt: "Choisissez un instrument", label: 'Instrument', as: :collection_select %>
     <h3>Programme musical</h3>
-    <%= f.association :category, prompt: "Choisissez une classe", label: 'Classe', :input_html => {:onchange => "changeCategory(this.value)"} %>
+    <%# f.association :category, prompt: "Choisissez une classe", label: 'Classe', :input_html => {:onchange => "changeCategory(this.value)"} %>
+    -->
+    <br/>
+    <h3>Pièces performées</h3>
+
     <div id='performances-container'>
         <table id='performances' class='table'>
             <thead><tr>
@@ -18,13 +54,18 @@
             </tr></thead>
             <tbody>
                 <%= f.fields_for :performances, :wrapper => false %>
-                <tr><td colspan="2">Durée totale</td><td><%= f.text_field :duration, :class => 'input-small', disabled: true, :placeholder => 0 %></td><td></td></tr>
+                <tr>
+                  <td colspan="2">Durée totale</td>
+                  <td><%= f.text_field :duration, :class => 'input-small', disabled: true, :placeholder => 0 %></td>
+                  <td></td>
+                </tr>
             </tbody>
         </table>
       <%= f.link_to_add " Ajouter une performance", :performances, :id => 'btn-add-performance' , :data => { :target => '#performances' }, :class => 'icon-plus btn' %>
     </div><br>
 
     <h3>Autres participants</h3>
+    <h5>(Seulement applicable pour les catégories suivantes: X, Y, Z)</h5>
     <div id='users-container'>
       <table id='users' class='table'>
         <thead><tr>
@@ -38,7 +79,7 @@
         </tbody>
       </table>
       <%= f.link_to_add " Ajouter une personne", :users, :id => 'btn-add-users' , :data => { :target => '#users' }, :class => 'icon-plus btn' %>
-    </div><br>
+    </div><br/>
 
     <div class="form-actions">
         <%= f.button :submit, 'Envoyer l\'inscription' , :class => 'btn btn-primary' %>

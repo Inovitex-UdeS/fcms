@@ -9,8 +9,7 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    #city = City.find(:name => @user.contactinfo.city.)
-    #@user.contactinfo.city.update_attributes(params[:city])
+
     if @user.update_attributes(params[:user])
       flash[:success] = "Mise a jour du profil"
       sign_in @user

@@ -10,7 +10,7 @@ SimpleNavigation::Configuration.run do |navigation|
   # navigation.selected_class = 'your_selected_class'
 
   # Specify the class that will be applied to the current leaf of
-  # active navigation items. Defaults to 'simple-navigation-active-leaf'
+  # active navigation items. Defaults to 'simple_navigation-active-leaf'
   # navigation.active_leaf_class = 'your_active_leaf_class'
 
   # Item keys are normally added to list items as id.
@@ -53,34 +53,52 @@ SimpleNavigation::Configuration.run do |navigation|
     # Conditions are part of the options. They are evaluated in the context of the views,
     # thus you can use all the methods and vars you have available in the views.
 
-    primary.item :key_1, '<i class="icon-home"></i> Accueil', 'url'
+    # Custom config options for bootstrap renderer:
+    # url - If set to 'nil', the dropdown will show up on hover, with all submenu options.
+    #       Otherwise, the dropdown won't show up, and the item will work as a link.
+    #       Ideally, every primary item link would also be a sub_nav item link, so when
+    #       the user clicks on an item, it actually opens a sub_nav link.
+    # icon - Adds a bootstrap icon with the specified class before the title
+
+    primary.item :key_1, 'Accueil', root_path, :icon => 'icon-home'
     
     primary.item :divider_1, nil, nil, :class => 'divider-vertical'
 
-    primary.item :key_2, '<i class="icon-edit"></i> Inscriptions' , 'url', :highlights_on => lambda { true } do |sub_nav|
-      sub_nav.item :key_2_1, 'Voir ses inscriptions', 'url'
-      sub_nav.item :key_2_2, 'S\'inscrire au concours', 'url', :highlights_on => lambda { true }
-      sub_nav.item :key_2_3, 'Voir toutes les inscriptions', 'url'
+    primary.item :key_2, 'Inscriptions' , new_registration_path, :icon => 'icon-edit' do |sub_nav|
+      sub_nav.item :key_2_1, 'Voir ses inscriptions', '#'
+      sub_nav.item :key_2_2, 'S\'inscrire au concours', new_registration_path
+      sub_nav.item :key_2_3, 'Voir toutes les inscriptions', '#'
       sub_nav.item :key_2_4, '', nil, :class=> 'divider'
-      sub_nav.item :key_2_5, 'Effectuer un paiement', 'url'
+      sub_nav.item :key_2_5, 'Payer son inscription', '#'
     end
     
     primary.item :divider_2, nil, nil, :class => 'divider-vertical'
 
-    primary.item :key_3, '<i class="icon-calendar"></i> Horaire', 'url' do |sub_nav|
-      sub_nav.item :key_3_1, 'WAWAWAWA', 'url'
+    primary.item :key_3, 'Horaire', '#', :icon => 'icon-calendar' do |sub_nav|
+      sub_nav.item :key_3_1, 'Élément de menu 1', '#'
     end
 
     primary.item :divider_3, nil, nil, :class => 'divider-vertical'
 
-    primary.item :key_4, '<i class="icon-bar-chart"></i> Résultats', 'url' do |sub_nav|
-      sub_nav.item :key_4_1, 'WAWAWAWA', 'url'
+    primary.item :key_4, 'Résultats', '#', :icon => 'icon-bar-chart' do |sub_nav|
+      sub_nav.item :key_4_1, 'Élément de menu 1', '#'
     end
 
     primary.item :divider_4, nil, nil, :class => 'divider-vertical'
 
-    primary.item :key_5, '<i class="icon-cog"></i> Administration', 'url', :if => Proc.new { user_signed_in? } do |sub_nav|
-      sub_nav.item :key_5_1, 'WAWAWAWA', 'url'
+    # TODO: Replace 'user_signed_in?' with actual admin permissions lookup
+    primary.item :key_5, 'Administration', '#', :icon => 'icon-cog', :if => Proc.new { user_signed_in? } do |sub_nav|
+      sub_nav.item :key_5_1, 'Élément de menu 1', '#'
+    end
+
+    primary.item :divider_5, nil, nil, :class => 'divider-vertical'
+
+    primary.item :key_6, 'Compte', nil, :icon => 'icon-user' do |sub_nav|
+      sub_nav.item :key_6_1, 'Profil', edit_user_path(current_user)
+      sub_nav.item :key_6_2, 'Informations personnelles', '#'
+      sub_nav.item :key_6_3, 'Changer son mot de passe', '#'
+      sub_nav.item :key_6_4, '', nil, :class=> 'divider'
+      sub_nav.item :key_6_5, 'Déconnexion', destroy_user_session_path, :method => :delete
     end
 
     # you can also specify a css id or class to attach to this particular level

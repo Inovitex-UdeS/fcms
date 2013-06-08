@@ -3,7 +3,7 @@
 <head>
   <title>FCMS</title>
   <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700" rel="stylesheet" type="text/css">
-  <%= favicon_link_tag       'favicon.ico' %>
+  <%= favicon_link_tag       image_path('favicon.ico') %>
   <%= stylesheet_link_tag    'application', :media => "all" %>
   <%= stylesheet_link_tag    params[:controller]%>
   <%= javascript_include_tag 'application' %>
@@ -19,24 +19,23 @@
     <div class="navbar navbar-static-top">
       <div class="navbar-inner">
         <div class="container">
-          <a class="brand" href="#">FCMS</a>
-          <%= render_navigation(:context => :main, :level => 1) %>
-          <%= render_navigation(:context => :user, :expand_all => true) %>
+          <a class="brand"></a>
+          <%= render_navigation :expand_all => true, :renderer => :bootstrap %>
         </div>
       </div>
     </div>
 
     <div class="wrapper">
 
-      <% if controller.controller_name == 'home' && false %>
+      <% if controller.controller_name == 'home' %>
         <div class="section section-page">
           <%= yield %>
         </div>
 
       <% else %>
         <div class="section section-submenu">
-          <h4><%= simple_format active_navigation_item_name(:context => :main, :level => 1) %></h4>
-          <%= render_navigation(:context => :main, :level => 2) %>
+          <h4><%= active_navigation_item_name(:level => 1) %></h4>
+          <%= render_navigation(:expand_all => true, :level => 2) %>
         </div>
         <div class="section section-subpage">
           <%= yield %>

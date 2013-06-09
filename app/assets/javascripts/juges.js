@@ -2,6 +2,11 @@
 // All this logic will automatically be available in application.js.
 
 $(document).ready(function() {
+    $('#user_birthday').datepicker({
+        format: 'yyyy-mm-dd',
+        viewMode: 2
+    });
+
     var labels, mapped
     $("#input-cities").typeahead({
         source: function (query, process) {

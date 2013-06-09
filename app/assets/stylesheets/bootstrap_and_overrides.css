@@ -124,3 +124,5 @@ ul.nav li.dropdown:hover > ul.dropdown-menu{
     background-repeat: repeat-x;
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffaa0911',endColorstr='#ff8a2003',GradientType=0);
 }
+
+.input-xlarge { width: 344px; }

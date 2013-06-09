@@ -14,7 +14,7 @@ class RoomsController < ApplicationController
       @room = Room.create(capacity: capacity, name: name, location: location, description: description)
 
       if @room.save
-        render :json => @room
+        redirect_to :action => 'new'
       else
         render :json => { :errors => @room.errors.full_messages }, :status => 422
       end

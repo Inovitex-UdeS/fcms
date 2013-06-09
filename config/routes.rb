@@ -10,9 +10,12 @@ Fcms::Application.routes.draw do
   resources :editions
   resources :instruments
   resources :rooms
+  resources :juges
 
   get 'autocomplete/cities'
   get 'autocomplete/schools'
+
+  get 'users/juges/new', to: 'users#new', as: '/juges/new'
 
   namespace :admin do
     get '', to: 'dashboard#index', as: '/'

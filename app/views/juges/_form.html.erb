@@ -1,0 +1,9 @@
+<div class="col">
+  <%= simple_form_for @juge do |f| %>
+      <%= f.label :last_name, 'Nom' %>
+      <%= f.text_field :last_name, :class => 'input-large' %>
+      <div class="form-actions">
+        <%= f.button :submit, 'Enregistrer' , :class => 'btn btn-primary' %>
+      </div>
+  <% end %>
+</div>

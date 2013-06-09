@@ -12,7 +12,7 @@ class EditionsController < ApplicationController
       @edition = Edition.create(year: year, limit_date: limitDate)
 
       if @edition.save
-        render :json => @edition
+        redirect_to :action => 'new'
       else
         render :json => { :errors => @edition.errors.full_messages }, :status => 422
       end

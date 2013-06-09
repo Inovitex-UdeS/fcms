@@ -11,7 +11,7 @@ class InstrumentsController < ApplicationController
       @instrument = Instrument.create(name: name)
 
       if @instrument.save
-        render :json => @instrument
+        redirect_to :action => 'new'
       else
         render :json => { :errors => @instrument.errors.full_messages }, :status => 422
       end

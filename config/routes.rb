@@ -8,6 +8,7 @@ Fcms::Application.routes.draw do
   resources :categories
   resources :cities
   resources :editions
+  resources :instruments
 
   get 'autocomplete/cities'
   get 'autocomplete/schools'

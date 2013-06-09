@@ -87,8 +87,9 @@ SimpleNavigation::Configuration.run do |navigation|
     primary.item :divider_4, nil, nil, :class => 'divider-vertical'
 
     # TODO: Replace 'user_signed_in?' with actual admin permissions lookup
-    primary.item :key_5, 'Administration' , '/admin', :icon => 'icon-cog' do |sub_nav|
+    primary.item :key_5, 'Administration' , new_edition_path, :icon => 'icon-cog' do |sub_nav|
       sub_nav.item :key_5_1, 'Gérer les éditions', new_edition_path
+      sub_nav.item :key_5_2, 'Gérer les instruments', new_instrument_path
     end
 
     primary.item :divider_5, nil, nil, :class => 'divider-vertical'

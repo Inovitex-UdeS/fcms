@@ -6,7 +6,6 @@ class EditionsController < ApplicationController
 
   def create
     begin
-      createdDate = Time.now
       limitDate = params[:edition][:limit_date]
       year = params[:edition][:year]
 

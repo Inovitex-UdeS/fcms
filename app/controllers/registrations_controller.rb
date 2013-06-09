@@ -1,6 +1,9 @@
 #encoding: utf-8
 
 class RegistrationsController < ApplicationController
+  def index
+    @registrations = Registration.all
+  end
 
   def new
     @registration = Registration.new

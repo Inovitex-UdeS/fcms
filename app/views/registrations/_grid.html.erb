@@ -1,0 +1,27 @@
+<h4>Inscriptions existantes</h4><br />
+<table class="table table-striped table-bordered">
+  <tr>
+    <th>Id &nbsp; &nbsp; &nbsp;</th>
+    <th>Owner</th>
+    <th>School name</th>
+    <th>Teacher name</th>
+    <th>Edition Year</th>
+    <th>Category name</th>
+    <th>Duration</th>
+    <th>Date de création</th>
+    <th>Dernière mise à jour</th>
+  </tr>
+  <% @registrations.each do |reg| %>
+      <tr>
+        <td><label class="checkbox"><%= reg.id %></label></td>
+        <td><%= User.find(reg.user_owner_id).first_name %> <%= User.find(reg.user_owner_id).last_name %></td>
+        <td><%= School.find(reg.school_id).name %></td>
+        <td><%= User.find(reg.user_teacher_id).first_name %> <%= User.find(reg.user_teacher_id).last_name %></td>
+        <td><%= Edition.find(reg.edition_id).year %></td>
+        <td><%= Category.find(reg.category_id).name %></td>
+        <td><%= reg.duration %> min.</td>
+        <td><%= reg.created_at %></td>
+        <td><%= reg.updated_at %></td>
+      </tr>
+  <% end %>
+</table>

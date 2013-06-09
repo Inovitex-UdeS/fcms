@@ -9,6 +9,7 @@ Fcms::Application.routes.draw do
   resources :cities
   resources :editions
   resources :instruments
+  resources :rooms
 
   get 'autocomplete/cities'
   get 'autocomplete/schools'

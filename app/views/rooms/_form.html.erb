@@ -1,0 +1,18 @@
+<div class="col">
+  <%= simple_form_for @room do |f| %>
+      <%= f.label :capacity, 'Capacité' %>
+      <%= f.text_field :capacity, :class => 'input-small' %>
+
+      <%= f.label :name, 'Nom' %>
+      <%= f.text_field :name, :class => 'input-large' %>
+
+      <%= f.label :location, 'Location' %>
+      <%= f.text_field :location, :class => 'input-large' %>
+
+      <%= f.label :description, 'Description' %>
+      <%= f.text_field :description, :class => 'input-large' %>
+      <div class="form-actions">
+        <%= f.button :submit, 'Enregistrer' , :class => 'btn btn-primary' %>
+      </div>
+  <% end %>
+</div>

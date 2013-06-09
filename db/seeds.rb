@@ -8,7 +8,9 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 require 'csv'
 
-
+# Rooms
+room1 = Room.create(capacity: 32, name: 'C1-3125', location: 'UdeS', description: 'Local de rencontre')
+room2 = Room.create(capacity: 100, name: 'Sale Bandeen', location: 'CEGEP de Sherbrooke', description: 'Plus grande salle du festival')
 
 
 # Cities

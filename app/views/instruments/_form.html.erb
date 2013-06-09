@@ -1,7 +1,12 @@
+<h5>AJOUTER OU MODIFIER UN INSTRUMENT</h5>
 <div class="col">
   <%= simple_form_for @instrument do |f| %>
-      <%= f.label :name, 'Nom' %>
-      <%= f.text_field :name, :class => 'input-large' %>
+      <div class="input-prepend">
+        <span class="add-on"><i class="icon-font"></i></span>
+        <%= f.text_field :name, :autofocus => true, :placeholder => 'Nom de l\'instrument', :class => 'input-xlarge' %>
+      </div>
+      <br />
+
       <div class="form-actions">
         <%= f.button :submit, 'Enregistrer' , :class => 'btn btn-primary' %>
       </div>

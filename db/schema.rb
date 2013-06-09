@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130528050615) do
+ActiveRecord::Schema.define(:version => 20130609220022) do
 
   create_table "agegroups", :force => true do |t|
     t.integer  "edition_id",                  :null => false
@@ -90,6 +90,8 @@ ActiveRecord::Schema.define(:version => 20130528050615) do
     t.date     "limit_date"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "start_date"
+    t.date     "end_date"
   end
 
   add_index "editions", ["id"], :name => "editions_pk", :unique => true

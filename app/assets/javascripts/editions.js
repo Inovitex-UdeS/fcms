@@ -5,4 +5,14 @@ $(document).ready(function() {
         format: 'yyyy-mm-dd',
         viewMode: 2
     });
+
+    $('#edition_start_date').datepicker({
+        format: 'yyyy-mm-dd',
+        viewMode: 2
+    });
+
+    $('#edition_end_date').datepicker({
+        format: 'yyyy-mm-dd',
+        viewMode: 2
+    });
 });

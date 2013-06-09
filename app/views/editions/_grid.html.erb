@@ -1,0 +1,19 @@
+<h4>Éditions existantes</h4><br />
+<table class="table table-striped table-bordered">
+  <tr>
+    <th>Id &nbsp; &nbsp; &nbsp;</th>
+    <th>Année</th>
+    <th>Date limite d'inscription</th>
+    <th>Date de création</th>
+    <th>Dernière mise à jour</th>
+  </tr>
+  <% @editions.each do |edition| %>
+      <tr>
+        <td><label class="checkbox"><%= edition.id %></label></td>
+        <td><%= edition.year %></td>
+        <td><%= edition.limit_date %></td>
+        <td><%= edition.created_at %></td>
+        <td><%= edition.updated_at %></td>
+      </tr>
+  <% end %>
+</table><hr>

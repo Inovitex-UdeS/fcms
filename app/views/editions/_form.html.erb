@@ -1,0 +1,11 @@
+<div class="col">
+    <%= simple_form_for @edition do |f| %>
+        <%= f.label :year, 'Année' %>
+        <%= f.text_field :year %>
+        <%= f.label :limit_date, "Date limite" %>
+        <%= f.text_field :limit_date, :class => 'input-small' %>
+      <div class="form-actions">
+        <%= f.button :submit, 'Enregistrer' , :class => 'btn btn-primary' %>
+      </div>
+    <% end %>
+</div>

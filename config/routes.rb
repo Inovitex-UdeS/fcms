@@ -7,9 +7,14 @@ Fcms::Application.routes.draw do
   resources :registrations
   resources :categories
   resources :cities
+  resources :editions
 
   get 'autocomplete/cities'
   get 'autocomplete/schools'
+
+  namespace :admin do
+    get '', to: 'dashboard#index', as: '/'
+  end
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

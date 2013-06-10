@@ -1,3 +1,8 @@
+# Custom SimpleNavigation renderer for Bootstrap
+#  ** Based on simple-navigation-bootstrap by Peter Fern
+#  ** https://rubygems.org/gems/simple-navigation-bootstrap
+#  ** https://github.com/pdf/simple-navigation-bootstrap
+
 module SimpleNavigation
   module Renderer
     class Bootstrap < SimpleNavigation::Renderer::Base

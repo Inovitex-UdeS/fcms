@@ -15,7 +15,9 @@
       <tr>
         <td></td>
         <td>École fréquentée</td>
-        <td><%= f.association :school, collection: School.all(order: 'name'), prompt: "Choisissez une école", label: false %> </td>
+        <td><%# f.association :school, collection: School.all(order: 'name'), prompt: "Choisissez une école", label: false %>
+          <%= f.input :school, :label => false, :class => 'input-schools' %>
+        </td>
         <td></td>
       </tr>
 

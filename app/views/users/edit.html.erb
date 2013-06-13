@@ -1,6 +1,8 @@
 <h1>Page de profil</h1>
 
   <div class="profile-page">
+
+    <hr>
     <%= simple_form_for(@user) do |f| %>
 
         <div class="col">
@@ -64,8 +66,9 @@
             </div>
         </div>
 
-        </br>
 
+
+        <hr>
         <%= f.submit "Sauvegarder", class: "btn btn-large btn-primary" %>
     <% end %>
   </div>

@@ -33,6 +33,9 @@ window.NestedFormEvents.prototype.insertFields = function(content, assoc, link) 
     var $tr = $('#' + assoc + ' tr:last');
     return $(content).insertBefore($tr);
 }
+$(document).on('nested:fieldAdded', function(event){
+    applyautocomplete();
+})
 
 $(document).on('nested:fieldAdded:users', function(event){
     // this field was just inserted into your form
@@ -54,9 +57,13 @@ $(document).on('nested:fieldRemoved', function(event){
 
 // Autocomplete
 $(document).ready(function(){
+    applyautocomplete();
+});
+
+function applyautocomplete() {
 
     var labels, mapped
-    $("#input-schools").typeahead({
+    $(".input-schools").typeahead({
         source: function (query, process) {
             $.get('/autocomplete/schools', { q: query }, function (data) {
                 labels = []
@@ -71,5 +78,19 @@ $(document).ready(function(){
             })
         }
     });
+    $(".input-pieces").typeahead({
+        source: function (query, process) {
+            $.get('/autocomplete/pieces', { q: query }, function (data) {
+                labels = []
+                mapped = {}
 
-});
+                $.each(data, function (i, item) {
+                    mapped[item.label] = item.value
+                    labels.push(item.label)
+                })
+
+                process(labels)
+            })
+        }
+    });
+}

@@ -33,16 +33,19 @@ contact4 = Contactinfo.create(telephone: '819-563-2050', address: '195 rue Marqu
 user1 = User.create(last_name: 'Gauthier', first_name: 'Jean-Philippe', gender: true, birthday: '1991-07-29', email: 'j-p.g@hotmail.com', password: 'password', contactinfo_id: contact1.id, confirmed_at: '2013-05-28 02:01:11.70392')
 user2 = User.create(last_name: 'Paquette', first_name: 'Daniel', gender: true, birthday: '1980-05-12', email: 'dp@me.com', password: 'password', contactinfo_id: contact2.id,confirmed_at: '2013-05-28 02:01:11.70392')
 user3 = User.create(last_name: 'Mine', first_name: 'Ad', gender: true, birthday: '1980-05-12', email: 'admin@admin.com', password: 'password', contactinfo_id: contact3.id,confirmed_at: '2013-05-28 02:01:11.70392')
+user4 = User.create(last_name: 'coderre', first_name: 'laurens', gender: true, birthday: '1991-07-29', email: 'lcoderre@me.com', password: 'password', contactinfo_id: contact1.id, confirmed_at: '2013-05-28 02:01:11.70392')
 
 # Roles
 role1 = Role.create(name: 'participant')
 role2 = Role.create(name: 'professeur')
 role3 = Role.create(name: 'administrateur')
+role4 = Role.create(name: 'juge')
 
 # Users_Roles
 user1.roles << role1
 user2.roles << role2
 user3.roles << role3
+user4.roles << role1
 
 # Edition
 edition1 = Edition.create(year: 2007, limit_date: '2007-02-01')
@@ -106,13 +109,19 @@ end
 instrument1 = Instrument.create(name: 'Guitare')
 
 # Registration
-registration1 = Registration.create(user_teacher_id: user2.id, user_owner_id: user1.id, school_id: School.where(:name => 'École secondaire de la Ruche').first.id, edition_id: edition1.id, category_id: category1.id, duration: 5)
+registration1 = Registration.create(user_teacher_id: user2.id, user_owner_id: user1.id, school_id: School.find(1).id, edition_id: edition1.id, category_id: category1.id, duration: 5)
+registration2 = Registration.create(user_teacher_id: user2.id, user_owner_id: user4.id, school_id: School.find(2).id, edition_id: edition1.id, category_id: category1.id, duration: 5)
+registration3 = Registration.create(user_teacher_id: user2.id, user_owner_id: user4.id, school_id: School.find(3).id, edition_id: edition1.id, category_id: category1.id, duration: 5)
+registration4 = Registration.create(user_teacher_id: user2.id, user_owner_id: user4.id, school_id: School.find(4).id, edition_id: edition1.id, category_id: category1.id, duration: 5)
 
 # Payments
 payment1 = Payment.create(user_id: user1.id, registration_id: registration1.id, mode: 'Cheque', no_chq: 1, name_chq: 'Jean-Philippe Gauthier', date_chq: '2007-05-05', depot_date: '2007-05-05', invoice: 'invoice1', cash: 38)
 
 # Registrations_Users
 registrationsuser1 = RegistrationsUser.create(instrument_id: instrument1.id, registration_id: registration1.id, user_id: user1.id)
+registrationsuser2 = RegistrationsUser.create(instrument_id: instrument1.id, registration_id: registration2.id, user_id: user4.id)
+registrationsuser3 = RegistrationsUser.create(instrument_id: instrument1.id, registration_id: registration3.id, user_id: user4.id)
+registrationsuser4 = RegistrationsUser.create(instrument_id: instrument1.id, registration_id: registration4.id, user_id: user4.id)
 
 # Performance
 performance1 = Performance.create(piece_id: piece1.id, registration_id: registration1.id)

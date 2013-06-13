@@ -10,6 +10,7 @@ Fcms::Application.routes.draw do
 
   get 'autocomplete/cities'
   get 'autocomplete/schools'
+  get 'autocomplete/pieces'
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

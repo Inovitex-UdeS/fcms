@@ -10,8 +10,8 @@ class RegistrationsController < ApplicationController
     begin
       edition_id = 1
       owner_id = current_user.id
-      school_id = params[:registration][:school_id]
-      teacher_id = User.find_by_email(params[:registration][:user_teacher_id]).id
+      school_id = School.find_by_name(params[:registration][:school]).id
+      teacher_id = params[:registration][:user_teacher_id]
       duration =  params[:duration]
       instrument_id = params[:registration][:instrument_ids]
       category_id = params[:registration][:category_id]
@@ -26,8 +26,10 @@ class RegistrationsController < ApplicationController
       performances.each do |performance|
         performance = performance[1]
         composer = Composer.find_or_create_by_name(performance[:piece][:composer][:name])
-        piece = Piece.where(composer_id: composer.id).where(title: performance[:piece][:title]).first
-        piece ||= Piece.create(title: performance[:piece][:title], composer_id: composer.id)
+        piece = Piece.find_by_title(performance[:piece][:title])
+        if not piece
+          piece = Piece.create(title:performance[:piece][:title], composer: composer)
+        end
         Performance.create(piece_id: piece.id, registration_id: @registration.id)
       end
 
@@ -51,7 +53,7 @@ class RegistrationsController < ApplicationController
       end
 
     rescue
-      render :json => { :errors => "Erreur" }, :status => 422
+        render :json => { :errors => "Erreur" }, :status => 422
     end
   end
 

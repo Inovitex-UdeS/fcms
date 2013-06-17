@@ -68,7 +68,6 @@ function applyautocomplete() {
             $.get('/autocomplete/schools', { q: query }, function (data) {
                 labels = []
                 mapped = {}
-
                 $.each(data, function (i, item) {
                     mapped[item.label] = item.value
                     labels.push(item.label)
@@ -77,20 +76,66 @@ function applyautocomplete() {
                 process(labels)
             })
         }
+
     });
-    $(".input-pieces").typeahead({
+    $(".input-pieces.input-pieces-compos").typeahead({
         source: function (query, process) {
             $.get('/autocomplete/pieces', { q: query }, function (data) {
                 labels = []
-                mapped = {}
+                valuesMap = {}
+                titleMap = {}
+                composMap = {}
 
                 $.each(data, function (i, item) {
-                    mapped[item.label] = item.value
+                    valuesMap[item.label] = item.value
+                    titleMap[item.label] = item.title
+                    composMap[item.label] = item.composer
                     labels.push(item.label)
                 })
 
                 process(labels)
             })
+        },
+        updater: function (item) {
+            // Set Piece ID
+            this.$element.parent().next().next().val(valuesMap[item]);
+
+            // Set piece title
+            this.$element.parent().parent().find(".input-pieces-title").val(titleMap[item]);
+
+            // This will set the piece composer name
+            return composMap[item];
+        }
+    });
+
+
+    $(".input-pieces.input-pieces-title").typeahead({
+        source: function (query, process) {
+            $.get('/autocomplete/pieces', { q: query }, function (data) {
+                labels = []
+                valuesMap = {}
+                titleMap = {}
+                composMap = {}
+
+                $.each(data, function (i, item) {
+                    valuesMap[item.label] = item.value
+                    titleMap[item.label] = item.title
+                    composMap[item.label] = item.composer
+                    labels.push(item.label)
+                })
+
+                process(labels)
+            })
+        },
+        updater: function (item) {
+            // Set Piece ID
+            this.$element.parent().next().next().val(valuesMap[item]);
+
+            // Set piece composer name
+            this.$element.parent().parent().find(".input-pieces-compos").val(composMap[item]);
+
+            // This will set the piece composer name
+            return titleMap[item];
         }
     });
 }

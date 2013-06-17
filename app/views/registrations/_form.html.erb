@@ -27,6 +27,13 @@
         <td><%= f.association :category, prompt: "Choisissez une catégorie", label: false, :input_html => {:onchange => "changeCategory(this.value)"} %></td>
         <td></td>
       </tr>
+
+      <tr>
+        <td></td>
+        <td>Instrument</td>
+        <td><%= f.association :instruments,as: :collection_select, prompt: "Choisissez un instrument", label: false, :id => 'instrument_id' %></td>
+        <td></td>
+      </tr>
       </tbody>
     </table>
 
@@ -38,6 +45,7 @@
         <table id='performances' class='table'>
             <thead><tr>
                 <th>Titre de l'oeuvre</th>
+                <th>Compositeur</th>
                 <th>Durée (minutes)</th>
                 <th></th>
             </tr></thead>

@@ -12,6 +12,6 @@ class AutocompleteController < ApplicationController
 
   def pieces
     @pieces = Piece.all
-    render :json => @pieces.collect {|o| {:label => o.title + ", " + o.composer.name, :value => o.id.to_s}}
+    render :json => @pieces.collect {|o| {:label => o.title + ", " + o.composer.name, :title=> o.title, :composer=>o.composer.name, :value => o.id.to_s}}
   end
 end

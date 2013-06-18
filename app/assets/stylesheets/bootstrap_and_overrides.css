@@ -59,6 +59,10 @@ abbr[title="required"] { color: #8A2003; border: none; }
 
 /* --------------- Update the menu style --------------- */
 
+.container {
+    margin: 0 0 0 20px;
+}
+
 .navbar {
     z-index: 50;
 }
@@ -123,4 +127,10 @@ ul.nav li.dropdown:hover > ul.dropdown-menu{
     background-image: linear-gradient(to bottom,#aa0911, #8a2003);
     background-repeat: repeat-x;
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffaa0911',endColorstr='#ff8a2003',GradientType=0);
+}
+
+@media (min-width: 0px) {
+    .container, .navbar-static-top .container, .navbar-fixed-top .container, .navbar-fixed-bottom .container {
+        width: 1000px;
+    }
 }

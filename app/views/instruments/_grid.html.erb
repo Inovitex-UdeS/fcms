@@ -1,17 +1,19 @@
 <h5>INSTRUMENTS EXISTANTS</h5>
-<table class="table table-striped table-bordered">
-  <tr>
+<table class="table table-bordered">
+  <thead><tr>
     <th>Id &nbsp; &nbsp; &nbsp;</th>
     <th>Nom</th>
     <th>Date de création</th>
     <th>Dernière mise à jour</th>
-  </tr>
+  </tr></thead>
+  <tbody>
   <% @instruments.each do |instrument| %>
       <tr>
-        <td><label class="checkbox"><%= instrument.id %></label></td>
+        <td><%= instrument.id %></td>
         <td><%= instrument.name %></td>
         <td><%= instrument.created_at %></td>
         <td><%= instrument.updated_at %></td>
       </tr>
   <% end %>
+  </tbody>
 </table><hr>

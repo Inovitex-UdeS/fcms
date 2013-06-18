@@ -126,3 +126,8 @@ ul.nav li.dropdown:hover > ul.dropdown-menu{
 }
 
 .input-xlarge { width: 344px; }
+
+/* --------------- Datatables --------------- */
+.table tr.even.row_selected td { background-color: #E7E7E7; }
+.table tr.odd.row_selected td { background-color: #E7E7E7; }
+.btn-grid { margin-right: 5px}

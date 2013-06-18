@@ -1,6 +1,13 @@
 <h5>AJOUTER OU MODIFIER UN INSTRUMENT</h5>
 <div class="col">
-  <%= simple_form_for @instrument do |f| %>
+  <%= simple_form_for @instrument, :remote => true do |f| %>
+
+      <div class="input-prepend">
+        <span class="add-on"><i class="iconic-hash"></i></span>
+      <%= f.text_field :id, :class => 'input-small', :disabled => true%>
+      </div>
+      <br />
+
       <div class="input-prepend">
         <span class="add-on"><i class="icon-font"></i></span>
         <%= f.text_field :name, :autofocus => true, :placeholder => 'Nom de l\'instrument', :class => 'input-xlarge' %>

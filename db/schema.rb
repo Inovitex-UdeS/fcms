@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130528050615) do
+ActiveRecord::Schema.define(:version => 20130618164156) do
 
   create_table "agegroups", :force => true do |t|
     t.integer  "edition_id",                  :null => false
@@ -30,12 +30,13 @@ ActiveRecord::Schema.define(:version => 20130528050615) do
   add_index "agegroups", ["id"], :name => "agegroups_pk", :unique => true
 
   create_table "categories", :force => true do |t|
-    t.string   "name",        :limit => 256, :null => false
-    t.integer  "nb_perf_min",                :null => false
+    t.string   "name",        :limit => 256,                    :null => false
+    t.integer  "nb_perf_min",                                   :null => false
     t.integer  "nb_perf_max"
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "group",                      :default => false
   end
 
   add_index "categories", ["id"], :name => "categories_pk", :unique => true

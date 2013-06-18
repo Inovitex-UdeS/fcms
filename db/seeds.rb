@@ -56,7 +56,7 @@ category2 = Category.create(name: 'Musique Canadienne', nb_perf_min: 2, nb_perf_
 category3 = Category.create(name: 'Festival', nb_perf_min: 2, nb_perf_max: 4, description:'')
 category4 = Category.create(name: 'Récital', nb_perf_min: 2, nb_perf_max: 4, description:'')
 category4 = Category.create(name: 'Musique de chambre ', nb_perf_min: 2, nb_perf_max: 4, description:'')
-category5 = Category.create(name: 'Ensemble', nb_perf_min: 2, nb_perf_max: 4, description:'')
+category5 = Category.create(name: 'Ensemble', nb_perf_min: 2, nb_perf_max: 4, description:'',group:true)
 category6 = Category.create(name: 'Concertino', nb_perf_min: 2, nb_perf_max: 4, description:'')
 category7 = Category.create(name: 'Concerto OSJS', nb_perf_min: 2, nb_perf_max: 4, description:'')
 

@@ -4,6 +4,7 @@
 var nbPerfMax = 0;
 var nbPerfMin = 0;
 var maxDuration = 0;
+var group = false;
 var curDuration = 0;
 var nbPersMax = 12;
 
@@ -13,6 +14,9 @@ function changeCategory(category_id) {
         nbPerfMax = data.category.nb_perf_max;
         nbPerfMin = data.category.nb_perf_min;
         maxDuration = data.max_duration.max_duration;
+        group = data.category.group;
+        if (group) $("#AutresParticipants").show();
+        else $("#AutresParticipants").hide();
     });
 }
 

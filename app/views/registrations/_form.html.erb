@@ -52,31 +52,38 @@
             <tbody>
                 <%= f.fields_for :performances, :wrapper => false %>
                 <tr>
-                  <td colspan="2">Durée totale</td>
-                  <td><%= f.text_field :duration, :class => 'input-small', disabled: true, :placeholder => 0 %></td>
                   <td></td>
+                  <td></td>
+                  <td colspan="1">Durée totale:</td>
+                  <td><label id='registration_duration'>0</label><%# f.text_field :duration, :class => 'input-small', disabled: true, :placeholder => 0 %></td>
                 </tr>
             </tbody>
         </table>
       <%= f.link_to_add " Ajouter une performance", :performances, :id => 'btn-add-performance' , :data => { :target => '#performances' }, :class => 'icon-plus btn' %>
-    </div><br>
+    </div>
+    <br/>
 
-    <h3>Autres participants</h3>
-    <h5>(Seulement applicable pour les catégories suivantes: X, Y, Z)</h5>
-    <div id='users-container'>
-      <table id='users' class='table'>
-        <thead><tr>
-          <th>Courriel</th>
-          <th>Instrument</th>
-          <th></th>
-        </tr></thead>
-        <tbody>
-            <%= f.fields_for :users, :wrapper => false %>
-            <tr><td>Nombre de participants</td><td><label id='totUsers'>0</label></td><td></td></tr>
-        </tbody>
-      </table>
-      <%= f.link_to_add " Ajouter une personne", :users, :id => 'btn-add-users' , :data => { :target => '#users' }, :class => 'icon-plus btn' %>
-    </div><br/>
+    <div id="AutresParticipants">
+        <h3>Autres participants</h3>
+        <div id='users-container'>
+          <table id='users' class='table'>
+            <thead><tr>
+              <th>Courriel</th>
+              <th>Instrument</th>
+              <th></th>
+            </tr></thead>
+            <tbody>
+                <%= f.fields_for :users, :wrapper => false %>
+                <tr>
+                  <td>Nombre de participants</td>
+                  <td><label id='totUsers'>0</label></td>
+                  <td></td>
+                </tr>
+            </tbody>
+          </table>
+          <%= f.link_to_add " Ajouter une personne", :users, :id => 'btn-add-users' , :data => { :target => '#users' }, :class => 'icon-plus btn' %>
+        </div><br/>
+    </div>
 
     <div class="form-actions">
         <%= f.button :submit, 'Envoyer l\'inscription' , :class => 'btn btn-primary' %>

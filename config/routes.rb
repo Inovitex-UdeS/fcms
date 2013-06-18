@@ -16,6 +16,7 @@ Fcms::Application.routes.draw do
 
   get 'autocomplete/cities'
   get 'autocomplete/schools'
+  get 'autocomplete/users'
 
   get 'users/juges/new', to: 'users#new', as: '/juges/new'
 

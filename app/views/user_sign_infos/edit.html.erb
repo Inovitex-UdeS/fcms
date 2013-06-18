@@ -1,0 +1,26 @@
+<h1>Courriel et mot de passe</h1>
+<p>Si vous changez de mot de passe, vous serez déconnecté du site</p>
+
+<hr>
+
+  <%= simple_form_for(@user, :url => {:controller => 'user_sign_infos', :action => 'update'}) do |f| %>
+
+  <%= f.label :email, "Courriel" %>
+  <%= f.text_field :email, :class => 'input-xlarge' %>
+
+  <%= f.label :password, "Mot de passe ( * )" %>
+  <%= f.password_field :current_password, :class => 'input-xlarge' %>
+
+  <hr>
+
+  <%= f.label :password, "Nouveau mot de passe" %>
+  <%= f.password_field :password, :class => 'input-xlarge' %>
+
+  <%= f.label :password_confirmation, "Confirmation du nouveau mot de passe" %>
+  <%= f.password_field :password_confirmation, :class => 'input-xlarge' %>
+
+  <hr>
+
+  <p><%= f.submit "Sauvegarder" ,class: "btn btn-large btn-primary" %></p>
+
+<% end %>

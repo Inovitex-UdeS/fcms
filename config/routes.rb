@@ -4,6 +4,7 @@ Fcms::Application.routes.draw do
   root :to => "home#index"
 
   resources :users
+  resources :user_sign_infos
   resources :registrations
   resources :categories
   resources :cities

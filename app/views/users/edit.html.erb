@@ -29,15 +29,6 @@
               <%= f.label :birthday, "Date de naissance" %>
               <%= f.text_field :birthday, :class => 'input-xlarge' %>
 
-              <!--<%= f.label :email, "Courriel" %>-->
-              <!--<%= f.text_field :email, :class => 'input-xlarge' %>-->
-
-              <!--<%= f.label :password, "Mot de passe" %>-->
-              <!--<%= f.password_field :password, :class => 'input-xlarge' %>-->
-
-              <!--<%= f.label :password_confirmation, "Confirmation du mot de passe" %>-->
-              <!--<%= f.password_field :password_confirmation, :class => 'input-xlarge' %>-->
-
               <%= f.fields_for :contactinfo do |c| %>
                   <%= c.label :telephone, "Téléphone" %>
                   <%= c.telephone_field :telephone, :class => 'input-xlarge' %>

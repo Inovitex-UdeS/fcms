@@ -1,4 +1,4 @@
-@wip
+
 Feature: Change profile field
   In order to change the user infos
   A user
@@ -11,35 +11,29 @@ Feature: Change profile field
 
   Scenario: Verify if I'm on the profile page
     Given I am on the profile page
-    Then I should see "Page de Profil"
+    Then I should see "Page de profil"
 
 
   Scenario: Successful name and address change
-    When I fill in "Nom de Famille" with "Satan"
-    And I fill in "Adresse 1" with "666 Hellstreet"
-    And I fill in "Mot de passe" with "12test123"
-    And I fill in "Confirmation du mot de passe" with "12test123"
+    When I fill in "Nom de famille" with "Satan"
+    And I fill in "Adresse, ligne 1" with "666 Hellstreet"
     And I press "Sauvegarder"
     Then I should see "Bienvenue"
 
   Scenario: unsuccessful birthday and name change
-    When I fill in "Date de naissance" with "2013-05-28"
+    When I fill in "Date de naissance" with "2013-99-28"
     And I fill in "Nom de famille" with "Satan"
-    And I fill in "Mot de passe" with "12test123"
     And I press "Sauvegarder"
     Then I should not see "Bienvenue"
 
   Scenario: Successful info change!
-    When I fill in "Adresse 1" with "666 Hellstreet"
-    And  I fill in "Adresse 2" with "777 Angelstreet"
+    When I fill in "Adresse, ligne 1" with "666 Hellstreet"
+    And  I fill in "Adresse, ligne 2" with "777 Angelstreet"
     And I fill in "Nom de famille" with "Satan"
     And I fill in "Code postal" with "J1K1C6"
     And I fill in "Province" with "Ontario"
-    And I fill in "Ville" with "Joliette"
-    And I fill in "Mot de passe" with "12test123"
     And I click on "Féminin"
-    And I fill in "Confirmation du mot de passe" with "12test123"
     And I press "Sauvegarder"
-    Then I should see "Bienvenue!"
+    Then I should see "Bienvenue"
 
 

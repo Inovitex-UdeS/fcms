@@ -17,12 +17,4 @@ Given /^I exist as a user$/ do
 
   @u = User.create(id: 200, last_name: 'Cucumber', first_name: 'Tests', gender: true, birthday: '2011-03-01',
                    email: 'tests@inovitex.com', password: '123test123', confirmed_at: '2013-05-28 02:01:11.70392', :contactinfo_id => @co.id)
-  begin
-    lol = 1
-  rescue    Exception
-    lol = 1
-
-  end
-
-
 end

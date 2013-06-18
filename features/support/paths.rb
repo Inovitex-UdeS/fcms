@@ -31,6 +31,9 @@ module NavigationHelpers
     when /^the profile\s?page$/
       edit_user_path(@u)
 
+    when /^the user sign info\s?page$/
+      edit_user_sign_info_path(@u)
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #

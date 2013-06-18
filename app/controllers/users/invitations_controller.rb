@@ -23,10 +23,14 @@ class Users::InvitationsController < Devise::InvitationsController
 
       contactinfo = Contactinfo.create(telephone: telephone, address: address, city_id: city, province: province, postal_code: postal_code)
 
+      role        = Role.find(params[:user][:role][:role_id])
+
       @user = User.create(last_name: last_name, first_name: first_name, gender: true, birthday: birthday, email: email, password: 'password', contactinfo_id: contactinfo.id, confirmed_at: Time.now)
       @user.invite!(current_user)
 
-      render root_path
+      @user.roles << role
+
+      render '/admin'
     end
   end
 end

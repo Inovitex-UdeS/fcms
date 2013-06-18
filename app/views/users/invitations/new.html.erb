@@ -1,12 +1,15 @@
 <h3><i class="icon-envelope"></i> Inviter un utilisateur</h3>
-<%= simple_form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => {:method => :post} do |f| %>
+<%= simple_form_for @user,
+    :url => url_for(:action => 'create', :controller => 'invitations'),
+    :method => 'post' do |f| %>
+
     <h5>Rôle de l'utilisateur</h5>
     <hr><br />
 
     <%= f.fields_for :role do |r| %>
         <div class="btn-group" data-toggle="buttons-radio">
             <% @roles.each do |role| %>
-            <label class="checkbox inline">  <%= r.radio_button :role, role.id, :checked => @user.roles, :id => role.name, :class => 'optionsRadios'%><%= role.name.capitalize %></label>
+            <label class="checkbox inline">  <%= r.radio_button :role_id, role.id, :checked => @user.roles, :id => role.name, :class => 'optionsRadios'%><%= role.name.capitalize %></label>
             <% end %>
         </div>
     <% end %>

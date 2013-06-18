@@ -4,6 +4,7 @@
 var nbPerfMax = 0;
 var nbPerfMin = 0;
 var maxDuration = 0;
+var group = false;
 var curDuration = 0;
 var nbPersMax = 12;
 
@@ -13,6 +14,9 @@ function changeCategory(category_id) {
         nbPerfMax = data.category.nb_perf_max;
         nbPerfMin = data.category.nb_perf_min;
         maxDuration = data.max_duration.max_duration;
+        group = data.category.group;
+        if (group) $("#AutresParticipants").show();
+        else $("#AutresParticipants").hide();
     });
 }
 
@@ -33,6 +37,9 @@ window.NestedFormEvents.prototype.insertFields = function(content, assoc, link) 
     var $tr = $('#' + assoc + ' tr:last');
     return $(content).insertBefore($tr);
 }
+$(document).on('nested:fieldAdded', function(event){
+    applyautocomplete();
+})
 
 $(document).on('nested:fieldAdded:users', function(event){
     // this field was just inserted into your form
@@ -54,14 +61,17 @@ $(document).on('nested:fieldRemoved', function(event){
 
 // Autocomplete
 $(document).ready(function(){
+    applyautocomplete();
+});
+
+function applyautocomplete() {
 
     var labels, mapped
-    $("#input-schools").typeahead({
+    $(".input-schools").typeahead({
         source: function (query, process) {
             $.get('/autocomplete/schools', { q: query }, function (data) {
                 labels = []
                 mapped = {}
-
                 $.each(data, function (i, item) {
                     mapped[item.label] = item.value
                     labels.push(item.label)
@@ -70,6 +80,66 @@ $(document).ready(function(){
                 process(labels)
             })
         }
+
+    });
+    $(".input-pieces.input-pieces-compos").typeahead({
+        source: function (query, process) {
+            $.get('/autocomplete/pieces', { q: query }, function (data) {
+                labels = []
+                valuesMap = {}
+                titleMap = {}
+                composMap = {}
+
+                $.each(data, function (i, item) {
+                    valuesMap[item.label] = item.value
+                    titleMap[item.label] = item.title
+                    composMap[item.label] = item.composer
+                    labels.push(item.label)
+                })
+
+                process(labels)
+            })
+        },
+        updater: function (item) {
+            // Set Piece ID
+            this.$element.parent().next().next().val(valuesMap[item]);
+
+            // Set piece title
+            this.$element.parent().parent().find(".input-pieces-title").val(titleMap[item]);
+
+            // This will set the piece composer name
+            return composMap[item];
+        }
     });
 
-});
+
+    $(".input-pieces.input-pieces-title").typeahead({
+        source: function (query, process) {
+            $.get('/autocomplete/pieces', { q: query }, function (data) {
+                labels = []
+                valuesMap = {}
+                titleMap = {}
+                composMap = {}
+
+                $.each(data, function (i, item) {
+                    valuesMap[item.label] = item.value
+                    titleMap[item.label] = item.title
+                    composMap[item.label] = item.composer
+                    labels.push(item.label)
+                })
+
+                process(labels)
+            })
+        },
+        updater: function (item) {
+            // Set Piece ID
+            this.$element.parent().next().next().val(valuesMap[item]);
+
+            // Set piece composer name
+            this.$element.parent().parent().find(".input-pieces-compos").val(composMap[item]);
+
+            // This will set the piece composer name
+            return titleMap[item];
+        }
+    });
+}

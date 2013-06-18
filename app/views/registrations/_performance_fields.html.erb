@@ -1,10 +1,16 @@
 <tr class="fields">
+
   <%= f.fields_for :piece, :wrapper => false do |piece| %>
-    <%= piece.fields_for :composer, :wrapper => false do |composer| %>
-          <td><%= composer.input :name, :label => false %></td>
+      <td>
+        <%= piece.text_field :title, :label => false, :class => 'input-pieces input-pieces-title' %>
+      </td>
+      <%= piece.fields_for :composer, :wrapper => false do |composer| %>
+          <td>
+            <%= composer.text_field :name, :label => false, :class => 'input-pieces input-pieces-compos' %>
+          </td>
       <% end %>
-      <td><%= piece.input :title, :label => false %></td>
-    <% end %>
+      <%= piece.hidden_field :piece_id, :class => 'piece_id' %>
+  <% end %>
     <td><%= text_field_tag :duration, nil, :class => 'duration input-small', 'data-mask'=>"99.9", :onchange => "calculateTotDuration()" %></td>
     <td><%= f.link_to_remove 'Supprimer', :class => 'btn' %></td>
 </tr>

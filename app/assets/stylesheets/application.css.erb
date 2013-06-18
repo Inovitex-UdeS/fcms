@@ -30,19 +30,19 @@ body {
 }
 
 /* General (body, html) */
-.wrapper { margin: 20px auto; width: 1000px; position: relative; }
+.wrapper { margin: 20px; position: relative; }
 
-.section { background: #fff; box-shadow: 1px 3px 8px rgba(0,0,0,0.2); margin-bottom: 16px; padding: 20px; box-sizing: border-box; }
-.section-page { width: 1000px; float: left; }
-.section-submenu { width: 225px; float: left; }
-.section-subpage { width: 755px; float: right; min-height: 500px; }
+.section { background: #fff; box-shadow: 1px 3px 8px rgba(0,0,0,0.2); margin-bottom: 16px; padding: 20px; -moz-box-sizing: border-box; box-sizing: border-box; }
+.section-page { min-width: 1000px; }
+.section-subpage { margin-left:245px; min-width: 755px; }
+.section-submenu { float:left; width:225px; }
 
 .footer { text-align: center; font-size: 10px; padding-bottom: 14px; clear: both; }
 
-.navbar .brand { background: url(<%= image_path "small-logo.png" %>) left center no-repeat; width: 80px; height: 40px; padding: 0; margin: 0; content: ''; }
+.navbar .brand { background: url(<%= image_path 'small-logo.png' %>) left center no-repeat; width: 80px; height: 40px; padding: 0; margin: 0; content: ''; }
 
 /* Sub-navigation */
-.section-submenu h4 { margin: 0; padding: 0; margin-bottom: 10px; }
+.section-submenu h4 { margin: 0 0 10px 0; padding: 0; }
 .section-submenu ul { margin: 0 -20px; list-style: none; }
 .section-submenu li { padding: 4px 0; }
 .section-submenu li:hover, .section-submenu li.active {
@@ -64,7 +64,7 @@ body {
     margin: 5px 1px;
     padding: 0;
     overflow: hidden;
-    background-color: #e5e5e5;
+    background: #e5e5e5;
     border-bottom: 1px solid #fff;
 }
 

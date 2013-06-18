@@ -86,7 +86,7 @@ SimpleNavigation::Configuration.run do |navigation|
 
     primary.item :divider_4, nil, nil, :class => 'divider-vertical'
 
-    # TODO: Replace 'user_signed_in?' with actual admin permissions lookup
+    # TODO: Replace 'user_signed_in?' with actual admin permissions lookup   --> Genre  current_user.has_role?(:administrateur)
     primary.item :key_5, 'Administration', '#', :icon => 'icon-cog', :if => Proc.new { user_signed_in? } do |sub_nav|
       sub_nav.item :key_5_1, 'Élément de menu 1', '#'
     end

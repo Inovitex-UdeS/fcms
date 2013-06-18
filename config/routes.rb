@@ -1,5 +1,5 @@
 Fcms::Application.routes.draw do
-  devise_for :users
+  devise_for :users, :controllers => { :invitations => 'users/invitations' }
 
   root :to => "home#index"
 
@@ -11,9 +11,12 @@ Fcms::Application.routes.draw do
   resources :instruments
   resources :rooms
   resources :juges
+  resources :accompanyists
+  resources :teachers
 
   get 'autocomplete/cities'
   get 'autocomplete/schools'
+  get 'autocomplete/users'
 
   get 'users/juges/new', to: 'users#new', as: '/juges/new'
 

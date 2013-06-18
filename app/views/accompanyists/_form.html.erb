@@ -1,8 +1,8 @@
-<h5>AJOUTER OU MODIFIER UN JUGE</h5>
+<h5>AJOUTER OU MODIFIER UN ACCOMPAGNATEUR</h5>
 <div class="col">
-  <%= simple_form_for @juge,
-      :url => url_for(:action => 'create', :controller => 'juges'),
-      :method => 'post' do |f| %>
+  <%= simple_form_for @accompanyist,
+                      :url => url_for(:action => 'create', :controller => 'accompanyists'),
+                      :method => 'post' do |f| %>
 
       <div class="input-prepend">
         <span class="add-on"><i class="icon-user"></i></span>
@@ -64,7 +64,7 @@
           </div>
       <% end %>
 
-      <% if @juge.new_record? %>
+      <% if @accompanyist.new_record? %>
           <div class="input-prepend">
             <span class="add-on"><i class="icon-font"></i></span>
             <%= f.text_field :password, :placeholder => 'Mot de passe', :class => 'input-xlarge' %>
@@ -72,7 +72,7 @@
       <% end %>
 
       <div class="form-actions">
-        <%= f.submit @juge.new_record? ? "Ajouter un nouveau juge" : "Enregistrer les modifications", :class => 'btn btn-primary' %>
+        <%= f.submit @accompanyist.new_record? ? "Ajouter un nouveau accompagnateur" : "Enregistrer les modifications", :class => 'btn btn-primary' %>
         <%= submit_tag "Vider le formulaire", :class => 'inputsubmit btn', :type => 'reset'%>
       </div>
   <% end %>

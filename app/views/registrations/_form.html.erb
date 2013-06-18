@@ -1,6 +1,13 @@
-<h1>Inscription au festival</h1><hr>
-
 <%= simple_nested_form_for @registration do |f| %>
+    <% if current_user.roles.include? Role.find_by_name('administrateur') %>
+        <h3>Utilisateur</h3>
+        <div class="input-prepend">
+          <span class="add-on"><i class="icon-user"></i></span>
+          <%= f.text_field :user_owner_id, :placeholder => 'Utilisateur', :class => 'input-xlarge', 'id' => 'input-users' %>
+        </div>
+        <br />
+    <% end %>
+
     <h3>Professeur</h3>
     <%= f.association :teacher, collection: User.with_role('professeur').pluck(:email) , prompt: "Choisissez un professeur", label: 'Courriel du professeur' %>
     <h3>Informations personnelles</h3>

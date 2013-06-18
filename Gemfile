@@ -64,6 +64,7 @@ gem 'will_paginate'
 
 # Devise gem
 gem 'devise', '2.2.4'
+gem 'devise_invitable', '~> 1.1.0'
 
 # Authorizations
 gem 'cancan', '1.6.10'

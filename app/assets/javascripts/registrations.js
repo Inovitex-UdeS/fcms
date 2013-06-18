@@ -72,4 +72,20 @@ $(document).ready(function(){
         }
     });
 
+    $("#input-users").typeahead({
+        source: function (query, process) {
+            $.get('/autocomplete/users', { q: query }, function (data) {
+                labels = []
+                mapped = {}
+
+                $.each(data, function (i, item) {
+                    mapped[item.label] = item.value
+                    labels.push(item.label)
+                })
+
+                process(labels)
+            })
+        }
+    });
+
 });

@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :contactinfo
 
   # Include default devise modules.
-  devise :database_authenticatable, :registerable,
+  devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :token_authenticatable, :confirmable, :lockable
 

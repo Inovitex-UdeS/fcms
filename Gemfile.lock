@@ -79,6 +79,10 @@ GEM
       orm_adapter (~> 0.1)
       railties (~> 3.1)
       warden (~> 1.2.1)
+    devise_invitable (1.1.8)
+      actionmailer (~> 3.0)
+      devise (>= 2.1.2)
+      railties (~> 3.0)
     diff-lcs (1.2.4)
     email_spec (1.4.0)
       launchy (~> 2.1)
@@ -225,6 +229,7 @@ DEPENDENCIES
   cucumber-rails-training-wheels (= 1.0.0)
   database_cleaner (= 1.0.1)
   devise (= 2.2.4)
+  devise_invitable (~> 1.1.0)
   email_spec
   factory_girl_rails (= 4.2.1)
   foreigner (= 1.4.1)

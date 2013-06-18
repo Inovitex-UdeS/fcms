@@ -1,9 +1,9 @@
-class JugesController < ApplicationController
+class TeachersController < ApplicationController
   def new
-    @juge = User.new
-    @juge.contactinfo ||= Contactinfo.new
-    @juge.contactinfo.city ||= City.new
-    @juges = User.all(:joins => :roles, :conditions => {:roles => { :name => 'juge'}})
+    @teacher = User.new
+    @teacher.contactinfo ||= Contactinfo.new
+    @teacher.contactinfo.city ||= City.new
+    @teachers = User.all(:joins => :roles, :conditions => {:roles => { :name => 'professeur'}})
   end
 
   def create
@@ -24,13 +24,13 @@ class JugesController < ApplicationController
 
       contactinfo = Contactinfo.create(telephone: telephone, address: address, address2: address2, city_id: city, province: province, postal_code: postal_code)
 
-      @juge = User.create(last_name: last_name, first_name: first_name, gender: true, birthday: birthday, email: email, password: 'password', contactinfo_id: contactinfo.id, confirmed_at: Time.now)
-      @juge.contactinfo = contactinfo
+      @teacher = User.create(last_name: last_name, first_name: first_name, gender: true, birthday: birthday, email: email, password: 'password', contactinfo_id: contactinfo.id, confirmed_at: Time.now)
+      @teacher.contactinfo = contactinfo
 
-      role = Role.where(:name => 'juge').first
-      @juge.roles  << role
+      role = Role.where(:name => 'professeur').first
+      @teacher.roles  << role
 
-      if @juge.save
+      if @teacher.save
         redirect_to :action => 'new'
       else
         render :json => { :errors => "Error creating User" }, :status => 422

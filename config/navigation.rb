@@ -95,11 +95,12 @@ SimpleNavigation::Configuration.run do |navigation|
       sub_nav.item :key_5_5, 'Gérer les locaux', new_room_path
       sub_nav.item :key_5_6, 'Gérer les juges', new_juge_path
       sub_nav.item :key_5_7, 'Gérer les accompagnateurs', new_accompanyist_path
-      sub_nav.item :key_5_7, '', nil, :class=> 'divider'
-      sub_nav.item :key_5_8, 'Liste des utilisateurs', '/users'
-      sub_nav.item :key_5_9, 'Liste des inscriptions au festival', '/registrations'
-      sub_nav.item :key_5_10,'', nil, :class=> 'divider'
-      sub_nav.item :key_5_11,'Inviter un utilisateur', '/users/invitation/new'
+      sub_nav.item :key_5_8, 'Gérer les professeurs', new_teacher_path
+      sub_nav.item :key_5_9, '', nil, :class=> 'divider'
+      sub_nav.item :key_5_10,'Liste des utilisateurs', '/users'
+      sub_nav.item :key_5_11, 'Liste des inscriptions au festival', '/registrations'
+      sub_nav.item :key_5_12,'', nil, :class=> 'divider'
+      sub_nav.item :key_5_13,'Inviter un utilisateur', '/users/invitation/new'
     end
 
     primary.item :divider_5, nil, nil, :class => 'divider-vertical'

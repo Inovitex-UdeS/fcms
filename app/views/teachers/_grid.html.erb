@@ -1,0 +1,21 @@
+<h5>PROFESSEURS EXISTANTS</h5>
+<table class="table table-striped table-bordered">
+  <tr>
+    <th>Identifiant</th>
+    <th>Prénom</th>
+    <th>Nom</th>
+    <th>Sexe</th>
+    <th>Date de naissance</th>
+    <th>Adresse courriel</th>
+  </tr>
+  <% @teachers.each do |tch| %>
+      <tr>
+        <td><%= tch.id %></td>
+        <td><%= tch.first_name %></td>
+        <td><%= tch.last_name %></td>
+        <td><%= tch.gender %></td>
+        <td><%= tch.birthday %></td>
+        <td><%= tch.email %></td>
+      </tr>
+  <% end %>
+</table>

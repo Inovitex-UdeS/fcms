@@ -40,13 +40,13 @@ class CitiesController < ApplicationController
         if @city.update_attributes(params[:city])
           render :json => @city
         else
-          render :json =>{:message => "L'édition n'a pu être mis à jour"}, :status => :unprocessable_entity
+          render :json =>{:message => "La ville n'a pu être mise à jour"}, :status => :unprocessable_entity
         end
       else
-        render :json => {:message =>  "L'édition n'a pas été trouvé"}, :status => :unprocessable_entity
+        render :json => {:message =>  "La ville n'a pas été trouvée"}, :status => :unprocessable_entity
       end
     rescue
-      render :json => {:message => "Erreur lors de la mise à jour de l'édition"}, :status => :unprocessable_entity
+      render :json => {:message => "Erreur lors de la mise à jour de la ville"}, :status => :unprocessable_entity
     end
   end
 

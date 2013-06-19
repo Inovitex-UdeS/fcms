@@ -91,18 +91,19 @@ SimpleNavigation::Configuration.run do |navigation|
       sub_nav.item :key_5_1, 'Vue d\'ensemble', '/admin', :icon => 'iconic-chart'
       sub_nav.item :key_5_2, 'Gérer les inscriptions', '/registrations'
       sub_nav.item :key_5_3, '', nil, :class=> 'divider'
-      sub_nav.item :key_5_4, 'Gérer les compositeurs',new_composer_path
-      sub_nav.item :key_5_5, 'Gérer les éditions', new_edition_path
-      sub_nav.item :key_5_6, 'Gérer les instruments', new_instrument_path
-      sub_nav.item :key_5_7, 'Gérer les locaux', new_room_path
-      sub_nav.item :key_5_8, 'Gérer les villes', new_city_path
-      sub_nav.item :key_5_9,'', nil, :class=> 'divider'
-      sub_nav.item :key_5_10, 'Gérer les accompagnateurs', new_accompanyist_path
-      sub_nav.item :key_5_11, 'Gérer les juges', new_juge_path
-      sub_nav.item :key_5_12, 'Gérer les professeurs', new_teacher_path
-      sub_nav.item :key_5_13,'', nil, :class=> 'divider'
-      sub_nav.item :key_5_14,'Inviter un utilisateur', '/users/invitation/new'
-      sub_nav.item :key_5_15,'Liste des utilisateurs', '/users'
+      sub_nav.item :key_5_4, 'Gérer les commissions scolaires',new_schoolboard_path
+      sub_nav.item :key_5_5, 'Gérer les compositeurs', new_composer_path
+      sub_nav.item :key_5_6, 'Gérer les éditions', new_edition_path
+      sub_nav.item :key_5_7, 'Gérer les instruments', new_instrument_path
+      sub_nav.item :key_5_8, 'Gérer les locaux', new_room_path
+      sub_nav.item :key_5_9, 'Gérer les villes', new_city_path
+      sub_nav.item :key_5_10,'', nil, :class=> 'divider'
+      sub_nav.item :key_5_11, 'Gérer les accompagnateurs', new_accompanyist_path
+      sub_nav.item :key_5_12, 'Gérer les juges', new_juge_path
+      sub_nav.item :key_5_13, 'Gérer les professeurs', new_teacher_path
+      sub_nav.item :key_5_14,'', nil, :class=> 'divider'
+      sub_nav.item :key_5_15,'Inviter un utilisateur', '/users/invitation/new'
+      sub_nav.item :key_5_16,'Liste des utilisateurs', '/users'
     end
 
     primary.item :divider_5, nil, nil, :class => 'divider-vertical'

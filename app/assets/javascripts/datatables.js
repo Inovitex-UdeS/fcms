@@ -24,9 +24,6 @@ fcms.initTable = function (form) {
     // Create regular expression to find inputs
     re = new RegExp(modelName + '.*', 'g');
 
-    // Add a click handler to the rows - this could be used as a callback
-    $(".table tbody tr").click( fcms.fnSelectableRows );
-
     // Init the table
     oTable = $('.table').dataTable({
         "bInfo": false,
@@ -86,6 +83,11 @@ fcms.initTable = function (form) {
         fcms.fnClearForm();
     });
 
+    // Add a click handler to the rows - this could be used as a callback
+    $.each(oTable.fnGetNodes(), function() {
+        $(this).click( fcms.fnSelectableRows );
+    });
+
     // Add ajax callbacks
     $("input[type=submit]",oForm).click(function(){
         var formId;
@@ -96,8 +98,8 @@ fcms.initTable = function (form) {
             }
         );
 
+        // Update item
         if(formId.val()) {
-
             $.ajax({
                 url     : modelUrl + formId.val(),
                 type    : 'put',
@@ -127,6 +129,7 @@ fcms.initTable = function (form) {
                 }
             });
         }
+        // Add item
         else {
             $.ajax({
                 url     : modelUrl,
@@ -148,11 +151,13 @@ fcms.initTable = function (form) {
 
                     var iRow = oTable.fnAddData(aItem);
 
-                    $('table tbody tr:nth-child(' + (iRow[0]+1) + ')' ).click( fcms.fnSelectableRows );
+                    $(oTable.fnGetNodes(iRow)).click( fcms.fnSelectableRows );
 
                     fcms.fnClearForm();
 
                     fcms.showMessage('L\'item a été ajouté avec succès.')
+
+                    oTable.$('tr.row_selected').removeClass('row_selected');
                 },
                 error   : function( xhr, err ) {
                     fcms.showMessage('L\'item n\'a pas été ajouté')

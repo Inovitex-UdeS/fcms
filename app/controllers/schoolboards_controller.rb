@@ -40,7 +40,7 @@ class SchoolboardsController < ApplicationController
         if @schoolboard.update_attributes(params[:schoolboard])
           render :json => @schoolboard
         else
-          render :json =>{:message => "La comission scolaire n'a pu être mis à jour"}, :status => :unprocessable_entity
+          render :json =>{:message => "La comission scolaire n'a pu être mise à jour"}, :status => :unprocessable_entity
         end
       else
         render :json => {:message =>  "La comission scolaire n'a pas été trouvée"}, :status => :unprocessable_entity

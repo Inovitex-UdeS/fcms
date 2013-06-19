@@ -19,7 +19,7 @@ fcms.initTable = function (form) {
         modelUrl += '/';
 
     // Find the modelName out of the id
-    modelName = $(oForm).attr('id').replace(/[a-zA-Z0-9]+_/g, '');
+    modelName = $(oForm).attr('id').replace(/^[a-zA-Z0-9]+_/g, '');
 
     // Create regular expression to find inputs
     re = new RegExp(modelName + '.*', 'g');
@@ -109,7 +109,7 @@ fcms.initTable = function (form) {
 
                     $('#' + oForm.attr('id') + ' input').filter(function() { return this.id.match(re); }).each(
                         function(){
-                            var field = $(this).attr('id').replace(/[a-zA-Z0-9]+_/g, '');
+                            var field = $(this).attr('id').replace(/^[a-zA-Z0-9]+_/g, '');
                             aItem.push(data[field]);
                         }
                     );
@@ -140,7 +140,7 @@ fcms.initTable = function (form) {
 
                     $('#' + oForm.attr('id') + ' input').filter(function() { return this.id.match(re); }).each(
                         function(){
-                            var field = $(this).attr('id').replace(/[a-zA-Z0-9]+_/g, '');
+                            var field = $(this).attr('id').replace(/^[a-zA-Z0-9]+_/g, '');
                             aItem.push(data[field]);
                         }
                     );

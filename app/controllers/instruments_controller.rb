@@ -1,5 +1,4 @@
 #encoding: utf-8
-
 class InstrumentsController < ApplicationController
   def new
     @instrument = Instrument.new

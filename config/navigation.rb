@@ -95,7 +95,7 @@ SimpleNavigation::Configuration.run do |navigation|
 
     primary.item :key_6, 'Compte', nil, :icon => 'icon-user' do |sub_nav|
       sub_nav.item :key_6_1, 'Profil', edit_user_path(current_user)
-      sub_nav.item :key_6_2, 'Courriel et mot de passe', edit_user_sign_info_path(current_user)
+      sub_nav.item :key_6_2, 'Courriel et mot de passe', edit_user_registration_path
       sub_nav.item :key_6_3, '', nil, :class=> 'divider'
       sub_nav.item :key_6_4, 'Déconnexion', destroy_user_session_path, :method => :delete
     end

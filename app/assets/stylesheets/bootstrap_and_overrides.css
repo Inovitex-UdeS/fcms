@@ -115,6 +115,10 @@ ul.nav li.dropdown:hover > ul.dropdown-menu{
     margin-top: 0px;
 }
 
+.tooltip {
+    white-space: normal;
+}
+
 .dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus, .dropdown-submenu:hover>a, .dropdown-submenu:focus>a,
 .dropdown-menu>.active>a, .dropdown-menu>.active>a:hover, .dropdown-menu>.active>a:focus {
     color: #fff;

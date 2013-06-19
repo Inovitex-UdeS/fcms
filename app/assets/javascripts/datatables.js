@@ -64,8 +64,7 @@ fcms.initTable = function (form) {
     $('#deleteItem').click( function() {
         var anSelected = fcms.fnGetSelected( oTable );
         if ( anSelected.length !== 0 ) {
-            anSelected = $(anSelected);
-            var id = anSelected.children().first().text();
+            var id = oTable.fnGetData(oTable.fnGetPosition(anSelected[0]))[0];
             $.ajax({
                 url: modelUrl + id,
                 type: 'DELETE',
@@ -106,26 +105,26 @@ fcms.initTable = function (form) {
                 dataType: 'json',
                 data    : oForm.serialize(),
                 success : function( data ) {
-                    var selectedRowColumn = fcms.fnGetSelected(oTable).children().first();
+                    var aItem = new Array();
 
                     $('#' + oForm.attr('id') + ' input').filter(function() { return this.id.match(re); }).each(
                         function(){
                             var field = $(this).attr('id').replace(/[a-zA-Z0-9]+_/g, '');
-                            selectedRowColumn.text(data[field]);
-                            selectedRowColumn = selectedRowColumn.next();
+                            aItem.push(data[field]);
                         }
                     );
-                    selectedRowColumn.text(fcms.fnFormatDate(data['created_at']));
-                    selectedRowColumn = selectedRowColumn.next();
-                    selectedRowColumn.text(fcms.fnFormatDate(data['updated_at']));
+                    aItem.push(fcms.fnFormatDate(data['created_at']));
+                    aItem.push(fcms.fnFormatDate(data['updated_at']));
+
+                    oTable.fnUpdate(aItem, fcms.fnGetSelected(oTable)[0]);
 
                     fcms.fnClearForm();
                     oTable.$('tr.row_selected').removeClass('row_selected');
 
-                    fcms.showMessage('L\'item a été modifié avec succès.')
+                    fcms.showMessage('L\'item a été modifié avec succès.');
                 },
                 error   : function( xhr, err ) {
-                    fcms.showMessage('L\'item n\'a pas été ajouté')
+                    fcms.showMessage('L\'item n\'a pas été ajouté');
                 }
             });
         }
@@ -155,12 +154,12 @@ fcms.initTable = function (form) {
 
                     fcms.fnClearForm();
 
-                    fcms.showMessage('L\'item a été ajouté avec succès.')
+                    fcms.showMessage('L\'item a été ajouté avec succès.');
 
                     oTable.$('tr.row_selected').removeClass('row_selected');
                 },
                 error   : function( xhr, err ) {
-                    fcms.showMessage('L\'item n\'a pas été ajouté')
+                    fcms.showMessage('L\'item n\'a pas été ajouté');
                 }
             });
         }

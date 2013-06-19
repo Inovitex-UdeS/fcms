@@ -12,10 +12,10 @@ class InstrumentsController < ApplicationController
       if @instrument.save
         render :json => @instrument
       else
-        render :json => {:message => @instrument.errors.full_messages, :status => 422}.to_json
+        render :json => {:message => @instrument.errors.full_messages}, :status => :unprocessable_entity
       end
     rescue
-      render :json => {:message => @instrument.errors.full_messages, :status => 422}.to_json
+      render :json => {:message => @instrument.errors.full_messages}, :status => :unprocessable_entity
     end
   end
 
@@ -24,12 +24,12 @@ class InstrumentsController < ApplicationController
       instrument = Instrument.find(params[:id])
       if instrument
         instrument.destroy
-        render :json => {:message => "L'instrument a été supprimé avec succès", :status => 200}.to_json
+        render :json => {:message => "L'instrument a été supprimé avec succès"}, :status => :ok
       else
-        render :json => {:message =>  "L'instrument n'a pas été trouvé", :status => 404 }.to_json
+        render :json => {:message =>  "L'instrument n'a pas été trouvé"}, :status => :unprocessable_entity
       end
     rescue
-      render :json => {:message => "Erreur lors de la suppression de l'instrument", :status => 404}.to_json
+      render :json => {:message => "Erreur lors de la suppression de l'instrument"}, :status => :unprocessable_entity
     end
   end
 
@@ -40,13 +40,13 @@ class InstrumentsController < ApplicationController
         if @instrument.update_attributes(params[:instrument])
           render :json => @instrument
         else
-          render :json => {:message => "L'instrument n'a pu être mis à jour", :status => 404 }.to_json
+          render :json => {:message => "L'instrument n'a pu être mis à jour"}, :status => :unprocessable_entity
         end
       else
-        render :json => {:message => "L'instrument n'a pas été trouvé", :status => 404 }.to_json
+        render :json => {:message => "L'instrument n'a pas été trouvé"}, :status => :unprocessable_entity
       end
     rescue
-      render :json => {:message => "Erreur lors de la mise à jour de l'instrument", :status => 404}.to_json
+      render :json => {:message => "Erreur lors de la mise à jour de l'instrument"}, :status => :unprocessable_entity
     end
   end
 

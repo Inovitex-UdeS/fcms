@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130617145756) do
+ActiveRecord::Schema.define(:version => 20130619022853) do
 
   create_table "agegroups", :force => true do |t|
     t.integer  "edition_id",                  :null => false
@@ -206,10 +206,12 @@ ActiveRecord::Schema.define(:version => 20130617145756) do
   add_index "roles_users", ["user_id"], :name => "user_id_fk2"
 
   create_table "rooms", :force => true do |t|
-    t.integer "capacity"
-    t.string  "name"
-    t.string  "location",    :limit => 1024
-    t.text    "description"
+    t.integer  "capacity"
+    t.string   "name"
+    t.string   "location",    :limit => 1024
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "rooms", ["id"], :name => "rooms_pk", :unique => true

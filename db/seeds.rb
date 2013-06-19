@@ -55,7 +55,7 @@ user4.roles << role4
 user5.roles << role5
 
 # Edition
-edition1 = Edition.create(year: 2007, limit_date: '2007-02-01')
+edition1 = Edition.create(year: 2007, start_date: '2007-05-01', end_date: '2007-05-06', limit_date: '2007-02-01')
 
 # Categories
 category1 = Category.create(name: 'Répertoire', nb_perf_min: 2, nb_perf_max: 4, description:'Categorie pour le repertoire de la guitare classique')

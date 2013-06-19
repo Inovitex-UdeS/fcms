@@ -13,6 +13,7 @@ Fcms::Application.routes.draw do
   resources :juges
   resources :accompanyists
   resources :teachers
+  resources :composers
 
   get 'autocomplete/cities'
   get 'autocomplete/schools'

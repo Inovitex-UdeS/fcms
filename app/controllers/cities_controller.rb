@@ -8,14 +8,14 @@ class CitiesController < ApplicationController
 
   def create
     begin
-      @city = City.new(params[:edition])
+      @city = City.new(params[:city])
       if @city.save
         render :json => @city
       else
-        render :json => {:message => @city.errors.full_messages, :status => 422}.to_json
+        render :json => {:message => @city.errors.full_messages}, :status => :unprocessable_entity
       end
     rescue
-      render :json => {:message => @city.errors.full_messages, :status => 422}.to_json
+      render :json => {:message => @city.errors.full_messages}, :status => :unprocessable_entity
     end
   end
 
@@ -24,12 +24,12 @@ class CitiesController < ApplicationController
       @city = City.find(params[:id])
       if @city
         @city.destroy
-        render :json => {:message => "La ville a été supprimée avec succès", :status => 200 }.to_json
+        render :json => {:message => "La ville a été supprimée avec succès"}, :status => :ok
       else
-        render :json => {:message => "La ville n'a pas été trouvée", :status => 404}.to_json
+        render :json => {:message => "La ville n'a pas été trouvée"}, :status => :unprocessable_entity
       end
     rescue
-      render :json => {:message => "Erreur lors de la suppression de la ville", :status => 404}.to_json
+      render :json => {:message => "Erreur lors de la suppression de la ville"}, :status => :unprocessable_entity
     end
   end
 
@@ -40,13 +40,13 @@ class CitiesController < ApplicationController
         if @city.update_attributes(params[:city])
           render :json => @city
         else
-          render :json =>{:message => "L'édition n'a pu être mis à jour", :status => 404}.to_json
+          render :json =>{:message => "L'édition n'a pu être mis à jour"}, :status => :unprocessable_entity
         end
       else
-        render :json => {:message =>  "L'édition n'a pas été trouvé", :status => 404}.to_json
+        render :json => {:message =>  "L'édition n'a pas été trouvé"}, :status => :unprocessable_entity
       end
     rescue
-      render :json => {:message => "Erreur lors de la mise à jour de l'édition", :status => 404}.to_json
+      render :json => {:message => "Erreur lors de la mise à jour de l'édition"}, :status => :unprocessable_entity
     end
   end
 

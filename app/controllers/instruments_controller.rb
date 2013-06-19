@@ -7,15 +7,15 @@ class InstrumentsController < ApplicationController
 
   def create
     begin
-      @instrument = Instrument.create(name: params[:instrument][:name])
+      @instrument = Instrument.new(params[:instrument])
 
       if @instrument.save
         render :json => @instrument
       else
-        render :json => {:errors => @instrument.errors.full_messages, :status => 422}.to_json
+        render :json => {:message => @instrument.errors.full_messages, :status => 422}.to_json
       end
     rescue
-      render :json => {:errors => @instrument.errors.full_messages}, :status => 422
+      render :json => {:message => @instrument.errors.full_messages, :status => 422}.to_json
     end
   end
 
@@ -24,12 +24,12 @@ class InstrumentsController < ApplicationController
       instrument = Instrument.find(params[:id])
       if instrument
         instrument.destroy
-        render :json => "L'instrument a été supprimé avec succès", :status => 200
+        render :json => {:message => "L'instrument a été supprimé avec succès", :status => 200}.to_json
       else
-        render :json => "L'instrument n'a pas été trouvé", :status => 404
+        render :json => {:message =>  "L'instrument n'a pas été trouvé", :status => 404 }.to_json
       end
     rescue
-      render :json => { :errors => "Erreur lors de la suppression de l'instrument" }, :status => 404
+      render :json => {:message => "Erreur lors de la suppression de l'instrument", :status => 404}.to_json
     end
   end
 
@@ -40,13 +40,13 @@ class InstrumentsController < ApplicationController
         if @instrument.update_attributes(params[:instrument])
           render :json => @instrument
         else
-          render :json => "L'instrument n'a pu être mis à jour", :status => 404
+          render :json => {:message => "L'instrument n'a pu être mis à jour", :status => 404 }.to_json
         end
       else
-        render :json => "L'instrument n'a pas été trouvé", :status => 404
+        render :json => {:message => "L'instrument n'a pas été trouvé", :status => 404 }.to_json
       end
     rescue
-      render :json => { :errors => "Erreur lors de la mise à jour de l'instrument" }, :status => 404
+      render :json => {:message => "Erreur lors de la mise à jour de l'instrument", :status => 404}.to_json
     end
   end
 

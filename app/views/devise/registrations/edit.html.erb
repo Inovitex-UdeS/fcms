@@ -23,7 +23,7 @@
   <%= f.label :password_confirmation, "Confirmation du nouveau mot de passe" %>
   <div class="input-prepend">
     <span class="add-on"><i class="icon-lock"></i></span>
-  <%= f.password_field :password_confirmation, :'data-trigger' => 'click', :'data-toggle' => 'tooltip', :'data-animation' => true,  :'data-original-title' => "Laissez vide si vous ne voulez pas le changer", :class => 'input-xlarge' %>
+  <%= f.password_field :password_confirmation, :'data-toggle' => 'tooltip', :'data-animation' => true,  :'data-original-title' => "Laissez vide si vous ne voulez pas le changer", :class => 'input-xlarge' %>
   </div>
 
   <%= f.label :current_password, "Mot de passe présent" %>

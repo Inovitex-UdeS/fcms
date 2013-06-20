@@ -1,26 +1,16 @@
-<h5>INSCRIPTIONS AU PORTAIL</h5>
-<table class="table table-striped table-bordered">
-  <tr>
+<h5>UTILISATEURS EXISTANTS</h5>
+<table id ="edit_user_table" class="table table-bordered">
+  <thead><tr>
     <th>Identifiant</th>
     <th>Prénom</th>
     <th>Nom</th>
-    <th>Role</th>
-    <th>Sexe</th>
-    <th>Date de naissance</th>
     <th>Adresse courriel</th>
-  </tr>
+  </tr></thead>
   <% @users.each do |usr| %>
       <tr>
         <td><%= usr.id %></td>
         <td><%= usr.first_name %></td>
         <td><%= usr.last_name %></td>
-        <td>
-          <% usr.roles.each do |role| %>
-            <%= role.name.capitalize %>
-          <% end %>
-        </td>
-        <td><%= usr.gender %></td>
-        <td><%= usr.birthday %></td>
         <td><%= usr.email %></td>
       </tr>
   <% end %>

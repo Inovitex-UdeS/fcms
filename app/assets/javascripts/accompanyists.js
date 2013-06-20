@@ -1,4 +1,8 @@
+//= require datatables
+
 $(document).ready(function() {
+    fcms.initTable($('form'));
+
     $('#user_birthday').datepicker({
         format: 'yyyy-mm-dd',
         viewMode: 2

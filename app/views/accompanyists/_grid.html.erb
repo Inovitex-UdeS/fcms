@@ -1,17 +1,19 @@
 <h5>ACCOMPAGNATEURS EXISTANTS</h5>
-<table class="table table-striped table-bordered">
-  <tr>
-    <th>Id &nbsp; &nbsp; &nbsp;</th>
+<table class="table table-bordered">
+  <thead><tr>
+    <th>Id</th>
     <th>Nom</th>
     <th>Adresse courriel</th>
     <th>Date de création</th>
-  </tr>
+  </tr></thead>
+  <tbody>
   <% @accompanyists.each do |accompanyist| %>
       <tr>
-        <td><label class="checkbox"><%= accompanyist.id %></label></td>
+        <td><%= accompanyist.id %></label></td>
         <td><%= accompanyist.first_name %> <%= accompanyist.last_name %></td>
         <td><%= accompanyist.email %></td>
         <td><%= accompanyist.created_at %></td>
       </tr>
   <% end %>
+  </tbody>
 </table><hr>

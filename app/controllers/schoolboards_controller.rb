@@ -50,5 +50,9 @@ class SchoolboardsController < ApplicationController
     end
   end
 
+  def show
+    @schoolboard = Schoolboard.find(params[:id])
+    render :json => @schoolboard
+  end
 
 end

@@ -176,15 +176,23 @@ fcms.fnSelectableRows = function ( e ) {
     else {
         oTable.$('tr.row_selected').removeClass('row_selected');
         $(this).addClass('row_selected');
+        var id = $(this).children().first().text();
 
-        var rowChildren = $(this).children().first();
-
-        $('#' + oForm.attr('id') + ' input').filter(function() { return this.id.match(re); }).each(
-            function(){
-                $(this).val(rowChildren.text());
-                rowChildren = rowChildren.next();
+        $.ajax({
+            url     : modelUrl + id,
+            type    : 'GET',
+            dataType: 'json',
+            success : function( data ) {
+                $('#' + oForm.attr('id') + ' input').filter(function() { return this.id.match(re); }).each(
+                    function(){
+                        var field = $(this).attr('id').replace(modelName + "_", "");
+                        if (field in data) {
+                            $(this).val(data[field]);
+                        }
+                    }
+                );
             }
-        );
+        });
     }
 };
 

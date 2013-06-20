@@ -1,6 +1,6 @@
 <h5>AJOUTER OU MODIFIER UN ACCOMPAGNATEUR</h5>
 <div class="col">
-  <%= simple_form_for @accompanyist,
+  <%= simple_form_for @accompanyist, :remote => true,
                       :url => url_for(:action => 'create', :controller => 'accompanyists'),
                       :method => 'post' do |f| %>
 

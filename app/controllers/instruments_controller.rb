@@ -50,4 +50,8 @@ class InstrumentsController < ApplicationController
     end
   end
 
+  def show
+    @instrument = Instrument.find(params[:id])
+    render :json => @instrument
+  end
 end

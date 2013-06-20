@@ -40,4 +40,10 @@ class AccompanyistsController < ApplicationController
       render :json => { :errors => "Erreurs" }, :status => 422
     end
   end
+
+  def show
+    @user = User.find(params[:id])
+    @contactinfo = @user.contactinfo
+    render :json => @user
+  end
 end

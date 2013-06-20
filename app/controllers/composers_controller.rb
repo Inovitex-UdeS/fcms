@@ -50,4 +50,8 @@ class ComposersController < ApplicationController
     end
   end
 
+  def show
+    @composer = Composer.find(params[:id])
+    render :json => @composer
+  end
 end

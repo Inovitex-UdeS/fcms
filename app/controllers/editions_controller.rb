@@ -49,4 +49,9 @@ class EditionsController < ApplicationController
     end
   end
 
+  def show
+    @edition = Edition.find(params[:id])
+    render :json => @edition
+  end
+
 end

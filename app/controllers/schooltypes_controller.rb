@@ -49,5 +49,9 @@ class SchooltypesController < ApplicationController
     end
   end
 
+  def show
+    @schooltype = Schooltype.find(params[:id])
+    render :json => @schooltype
+  end
 
 end

@@ -40,4 +40,9 @@ class JugesController < ApplicationController
       render :json => { :errors => "Erreurs" }, :status => 422
     end
   end
+
+  def show
+    @juge = User.find(params[:id])
+    render :json => @juge
+  end
 end

@@ -1,4 +1,4 @@
-
+@ok
 Feature: Change profile field
   In order to change the user infos
   A user

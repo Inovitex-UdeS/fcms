@@ -32,7 +32,7 @@ module NavigationHelpers
       edit_user_path(@u)
 
     when /^the user sign info\s?page$/
-      edit_user_sign_info_path(@u)
+      edit_user_registration_path
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
@@ -43,7 +43,7 @@ module NavigationHelpers
     else
       begin
         page_name =~ /^the (.*) page$/
-        path_components = $1.split(/\s+/)
+        user_signed_in?  path_components = $1.split(/\s+/)
         self.send(path_components.push('path').join('_').to_sym)
       rescue NoMethodError, ArgumentError
         raise "Can't find mapping from \"#{page_name}\" to a path.\n" +

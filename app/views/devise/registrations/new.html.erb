@@ -4,6 +4,8 @@
 <%= simple_form_for(resource, :as => resource_name, :url => user_registration_path) do |f| %>
   <%= devise_error_messages! %>
 
+  <p>S'inscrire comme <%= f.association :roles, :label =>false, as: :collection_select, :selected => 'participant', :wrapper => false %></p>
+
   <div class="input-prepend">
     <span class="add-on"><i class="icon-user"></i></span>
     <%= f.text_field :first_name, :autofocus => true, :placeholder => 'Prénom', :class => 'input-medium' %>
@@ -30,12 +32,9 @@
   </div>
   <%= f.password_field :password_confirmation, :placeholder => 'Confirmez le mot de passe', :class => 'input-large'  %>
 
-  <br />
-    Vous désirez être: <%= f.association :roles, :label =>false, as: :collection_select, :selected => 'participant' %><br />
-
   <%= recaptcha_tags %>
 
-    <%= f.submit "S'enregistrer", :class => 'btn btn-primary' %>
+  <%= f.submit "S'enregistrer", :class => 'btn btn-primary' %>
 
 <% end %>
 

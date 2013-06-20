@@ -1,0 +1,48 @@
+// Place all the behaviors and hooks related to the matching controller here.
+// All this logic will automatically be available in application.js.
+
+var RecaptchaOptions = {
+    custom_translations : {
+        visual_challenge: "Test visuel",
+        audio_challenge: "Test audio",
+        refresh_btn: "Nouveau test",
+        instructions_visual: "Saisissez les deux mots ci-dessus",
+        instructions_context: "Saisissez les mots ci-dessus",
+        instructions_audio: "Qu'entendez-vous ?",
+        help_btn: "Aide",
+        play_again: "R\u00e9\u00e9couter",
+        cant_hear_this: "T\u00e9l\u00e9charger l'audio au format MP3",
+        incorrect_try_again: "Incorrect. Veuillez r\u00e9essayer.",
+        image_alt_text: "Image reCAPTCHA",
+        privacy_and_terms: "Confidentialit\u00e9 et conditions d'utilisation"
+    },
+    lang : 'fr-FR',
+    theme : 'clean'
+};
+
+function verticallyCenter() {
+  // Vertically-center the page div
+  var page = $('.devise-page');
+  page.css({
+    'padding-top': Math.max(($('body').height() - page.height()) / 2, 0) + "px"
+  });
+}
+
+$(document).ready(function() {
+    // Update the layout
+    verticallyCenter();
+    $(window).resize(verticallyCenter);
+
+    // Initialize the datepicker
+    $('#user_birthday').datepicker({
+        format: 'yyyy-mm-dd',
+        viewMode: 2
+    });
+
+    // Change recaptcha styling
+    $('img#recaptcha_reload').attr('src', '<%= image_path 'recaptcha/refresh.png' %>');
+    $('img#recaptcha_switch_audio').attr('src', '<%= image_path 'recaptcha/audio.png' %>');
+    $('img#recaptcha_switch_img').attr('src', '<%= image_path 'recaptcha/text.png' %>');
+    $('img#recaptcha_whatsthis').attr('src', '<%= image_path 'recaptcha/help.png' %>');
+    $('#recaptcha_response_field').css('border', '');
+});

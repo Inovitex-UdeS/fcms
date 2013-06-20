@@ -3,7 +3,7 @@
   They will automatically be included in application.css.
 */
 
-.devise-page { position: absolute; top: 50%; left: 50%; width: 1000px; margin-left: -500px; height: 400px; margin-top: -200px; }
+.devise-page { position: relative; width: 1000px; margin: 0 auto; }
 .devise-page form { margin: 0 0 12px 0; }
 .devise-left { display: table-cell; width: 500px; background: url(<%= image_path 'logo-site.png' %>) center center no-repeat; height: 400px; border-right: 1px dotted #AB710A; }
 .devise-right { display: table-cell; box-sizing: border-box; width: 500px; padding: 25px; height: 400px; vertical-align: middle; }
@@ -29,3 +29,23 @@
 
 .field_with_errors { display: inline-block; }
 .field_with_errors .message { font-size: 12px; color: #8A2003; }
+
+select.collection_select {
+  margin: 0 0 0 5px;
+}
+
+#recaptcha_widget_div {
+  margin-bottom: 10px;
+}
+
+#recaptcha_widget_div .recaptcha_image_cell {
+  background: none;
+}
+
+#recaptcha_widget_div .recaptchatable a,
+#recaptcha_widget_div .recaptchatable a:hover {
+  color: #8A2003;
+  font-size: 10px;
+}
+
+iframe[src="about:blank"]{display:none;}

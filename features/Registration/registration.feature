@@ -7,14 +7,16 @@ Feature: Registration
   Background:
     Given I exist as a user
     And I am logged in
-    And I visit registratrion page
+    And a teacher exists
+    And a category exists
+    And I visit registration page
 
   Scenario: Using valid credentials
     Given I select a valid teacher
     And I select a valid category
     And I select a valid composer
     And I select a valid title
-    And I fill in a valid movement text
+    #And I fill in a valid movement text
     And I use a valid duration
     And I respect the maximum amount of partner
     And I agree to submit the form

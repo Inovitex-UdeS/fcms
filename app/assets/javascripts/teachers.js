@@ -188,6 +188,13 @@ $(document).ready(function() {
 
         // If item isn't already selected
         else {
+            if ($('#tableTeachers tr.row_selected')) {
+                $('#tableTeachers tr.row_selected').removeClass('row_selected');
+            }
+
+            if ($('#tableTeachers tr.row_selected')) {
+                $('#tableTeachers tr.row_selected').removeClass('row_selected');
+            }
             oTableUsers.$('tr.row_selected').removeClass('row_selected');
             row.addClass('row_selected');
             var id = row.children().first().text();

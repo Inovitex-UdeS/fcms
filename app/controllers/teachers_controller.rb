@@ -11,7 +11,7 @@ class TeachersController < ApplicationController
   def update
     begin
       @teacher = User.find(params[:id])
-      role = Role.where(name: 'professeur').first
+      role = Role.where(name: 'Professeur').first
 
       if @teacher
         @teacher.roles << role

@@ -12,3 +12,4 @@ fr:
         birthday: La date de naissance
         email: L'adresse courriel
         password: Le mot de passe
+        captcha: La validation visuelle

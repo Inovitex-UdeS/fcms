@@ -5,9 +5,7 @@ class DeviseRegistrationsController < Devise::RegistrationsController
     else
       build_resource
       clean_up_passwords(resource)
-      set_flash_message :notice, :recaptcha
-      #flash.now[:alert] = "Il y a eu une erreur avec le code ci-dessous. Veuillez l'entrer à nouveau."
-      #flash.delete :recaptcha_error
+      resource.errors.messages[:captcha] = [ 'est incorrecte' ]
       render :new
     end
   end

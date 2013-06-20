@@ -104,7 +104,7 @@ SimpleNavigation::Configuration.run do |navigation|
       sub_nav.item :key_5_14, 'Gérer les professeurs', new_teacher_path
       sub_nav.item :key_5_15,'', nil, :class=> 'divider'
       sub_nav.item :key_5_16,'Inviter un utilisateur', '/users/invitation/new'
-      sub_nav.item :key_5_17,'Liste des utilisateurs', '/users'
+      sub_nav.item :key_5_17,'Gérer les utilisateurs', '/users'
     end
 
     primary.item :divider_5, nil, nil, :class => 'divider-vertical'

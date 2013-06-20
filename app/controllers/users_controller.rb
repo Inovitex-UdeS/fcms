@@ -1,6 +1,9 @@
 class UsersController < ApplicationController
   def index
     @users = User.all
+    @user = User.all.first   # Hack to make city id appear in form
+    @user.contactinfo ||= Contactinfo.new
+    @user.contactinfo.city ||= City.new
   end
 
   def edit
@@ -11,20 +14,21 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    #city = City.find(:name => @user.contactinfo.city.)
-    #@user.contactinfo.city.update_attributes(params[:city])
-    if @user.update_attributes(params[:user])
-      flash[:success] = "Mise a jour du profil"
-      sign_in @user
-      redirect_to root_path
-    else
-      render 'edit'
+
+    respond_to do |format|
+      if @user.update_attributes(params[:user])
+        format.html { flash[:success] = "Mise a jour du profil"; sign_in @user; redirect_to root_path ;}
+        format.json { render json: @user, status: :ok, location: @user  }
+      else
+        format.html { render 'edit' }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
     end
   end
 
   def show
     @user = User.find(params[:id])
-    render :json => @user
+    render :json => @user.to_json(:include => {:contactinfo => {:include => :city}})
   end
 
 end

@@ -1,3 +1,4 @@
+#encoding: utf-8
 class Users::InvitationsController < Devise::InvitationsController
   def new
     @user = User.new

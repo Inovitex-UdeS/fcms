@@ -7,10 +7,6 @@ class AccompanyistsController < ApplicationController
     @users = (User.all - @accompanyists)
   end
 
-  def create
-    render :json => "Hello from controller !"
-  end
-
   def update
     begin
       @accompanyist = User.find(params[:id])
@@ -40,7 +36,7 @@ class AccompanyistsController < ApplicationController
 
       if roleUser
         accompanyist.roles.delete(roleUser)
-        render :json => {:message => "L'instrument a été supprimé avec succès"}, :status => :ok
+        render :json => {:message => "L'accompagnateur a été supprimé avec succès"}, :status => :ok
       else
         render :json => {:message =>  "L'accompagnateur n'a pas été trouvé"}, :status => :unprocessable_entity
       end
@@ -50,7 +46,7 @@ class AccompanyistsController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
-    render :json => @user
+    @accompanyist = User.find(params[:id])
+    render :json => @accompanyist
   end
 end

@@ -150,19 +150,19 @@ $(document).ready(function() {
 
                     $('#' + oForm.attr('id') + ' input').filter(function() { return this.id.match(re); }).each(
                         function(){
-                                var field = $(this).attr('id').replace(/^[a-zA-Z0-9]+_/g, '');
-                                aItem.push(data[field]);
-                            }
-                        );
-                        aItem.push(fcms.fnFormatDate(data['created_at']));
-                        aItem.push(fcms.fnFormatDate(data['updated_at']));
+                            var field = $(this).attr('id').replace(/^[a-zA-Z0-9]+_/g, '');
+                            aItem.push(data[field]);
+                        }
+                    );
+                    aItem.push(fcms.fnFormatDate(data['created_at']));
+                    aItem.push(fcms.fnFormatDate(data['updated_at']));
 
-                        oTableAccompanyists.fnUpdate(aItem, fcms.fnGetSelected(oTable)[0]);
+                    var iRow = oTableAccompanyists.fnAddData(aItem);
 
-                        fcms.fnClearForm();
-                        oTableUsers.$('tr.row_selected').removeClass('row_selected');
+                    fcms.fnClearForm();
+                    oTableUsers.$('tr.row_selected').removeClass('row_selected');
 
-                        fcms.showMessage('L\'item a été modifié avec succès.');
+                    fcms.showMessage('L\'item a été modifié avec succès.');
                 },
                 error   : function( xhr, err ) {
                     fcms.showMessage('L\'item n\'a pas été ajouté');
@@ -174,72 +174,7 @@ $(document).ready(function() {
         else {
             fcms.showMessage('Sélectionner d\'abord un utilisateur.');
         }
-        // Update item
-        /*if(formId.val()) {
-            $.ajax({
-                url     : modelUrl + formId.val(),
-                type    : 'put',
-                dataType: 'json',
-                data    : oForm.serialize(),
-                success : function( data ) {
-                    var aItem = new Array();
 
-                    $('#' + oForm.attr('id') + ' input').filter(function() { return this.id.match(re); }).each(
-                        function(){
-                            var field = $(this).attr('id').replace(/^[a-zA-Z0-9]+_/g, '');
-                            aItem.push(data[field]);
-                        }
-                    );
-                    aItem.push(fcms.fnFormatDate(data['created_at']));
-                    aItem.push(fcms.fnFormatDate(data['updated_at']));
-
-                    oTable.fnUpdate(aItem, fcms.fnGetSelected(oTable)[0]);
-
-                    fcms.fnClearForm();
-                    oTable.$('tr.row_selected').removeClass('row_selected');
-
-                    fcms.showMessage('L\'item a été modifié avec succès.');
-                },
-                error   : function( xhr, err ) {
-                    fcms.showMessage('L\'item n\'a pas été ajouté');
-                }
-            });
-        }*/
-        // Add item
-        /*else {
-            $.ajax({
-                url     : modelUrl,
-                type    : 'post',
-                dataType: 'json',
-                data    : oForm.serialize(),
-                success : function( data ) {
-                    var aItem = new Array();
-
-                    $('#' + oForm.attr('id') + ' input').filter(function() { return this.id.match(re); }).each(
-                        function(){
-                            var field = $(this).attr('id').replace(/^[a-zA-Z0-9]+_/g, '');
-                            aItem.push(data[field]);
-                        }
-                    );
-
-                    aItem.push(fcms.fnFormatDate(data['created_at']));
-                    aItem.push(fcms.fnFormatDate(data['updated_at']));
-
-                    var iRow = oTable.fnAddData(aItem);
-
-                    $(oTable.fnGetNodes(iRow)).click( fcms.fnSelectableRows );
-
-                    fcms.fnClearForm();
-
-                    fcms.showMessage('L\'item a été ajouté avec succès.');
-
-                    oTable.$('tr.row_selected').removeClass('row_selected');
-                },
-                error   : function( xhr, err ) {
-                    fcms.showMessage('L\'item n\'a pas été ajouté');
-                }
-            });
-        }*/
         return false;
     });
 

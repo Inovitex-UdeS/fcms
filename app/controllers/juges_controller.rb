@@ -4,45 +4,49 @@ class JugesController < ApplicationController
     @juge.contactinfo ||= Contactinfo.new
     @juge.contactinfo.city ||= City.new
     @juges = User.all(:joins => :roles, :conditions => {:roles => { :name => 'juge'}})
+    @users = (User.all - @juges)
   end
 
-  def create
+  def update
     begin
-      first_name  = params[:user][:first_name]
-      last_name   = params[:user][:last_name]
-      birthday    = params[:user][:birthday]
-      email       = params[:user][:email]
+      @juge = User.find(params[:id])
+      role = Role.where(name: 'juge').first
 
-      telephone   = params[:user][:contactinfo_attributes][:telephone]
-      address     = params[:user][:contactinfo_attributes][:address]
-      address2    = params[:user][:contactinfo_attributes][:address2]
-      postal_code = params[:user][:contactinfo_attributes][:postal_code].gsub(/ /,'')
-      province    = params[:user][:contactinfo_attributes][:province]
+      if @juge
+        @juge.roles << role
 
-      city_name   = params[:user][:contactinfo_attributes][:city_attributes][:name]
-      city        = City.where(:name => city_name).first.id
-
-      contactinfo = Contactinfo.create(telephone: telephone, address: address, address2: address2, city_id: city, province: province, postal_code: postal_code)
-
-      @juge = User.create(last_name: last_name, first_name: first_name, gender: true, birthday: birthday, email: email, password: 'password', contactinfo_id: contactinfo.id, confirmed_at: Time.now)
-      @juge.contactinfo = contactinfo
-
-      role = Role.where(:name => 'juge').first
-      @juge.roles  << role
-
-      if @juge.save
-        redirect_to :action => 'new'
+        if @juge.save
+          render :json => @juge
+        else
+          render :json => {:message => "Le juge n'a pu être mis à jour"}, :status => :unprocessable_entity
+        end
       else
-        render :json => { :errors => "Error creating User" }, :status => 422
+        render :json => {:message => "Le juge n'a pu être trouvé"}, :status => :unprocessable_entity
       end
-
     rescue
-      render :json => { :errors => "Erreurs" }, :status => 422
+      render :json => {:message => "Erreur lors de la mise à jour du juge"}, :status => :unprocessable_entity
+    end
+  end
+
+  def destroy
+    begin
+      juge = User.find(params[:id])
+      role = Role.where(name: 'juge').first
+      roleUser = juge.roles.find(role.id)
+
+      if roleUser
+        juge.roles.delete(roleUser)
+        render :json => {:message => "Le juge a été supprimé avec succès"}, :status => :ok
+      else
+        render :json => {:message =>  "Le juge n'a pas été trouvé"}, :status => :unprocessable_entity
+      end
+    rescue
+      render :json => {:message => "Erreur lors de la suppression du juge"}, :status => :unprocessable_entity
     end
   end
 
   def show
-    @juge = User.find(params[:id])
-    render :json => @juge
+    @user = User.find(params[:id])
+    render :json => @user
   end
 end

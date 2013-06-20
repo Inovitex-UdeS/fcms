@@ -1,79 +1,64 @@
-<h5>AJOUTER OU MODIFIER UN JUGE</h5>
+<h5>ASSIGNER LE RÔLE DE JUGE À UN UTILISATEUR</h5>
+<table class="table table-bordered" id="tableUsers">
+  <thead><tr>
+    <th>Id</th>
+    <th>Nom</th>
+    <th>Adresse courriel</th>
+    <th>Date de création</th>
+  </tr></thead>
+  <tbody>
+  <% @users.each do |user| %>
+      <tr>
+        <td><%= user.id %></label></td>
+        <td><%= user.first_name %> <%= user.last_name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.created_at %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
 <div class="col">
-  <%= simple_form_for @juge,
-      :url => url_for(:action => 'create', :controller => 'juges'),
-      :method => 'post' do |f| %>
+  <i class="icon-user"></i><u>Utilisateur sélectionné :</u><br />
+  <%= simple_form_for @juge, :remote => true,
+                      :url => url_for(:action => 'create', :controller => 'juges'),
+                      :method => 'post' do |f| %>
 
       <div class="input-prepend">
-        <span class="add-on"><i class="icon-user"></i></span>
-        <%= f.text_field :first_name, :autofocus => true, :placeholder => 'Prénom', :class => 'input-medium' %>
-      </div>
-      <div class="input-prepend">
-        <%= f.text_field :last_name, :placeholder => 'Nom', :class => 'input-medium' %>
+        <span class="add-on"><i class="iconic-hash"></i></span>
+        <%= f.text_field :id, :class => 'input-small', :disabled => true%>
       </div>
       <br />
 
       <div class="input-prepend">
-        <span class="add-on"><i class="icon-calendar"></i></span>
-        <%= f.text_field :birthday, :placeholder => 'Date de naissance', :class => 'input-medium', :'data-mask' => '9999-99-99' %><br />
+        <%= f.text_field :first_name, :autofocus => true, :placeholder => 'Prénom', :class => 'input-medium uneditable-input', :disable => true %>
       </div>
-      <br />
-
       <div class="input-prepend">
-        <span class="add-on"><i class="icon-envelope"></i></span>
-        <%= f.text_field :email, :placeholder => 'Adresse courriel', :class => 'input-xlarge' %>
+        <%= f.text_field :last_name, :placeholder => 'Nom', :class => 'input-medium', :disable => true %>
       </div>
       <br />
 
-      <%= f.fields_for :contactinfo do |c| %>
-          <div class="input-prepend">
-            <span class="add-on"><i class="iconic-iphone"></i></span>
-            <%= c.telephone_field :telephone, :placeholder => 'Numéro de téléphone', :class => 'input-xlarge' %>
+      <div class="alert">
+        <div class="container">
+          <div class="row-fluid">
+            <div class="span1">
+              <h1><p class="text-warning"><i class="icon-warning-sign"></i></p></h1>
+            </div>
+            <div class="span10">
+              <p class="text-warning">
+                <strong>Attention !</strong> Le fait d'ajouter le rôle à l'utilisateur sélectionné lui accorde les pouvoirs y étant rattachés. Il est important d'ajouter un rôle d'importance uniquement aux gens de confiance.<br /><br />
+              </p>
+            </div>
           </div>
-          <br />
+        </div>
+      </div>
 
-          <div class="input-prepend">
-            <span class="add-on"><i class="icon-font"></i></span>
-            <%= c.text_field :address, :placeholder => 'Adresse ligne 1', :class => 'input-xlarge' %>
-          </div>
-          <br />
-
-          <div class="input-prepend">
-            <span class="add-on"><i class="icon-font"></i></span>
-            <%= c.text_field :address2, :placeholder => 'Ligne 1', :class => 'input-xlarge' %>
-          </div>
-          <br />
-
-          <div class="input-prepend">
-            <span class="add-on"><i class="iconic-home"></i></span>
-            <%= c.text_field :postal_code, :placeholder => 'Code postal', :class => 'input-xlarge' %>
-          </div>
-          <br />
-
-          <%= c.fields_for :city do |v| %>
-              <div class="input-prepend">
-                <span class="add-on"><i class="iconic-home"></i></span>
-                <%= v.text_field :name, :placeholder => 'Ville', :class => 'input-xlarge', 'id' => 'input-cities' %>
-              </div>
-              <br />
-          <% end %>
-
-          <div class="input-prepend">
-            <span class="add-on"><i class="icon-globe"></i></span>
-            <%= c.text_field :province, :placeholder => 'Province', :class => 'input-xlarge' %>
-          </div>
-      <% end %>
-
-      <% if @juge.new_record? %>
-          <div class="input-prepend">
-            <span class="add-on"><i class="icon-font"></i></span>
-            <%= f.text_field :password, :placeholder => 'Mot de passe', :class => 'input-xlarge' %>
-          </div>
-      <% end %>
+      <label class="checkbox inline">
+        <input type="checkbox" id="userAgreement"> <strong>J'autorise</strong> l'utilisateur à agir en tant que juge.
+      </label>
 
       <div class="form-actions">
-        <%= f.submit @juge.new_record? ? "Ajouter un nouveau juge" : "Enregistrer les modifications", :class => 'btn btn-primary' %>
-        <%= submit_tag "Vider le formulaire", :class => 'inputsubmit btn', :type => 'reset'%>
+        <%= f.button :submit, 'Ajouter le rôle de juge à l\'utilisateur' , :class => 'btn btn-primary' %>
       </div>
   <% end %>
 </div>

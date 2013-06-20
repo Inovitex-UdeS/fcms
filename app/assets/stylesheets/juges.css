@@ -1,4 +1,16 @@
-/*
-  Place all the styles related to the matching controller here.
-  They will automatically be included in application.css.
-*/
+.icon-user {
+    margin-right: 5px;
+    margin-bot: 5px;
+}
+
+.icon-warning-sign {
+    margin-left: 17px;
+}
+
+p.text-warning {
+    width: 600px;
+}
+
+form {
+    margin-top: 5px;
+}

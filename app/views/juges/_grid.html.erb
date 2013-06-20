@@ -1,17 +1,19 @@
 <h5>JUGES EXISTANTS</h5>
-<table class="table table-striped table-bordered">
-  <tr>
-    <th>Id &nbsp; &nbsp; &nbsp;</th>
+<table class="table table-bordered" id="tableJuges">
+  <thead><tr>
+    <th>Id</th>
     <th>Nom</th>
     <th>Adresse courriel</th>
     <th>Date de création</th>
-  </tr>
-  <% @juges.each do |juge| %>
+  </tr></thead>
+  <tbody>
+  <% @juges.each do |user| %>
       <tr>
-        <td><label class="checkbox"><%= juge.id %></label></td>
-        <td><%= juge.first_name %> <%= juge.last_name %></td>
-        <td><%= juge.email %></td>
-        <td><%= juge.created_at %></td>
+        <td><%= user.id %></label></td>
+        <td><%= user.first_name %> <%= user.last_name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.created_at %></td>
       </tr>
   <% end %>
+  </tbody>
 </table><hr>

@@ -31,7 +31,7 @@
   <%= f.password_field :password_confirmation, :placeholder => 'Confirmez le mot de passe', :class => 'input-large'  %>
 
   <br />
-    Vous désirez être: <%= f.association :roles, :label =>false, as: :collection_select %><br />
+    Vous désirez être: <%= f.association :roles, :label =>false, as: :collection_select, :selected => 'participant' %><br />
 
   <%= recaptcha_tags %>
 

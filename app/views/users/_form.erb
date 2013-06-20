@@ -1,0 +1,71 @@
+<h5>MODIFIER UN UTILISATEUR</h5>
+
+<%= simple_form_for @user do |f| %>
+
+    <div class="input-prepend">
+      <span class="add-on"><i class="iconic-hash"></i></span>
+      <%= f.text_field :id, :class => 'input-small', :disabled => true%>
+    </div>
+    <br />
+
+    <div class="input-prepend">
+      <span class="add-on"><i class="icon-user"></i></span>
+      <%= f.text_field :first_name, :autofocus => true, :placeholder => 'Prénom', :class => 'input-medium' %>
+    </div>
+    <br />
+    <div class="input-prepend">
+      <span class="add-on"><i class="icon-user"></i></span>
+      <%= f.text_field :last_name, :placeholder => 'Nom', :class => 'input-medium' %>
+    </div>
+    <br />
+
+    <div class="input-prepend">
+      <span class="add-on"><i class="icon-calendar"></i></span>
+      <%= f.text_field :birthday, :placeholder => 'Date de naissance', :class => 'input-medium', :'data-mask' => '9999-99-99' %><br />
+    </div>
+    <br />
+
+    <%= f.fields_for :contactinfo do |c| %>
+        <div class="input-prepend">
+          <span class="add-on"><i class="iconic-iphone"></i></span>
+          <%= c.telephone_field :telephone, :placeholder => 'Numéro de téléphone', :class => 'input-xlarge' %>
+        </div>
+        <br />
+
+        <div class="input-prepend">
+          <span class="add-on"><i class="icon-font"></i></span>
+          <%= c.text_field :address, :placeholder => 'Adresse ligne 1', :class => 'input-xlarge' %>
+        </div>
+        <br />
+
+        <div class="input-prepend">
+          <span class="add-on"><i class="icon-font"></i></span>
+          <%= c.text_field :address2, :placeholder => 'Ligne 1', :class => 'input-xlarge' %>
+        </div>
+        <br />
+
+        <div class="input-prepend">
+          <span class="add-on"><i class="iconic-home"></i></span>
+          <%= c.text_field :postal_code, :placeholder => 'Code postal', :class => 'input-xlarge' %>
+        </div>
+        <br />
+
+        <%= c.fields_for :city do |v| %>
+            <div class="input-prepend">
+              <span class="add-on"><i class="iconic-home"></i></span>
+              <%= v.text_field :name, 'id' => 'input-cities', :placeholder => 'Ville', :class => 'input-xlarge'%>
+            </div>
+            <br />
+        <% end %>
+
+        <div class="input-prepend">
+          <span class="add-on"><i class="icon-globe"></i></span>
+          <%= c.text_field :province, :placeholder => 'Province', :class => 'input-xlarge' %>
+        </div>
+    <% end %>
+
+    </br>
+
+    <%= f.submit "Enregistrer", class: "btn btn-primary" %>
+  <% end %>
+</div>

@@ -1,0 +1,64 @@
+<h5>ASSIGNER LE RÔLE DE PROFESSEUR À UN UTILISATEUR</h5>
+<table class="table table-bordered" id="tableUsers">
+  <thead><tr>
+    <th>Id</th>
+    <th>Nom</th>
+    <th>Adresse courriel</th>
+    <th>Date de création</th>
+  </tr></thead>
+  <tbody>
+  <% @users.each do |user| %>
+      <tr>
+        <td><%= user.id %></label></td>
+        <td><%= user.first_name %> <%= user.last_name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.created_at %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<div class="col">
+  <i class="icon-user"></i><u>Utilisateur sélectionné :</u><br />
+  <%= simple_form_for @teacher, :remote => true,
+                      :url => url_for(:action => 'create', :controller => 'teachers'),
+                      :method => 'post' do |f| %>
+
+      <div class="input-prepend">
+        <span class="add-on"><i class="iconic-hash"></i></span>
+        <%= f.text_field :id, :class => 'input-small', :disabled => true%>
+      </div>
+      <br />
+
+      <div class="input-prepend">
+        <%= f.text_field :first_name, :autofocus => true, :placeholder => 'Prénom', :class => 'input-medium uneditable-input', :disable => true %>
+      </div>
+      <div class="input-prepend">
+        <%= f.text_field :last_name, :placeholder => 'Nom', :class => 'input-medium', :disable => true %>
+      </div>
+      <br />
+
+      <div class="alert">
+        <div class="container">
+          <div class="row-fluid">
+            <div class="span1">
+              <h1><p class="text-warning"><i class="icon-warning-sign"></i></p></h1>
+            </div>
+            <div class="span10">
+              <p class="text-warning">
+                <strong>Attention !</strong> Le fait d'ajouter le rôle à l'utilisateur sélectionné lui accorde les pouvoirs y étant rattachés. Il est important d'ajouter un rôle d'importance uniquement aux gens de confiance.<br /><br />
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <label class="checkbox inline">
+        <input type="checkbox" id="userAgreement"> <strong>J'autorise</strong> l'utilisateur à agir en tant que professeur.
+      </label>
+
+      <div class="form-actions">
+        <%= f.button :submit, 'Ajouter le rôle de professeur à l\'utilisateur' , :class => 'btn btn-primary' %>
+      </div>
+  <% end %>
+</div>

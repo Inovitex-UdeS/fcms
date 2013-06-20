@@ -133,8 +133,17 @@ ul.nav li.dropdown:hover > ul.dropdown-menu{
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffaa0911',endColorstr='#ff8a2003',GradientType=0);
 }
 
+.input-xlarge { width: 344px; }
+
 @media (min-width: 0px) {
     .container, .navbar-static-top .container, .navbar-fixed-top .container, .navbar-fixed-bottom .container {
         width: 1000px;
     }
 }
+
+optionsRadios { margin-right: 10px; }
+
+/* --------------- Datatables --------------- */
+.table tr.even.row_selected td { background-color: #E7E7E7; }
+.table tr.odd.row_selected td { background-color: #E7E7E7; }
+.btn-grid { margin-right: 5px}

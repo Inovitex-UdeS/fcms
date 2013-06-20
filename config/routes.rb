@@ -1,5 +1,5 @@
 Fcms::Application.routes.draw do
-  devise_for :users, :controllers => {:registrations => "devise_registrations"}
+devise_for :users, :controllers => {:registrations => 'devise_registrations', :invitations => 'users/invitations'}
 
   root :to => "home#index"
 
@@ -7,10 +7,26 @@ Fcms::Application.routes.draw do
   resources :registrations
   resources :categories
   resources :cities
+  resources :editions
+  resources :instruments
+  resources :rooms
+  resources :juges
+  resources :accompanyists
+  resources :teachers
+  resources :composers
+  resources :schoolboards
+  resources :schooltypes
 
   get 'autocomplete/cities'
   get 'autocomplete/schools'
   get 'autocomplete/pieces'
+  get 'autocomplete/users'
+
+  get 'users/juges/new', to: 'users#new', as: '/juges/new'
+
+  namespace :admin do
+    get '', to: 'dashboard#index', as: '/'
+  end
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

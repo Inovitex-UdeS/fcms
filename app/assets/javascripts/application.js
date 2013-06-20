@@ -53,4 +53,26 @@ fcms.showMessage = function(message, type) {
     window.setTimeout(function() {
         curmsg.fadeOut('fast', function(){ curmsg.remove(); });
     }, 2500);
-}
+};
+
+// Format date to Rails format
+fcms.fnFormatDate = function ( unformattedDate ) {
+    var date = new Date(unformattedDate);
+    var cur_month = date.getMonth()+1;
+    if (cur_month < 10) cur_month =  "0" + cur_month;
+
+    var cur_date = date.getUTCDate();
+    if (cur_date < 10) cur_date =  "0" + cur_date;
+
+    var cur_hour = date.getUTCHours();
+    if (cur_hour < 10) cur_hour =  "0" + cur_hour;
+
+    var cur_min = date.getUTCMinutes();
+    if (cur_min < 10) cur_min =  "0" + cur_min;
+
+    var cur_sec = date.getUTCSeconds();
+    if (cur_sec < 10) cur_sec =  "0" + cur_sec;
+
+    return date.getUTCFullYear() + '-' + cur_month + '-' + cur_date + ' ' +
+        cur_hour + ':' + cur_min + ':' + cur_sec + ' UTC';
+};

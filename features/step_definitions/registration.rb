@@ -12,10 +12,10 @@ Given /^I visit registration page$/ do
 end
 
 Given /^I am logged in$/ do
-  visit '/users/sign_in'
-  fill_in("user_email", :with => "test@inovitex.com")
-  fill_in("user_password", :with => "12test123")
-  click_button("Se connecter")
+  step 'I am on the sign in page'
+  step 'I fill in "user_email" with "tests@inovitex.com"'
+  step 'I fill in "user_password" with "123test123"'
+  step 'I press "Se connecter"'
 end
 
 Given /^I select a valid teacher$/ do

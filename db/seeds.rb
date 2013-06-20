@@ -45,8 +45,8 @@ user6 = User.create(last_name: '1', first_name: 'Juge', gender: true, birthday: 
 role1 = Role.create(name: 'Participant')
 role2 = Role.create(name: 'Professeur')
 role3 = Role.create(name: 'Administrateur')
-role4 = Role.create(name: 'juge')
-role5 = Role.create(name: 'accompagnateur')
+role4 = Role.create(name: 'Juge')
+role5 = Role.create(name: 'Accompagnateur')
 
 # Users_Roles
 user1.roles << role1

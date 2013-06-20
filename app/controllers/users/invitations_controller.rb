@@ -10,28 +10,15 @@ class Users::InvitationsController < Devise::InvitationsController
 
   def create
     begin
-      first_name  = params[:user][:first_name]
-      last_name   = params[:user][:last_name]
-      birthday    = Date.today
-      email       = params[:user][:email]
+      @user = User.new(params[:user])
+      @user.update_attribute(:birthday, '1980-05-12')
+      @user.update_attribute(:password, 'password')
 
-      telephone   = '8195554444'
-      address     = 'Adresse'
-      postal_code = 'XXXXXX'
-      province    = 'Québec'
+      if @user.save
+        @user.invite!(current_user)
+      end
 
-      city        = City.first.id
-
-      contactinfo = Contactinfo.create(telephone: telephone, address: address, city_id: city, province: province, postal_code: postal_code)
-
-      role        = Role.find(params[:user][:role][:role_id])
-
-      @user = User.create(last_name: last_name, first_name: first_name, gender: true, birthday: birthday, email: email, password: 'password', contactinfo_id: contactinfo.id, confirmed_at: Time.now)
-      @user.invite!(current_user)
-
-      @user.roles << role
-
-      render '/admin'
+      redirect_to new_user_invitation_path
     end
   end
 end

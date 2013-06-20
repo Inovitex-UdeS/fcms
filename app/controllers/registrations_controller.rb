@@ -13,11 +13,16 @@ class RegistrationsController < ApplicationController
   def create
     begin
       edition_id = 1
-      owner_first_name = params[:registration][:user_owner_id].split.first
-      owner_last_name  = params[:registration][:user_owner_id].split.last
-      owner_id = User.where(first_name: owner_first_name, last_name: owner_last_name).first.id
+      if current_user.has_role?('Administrateur')
+        owner_first_name = params[:registration][:user_owner_id].split.first
+        owner_last_name  = params[:registration][:user_owner_id].split.last
+        owner_id = User.where(first_name: owner_first_name, last_name: owner_last_name).first.id
+
+      else
+        owner_id = current_user.id
+    end
       school_id = params[:registration][:school_id]
-      teacher_id = User.find_by_email(params[:registration][:user_teacher_id]).id
+      teacher_id = params[:registration][:user_teacher_id]#User.find_by_email(params[:registration][:user_teacher_id]).id
       duration =  params[:duration]
       instrument_id = params[:registration][:instrument_ids]
       category_id = params[:registration][:category_id]

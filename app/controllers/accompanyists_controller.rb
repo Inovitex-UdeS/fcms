@@ -4,46 +4,53 @@ class AccompanyistsController < ApplicationController
     @accompanyist.contactinfo ||= Contactinfo.new
     @accompanyist.contactinfo.city ||= City.new
     @accompanyists = User.all(:joins => :roles, :conditions => {:roles => { :name => 'accompagnateur'}})
+    @users = (User.all - @accompanyists)
   end
 
   def create
+    render :json => "Hello from controller !"
+  end
+
+  def update
     begin
-      first_name  = params[:user][:first_name]
-      last_name   = params[:user][:last_name]
-      birthday    = params[:user][:birthday]
-      email       = params[:user][:email]
+      @accompanyist = User.find(params[:id])
+      role = Role.where(name: 'accompagnateur').first
 
-      telephone   = params[:user][:contactinfo_attributes][:telephone]
-      address     = params[:user][:contactinfo_attributes][:address]
-      address2    = params[:user][:contactinfo_attributes][:address2]
-      postal_code = params[:user][:contactinfo_attributes][:postal_code].gsub(/ /,'')
-      province    = params[:user][:contactinfo_attributes][:province]
+      if @accompanyist
+        @accompanyist.roles << role
 
-      city_name   = params[:user][:contactinfo_attributes][:city_attributes][:name]
-      city        = City.where(:name => city_name).first.id
-
-      contactinfo = Contactinfo.create(telephone: telephone, address: address, address2: address2, city_id: city, province: province, postal_code: postal_code)
-
-      @accompanyist = User.create(last_name: last_name, first_name: first_name, gender: true, birthday: birthday, email: email, password: 'password', contactinfo_id: contactinfo.id, confirmed_at: Time.now)
-      @accompanyist.contactinfo = contactinfo
-
-      role = Role.where(:name => 'accompagnateur').first
-      @accompanyist.roles  << role
-
-      if @accompanyist.save
-        redirect_to :action => 'new'
+        if @accompanyist.save
+          render :json => @accompanyist
+        else
+          render :json => {:message => "L'accompagnateur n'a pu être mis à jour"}, :status => :unprocessable_entity
+        end
       else
-        render :json => { :errors => "Error creating User" }, :status => 422
+        render :json => {:message => "L'accompagnateur n'a pu être trouvé"}, :status => :unprocessable_entity
       end
-
     rescue
-      render :json => { :errors => "Erreurs" }, :status => 422
+      render :json => {:message => "Erreur lors de la mise à jour de l'accompagnateur"}, :status => :unprocessable_entity
+    end
+  end
+
+  def destroy
+    begin
+      accompanyist = User.find(params[:id])
+      role = Role.where(name: 'accompagnateur').first
+      roleUser = accompanyist.roles.find(role.id)
+
+      if roleUser
+        accompanyist.roles.delete(roleUser)
+        render :json => {:message => "L'instrument a été supprimé avec succès"}, :status => :ok
+      else
+        render :json => {:message =>  "L'accompagnateur n'a pas été trouvé"}, :status => :unprocessable_entity
+      end
+    rescue
+      render :json => {:message => "Erreur lors de la suppression de l'accompagnateur"}, :status => :unprocessable_entity
     end
   end
 
   def show
     @user = User.find(params[:id])
-    @contactinfo = @user.contactinfo
     render :json => @user
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130618164156) do
+ActiveRecord::Schema.define(:version => 20130619214444) do
 
   create_table "agegroups", :force => true do |t|
     t.integer  "edition_id",                  :null => false
@@ -194,10 +194,11 @@ ActiveRecord::Schema.define(:version => 20130618164156) do
   add_index "roles", ["name"], :name => "ak_name_roles", :unique => true
 
   create_table "roles_users", :id => false, :force => true do |t|
-    t.integer  "role_id",    :null => false
-    t.integer  "user_id",    :null => false
+    t.integer  "role_id",                       :null => false
+    t.integer  "user_id",                       :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "confirmed",  :default => false
   end
 
   add_index "roles_users", ["role_id", "user_id"], :name => "roles_users_pk", :unique => true

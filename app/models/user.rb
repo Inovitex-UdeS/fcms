@@ -21,10 +21,7 @@ class User < ActiveRecord::Base
   scope :with_role, lambda{ |role| joins(:roles).where(:roles => {:name => role}) }
 
   def has_role?(role_sym)
-    if not role_sym .is_a? (:administrateur.class)
-      role_sym = role_sym.parameterize.underscore.to_sym
-    end
-    roles.any? { |r| r.name.underscore.to_sym == role_sym }
+    roles.any? { |r| (r.name.to_s.capitalize == role_sym.to_s.capitalize) }
   end
 
   validates :first_name, :presence => true

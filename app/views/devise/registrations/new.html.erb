@@ -1,7 +1,7 @@
 <h2>Nouveau compte</h2>
 <p>Enregistrement à l'application en ligne du<br /> Festival-Concours de Musique de Sherbrooke</p>
 
-<%= form_for(resource, :as => resource_name, :url => user_registration_path) do |f| %>
+<%= simple_form_for(resource, :as => resource_name, :url => user_registration_path) do |f| %>
   <%= devise_error_messages! %>
 
   <div class="input-prepend">
@@ -31,8 +31,10 @@
   <%= f.password_field :password_confirmation, :placeholder => 'Confirmez le mot de passe', :class => 'input-large'  %>
 
   <br />
+    Vous désirez être: <%= f.association :roles, :label =>false %><br />
 
-  <%= f.submit "S'enregistrer", :class => 'btn btn-primary' %>
+
+    <%= f.submit "S'enregistrer", :class => 'btn btn-primary' %>
 
 <% end %>
 

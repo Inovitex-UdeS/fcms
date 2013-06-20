@@ -36,14 +36,15 @@ user3 = User.create(last_name: 'Mine', first_name: 'Ad', gender: true, birthday:
 user4 = User.create(last_name: 'coderre', first_name: 'laurens', gender: true, birthday: '1991-07-29', email: 'lcoderre@me.com', password: 'password', contactinfo_id: contact1.id, confirmed_at: '2013-05-28 02:01:11.70392')
 
 # Roles
-role1 = Role.create(name: 'participant')
-role2 = Role.create(name: 'professeur')
-role3 = Role.create(name: 'administrateur')
-role4 = Role.create(name: 'juge')
+role1 = Role.create(name: 'Participant')
+role2 = Role.create(name: 'Professeur')
+role3 = Role.create(name: 'Administrateur')
+role4 = Role.create(name: 'Juge')
 
 # Users_Roles
 user1.roles << role1
 user2.roles << role2
+RolesUser.where('user_id='+user2.id.to_s + ' and role_id=' + role2.id.to_s).first.confirmed=true
 user3.roles << role3
 user4.roles << role1
 

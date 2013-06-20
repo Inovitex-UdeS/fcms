@@ -8,7 +8,7 @@
       <tr>
         <td></td>
         <td>Professeur</td>
-        <td><%= f.association :teacher, collection: User.with_role('professeur') , prompt: "Choisissez un professeur", label_method: lambda { |usr| usr.first_name + " " + usr.last_name + ", (" + usr.email + ")"},label: false %></td>
+        <td><%= f.association :teacher, collection: User.with_role('Professeur').where('confirmed=true') , prompt: "Choisissez un professeur", label_method: lambda { |usr| usr.first_name + " " + usr.last_name + ", (" + usr.email + ")"},label: false %></td>
         <td></td>
       </tr>
 

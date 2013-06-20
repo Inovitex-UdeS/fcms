@@ -54,6 +54,9 @@ gem 'rails-i18n', '0.7.3'
 gem 'pg', '0.15.1'
 gem 'foreigner', '1.4.1'
 
+# Captcha
+gem 'recaptcha', '~> 0.3.5'
+
 # Devise gem
 gem 'devise', '2.2.4'
 

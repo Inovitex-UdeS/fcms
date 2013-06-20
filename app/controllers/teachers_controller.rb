@@ -4,40 +4,49 @@ class TeachersController < ApplicationController
     @teacher.contactinfo ||= Contactinfo.new
     @teacher.contactinfo.city ||= City.new
     @teachers = User.all(:joins => :roles, :conditions => {:roles => { :name => 'professeur'}})
+    @users = (User.all - @teachers)
   end
 
-  def create
+  def update
     begin
-      first_name  = params[:user][:first_name]
-      last_name   = params[:user][:last_name]
-      birthday    = params[:user][:birthday]
-      email       = params[:user][:email]
+      @teacher = User.find(params[:id])
+      role = Role.where(name: 'professeur').first
 
-      telephone   = params[:user][:contactinfo_attributes][:telephone]
-      address     = params[:user][:contactinfo_attributes][:address]
-      address2    = params[:user][:contactinfo_attributes][:address2]
-      postal_code = params[:user][:contactinfo_attributes][:postal_code].gsub(/ /,'')
-      province    = params[:user][:contactinfo_attributes][:province]
+      if @teacher
+        @teacher.roles << role
 
-      city_name   = params[:user][:contactinfo_attributes][:city_attributes][:name]
-      city        = City.where(:name => city_name).first.id
-
-      contactinfo = Contactinfo.create(telephone: telephone, address: address, address2: address2, city_id: city, province: province, postal_code: postal_code)
-
-      @teacher = User.create(last_name: last_name, first_name: first_name, gender: true, birthday: birthday, email: email, password: 'password', contactinfo_id: contactinfo.id, confirmed_at: Time.now)
-      @teacher.contactinfo = contactinfo
-
-      role = Role.where(:name => 'professeur').first
-      @teacher.roles  << role
-
-      if @teacher.save
-        redirect_to :action => 'new'
+        if @teacher.save
+          render :json => @teacher
+        else
+          render :json => {:message => "Le professeur n'a pu être mis à jour"}, :status => :unprocessable_entity
+        end
       else
-        render :json => { :errors => "Error creating User" }, :status => 422
+        render :json => {:message => "Le professeur n'a pu être trouvé"}, :status => :unprocessable_entity
       end
-
     rescue
-      render :json => { :errors => "Erreurs" }, :status => 422
+      render :json => {:message => "Erreur lors de la mise à jour du professeur"}, :status => :unprocessable_entity
     end
+  end
+
+  def destroy
+    begin
+      teacher = User.find(params[:id])
+      role = Role.where(name: 'professeur').first
+      roleUser = teacher.roles.find(role.id)
+
+      if roleUser
+        teacher.roles.delete(roleUser)
+        render :json => {:message => "Le professeur a été supprimé avec succès"}, :status => :ok
+      else
+        render :json => {:message =>  "Le professeur n'a pas été trouvé"}, :status => :unprocessable_entity
+      end
+    rescue
+      render :json => {:message => "Erreur lors de la suppression du professeur"}, :status => :unprocessable_entity
+    end
+  end
+
+  def show
+    @teacher = User.find(params[:id])
+    render :json => @teacher
   end
 end

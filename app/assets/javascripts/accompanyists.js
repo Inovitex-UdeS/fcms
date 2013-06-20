@@ -77,6 +77,8 @@ $(document).ready(function() {
                 url: modelUrl + id,
                 type: 'DELETE',
                 complete: function(result) {
+                    var aItem = Array();
+
                     oTableAccompanyists.fnDeleteRow(anSelected[0]);
                     fcms.showMessage('L\'item a été effacé avec succès.');
                 }
@@ -151,7 +153,9 @@ $(document).ready(function() {
                     $('#' + oForm.attr('id') + ' input').filter(function() { return this.id.match(re); }).each(
                         function(){
                             var field = $(this).attr('id').replace(/^[a-zA-Z0-9]+_/g, '');
-                            aItem.push(data[field]);
+                            if (field in data) {
+                                aItem.push(data[field]);
+                            }
                         }
                     );
                     aItem.push(fcms.fnFormatDate(data['created_at']));
@@ -160,7 +164,8 @@ $(document).ready(function() {
                     var iRow = oTableAccompanyists.fnAddData(aItem);
 
                     fcms.fnClearForm();
-                    oTableUsers.$('tr.row_selected').removeClass('row_selected');
+                    var row = fcms.fnGetSelected(oTableUsers);
+                    oTableUsers.fnDeleteRow(row);
 
                     fcms.showMessage('L\'item a été modifié avec succès.');
                 },

@@ -6,5 +6,5 @@ class Contactinfo < ActiveRecord::Base
 
   belongs_to :city
 
-  accepts_nested_attributes_for :city
+  accepts_nested_attributes_for :city, allow_destroy: true
 end

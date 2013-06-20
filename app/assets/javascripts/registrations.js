@@ -72,6 +72,7 @@ function applyautocomplete() {
             $.get('/autocomplete/schools', { q: query }, function (data) {
                 labels = []
                 mapped = {}
+
                 $.each(data, function (i, item) {
                     mapped[item.label] = item.value
                     labels.push(item.label)

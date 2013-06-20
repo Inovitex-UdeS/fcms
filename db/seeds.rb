@@ -8,7 +8,9 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 require 'csv'
 
-
+# Rooms
+room1 = Room.create(capacity: 32, name: 'C1-3125', location: 'UdeS', description: 'Local de rencontre')
+room2 = Room.create(capacity: 100, name: 'Sale Bandeen', location: 'CEGEP de Sherbrooke', description: 'Plus grande salle du festival')
 
 
 # Cities
@@ -28,18 +30,23 @@ contact1 = Contactinfo.create(telephone: '819-843-7004', address: '112 rue rene'
 contact2 = Contactinfo.create(telephone: '111-111-1111', address: '1111 rue argyll', city_id: City.where(:name => 'Sherbrooke').first.id, province: 'Québec', postal_code: 'J1Z8V4')
 contact3 = Contactinfo.create(telephone: '911', address: '007 thugstreet', city_id: City.where(:name => 'Sherbrooke').first.id, province: 'Québec',  postal_code: 'J1Z8V4')
 contact4 = Contactinfo.create(telephone: '819-563-2050', address: '195 rue Marquette', city_id: City.where(:name => 'Sherbrooke').first.id, province: 'Québec', postal_code: 'J1H1L6')
+contact5 = Contactinfo.create(telephone: '819-444-4444', address: '194 rue Marquette', city_id: City.where(:name => 'Sherbrooke').first.id, province: 'Québec', postal_code: 'J1H1L5')
+contact6 = Contactinfo.create(telephone: '819-333-3333', address: '193 rue Marquette', city_id: City.where(:name => 'Sherbrooke').first.id, province: 'Québec', postal_code: 'J1H1L4')
 
 # Users
 user1 = User.create(last_name: 'Gauthier', first_name: 'Jean-Philippe', gender: true, birthday: '1991-07-29', email: 'j-p.g@hotmail.com', password: 'password', contactinfo_id: contact1.id, confirmed_at: '2013-05-28 02:01:11.70392')
 user2 = User.create(last_name: 'Paquette', first_name: 'Daniel', gender: true, birthday: '1980-05-12', email: 'dp@me.com', password: 'password', contactinfo_id: contact2.id,confirmed_at: '2013-05-28 02:01:11.70392')
 user3 = User.create(last_name: 'Mine', first_name: 'Ad', gender: true, birthday: '1980-05-12', email: 'admin@admin.com', password: 'password', contactinfo_id: contact3.id,confirmed_at: '2013-05-28 02:01:11.70392')
 user4 = User.create(last_name: 'coderre', first_name: 'laurens', gender: true, birthday: '1991-07-29', email: 'lcoderre@me.com', password: 'password', contactinfo_id: contact1.id, confirmed_at: '2013-05-28 02:01:11.70392')
+user5 = User.create(last_name: '2', first_name: 'Accompagnateur', gender: true, birthday: '1980-05-12', email: 'premier@accompagnateur.com', password: 'password', contactinfo_id: contact6.id,confirmed_at: '2013-05-28 02:01:11.70392')
+user6 = User.create(last_name: '1', first_name: 'Juge', gender: true, birthday: '1980-05-12', email: 'premier@juge.com', password: 'password', contactinfo_id: contact5.id,confirmed_at: '2013-05-28 02:01:11.70392')
 
 # Roles
 role1 = Role.create(name: 'Participant')
 role2 = Role.create(name: 'Professeur')
 role3 = Role.create(name: 'Administrateur')
-role4 = Role.create(name: 'Juge')
+role4 = Role.create(name: 'juge')
+role5 = Role.create(name: 'accompagnateur')
 
 # Users_Roles
 user1.roles << role1
@@ -47,9 +54,11 @@ user2.roles << role2
 RolesUser.where('user_id='+user2.id.to_s + ' and role_id=' + role2.id.to_s).first.confirmed=true
 user3.roles << role3
 user4.roles << role1
+user5.roles << role5
+user6.roles << role4
 
 # Edition
-edition1 = Edition.create(year: 2007, limit_date: '2007-02-01')
+edition1 = Edition.create(year: 2007, start_date: '2007-05-01', end_date: '2007-05-06', limit_date: '2007-02-01')
 
 # Categories
 category1 = Category.create(name: 'Répertoire', nb_perf_min: 2, nb_perf_max: 4, description:'Categorie pour le repertoire de la guitare classique')

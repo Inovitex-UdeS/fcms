@@ -15,5 +15,7 @@ class Registration < ActiveRecord::Base
  # Nested attributes
   accepts_nested_attributes_for :performances, allow_destroy: true
   accepts_nested_attributes_for :users, allow_destroy: true
+  accepts_nested_attributes_for :instruments, allow_destroy: true
+  accepts_nested_attributes_for :registrations_users, allow_destroy: true
 
 end

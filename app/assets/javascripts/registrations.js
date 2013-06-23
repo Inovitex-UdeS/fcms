@@ -8,6 +8,13 @@ var group = false;
 var curDuration = 0;
 var nbPersMax = 12;
 
+
+// Autocomplete
+$(document).ready(function(){
+    $('#registration_user_teacher_id').typeahead();
+    $('#registration_school_id').typeahead();
+});
+
 function changeCategory(category_id) {
     if (category_id=="" || category_id=="Choisissez une classe") return; // please select - possibly you want something else here
     $.getJSON('/categories?id=' + category_id, function(data) {
@@ -20,127 +27,34 @@ function changeCategory(category_id) {
     });
 }
 
-// Calculate all the durations in the table (TODO: Trigger alter when curDuration > maxDuration)
+// Calculate all the durations in the table
 function calculateTotDuration() {
     curDuration = 0;
-    $('.duration').each(function() {
+    $('input[name$="unit_duration"]').each(function() {
         if($(this).val()){
             curDuration += parseFloat($(this).val());
         }
     });
     $('#registration_duration').val(curDuration);
-    if(curDuration > maxDuration) alert("Trop de temps!")
+    if(curDuration > maxDuration) fcms.showMessage('Vous avez dépassé la limite de temps permise pour cette catégorie.', 2);
 }
 
-// Overload insertfields function to add column directly before the last row
-window.NestedFormEvents.prototype.insertFields = function(content, assoc, link) {
-    var $tr = $('#' + assoc + ' tr:last');
-    return $(content).insertBefore($tr);
-}
-$(document).on('nested:fieldAdded', function(event){
-    applyautocomplete();
-})
-
-$(document).on('nested:fieldAdded:users', function(event){
-    // this field was just inserted into your form
-    $('#totUsers').text($('#users .fields').length);
-})
-
-$(document).on('nested:fieldRemoved', function(event){
-    // this field was just removed from your form
-    $('#totUsers').text($('#users .fields').length-1);
-})
-
-// Delete rows (not only hide them)
-$(document).on('nested:fieldRemoved', function(event){
-    // this field was just inserted into your form
-    var field = event.field;
-    field.remove();
-    calculateTotDuration();
-})
-
-// Autocomplete
-$(document).ready(function(){
-    applyautocomplete();
+// TRIGGERS SECTION
+$(document).on('nested:fieldAdded:performances', function(event){
+    $(event.field.find('td .piece_select')[0]).typeahead();
 });
 
-function applyautocomplete() {
+$(document).on('nested:fieldRemoved:performances', function(event){
+    event.field.remove();
+    calculateTotDuration();
+});
 
-    var labels, mapped
-    $(".input-schools").typeahead({
-        source: function (query, process) {
-            $.get('/autocomplete/schools', { q: query }, function (data) {
-                labels = []
-                mapped = {}
+$(document).on('nested:fieldAdded:registrations_users', function(event){
+    $(event.field.find('td .user_select')[0]).typeahead();
+    $('#totUsers').text($('#users .fields').length);
+});
 
-                $.each(data, function (i, item) {
-                    mapped[item.label] = item.value
-                    labels.push(item.label)
-                })
-
-                process(labels)
-            })
-        }
-
-    });
-    $(".input-pieces.input-pieces-compos").typeahead({
-        source: function (query, process) {
-            $.get('/autocomplete/pieces', { q: query }, function (data) {
-                labels = []
-                valuesMap = {}
-                titleMap = {}
-                composMap = {}
-
-                $.each(data, function (i, item) {
-                    valuesMap[item.label] = item.value
-                    titleMap[item.label] = item.title
-                    composMap[item.label] = item.composer
-                    labels.push(item.label)
-                })
-
-                process(labels)
-            })
-        },
-        updater: function (item) {
-            // Set Piece ID
-            this.$element.parent().next().next().val(valuesMap[item]);
-
-            // Set piece title
-            this.$element.parent().parent().find(".input-pieces-title").val(titleMap[item]);
-
-            // This will set the piece composer name
-            return composMap[item];
-        }
-    });
-
-
-    $(".input-pieces.input-pieces-title").typeahead({
-        source: function (query, process) {
-            $.get('/autocomplete/pieces', { q: query }, function (data) {
-                labels = []
-                valuesMap = {}
-                titleMap = {}
-                composMap = {}
-
-                $.each(data, function (i, item) {
-                    valuesMap[item.label] = item.value
-                    titleMap[item.label] = item.title
-                    composMap[item.label] = item.composer
-                    labels.push(item.label)
-                })
-
-                process(labels)
-            })
-        },
-        updater: function (item) {
-            // Set Piece ID
-            this.$element.parent().next().next().val(valuesMap[item]);
-
-            // Set piece composer name
-            this.$element.parent().parent().find(".input-pieces-compos").val(composMap[item]);
-
-            // This will set the piece composer name
-            return titleMap[item];
-        }
-    });
-}
+$(document).on('nested:fieldRemoved:registrations_users', function(event){
+    event.field.remove();
+    $('#totUsers').text($('#users .fields').length);
+});

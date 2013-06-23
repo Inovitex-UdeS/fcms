@@ -1,16 +1,5 @@
 <tr class="fields">
-
-  <%= f.fields_for :piece, :wrapper => false do |piece| %>
-      <td>
-        <%= piece.text_field :title, :label => false, :class => 'input-pieces input-pieces-title' %>
-      </td>
-      <%= piece.fields_for :composer, :wrapper => false do |composer| %>
-          <td>
-            <%= composer.text_field :name, :label => false, :class => 'input-pieces input-pieces-compos' %>
-          </td>
-      <% end %>
-      <%= piece.hidden_field :piece_id, :class => 'piece_id' %>
-  <% end %>
-    <td><%= text_field_tag :duration, nil, :class => 'duration input-small', 'data-mask'=>"99.9", :onchange => "calculateTotDuration()" %></td>
-    <td><%= f.link_to_remove 'Supprimer', :class => 'btn' %></td>
+  <td><%= f.association :piece, prompt: "Choisissez une pièce", label: false, :input_html=> {class: 'piece_select'}, label_method: lambda { |piece| piece.composer.name + " " + piece.title } %>
+  <td><%= number_field_tag 'unit_duration', nil, :step => 0.5, :in => 0..30, :onchange => 'calculateTotDuration()' %></td>
+  <td><%= f.link_to_remove 'Supprimer', :class => 'btn' %></td>
 </tr>

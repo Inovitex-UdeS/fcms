@@ -60,13 +60,6 @@ ActiveRecord::Schema.define(:version => 20130619214444) do
   add_index "composers", ["id"], :name => "composers_pk", :unique => true
   add_index "composers", ["name"], :name => "ak_name_composer", :unique => true
 
-  create_table "configs", :id => false, :force => true do |t|
-    t.string "key",   :limit => 64,   :null => false
-    t.string "value", :limit => 1024
-  end
-
-  add_index "configs", ["key"], :name => "configs_pk", :unique => true
-
   create_table "contactinfos", :force => true do |t|
     t.integer  "city_id",                    :null => false
     t.string   "telephone",   :limit => 16
@@ -156,7 +149,7 @@ ActiveRecord::Schema.define(:version => 20130619214444) do
   create_table "registrations", :force => true do |t|
     t.integer  "user_owner_id",   :null => false
     t.integer  "school_id"
-    t.integer  "registration_id"
+    t.integer  "payment_id"
     t.integer  "user_teacher_id", :null => false
     t.integer  "edition_id",      :null => false
     t.integer  "category_id",     :null => false
@@ -168,12 +161,12 @@ ActiveRecord::Schema.define(:version => 20130619214444) do
   add_index "registrations", ["category_id"], :name => "category_id_fk2"
   add_index "registrations", ["edition_id"], :name => "edition_id_fk2"
   add_index "registrations", ["id"], :name => "registrations_pk", :unique => true
-  add_index "registrations", ["registration_id"], :name => "registration_id_fk3"
+  add_index "registrations", ["payment_id"], :name => "payment_id_fk"
   add_index "registrations", ["school_id"], :name => "school_id_fk"
   add_index "registrations", ["user_owner_id"], :name => "user_owner_id_fk"
   add_index "registrations", ["user_teacher_id"], :name => "user_teacher_id_fk"
 
-  create_table "registrations_users", :id => false, :force => true do |t|
+  create_table "registrations_users", :force => true do |t|
     t.integer  "instrument_id",   :null => false
     t.integer  "registration_id", :null => false
     t.integer  "user_id",         :null => false
@@ -181,7 +174,8 @@ ActiveRecord::Schema.define(:version => 20130619214444) do
     t.datetime "updated_at"
   end
 
-  add_index "registrations_users", ["instrument_id", "registration_id", "user_id"], :name => "registrations_users_pk", :unique => true
+  add_index "registrations_users", ["id"], :name => "registrations_users_pk", :unique => true
+  add_index "registrations_users", ["instrument_id", "registration_id", "user_id"], :name => "registrations_users_unique", :unique => true
   add_index "registrations_users", ["instrument_id"], :name => "instrument_id_fk"
   add_index "registrations_users", ["registration_id"], :name => "registration_id_fk4"
   add_index "registrations_users", ["user_id"], :name => "user_id_fk3"
@@ -251,6 +245,13 @@ ActiveRecord::Schema.define(:version => 20130619214444) do
   add_index "schooltypes", ["id"], :name => "schooltypes_pk", :unique => true
   add_index "schooltypes", ["name"], :name => "ak_name_schoolty", :unique => true
 
+  create_table "settings", :id => false, :force => true do |t|
+    t.string "key",   :limit => 64,   :null => false
+    t.string "value", :limit => 1024
+  end
+
+  add_index "settings", ["key"], :name => "configs_pk", :unique => true
+
   create_table "users", :force => true do |t|
     t.integer  "contactinfo_id"
     t.string   "last_name",              :limit => 64,                 :null => false
@@ -310,7 +311,7 @@ ActiveRecord::Schema.define(:version => 20130619214444) do
 
   add_foreign_key "registrations", "categories", :name => "fk_registra_category__categori", :dependent => :restrict
   add_foreign_key "registrations", "editions", :name => "fk_registra_edition_i_editions", :dependent => :restrict
-  add_foreign_key "registrations", "payments", :name => "fk_registra_registrat_payments", :column => "registration_id", :dependent => :restrict
+  add_foreign_key "registrations", "payments", :name => "fk_registra_registrat_payments", :dependent => :restrict
   add_foreign_key "registrations", "schools", :name => "fk_registra_school_id_schools", :dependent => :restrict
   add_foreign_key "registrations", "users", :name => "fk_registra_user_owne_users", :column => "user_owner_id", :dependent => :restrict
   add_foreign_key "registrations", "users", :name => "fk_registra_user_teac_users", :column => "user_teacher_id", :dependent => :restrict

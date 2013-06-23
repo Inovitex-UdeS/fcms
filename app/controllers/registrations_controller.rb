@@ -8,63 +8,48 @@ class RegistrationsController < ApplicationController
 
   def new
     @registration = Registration.new
+    @owner_id = current_user.id if not current_user.has_role?('Administrateur')
+    @current_edition = Setting.find_by_key('current_edition_id').value
+    @teachers = User.teachers
+    @participants = User.participants
   end
+
 
   def create
     begin
-      edition_id = 1
-      if current_user.has_role?('Administrateur')
-        owner_first_name = params[:registration][:user_owner_id].split.first
-        owner_last_name  = params[:registration][:user_owner_id].split.last
-        owner_id = User.where(first_name: owner_first_name, last_name: owner_last_name).first.id
+      @registration = Registration.new(params[:registration])
 
-      else
-        owner_id = current_user.id
-    end
-      school_id = params[:registration][:school_id]
-      teacher_id = params[:registration][:user_teacher_id]#User.find_by_email(params[:registration][:user_teacher_id]).id
-      duration =  params[:duration]
-      instrument_id = params[:registration][:instrument_ids]
-      category_id = params[:registration][:category_id]
+      # Round duration to top
+      @registration.duration = @registration.duration.ceil
 
-      # We need to create the registration first or we will not be able to bind to it
-      @registration = Registration.create(user_owner_id: owner_id, school_id: school_id, user_teacher_id: teacher_id,
-                                          edition_id: edition_id, category_id: category_id, duration: duration)
-
-      performances = params[:registration][:performances_attributes]
-
-      # Create all related performances
-      performances.each do |performance|
-        performance = performance[1]
-        composer = Composer.find_or_create_by_name(performance[:piece][:composer][:name])
-        piece = Piece.find_by_title(performance[:piece][:title])
-        if not piece
-          piece = Piece.create(title:performance[:piece][:title], composer: composer)
-        end
-        Performance.create(piece_id: piece.id, registration_id: @registration.id)
+      # Clear association cache because we need to manually create it
+      association_cache = @registration.association_cache.clone
+      if @registration.association_cache[:instruments]
+        @registration.association_cache.delete(:instruments)
+      end
+      if @registration.association_cache[:registrations_users]
+        @registration.association_cache.delete(:registrations_users)
       end
 
-      users = params[:registration][:users_attributes]
+      if !@registration.save
+        render :json => { :message => @registration.errors.full_messages }, :status => :unprocessable_entity
+      end
 
-      # Create user registration for the one creating the registration
-      RegistrationsUser.create(user_id: owner_id, registration_id: @registration.id, instrument_id: instrument_id)
+      # Create registrations_user for the current user
+      RegistrationsUser.create(user_id: current_user.id, instrument_id: association_cache[:instruments].target[0].id, registration_id: @registration.id)
 
-      # Create the others
-      if users
-        users.each do |user|
-          user = user[1]
-          RegistrationsUser.create(user_id: User.find_by_email(user[:email]).id, registration_id: registration_id, instrument_id: user[:instrument_ids])
+      # Create remaining registration_users
+      if association_cache[:registrations_users]
+        association_cache[:registrations_users].target.each do |reg|
+          reg.registration_id = @registration.id
+          reg.changed_attributes[:registration_id] = nil
+          reg.save
         end
       end
 
-      if @registration.save
-        render :json => @registration
-      else
-        render :json => { :errors => @registration.errors.full_messages }, :status => 422
-      end
-
-    rescue
-        render :json => { :errors => "Erreur" }, :status => 422
+      render :json => {:registration => @registration, :message => 'L\'inscription a été crée avec succès'}
+    rescue => e
+      render :json => { :message => e.message }, :status => :unprocessable_entity
     end
   end
 

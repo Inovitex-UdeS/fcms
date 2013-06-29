@@ -47,4 +47,9 @@ class User < ActiveRecord::Base
     roles.any? { |r| (r.name.to_s.capitalize == role_sym.to_s.capitalize) }
   end
 
+  def is_admin?
+    return self.has_role?('Administrateur')
+  end
+
+
 end

@@ -1,0 +1,23 @@
+<h5>Éditions existantes</h5>
+<table class="table table-bordered">
+  <thead><tr>
+    <th>Id</th>
+    <th>Année de l'édition</th>
+    <th>Date de début</th>
+    <th>Date de fin</th>
+    <th>Date limite d'inscription</th>
+    <th>Date de création</th>
+    <th>Dernière mise à jour</th>
+  </tr></thead>
+  <% @editions.each do |edition| %>
+      <tr>
+        <td><%= edition.id %></td>
+        <td><%= edition.year %></td>
+        <td><%= edition.start_date %></td>
+        <td><%= edition.end_date %></td>
+        <td><%= edition.limit_date %></td>
+        <td><%= edition.created_at %></td>
+        <td><%= edition.updated_at %></td>
+      </tr>
+  <% end %>
+</table><hr>

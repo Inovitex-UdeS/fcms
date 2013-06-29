@@ -2,18 +2,16 @@
 
 class RegistrationsController < ApplicationController
   def index
-    @registration  = Registration.new
-    @registrations = Registration.all
+    @registrations = current_user.registrations
   end
 
   def new
     @registration = Registration.new
-    @owner_id = current_user.id if not current_user.has_role?('Administrateur')
+    @owner_id = current_user.id
     @current_edition = Setting.find_by_key('current_edition_id').value
     @teachers = User.teachers
     @participants = User.participants
   end
-
 
   def create
     begin

@@ -3,23 +3,23 @@
     <%= f.hidden_field :edition_id, :value => @current_edition %>
 
     <% if @owner_id == nil %>
-        <h3>Utilisateur</h3>
+        <h4>Utilisateur</h4>
         <%= f.association :owner, prompt: "Choisissez un participant", label_method: lambda { |usr| usr.first_name + " " + usr.last_name + " (" + usr.email + ")"}, label: false %>
     <% else %>
         <%= f.hidden_field :user_owner_id, :value => @owner_id %>
     <% end %>
 
-    <h3>Professeur</h3>
+    <h4>Professeur</h4>
     <%= f.association :teacher, collection: @teachers, prompt: "Choisissez un professeur", label_method: lambda { |usr| usr.first_name + " " + usr.last_name + " (" + usr.email + ")"}, label: false %>
 
-    <h3>Informations personnelles</h3>
+    <h4>Informations personnelles</h4>
     <%= f.association :school, prompt: "Choisissez une école", label: false %>
 
-    <h3>Programme musical</h3>
+    <h4>Programme musical</h4>
     <%= f.association :category, prompt: "Choisissez une catégorie", label: false, :input_html => {:onchange => "changeCategory(this.value)"} %>
     <%= f.association :instruments, prompt: "Choisissez un instrument", label: false,  as: :collection_select %>
 
-    <h3>Pièces performées</h3>
+    <h4>Pièces performées</h4>
 
     <div id='performances-container'>
       <table id='performances' class='table'>
@@ -44,7 +44,7 @@
     <br/>
 
     <div id="AutresParticipants">
-      <h3>Autres participants</h3>
+      <h4>Autres participants</h4>
       <div id='users-container'>
         <table id='users' class='table'>
           <thead><tr>

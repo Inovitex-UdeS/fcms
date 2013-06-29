@@ -65,9 +65,8 @@ SimpleNavigation::Configuration.run do |navigation|
     primary.item :divider_1, nil, nil, :class => 'divider-vertical'
 
     primary.item :key_2, 'Inscriptions' , new_registration_path, :icon => 'icon-edit' do |sub_nav|
-      sub_nav.item :key_2_1, 'Voir ses inscriptions', '#'
+      sub_nav.item :key_2_1, 'Voir ses inscriptions', registrations_path
       sub_nav.item :key_2_2, 'S\'inscrire au concours', new_registration_path
-      sub_nav.item :key_2_3, 'Voir toutes les inscriptions', '#'
       sub_nav.item :key_2_4, '', nil, :class=> 'divider'
       sub_nav.item :key_2_5, 'Payer son inscription', '#'
     end
@@ -89,19 +88,19 @@ SimpleNavigation::Configuration.run do |navigation|
     # TODO: Replace 'user_signed_in?' with actual admin permissions lookup   --> Genre  current_user.has_role?(:administrateur)
     primary.item :key_5, 'Administration' , '/admin', :icon => 'icon-cog' do |sub_nav|
       sub_nav.item :key_5_1, 'Vue d\'ensemble', '/admin', :icon => 'iconic-chart'
-      sub_nav.item :key_5_2, 'Gérer les inscriptions', '/registrations'
+      sub_nav.item :key_5_2, 'Gérer les inscriptions', '#{/registrations}'
       sub_nav.item :key_5_3, '', nil, :class=> 'divider'
-      sub_nav.item :key_5_4, 'Gérer les commissions scolaires',new_schoolboard_path
-      sub_nav.item :key_5_5, 'Gérer les compositeurs', new_composer_path
-      sub_nav.item :key_5_6, 'Gérer les éditions', new_edition_path
-      sub_nav.item :key_5_7, 'Gérer les instruments', new_instrument_path
-      sub_nav.item :key_5_8, 'Gérer les locaux', new_room_path
-      sub_nav.item :key_5_9, 'Gérer les types d\'écoles', new_schooltype_path
-      sub_nav.item :key_5_10, 'Gérer les villes', new_city_path
+      sub_nav.item :key_5_4, 'Gérer les commissions scolaires',new_admin_schoolboard_path
+      sub_nav.item :key_5_5, 'Gérer les compositeurs', new_admin_composer_path
+      sub_nav.item :key_5_6, 'Gérer les éditions', new_admin_edition_path
+      sub_nav.item :key_5_7, 'Gérer les instruments', new_admin_instrument_path
+      sub_nav.item :key_5_8, 'Gérer les locaux', new_admin_room_path
+      sub_nav.item :key_5_9, 'Gérer les types d\'écoles', new_admin_schooltype_path
+      sub_nav.item :key_5_10, 'Gérer les villes', new_admin_city_path
       sub_nav.item :key_5_11,'', nil, :class=> 'divider'
-      sub_nav.item :key_5_12, 'Gérer les accompagnateurs', new_accompanyist_path
-      sub_nav.item :key_5_13, 'Gérer les juges', new_juge_path
-      sub_nav.item :key_5_14, 'Gérer les professeurs', new_teacher_path
+      sub_nav.item :key_5_12, 'Gérer les accompagnateurs', new_admin_accompanyist_path
+      sub_nav.item :key_5_13, 'Gérer les juges', new_admin_juge_path
+      sub_nav.item :key_5_14, 'Gérer les professeurs', new_admin_teacher_path
       sub_nav.item :key_5_15,'', nil, :class=> 'divider'
       sub_nav.item :key_5_16,'Inviter un utilisateur', '/users/invitation/new'
       sub_nav.item :key_5_17,'Gérer les utilisateurs', '/users'

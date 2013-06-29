@@ -1,65 +1,70 @@
-<h1>Page de profil</h1>
+<h3>Page de profil</h3>
 
-  <div class="profile-page">
+<%= simple_form_for(@user) do |f| %>
 
-    <hr>
-    <%= simple_form_for(@user) do |f| %>
+    <div class="input-prepend">
+      <span class="add-on"><i class="icon-user"></i></span>
+        <%= f.text_field :first_name, :class => 'input-xlarge', :placeholder => "Prénom" %>
+    </div>
+    <br />
 
-        <div class="col">
-            <div class="profile-left">
-              <%= f.label :first_name, "Prénom" %>
-              <%= f.text_field :first_name, :class => 'input-xlarge' %>
+    <div class="input-prepend">
+      <span class="add-on"><i class="icon-user"></i></span>
+        <%= f.text_field :last_name, :class => 'input-xlarge', :placeholder => "Nom de famille" %>
+    </div>
+    <br />
 
-              <%= f.label :last_name, "Nom de famille" %>
-              <%= f.text_field :last_name, :class => 'input-xlarge' %>
+    <div class="input-prepend">
+      <span class="add-on"><i class="icon-user"></i></span>
+        <%= f.select :gender, options_for_select([['Masculin', true], ['Féminin', false]]), {:prompt => 'Choisissez votre sexe', :selected => @user.gender}, {:class => 'input-xlarge'}%>
+    </div>
+    <br />
 
-              <div class="radioButton-sex">
-              <%= f.label :gender, "Masculin" %>
-              <%= f.radio_button :gender, true, :id => "Masculin",  :checked => @user.gender, :class => 'optionsRadios'%>
-              </div>
+    <div class="input-prepend">
+      <span class="add-on"><i class="icon-gift"></i></span>
+        <%= f.text_field :birthday, :class => 'input-xlarge', :placeholder => "Date de naissance", :'data-mask' => '9999-99-99' %>
+    </div>
+    <br />
 
-              <div class="radioButton-sex">
-              <%= f.label :gender, "Féminin" %>
-              <%= f.radio_button :gender, false, :id => "Féminin", :checked => !@user.gender, :class => 'optionsRadios'%>
-              </div>
-
-              </br>
-              </br>
-
-              <%= f.label :birthday, "Date de naissance" %>
-              <%= f.text_field :birthday, :class => 'input-xlarge' %>
-
-              <%= f.fields_for :contactinfo do |c| %>
-                  <%= c.label :telephone, "Téléphone" %>
-                  <%= c.telephone_field :telephone, :class => 'input-xlarge' %>
-             </div>
+    <%= f.fields_for :contactinfo do |c| %>
+        <div class="input-prepend">
+          <span class="add-on"><i class="icon-phone"></i></span>
+            <%= c.telephone_field :telephone, :class => 'input-xlarge', :placeholder => "Téléphone", :'data-mask' => '999-999-9999' %>
         </div>
+        <br />
 
-        <div class="col">
-            <div class="profile-right">
-                  <%= c.label :address, "Adresse, ligne 1" %>
-                  <%= c.text_field :address, :class => 'input-xlarge' %>
-
-                  <%= c.label :address2, "Adresse, ligne 2" %>
-                  <%= c.text_field :address2, :class => 'input-xlarge' %>
-
-                  <%= c.label :postal_code, "Code postal" %>
-                  <%= c.text_field :postal_code, :class => 'input-xlarge' %>
-
-                  <%= c.fields_for :city do |v| %>
-                    <%= v.label :name, "Ville" %>
-                    <%= v.text_field :name, 'id' => 'input-cities' %>
-                  <% end %>
-
-                  <%= c.label :province, "Province" %>
-                  <%= c.text_field :province, :class => 'input-xlarge' %>
-              <% end %>
-            </div>
+        <div class="input-prepend">
+          <span class="add-on"><i class="icon-home"></i></span>
+            <%= c.text_field :address, :class => 'input-xlarge', :placeholder => "Adresse ligne 1" %>
         </div>
+        <br />
 
+        <div class="input-prepend">
+          <span class="add-on"><i class="icon-home"></i></span>
+            <%= c.text_field :address2, :class => 'input-xlarge', :placeholder => "Adresse ligne 2" %>
+        </div>
+        <br />
 
+        <div class="input-prepend">
+          <span class="add-on"><i class="icon-home"></i></span>
+            <%= c.text_field :postal_code, :class => 'input-xlarge', :placeholder =>  "Code postal" %>
+        </div>
+        <br />
 
-        <hr>
-        <%= f.submit "Sauvegarder", class: "btn btn-large btn-primary" %>
+        <div class="input-prepend">
+          <span class="add-on"><i class="icon-building"></i></span>
+            <%= c.association :city, :label => false, :input_html => { :class => 'input-xlarge'}, :wrapper => false %>
+        </div>
+        <br />
+
+        <div class="input-prepend">
+          <span class="add-on"><i class="icon-globe"></i></span>
+            <%= c.text_field :province, :class => 'input-xlarge', :placeholder => "Province" %>
+        </div>
+        <br />
     <% end %>
-  </div>
+
+    <div class="form-actions">
+        <%= f.submit "Enregistrer", class: "btn btn-primary" %>
+    </div>
+<% end %>

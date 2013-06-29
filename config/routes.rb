@@ -3,19 +3,26 @@ devise_for :users, :controllers => {:registrations => 'devise_registrations', :i
 
   root :to => "home#index"
 
+   namespace :admin do
+     # Directs /admin/x/* to Admin::xsController
+     # (app/controllers/admin/xs_controller.rb)
+     get '', to: 'dashboard#index', as: '/'
+     resources :accompanyists
+     resources :categories
+     resources :cities
+     resources :editions
+     resources :instruments
+     resources :rooms
+     resources :juges
+     resources :teachers
+     resources :composers
+     resources :schoolboards
+     resources :schooltypes
+   end
+
   resources :users
   resources :registrations
-  resources :categories
-  resources :cities
-  resources :editions
-  resources :instruments
-  resources :rooms
-  resources :juges
-  resources :accompanyists
-  resources :teachers
-  resources :composers
-  resources :schoolboards
-  resources :schooltypes
+
 
   get 'autocomplete/cities'
   get 'autocomplete/schools'
@@ -24,10 +31,6 @@ devise_for :users, :controllers => {:registrations => 'devise_registrations', :i
 
   get 'users/juges/new', to: 'users#new', as: '/juges/new'
 
-  namespace :admin do
-    get '', to: 'dashboard#index', as: '/'
-  end
-  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

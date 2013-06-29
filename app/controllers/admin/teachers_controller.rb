@@ -1,17 +1,21 @@
 #encoding: utf-8
 class Admin::TeachersController < ApplicationController
+
   def new
-    @teacher = User.new
-    @teacher.contactinfo ||= Contactinfo.new
-    @teacher.contactinfo.city ||= City.new
-    @teachers = User.all(:joins => :roles, :conditions => {:roles => { :name => 'professeur'}})
+    @role = Role.new
+    @teachers = User.teachers
     @users = (User.all - @teachers)
   end
 
-  def update
+  def show
+    @teacher = User.find(params[:id])
+    render :json => @teacher
+  end
+
+  def create
     begin
-      @teacher = User.find(params[:id])
-      role = Role.where(name: 'Professeur').first
+      @teacher = User.find(params[:role][:user_ids])
+      role = Role.find_by_name('Professeur')
 
       if @teacher
         @teacher.roles << role
@@ -32,7 +36,7 @@ class Admin::TeachersController < ApplicationController
   def destroy
     begin
       teacher = User.find(params[:id])
-      role = Role.where(name: 'professeur').first
+      role = Role.find_by_name('Professeur')
       roleUser = teacher.roles.find(role.id)
 
       if roleUser
@@ -44,10 +48,5 @@ class Admin::TeachersController < ApplicationController
     rescue
       render :json => {:message => "Erreur lors de la suppression du professeur"}, :status => :unprocessable_entity
     end
-  end
-
-  def show
-    @teacher = User.find(params[:id])
-    render :json => @teacher
   end
 end

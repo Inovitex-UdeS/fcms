@@ -4,7 +4,7 @@
 //= require datatables
 
 $(document).ready(function(){
-    fcms.dataTables.bindTable($('.table'));
-    fcms.dataTables.initTable();
-    fcms.dataTables.bindForm($('form'), 3);
+    fcms.bindTable($('.table'));
+    fcms.initTable();
+    fcms.bindForm($('form'), 3);
 });

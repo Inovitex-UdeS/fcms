@@ -8,7 +8,7 @@ var modelName;
 var modelUrl;
 var re;
 
-fcms.dataTables.bindTable = function (table) {
+fcms.bindTable = function (table) {
     if (table) {
         // Copy the table
         oTable = $(table);
@@ -26,7 +26,7 @@ fcms.dataTables.bindTable = function (table) {
 //   - 2 For remove button only
 //   - 3 For add & remove buttons
 // ALWAYS CALL BINDFORM AFTER INITTABLE
-fcms.dataTables.bindForm = function (form, type) {
+fcms.bindForm = function (form, type) {
 
     // Copy the form
     oForm = $(form);
@@ -44,7 +44,7 @@ fcms.dataTables.bindForm = function (form, type) {
 
     // Add a click handler to the rows (selectable rows)
     $.each(oTable.fnGetNodes(), function() {
-        $(this).click( fcms.dataTables.fnSelectableRows );
+        $(this).click( fcms.fnSelectableRows );
     });
 
     var htmlToInput = '';
@@ -73,7 +73,7 @@ fcms.dataTables.bindForm = function (form, type) {
         // Add click handler (will clear the form)
         $('#addItem').click( function() {
             oTable.$('tr.row_selected').removeClass('row_selected');
-            fcms.dataTables.fnClearForm();
+            fcms.fnClearForm();
         });
     }
 
@@ -84,15 +84,16 @@ fcms.dataTables.bindForm = function (form, type) {
 
         // Add a click handler for the delete button
         $('#deleteItem').click( function() {
-            var anSelected = fcms.dataTables.fnGetSelected( oTable );
+            var anSelected = fcms.fnGetSelected( oTable );
             if ( anSelected.length !== 0 ) {
                 var id = oTable.fnGetData(oTable.fnGetPosition(anSelected[0]))[0];
                 $.ajax({
                     url: modelUrl + id,
                     type: 'DELETE',
                     complete: function(result) {
+                        fcms.showMessage('L\'item a été supprimé avec succès');
                         oTable.fnDeleteRow(anSelected[0]);
-                        fcms.dataTables.fnClearForm();
+                        fcms.fnClearForm();
                     }
                 });
             }
@@ -182,7 +183,7 @@ fcms.dataTables.bindForm = function (form, type) {
 
 };
 
-fcms.dataTables.initTable = function () {
+fcms.initTable = function () {
     // Init the table
     oTable = $(oTable).dataTable({
         "bInfo": false,
@@ -214,18 +215,18 @@ fcms.dataTables.initTable = function () {
 };
 
 // Selectable rows
-fcms.dataTables.fnSelectableRows = function ( e ) {
+fcms.fnSelectableRows = function ( e ) {
     if ($(this).hasClass('row_selected')) {
         $(this).removeClass('row_selected');
         if (oForm) {
-            fcms.dataTables.fnClearForm();
+            fcms.fnClearForm();
         }
     }
     else {
         oTable.$('tr.row_selected').removeClass('row_selected');
         $(this).addClass('row_selected');
 
-        // If we have a form bound to the dataTables, fill in the values
+        // If we have a form bound to the fcms, fill in the values
         if(oForm) {
             var id = $(this).children().first().text();
 
@@ -249,7 +250,7 @@ fcms.dataTables.fnSelectableRows = function ( e ) {
 };
 
 // Clear the form
-fcms.dataTables.fnClearForm = function () {
+fcms.fnClearForm = function () {
     if (oForm) {
         $('#' + oForm.attr('id') + ' input').filter(function() { return this.id.match(re); }).each(
             function(){
@@ -260,6 +261,51 @@ fcms.dataTables.fnClearForm = function () {
 };
 
 // Get the rows which are currently selected
-fcms.dataTables.fnGetSelected = function ( oTableLocal ) {
+fcms.fnGetSelected = function ( oTableLocal ) {
     return oTableLocal.$('tr.row_selected');
+};
+
+// Inject a single delete button
+fcms.fnInjectDeleteButton = function (deletePath, select) {
+
+    // Add trailing / if not there
+    if(!/\/$/.test(deletePath))
+        deletePath += '/';
+
+    // Add a click handler to the rows (selectable rows)
+    $.each(oTable.fnGetNodes(), function() {
+        $(this).click( fcms.fnSelectableRows );
+    });
+
+    // Add  - button
+    $('.row-fluid:last > .span6:first').html('<a id="deleteItem" class="btn btn-primary" href="#">Supprimer</a></div>');
+
+    // Prevent scrolling top
+    $('#deleteItem').click(function(e){ e.preventDefault(); $.get(deletePath) });
+
+    // Add a click handler for the delete button
+    $('#deleteItem').click( function() {
+        var anSelected = fcms.fnGetSelected( oTable );
+        if ( anSelected.length !== 0 ) {
+            var id = oTable.fnGetData(oTable.fnGetPosition(anSelected[0]))[0];
+            var nameEmail = oTable.fnGetData(oTable.fnGetPosition(anSelected[0]))[1] + ' (' + oTable.fnGetData(oTable.fnGetPosition(anSelected[0]))[2] + ')' ;
+            $.ajax({
+                url: deletePath + id,
+                type: 'DELETE',
+                complete: function(result) {
+                    oTable.fnDeleteRow(anSelected[0]);
+
+                    fcms.showMessage('L\'item a été supprimé avec succès');
+
+                    select.append($('<option>', {
+                        value: id,
+                        text: nameEmail
+                    }));
+
+                    select.typeahead();
+                }
+            });
+        }
+    });
+
 };

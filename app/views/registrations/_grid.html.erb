@@ -1,34 +1,28 @@
-<h3>Inscriptions au festival</h3>
-
-<% if !current_user.is_admin? %>
-    <table class="table table-striped table-bordered">
-      <tr>
-        <th>Catégorie</th>
-        <th>Pièces</th>
-        <th>Compositeurs</th>
-        <th>Professeur</th>
-        <th>Durée</th>
-        <th>Année de l'édition</th>
-      </tr>
-      <% @registrations.each do |reg| %>
-        <tr>
-          <td><%= reg.category.name %></td>
-          <td>
-             <% reg.performances.each do |perf| %>
-                <%= perf.piece.title %> <br />
-            <% end %>
-          </td>
-          <td>
-            <% reg.performances.each do |perf| %>
-                <%= perf.piece.composer.name %> <br />
-            <% end %>
-          </td>
-          <td> <%= reg.teacher.first_name %> <%= reg.teacher.last_name %></td>
-          <td> <%= reg.duration %> min. </td>
-          <td> <%= reg.edition.year %> </td>
-        </tr>
-      <% end %>
-    </table>
-<% else %>
-
-<% end %>
+ <table class="table table-bordered">
+  <tr>
+    <th>Catégorie</th>
+    <th>Pièces</th>
+    <th>Compositeurs</th>
+    <th>Professeur</th>
+    <th>Durée</th>
+    <th>Année de l'édition</th>
+  </tr>
+  <% @registrations.each do |reg| %>
+    <tr>
+      <td><%= reg.category.name %></td>
+      <td>
+         <% reg.performances.each do |perf| %>
+            <%= perf.piece.title %> <br />
+        <% end %>
+      </td>
+      <td>
+        <% reg.performances.each do |perf| %>
+            <%= perf.piece.composer.name %> <br />
+        <% end %>
+      </td>
+      <td> <%= reg.teacher.first_name %> <%= reg.teacher.last_name %></td>
+      <td> <%= reg.duration %> min. </td>
+      <td> <%= reg.edition.year %> </td>
+    </tr>
+  <% end %>
+</table>

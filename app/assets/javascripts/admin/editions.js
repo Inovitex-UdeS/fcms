@@ -19,5 +19,7 @@ $(document).ready(function() {
         viewMode: 2
     });
 
-    fcms.initTable($('form'));
+    fcms.dataTables.bindTable($('.table'));
+    fcms.dataTables.initTable();
+    fcms.dataTables.bindForm($('form'), 3);
 });

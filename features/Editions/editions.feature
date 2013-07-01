@@ -1,4 +1,4 @@
-@wip
+@ok
 Feature: Editions
   In order to manage editions
   An Admin
@@ -7,12 +7,11 @@ Feature: Editions
   Background:
     Given I exist as a user
     And I am an Admin
-    And I am logged in
     And the 2099 edition is created
-    And I visit the editions page
+    And I am logged in
+    And I am on the edition page
 
   Scenario: Verify if I'm on the profile page
-    Given I visit the editions page
     Then I should see "Gestion des éditions"
 
   Scenario: Add a new edition
@@ -25,6 +24,16 @@ Feature: Editions
 
   @javascript
   Scenario: Delete an Edition
-    When I click on the table field "2099"
-    And I press "Supprimer"
+    When I js click on the table row containing "2099"
+    And I js click on "deleteItem"
     Then I should not see "2099"
+
+  @javascript
+  Scenario: Modify an Edition
+    When I js click on the table row containing "2099"
+    And I js change the input "edition_end_date" value for "2100-12-31"
+    And I js change the input "edition_start_date" value for "2100-01-01"
+    And I js change the input "edition_year" value for "2100"
+    And I press "Enregistrer"
+    # I should not see the old edition_start_date
+    Then I should not see "2099-01-01"

@@ -8,6 +8,7 @@ gem 'rails', '3.2.13'
 group :test do
   gem 'simplecov', '0.7.1'
   gem 'factory_girl_rails', '4.2.1'
+  gem 'selenium-client'
   gem 'selenium-webdriver', '2.32.1'
   gem 'capybara', '2.1.0'                                 # lets Cucumber pretend to be a web browser
   #gem 'metric_fu', '4.1.3'

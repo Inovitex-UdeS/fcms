@@ -65,6 +65,11 @@ When /^(?:|I )fill in "([^"]*)" with "([^"]*)"$/ do |field, value|
   fill_in(field, :with => value)
 end
 
+When /^(?:|I )fill the datepicker field "([^"]*)" with "([^"]*)"$/ do |value, field|
+  fill_in(field, :with => value)
+  fill_in(field, :with => value)
+end
+
 When /^(?:|I )fill in "([^"]*)" for "([^"]*)"$/ do |value, field|
   fill_in(field, :with => value)
 end
@@ -104,6 +109,11 @@ end
 
 When /^(?:|I )attach the file "([^"]*)" to "([^"]*)"$/ do |path, field|
   attach_file(field, File.expand_path(path))
+end
+
+# Debug purpose
+When /^(?:|I )wait for "([^"]*)"$/ do |field|
+  sleep(field.to_i)
 end
 
 Then /^(?:|I )should see "([^"]*)"$/ do |text|

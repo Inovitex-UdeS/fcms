@@ -34,6 +34,9 @@ module NavigationHelpers
     when /^the user sign info\s?page$/
       edit_user_registration_path
 
+    when /^the edition\s?page$/
+      new_admin_edition_path
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #

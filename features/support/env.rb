@@ -10,8 +10,14 @@ require 'email_spec'
 require 'email_spec/cucumber'
 
 #Capybara.default_driver = :selenium
-Capybara.javascript_driver = :webkit
+Capybara.javascript_driver = :selenium
+Capybara.app_host = "http://0.0.0.0:3000/"
 
+Capybara.register_driver :firefox do |app|
+  Capybara::Driver::Selenium.new(app, :browser => :firefox)
+end
+
+World(Capybara)
 #Capybara.default_driver = :selenium
 #Capybara.register_driver :selenium do |app|
 #  Capybara::Selenium::Driver.new(app, :browser => :safari)

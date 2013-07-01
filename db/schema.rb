@@ -245,7 +245,7 @@ ActiveRecord::Schema.define(:version => 20130619214444) do
   add_index "schooltypes", ["id"], :name => "schooltypes_pk", :unique => true
   add_index "schooltypes", ["name"], :name => "ak_name_schoolty", :unique => true
 
-  create_table "settings", :id => false, :force => true do |t|
+  create_table "settings", :force => true do |t|
     t.string "key",   :limit => 64,   :null => false
     t.string "value", :limit => 1024
   end

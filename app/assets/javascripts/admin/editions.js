@@ -21,5 +21,13 @@ $(document).ready(function() {
 
     fcms.bindTable($('.table'));
     fcms.initTable();
-    fcms.bindForm($('form'), 3);
+    fcms.bindForm($('#new_edition'), 3);
+
+    $('#edit_edition_2').on('ajax:success', function(evt, data, status, xhr) {
+        fcms.showMessage('La mise à jour de l\'édition courante a été complétée avec succès!');
+    });
+
+    $('form').on('ajax:error', function(event, xhr, status) {
+        fcms.showMessage(xhr.responseText, 3);
+    });
 });

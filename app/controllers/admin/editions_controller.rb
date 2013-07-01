@@ -3,6 +3,7 @@ class Admin::EditionsController < ApplicationController
   def new
     @edition = Edition.new
     @editions = Edition.all
+    @current_edition = Setting.find_by_key('current_edition_id').value
   end
 
   def create

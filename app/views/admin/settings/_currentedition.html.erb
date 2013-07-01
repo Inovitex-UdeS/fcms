@@ -1,0 +1,12 @@
+<h5>Choisir l'édition en cours</h5>
+<div class="col">
+  <%= simple_form_for @editions, :remote => true,
+                      :url => admin_currenteditions_path,
+                      :method => 'post' do |f| %>
+
+      <%= f.select(:id, options_for_select( Edition.all.collect {|p| [ p.year, p.id ] }, @current_edition ), {prompt: 'Choisissez une l\'édition courante'}) %>
+      <br />
+      <%= f.button :submit, 'Enregistrer' , :class => 'btn' %>
+
+  <% end %>
+</div>

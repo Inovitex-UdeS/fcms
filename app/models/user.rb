@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
     User.with_role('Participant')
   end
 
-  def self.accompanyists
+  def self.accompanists
     User.with_role('Accompagnateur')
   end
 

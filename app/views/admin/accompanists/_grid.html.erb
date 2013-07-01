@@ -7,12 +7,12 @@
     <th>Date de création</th>
   </tr></thead>
   <tbody>
-  <% @accompanyists.each do |accompanyist| %>
+  <% @accompanists.each do |accompanist| %>
       <tr>
-        <td><%= accompanyist.id %></label></td>
-        <td><%= accompanyist.first_name %> <%= accompanyist.last_name %></td>
-        <td><%= accompanyist.email %></td>
-        <td><%= accompanyist.created_at %></td>
+        <td><%= accompanist.id %></label></td>
+        <td><%= accompanist.first_name %> <%= accompanist.last_name %></td>
+        <td><%= accompanist.email %></td>
+        <td><%= accompanist.created_at %></td>
       </tr>
   <% end %>
   </tbody>

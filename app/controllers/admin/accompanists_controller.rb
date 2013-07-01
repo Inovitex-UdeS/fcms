@@ -1,26 +1,26 @@
 #encoding: utf-8
-class Admin::AccompanyistsController < ApplicationController
+class Admin::AccompanistsController < ApplicationController
   def new
     @role = Role.new
-    @accompanyists = User.accompanyists
-    @users = (User.all - @accompanyists)
+    @accompanists = User.accompanists
+    @users = (User.all - @accompanists)
   end
 
   def show
-    @accompanyist = User.find(params[:id])
-    render :json => @accompanyist
+    @accompanist = User.find(params[:id])
+    render :json => @accompanist
   end
 
   def create
     begin
-      @accompanyist = User.find(params[:role][:user_ids])
+      @accompanist = User.find(params[:role][:user_ids])
       role = Role.find_by_name('Accompagnateur')
 
-      if @accompanyist
-        @accompanyist.roles << role
+      if @accompanist
+        @accompanist.roles << role
 
-        if @accompanyist.save
-          render :json => @accompanyist
+        if @accompanist.save
+          render :json => @accompanist
         else
           render :json => {:message => "L'accompagnateur n'a pu être mis à jour"}, :status => :unprocessable_entity
         end
@@ -34,12 +34,12 @@ class Admin::AccompanyistsController < ApplicationController
 
   def destroy
     begin
-      accompanyist = User.find(params[:id])
+      accompanist = User.find(params[:id])
       role = Role.find_by_name('Accompagnateur')
-      roleUser = accompanyist.roles.find(role.id)
+      roleUser = accompanist.roles.find(role.id)
 
       if roleUser
-        accompanyist.roles.delete(roleUser)
+        accompanist.roles.delete(roleUser)
         render :json => {:message => "L'accompagnateur a été supprimé avec succès"}, :status => :ok
       else
         render :json => {:message =>  "L'accompagnateur n'a pas été trouvé"}, :status => :unprocessable_entity

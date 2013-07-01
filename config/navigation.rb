@@ -98,7 +98,7 @@ SimpleNavigation::Configuration.run do |navigation|
       sub_nav.item :key_5_9, 'Gérer les types d\'écoles', new_admin_schooltype_path
       sub_nav.item :key_5_10, 'Gérer les villes', new_admin_city_path
       sub_nav.item :key_5_11,'', nil, :class=> 'divider'
-      sub_nav.item :key_5_12, 'Gérer les accompagnateurs', new_admin_accompanyist_path
+      sub_nav.item :key_5_12, 'Gérer les accompagnateurs', new_admin_accompanist_path
       sub_nav.item :key_5_13, 'Gérer les juges', new_admin_juge_path
       sub_nav.item :key_5_14, 'Gérer les professeurs', new_admin_teacher_path
       sub_nav.item :key_5_15,'', nil, :class=> 'divider'

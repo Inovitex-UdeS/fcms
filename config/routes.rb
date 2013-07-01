@@ -7,7 +7,7 @@ devise_for :users, :controllers => {:registrations => 'devise_registrations', :i
      # Directs /admin/x/* to Admin::xsController
      # (app/controllers/admin/xs_controller.rb)
      get '', to: 'dashboard#index', as: '/'
-     resources :accompanyists
+     resources :accompanists
      resources :categories
      resources :cities
      resources :editions

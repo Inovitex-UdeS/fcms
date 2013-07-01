@@ -1,23 +1,26 @@
 #encoding: utf-8
-class Admin::AccompanyistsController < ApplicationController
+class Admin::AccompanistsController < ApplicationController
   def new
-    @accompanyist = User.new
-    @accompanyist.contactinfo ||= Contactinfo.new
-    @accompanyist.contactinfo.city ||= City.new
-    @accompanyists = User.all(:joins => :roles, :conditions => {:roles => { :name => 'accompagnateur'}})
-    @users = (User.all - @accompanyists)
+    @role = Role.new
+    @accompanists = User.accompanists
+    @users = (User.all - @accompanists)
   end
 
-  def update
+  def show
+    @accompanist = User.find(params[:id])
+    render :json => @accompanist
+  end
+
+  def create
     begin
-      @accompanyist = User.find(params[:id])
-      role = Role.where(name: 'accompagnateur').first
+      @accompanist = User.find(params[:role][:user_ids])
+      role = Role.find_by_name('Accompagnateur')
 
-      if @accompanyist
-        @accompanyist.roles << role
+      if @accompanist
+        @accompanist.roles << role
 
-        if @accompanyist.save
-          render :json => @accompanyist
+        if @accompanist.save
+          render :json => @accompanist
         else
           render :json => {:message => "L'accompagnateur n'a pu être mis à jour"}, :status => :unprocessable_entity
         end
@@ -31,12 +34,12 @@ class Admin::AccompanyistsController < ApplicationController
 
   def destroy
     begin
-      accompanyist = User.find(params[:id])
-      role = Role.where(name: 'accompagnateur').first
-      roleUser = accompanyist.roles.find(role.id)
+      accompanist = User.find(params[:id])
+      role = Role.find_by_name('Accompagnateur')
+      roleUser = accompanist.roles.find(role.id)
 
       if roleUser
-        accompanyist.roles.delete(roleUser)
+        accompanist.roles.delete(roleUser)
         render :json => {:message => "L'accompagnateur a été supprimé avec succès"}, :status => :ok
       else
         render :json => {:message =>  "L'accompagnateur n'a pas été trouvé"}, :status => :unprocessable_entity
@@ -46,8 +49,4 @@ class Admin::AccompanyistsController < ApplicationController
     end
   end
 
-  def show
-    @accompanyist = User.find(params[:id])
-    render :json => @accompanyist
-  end
 end

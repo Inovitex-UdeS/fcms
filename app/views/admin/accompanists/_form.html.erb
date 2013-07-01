@@ -1,7 +1,7 @@
-<h5>Assigner le rôle de juge à un utilisateur</h5>
+<h5>Assigner le rôle d'accompagnateur à un utilisateur</h5>
 
 <%= simple_form_for @role, :remote => true,
-                    :url => url_for(:action => 'create', :controller => 'admin/juges'),
+                    :url => url_for(:action => 'create', :controller => 'admin/accompanists'),
                     :method => 'post' do |f| %>
 
     <div class="input-prepend">
@@ -10,5 +10,5 @@
     </div>
     <br />
 
-    <%= f.button :submit, 'Ajouter le rôle de juge à l\'utilisateur' , :class => 'btn' %>
+    <%= f.button :submit, 'Ajouter le rôle d\'accompagnateur à l\'utilisateur' , :class => 'btn' %>
 <% end %>

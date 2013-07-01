@@ -30,16 +30,20 @@ class User < ActiveRecord::Base
     User.with_role('Participant')
   end
 
+  def self.accompanists
+    User.with_role('Accompagnateur')
+  end
+
   def self.teachers
     User.with_role('Professeur')
   end
 
   def self.juges
-    User.with_role('Juges').where(confirmed: true)
+    User.with_role('Juge')#.where(confirmed: true)
   end
 
   def self.admins
-    User.with_role('Administrateur').where(confirmed: true)
+    User.with_role('Administrateur')#.where(confirmed: true)
   end
 
   # Instance methods

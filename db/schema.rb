@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130619214444) do
+ActiveRecord::Schema.define(:version => 20130630235029) do
 
   create_table "agegroups", :force => true do |t|
     t.integer  "edition_id",                  :null => false
@@ -156,6 +156,7 @@ ActiveRecord::Schema.define(:version => 20130619214444) do
     t.integer  "duration",        :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "age_max"
   end
 
   add_index "registrations", ["category_id"], :name => "category_id_fk2"

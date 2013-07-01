@@ -17,10 +17,11 @@ $(document).ready(function() {
         aItem.push(data['first_name'] + ' ' + data['last_name']);
         aItem.push(data['email']);
         aItem.push(fcms.fnFormatDate(data['created_at']));
-        aItem.push(fcms.fnFormatDate(data['updated_at']));
 
         var iRow = oTable.fnAddData(aItem);
         $(oTable.fnGetNodes(iRow)).click( fcms.fnSelectableRows );
+
+        delete $('#role_user_ids').data('typeahead').source[data['id']];
 
         $('form')[0].reset();
     });

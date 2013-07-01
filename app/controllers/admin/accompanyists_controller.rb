@@ -1,17 +1,20 @@
 #encoding: utf-8
 class Admin::AccompanyistsController < ApplicationController
   def new
-    @accompanyist = User.new
-    @accompanyist.contactinfo ||= Contactinfo.new
-    @accompanyist.contactinfo.city ||= City.new
-    @accompanyists = User.all(:joins => :roles, :conditions => {:roles => { :name => 'accompagnateur'}})
+    @role = Role.new
+    @accompanyists = User.accompanyists
     @users = (User.all - @accompanyists)
   end
 
-  def update
+  def show
+    @accompanyist = User.find(params[:id])
+    render :json => @accompanyist
+  end
+
+  def create
     begin
-      @accompanyist = User.find(params[:id])
-      role = Role.where(name: 'accompagnateur').first
+      @accompanyist = User.find(params[:role][:user_ids])
+      role = Role.find_by_name('Accompagnateur')
 
       if @accompanyist
         @accompanyist.roles << role
@@ -32,7 +35,7 @@ class Admin::AccompanyistsController < ApplicationController
   def destroy
     begin
       accompanyist = User.find(params[:id])
-      role = Role.where(name: 'accompagnateur').first
+      role = Role.find_by_name('Accompagnateur')
       roleUser = accompanyist.roles.find(role.id)
 
       if roleUser
@@ -46,8 +49,4 @@ class Admin::AccompanyistsController < ApplicationController
     end
   end
 
-  def show
-    @accompanyist = User.find(params[:id])
-    render :json => @accompanyist
-  end
 end

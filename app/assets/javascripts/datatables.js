@@ -302,10 +302,9 @@ fcms.fnInjectDeleteButton = function (deletePath, select) {
                         text: nameEmail
                     }));
 
-                    select.typeahead();
+                    select.data('typeahead').source[id] = nameEmail;
                 }
             });
         }
     });
-
 };

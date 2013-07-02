@@ -27,7 +27,7 @@ $(document).ready(function() {
         fcms.showMessage('La mise à jour de l\'édition courante a été complétée avec succès!');
     });
 
-    $('form').on('ajax:error', function(event, xhr, status) {
+    $('#edit_edition_2').on('ajax:error', function(event, xhr, status) {
         fcms.showMessage(xhr.responseText, 3);
     });
 });

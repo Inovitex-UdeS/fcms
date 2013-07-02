@@ -17,6 +17,7 @@ devise_for :users, :controllers => {:registrations => 'devise_registrations', :i
      resources :juges
      resources :teachers
      resources :composers
+     resources :schools
      resources :schoolboards
      resources :schooltypes
      resources :currenteditions

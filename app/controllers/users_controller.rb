@@ -1,10 +1,4 @@
 class UsersController < ApplicationController
-  def index
-    @users = User.all
-    @user = User.all.first   # Hack to make city id appear in form
-    @user.contactinfo ||= Contactinfo.new
-    @user.contactinfo.city ||= City.new
-  end
 
   def edit
     @user  = User.find(params[:id])

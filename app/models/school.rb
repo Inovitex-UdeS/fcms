@@ -7,4 +7,5 @@ class School < ActiveRecord::Base
   belongs_to :schoolboard
   belongs_to :contactinfo
 
+  accepts_nested_attributes_for :contactinfo, :allow_destroy => true
 end

@@ -123,7 +123,9 @@ fcms.bindForm = function (form, type) {
                     $('#' + oForm.attr('id') + ' input').filter(function() { return this.id.match(re); }).each(
                         function(){
                             var field = $(this).attr('id').replace(/^[a-zA-Z0-9]+_/g, '');
-                            aItem.push(data[field]);
+                            if (field in data) {
+                                aItem.push(data[field]);
+                            }
                         }
                     );
                     aItem.push(fcms.fnFormatDate(data['created_at']));
@@ -155,7 +157,10 @@ fcms.bindForm = function (form, type) {
                         $('#' + oForm.attr('id') + ' input').filter(function() { return this.id.match(re); }).each(
                             function(){
                                 var field = $(this).attr('id').replace(/^[a-zA-Z0-9]+_/g, '');
-                                aItem.push(data[field]);
+                                if (field in data) {
+                                    aItem.push(data[field]);
+                                }
+
                             }
                         );
 
@@ -234,29 +239,27 @@ fcms.fnSelectableRows = function ( e ) {
                 url     : modelUrl + id,
                 type    : 'GET',
                 dataType: 'json',
-                success : function( data ) {
-                    $('#' + oForm.attr('id') + ' input').filter(function() { return this.id.match(re); }).each(
-                        function(){
-                            var field = $(this).attr('id').replace(modelName + "_", "");
-                            if (field in data) {
-                                $(this).val(data[field]);
-                            }
-                        }
-                    );
-                }
+                success : fcms.fnSuccessGetData
             });
         }
     }
 };
 
+fcms.fnSuccessGetData = function( data ) {
+    $('#' + oForm.attr('id') + ' input').filter(function() { return this.id.match(re); }).each(
+        function(){
+            var field = $(this).attr('id').replace(modelName + "_", "");
+            if (field in data) {
+                $(this).val(data[field]);
+            }
+        }
+    );
+};
+
 // Clear the form
 fcms.fnClearForm = function () {
     if (oForm) {
-        $('#' + oForm.attr('id') + ' input').filter(function() { return this.id.match(re); }).each(
-            function(){
-                $(this).val('');
-            }
-        );
+        oForm[0].reset();
     }
 };
 

@@ -26,43 +26,7 @@
     </div>
     <br />
 
-    <%= f.fields_for :contactinfo do |c| %>
-        <div class="input-prepend">
-          <span class="add-on"><i class="icon-phone"></i></span>
-            <%= c.telephone_field :telephone, :class => 'input-xlarge', :placeholder => "Téléphone", :'data-mask' => '999-999-9999' %>
-        </div>
-        <br />
-
-        <div class="input-prepend">
-          <span class="add-on"><i class="icon-home"></i></span>
-            <%= c.text_field :address, :class => 'input-xlarge', :placeholder => "Adresse ligne 1" %>
-        </div>
-        <br />
-
-        <div class="input-prepend">
-          <span class="add-on"><i class="icon-home"></i></span>
-            <%= c.text_field :address2, :class => 'input-xlarge', :placeholder => "Adresse ligne 2" %>
-        </div>
-        <br />
-
-        <div class="input-prepend">
-          <span class="add-on"><i class="icon-home"></i></span>
-            <%= c.text_field :postal_code, :class => 'input-xlarge', :placeholder =>  "Code postal" %>
-        </div>
-        <br />
-
-        <div class="input-prepend">
-          <span class="add-on"><i class="icon-building"></i></span>
-            <%= c.association :city, :label => false, :input_html => { :class => 'input-xlarge'}, :wrapper => false %>
-        </div>
-        <br />
-
-        <div class="input-prepend">
-          <span class="add-on"><i class="icon-globe"></i></span>
-            <%= c.text_field :province, :class => 'input-xlarge', :placeholder => "Province" %>
-        </div>
-        <br />
-    <% end %>
+    <%= render :partial => 'shared/contactinfos', :locals=>{:f => f} %>
 
     <div class="form-actions">
         <%= f.submit "Enregistrer", class: "btn btn-primary" %>

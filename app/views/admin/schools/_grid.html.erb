@@ -1,0 +1,17 @@
+<h5>Écoles existants</h5>
+<table class="table table-bordered">
+  <thead><tr>
+    <th>Id</th>
+    <th>Type d'école</th>
+    <th>Date de création</th>
+    <th>Dernière mise à jour</th>
+  </tr></thead>
+  <% @schools.each do |school| %>
+      <tr>
+        <td><%= school.id %></td>
+        <td><%= school.name %></td>
+        <td><%= school.created_at %></td>
+        <td><%= school.updated_at %></td>
+      </tr>
+  <% end %>
+</table><hr>

@@ -1,0 +1,35 @@
+<h5>Ajouter ou modifier une école</h5>
+<div class="col">
+    <%= simple_form_for [:admin, @school] do |f| %>
+
+        <div class="input-prepend">
+            <span class="add-on"><i class="iconic-hash"></i></span>
+            <%= f.text_field :id, :class => 'input-small', :readonly => true%>
+        </div>
+        <br />
+
+        <div class="input-prepend">
+            <span class="add-on"><i class="icon-font"></i></span>
+            <%= f.text_field :name, :placeholder => 'Nom de l\'école', :class => 'input-xlarge' %>
+        </div>
+        <br />
+
+        <div class="input-prepend">
+        <span class="add-on"><i class="icon-tag"></i></span>
+            <%= f.association :schooltype, :label => false, :prompt => 'Choisissez le type d\'école', :input_html => { :class => 'input-xlarge'}, :wrapper => false %>
+        </div>
+        <br />
+
+        <div class="input-prepend">
+        <span class="add-on"><i class="icon-bell"></i></span>
+            <%= f.association :schoolboard, :label => false, :prompt => 'Choisissez la comission scolaire', :input_html => { :class => 'input-xlarge'}, :wrapper => false %>
+        </div>
+        <br />
+
+      <%= render :partial => 'shared/contactinfos', :locals => {:f => f} %>
+
+      <div class="form-actions">
+        <%= f.button :submit, 'Enregistrer' , :class => 'btn btn-primary' %>
+      </div>
+    <% end %>
+</div>

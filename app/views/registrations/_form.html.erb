@@ -1,13 +1,8 @@
-<%= simple_nested_form_for @registration do |f| %>
+<%= simple_nested_form_for @registration, :remote => true do |f| %>
 
     <%= f.hidden_field :edition_id, :value => @current_edition %>
 
-    <% if @owner_id == nil %>
-        <h4>Utilisateur</h4>
-        <%= f.association :owner, prompt: "Choisissez un participant", label_method: lambda { |usr| usr.first_name + " " + usr.last_name + " (" + usr.email + ")"}, label: false %>
-    <% else %>
-        <%= f.hidden_field :user_owner_id, :value => @owner_id %>
-    <% end %>
+    <%= f.hidden_field :user_owner_id, :value => @owner_id %>
 
     <h4>Professeur</h4>
     <%= f.association :teacher, collection: @teachers, prompt: "Choisissez un professeur", label_method: lambda { |usr| usr.first_name + " " + usr.last_name + " (" + usr.email + ")"}, label: false %>

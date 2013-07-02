@@ -13,11 +13,20 @@ var nbPersMax = 12;
 $(document).ready(function(){
     $('#registration_user_teacher_id').typeahead();
     $('#registration_school_id').typeahead();
+
+    $('#new_registration').on('ajax:success', function(evt, data, status, xhr) {
+        fcms.showMessage('L\'enregistrement au festival a été complété avec succès!');
+        $('#new_registration')[0].reset();
+    });
+
+    $('#new_registration').on('ajax:error', function(event, xhr, status) {
+        fcms.showMessage(xhr.responseText, 3);
+    });
 });
 
 function changeCategory(category_id) {
     if (category_id=="" || category_id=="Choisissez une classe") return; // please select - possibly you want something else here
-    $.getJSON('/categories?id=' + category_id, function(data) {
+    $.getJSON('/admin/categories/' + category_id, function(data) {
         nbPerfMax = data.category.nb_perf_max;
         nbPerfMin = data.category.nb_perf_min;
         maxDuration = data.max_duration.max_duration;

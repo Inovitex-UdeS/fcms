@@ -39,10 +39,9 @@ class Admin::RegistrationsController < ApplicationController
           reg.save
         end
       end
-
-      render :json => {:registration => @registration, :message => 'L\'inscription a été crée avec succès'}
+      redirect_to new_admin_registration_path, notice: "L'inscription a été créée avec succès!"
     rescue => e
-      render :json => { :message => e.message }, :status => :unprocessable_entity
+      redirect_to new_admin_registration_path, alert: e.messages
     end
   end
 

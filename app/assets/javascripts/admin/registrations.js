@@ -9,5 +9,5 @@ $(document).ready(function(){
     $("#AutresParticipants").hide();
     fcms.bindTable($('#registrations_table'));
     fcms.initTable() ;
-
+    $(".alert").alert();
 });

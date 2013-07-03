@@ -1,28 +1,47 @@
  <table class="table table-bordered">
-  <tr>
-    <th>Catégorie</th>
-    <th>Pièces</th>
-    <th>Compositeurs</th>
-    <th>Professeur</th>
-    <th>Durée</th>
-    <th>Année de l'édition</th>
-  </tr>
-  <% @registrations.each do |reg| %>
-    <tr>
-      <td><%= reg.category.name %></td>
-      <td>
-         <% reg.performances.each do |perf| %>
-            <%= perf.piece.title %> <br />
-        <% end %>
-      </td>
-      <td>
-        <% reg.performances.each do |perf| %>
-            <%= perf.piece.composer.name %> <br />
-        <% end %>
-      </td>
-      <td> <%= reg.teacher.first_name %> <%= reg.teacher.last_name %></td>
-      <td> <%= reg.duration %> min. </td>
-      <td> <%= reg.edition.year %> </td>
-    </tr>
-  <% end %>
+  <thead>
+      <tr>
+        <th>Catégorie</th>
+        <th>Pièces</th>
+        <th>Compositeurs</th>
+        <th>Professeur</th>
+        <th>Participants</th>
+        <th>Durée</th>
+        <th>Année de l'édition</th>
+      </tr>
+  </thead>
+  <tbody>
+      <% @registrations.each do |reg| %>
+        <tr>
+          <td><%= reg.category.name %></td>
+          <td>
+             <% reg.performances.each do |perf| %>
+                <%= perf.piece.title %> <br />
+            <% end %>
+          </td>
+          <td>
+            <% reg.performances.each do |perf| %>
+                <%= perf.piece.composer.name %> <br />
+            <% end %>
+          </td>
+          <td><%= reg.teacher.first_name %> <%= reg.teacher.last_name %></td>
+          <td>
+            <% reg.users.each do |user| %>
+                <% if user.id == reg.owner.id %>
+                    <b>
+                <% end %>
+
+                <%= user.first_name %> <%= user.last_name %> (<%= user.email %>)
+
+                <% if user.id == reg.owner.id %>
+                    </b>
+                <% end %>
+                <br />
+          <% end %>
+          </td>
+          <td> <%= reg.duration %> min. </td>
+          <td> <%= reg.edition.year %> </td>
+        </tr>
+      <% end %>
+  </tbody>
 </table>

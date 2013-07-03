@@ -2,10 +2,11 @@
   <thead>
       <tr>
         <th>Catégorie</th>
+        <th>Instrument</th>
+        <th>Participants</th>
         <th>Pièces</th>
         <th>Compositeurs</th>
         <th>Professeur</th>
-        <th>Participants</th>
         <th>Durée</th>
         <th>Année de l'édition</th>
       </tr>
@@ -14,8 +15,27 @@
       <% @registrations.each do |reg| %>
         <tr>
           <td><%= reg.category.name %></td>
+           <td>
+            <% reg.registrations_users.each do |reg_user| %>
+                <%= reg_user.instrument.name %>
+            <% end %>
+          </td>
           <td>
-             <% reg.performances.each do |perf| %>
+            <% reg.registrations_users.each do |reg_user| %>
+                <% if reg_user.user.id == reg.owner.id %>
+                    <b>
+                <% end %>
+
+                <%= reg_user.user.first_name %> <%= reg_user.user.last_name %>
+
+                <% if reg_user.user.id == reg.owner.id %>
+                    </b>
+                <% end %>
+                <br />
+          <% end %>
+          </td>
+          <td>
+            <% reg.performances.each do |perf| %>
                 <%= perf.piece.title %> <br />
             <% end %>
           </td>
@@ -25,20 +45,6 @@
             <% end %>
           </td>
           <td><%= reg.teacher.first_name %> <%= reg.teacher.last_name %></td>
-          <td>
-            <% reg.users.each do |user| %>
-                <% if user.id == reg.owner.id %>
-                    <b>
-                <% end %>
-
-                <%= user.first_name %> <%= user.last_name %> (<%= user.email %>)
-
-                <% if user.id == reg.owner.id %>
-                    </b>
-                <% end %>
-                <br />
-          <% end %>
-          </td>
           <td> <%= reg.duration %> min. </td>
           <td> <%= reg.edition.year %> </td>
         </tr>

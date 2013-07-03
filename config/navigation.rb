@@ -88,9 +88,9 @@ SimpleNavigation::Configuration.run do |navigation|
     # TODO: Replace 'user_signed_in?' with actual admin permissions lookup   --> Genre  current_user.has_role?(:administrateur)
     primary.item :key_5, 'Administration' , '/admin', :icon => 'icon-cog' do |sub_nav|
       sub_nav.item :key_5_1, 'Vue d\'ensemble', '/admin', :icon => 'iconic-chart'
-      sub_nav.item :key_5_2, 'Gérer les inscriptions', '#{/registrations}'
+      sub_nav.item :key_5_2, 'Gérer les inscriptions', new_admin_registration_path
       sub_nav.item :key_5_3, '', nil, :class=> 'divider'
-      sub_nav.item :key_5_4, 'Gérer les commissions scolaires',new_admin_schoolboard_path
+      sub_nav.item :key_5_4, 'Gérer les commissions scolaires', new_admin_schoolboard_path
       sub_nav.item :key_5_5, 'Gérer les compositeurs', new_admin_composer_path
       sub_nav.item :key_5_6, 'Gérer les écoles', new_admin_school_path
       sub_nav.item :key_5_7, 'Gérer les éditions', new_admin_edition_path

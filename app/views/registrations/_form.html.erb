@@ -1,69 +1,64 @@
-<%= simple_nested_form_for @registration, :remote => true do |f| %>
+<%= f.hidden_field :edition_id, :value => @current_edition %>
 
-    <%= f.hidden_field :edition_id, :value => @current_edition %>
+<h5>Professeur</h5>
+<%= f.association :teacher, collection: @teachers, prompt: "Choisissez un professeur", label_method: lambda { |usr| usr.first_name + " " + usr.last_name + " (" + usr.email + ")"}, label: false %>
 
-    <%= f.hidden_field :user_owner_id, :value => @owner_id %>
+<h5>Informations personnelles</h5>
+<%= f.association :school, prompt: "Choisissez une école", label: false %>
 
-    <h4>Professeur</h4>
-    <%= f.association :teacher, collection: @teachers, prompt: "Choisissez un professeur", label_method: lambda { |usr| usr.first_name + " " + usr.last_name + " (" + usr.email + ")"}, label: false %>
+<h5>Programme musical</h5>
+<%= f.association :category, prompt: "Choisissez une catégorie", label: false, :input_html => {:onchange => "changeCategory(this.value)"} %>
+<%= f.association :instruments, prompt: "Choisissez un instrument", label: false,  as: :collection_select %>
 
-    <h4>Informations personnelles</h4>
-    <%= f.association :school, prompt: "Choisissez une école", label: false %>
+<h5>Pièces performées</h5>
 
-    <h4>Programme musical</h4>
-    <%= f.association :category, prompt: "Choisissez une catégorie", label: false, :input_html => {:onchange => "changeCategory(this.value)"} %>
-    <%= f.association :instruments, prompt: "Choisissez un instrument", label: false,  as: :collection_select %>
+<div id='performances-container'>
+  <table id='performances' class='table'>
+    <thead><tr>
+      <th>Pièce</th>
+      <th>Durée (minutes)</th>
+      <th></th>
+    </tr></thead>
+    <tbody>
+        <%= f.fields_for :performances, :wrapper => false %>
+    </tbody>
+    <tfoot>
+        <tr>
+          <td>Durée totale:</td>
+          <td><%= f.number_field :duration, :value => '0', :readonly => true %></td>
+          <td></td>
+        </tr>
+    </tfoot>
+  </table>
+  <%= f.link_to_add " Ajouter une performance", :performances, :id => 'btn-add-performance' , :data => { :target => '#performances' }, :class => 'icon-plus btn' %>
+</div>
+<br/>
 
-    <h4>Pièces performées</h4>
+<div id="AutresParticipants">
+  <h4>Autres participants</h4>
+  <div id='users-container'>
+    <table id='users' class='table'>
+      <thead><tr>
+        <th>Participant</th>
+        <th>Instrument</th>
+        <th></th>
+      </tr></thead>
+      <tbody>
+      <%= f.fields_for :registrations_users, :wrapper => false %>
+      </tbody>
+    <tfoot>
+        <tr>
+          <td>Nombre de participants</td>
+          <td><label id='totUsers'>0</label></td>
+          <td></td>
+        </tr>
+    </tfoot>
+    </table>
+    <%= f.link_to_add " Ajouter une personne", :registrations_users, :id => 'btn-add-users' , :data => { :target => '#users' }, :class => 'icon-plus btn' %>
+  </div><br/>
+</div>
 
-    <div id='performances-container'>
-      <table id='performances' class='table'>
-        <thead><tr>
-          <th>Pièce</th>
-          <th>Durée (minutes)</th>
-          <th></th>
-        </tr></thead>
-        <tbody>
-            <%= f.fields_for :performances, :wrapper => false %>
-        </tbody>
-        <tfoot>
-            <tr>
-              <td>Durée totale:</td>
-              <td><%= f.number_field :duration, :value => '0', :readonly => true %></td>
-              <td></td>
-            </tr>
-        </tfoot>
-      </table>
-      <%= f.link_to_add " Ajouter une performance", :performances, :id => 'btn-add-performance' , :data => { :target => '#performances' }, :class => 'icon-plus btn' %>
-    </div>
-    <br/>
-
-    <div id="AutresParticipants">
-      <h4>Autres participants</h4>
-      <div id='users-container'>
-        <table id='users' class='table'>
-          <thead><tr>
-            <th>Participant</th>
-            <th>Instrument</th>
-            <th></th>
-          </tr></thead>
-          <tbody>
-          <%= f.fields_for :registrations_users, :wrapper => false %>
-          </tbody>
-        <tfoot>
-            <tr>
-              <td>Nombre de participants</td>
-              <td><label id='totUsers'>0</label></td>
-              <td></td>
-            </tr>
-        </tfoot>
-        </table>
-        <%= f.link_to_add " Ajouter une personne", :registrations_users, :id => 'btn-add-users' , :data => { :target => '#users' }, :class => 'icon-plus btn' %>
-      </div><br/>
-    </div>
-
-    <div class="form-actions">
-      <%= f.button :submit, 'Envoyer l\'inscription' , :class => 'btn btn-primary' %>
-      <%= button_tag "Recommencer", type: :reset %>
-    </div>
-<% end %>
+<div class="form-actions">
+  <%= f.button :submit, 'Envoyer l\'inscription' , :class => 'btn btn-primary' %>
+  <%= button_tag "Recommencer", type: :reset %>
+</div>

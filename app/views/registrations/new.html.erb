@@ -1,2 +1,5 @@
-<h3>Nouvelle inscription au festival</h3>
-<%= render :partial => '/registrations/form' %>
+<h3>Inscription au festival</h3>
+<%= simple_nested_form_for @registration, :remote => true do |f| %>
+    <%= f.hidden_field :user_owner_id, :value => @owner_id %>
+    <%= render :partial => '/registrations/form', :locals => {:f => f} %>
+<% end %>

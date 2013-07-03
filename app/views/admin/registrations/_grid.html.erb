@@ -1,0 +1,59 @@
+<table id="registrations_table" class="table table-bordered">
+  <thead>
+  <tr>
+    <th>Id</th>
+    <th>Catégorie</th>
+    <th>Instrument</th>
+    <th>Participants</th>
+    <th>Pièces</th>
+    <th>Compositeurs</th>
+    <th>Professeur</th>
+    <th>Durée</th>
+    <th>Année de l'édition</th>
+    <th>Date de création</th>
+    <th>Dernière mise à jour</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @registrations.each do |reg| %>
+      <tr>
+        <td><%= reg.id %></td>
+        <td><%= reg.category.name %></td>
+        <td>
+          <% reg.registrations_users.each do |reg_user| %>
+              <%= reg_user.instrument.name %>
+          <% end %>
+        </td>
+        <td>
+          <% reg.registrations_users.each do |reg_user| %>
+              <% if reg_user.user.id == reg.owner.id %>
+                  <b>
+              <% end %>
+
+              <%= reg_user.user.first_name %> <%= reg_user.user.last_name %>
+
+              <% if reg_user.user.id == reg.owner.id %>
+                  </b>
+              <% end %>
+              <br />
+          <% end %>
+        </td>
+        <td>
+          <% reg.performances.each do |perf| %>
+              <%= perf.piece.title %> <br />
+          <% end %>
+        </td>
+        <td>
+          <% reg.performances.each do |perf| %>
+              <%= perf.piece.composer.name %> <br />
+          <% end %>
+        </td>
+        <td><%= reg.teacher.first_name %> <%= reg.teacher.last_name %></td>
+        <td> <%= reg.duration %> min. </td>
+        <td> <%= reg.edition.year %> </td>
+        <td><%= reg.created_at %></td>
+        <td><%= reg.updated_at %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

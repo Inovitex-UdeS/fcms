@@ -1,0 +1,5 @@
+<tr class="fields">
+  <td><%= f.association :piece, prompt: "Choisissez une pièce", label: false, :input_html=> {class: 'piece_select'}, label_method: lambda { |piece| piece.composer.name + " " + piece.title } %>
+  <td><%= number_field_tag 'unit_duration', nil, :step => 0.5, :in => 0..30, :onchange => 'calculateTotDuration()' %></td>
+  <td><%= f.link_to_remove 'Supprimer', :class => 'btn' %></td>
+</tr>

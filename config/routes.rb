@@ -20,6 +20,7 @@ devise_for :users, :controllers => {:registrations => 'devise_registrations', :i
      resources :schools
      resources :schoolboards
      resources :schooltypes
+     resources :registrations
      resources :currenteditions
    end
 

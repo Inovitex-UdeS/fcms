@@ -15,10 +15,10 @@ class Users::InvitationsController < Devise::InvitationsController
       @user.update_attribute(:password, 'password')
 
       if @user.save
-        @user.invite!(current_user)
+        redirect_to new_user_invitation_path, :notice => 'L\'invitation a bien été envoyée!'
+      else
+        redirect_to new_user_invitation_path, :alert => 'Erreur lors de l\'invitation'
       end
-
-      redirect_to new_user_invitation_path
     end
   end
 end

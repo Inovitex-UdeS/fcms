@@ -3,9 +3,14 @@
     :url => url_for(:action => 'create', :controller => 'invitations'),
     :method => 'post' do |f| %>
 
-
-
     <h5>Informations personnelles</h5>
+
+    <% if notice -%>
+        <p class="alert alert-success"><%= notice %><a class="close" data-dismiss="alert" href="#">&times;</a></p>
+    <% end -%>
+    <% if alert -%>
+        <p class="alert alert-danger"><%= alert %><a class="close" data-dismiss="alert" href="#">&times;</a></p>
+    <% end -%>
 
     <div class="input-prepend">
       <span class="add-on"><i class="icon-user"></i></span>

@@ -72,3 +72,11 @@ $(document).on('nested:fieldRemoved:registrations_users', function(event){
     event.field.remove();
     $('#totUsers').text($('#users .fields').length);
 });
+
+function sendInviteNewUser() {
+    var lol =1;
+}
+
+function sendNewPiece() {
+    var lol =1;
+}

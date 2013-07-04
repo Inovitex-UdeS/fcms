@@ -1,5 +1,10 @@
 <tr class="fields">
-  <td><%= f.association :user, collection: @participants, prompt: "Courriel du participant", :label => false, :input_html=> {class: 'user_select'}, label_method: lambda { |usr| usr.first_name + " " + usr.last_name + " (" + usr.email + ")"} %></td>
+  <td>
+    <div class="input-append">
+        <%= f.association :user, collection: @participants, prompt: "Courriel du participant", :label => false, wrapper: false, :input_html=> {class: 'user_select'}, label_method: lambda { |usr| usr.first_name + " " + usr.last_name + " (" + usr.email + ")"} %>
+        <button href="#inviteNewUser" class="btn" type="button" data-toggle="modal">Inviter</button>
+    </div>
+  </td>
   <td><%= f.association :instrument, prompt: "Instrument du participant", :label => false %></td>
   <td><%= f.link_to_remove 'Supprimer', :class => 'btn' %></td>
 </tr>

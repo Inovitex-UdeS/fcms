@@ -23,6 +23,7 @@ devise_for :users, :controllers => {:registrations => 'devise_registrations', :i
      resources :registrations
      resources :currenteditions
      resources :users
+     resources :pieces
    end
 
   resources :users

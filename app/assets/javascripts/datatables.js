@@ -117,27 +117,7 @@ fcms.bindForm = function (form, type) {
                 type    : 'put',
                 dataType: 'json',
                 data    : oForm.serialize(),
-                success : function( data ) {
-                    var aItem = new Array();
-
-                    $('#' + oForm.attr('id') + ' input').filter(function() { return this.id.match(re); }).each(
-                        function(){
-                            var field = $(this).attr('id').replace(/^[a-zA-Z0-9]+_/g, '');
-                            if (field in data) {
-                                aItem.push(data[field]);
-                            }
-                        }
-                    );
-                    aItem.push(fcms.fnFormatDate(data['created_at']));
-                    aItem.push(fcms.fnFormatDate(data['updated_at']));
-
-                    oTable.fnUpdate(aItem, fcms.fnGetSelected(oTable)[0]);
-
-                    fcms.fnClearForm();
-                    oTable.$('tr.row_selected').removeClass('row_selected');
-
-                    fcms.showMessage('L\'item a été modifié avec succès.');
-                },
+                success : fcms.fnSuccessUpdateData,
                 error   : function( xhr, err ) {
                     fcms.showMessage('L\'item n\'a pas été ajouté');
                 }
@@ -151,32 +131,7 @@ fcms.bindForm = function (form, type) {
                     type    : 'post',
                     dataType: 'json',
                     data    : oForm.serialize(),
-                    success : function( data ) {
-                        var aItem = new Array();
-
-                        $('#' + oForm.attr('id') + ' input').filter(function() { return this.id.match(re); }).each(
-                            function(){
-                                var field = $(this).attr('id').replace(/^[a-zA-Z0-9]+_/g, '');
-                                if (field in data) {
-                                    aItem.push(data[field]);
-                                }
-
-                            }
-                        );
-
-                        aItem.push(fcms.fnFormatDate(data['created_at']));
-                        aItem.push(fcms.fnFormatDate(data['updated_at']));
-
-                        var iRow = oTable.fnAddData(aItem);
-
-                        $(oTable.fnGetNodes(iRow)).click( fcms.fnSelectableRows );
-
-                        fcms.fnClearForm();
-
-                        fcms.showMessage('L\'item a été ajouté avec succès.');
-
-                        oTable.$('tr.row_selected').removeClass('row_selected');
-                    },
+                    success : fcms.fnSuccessAddItem,
                     error   : function( xhr, err ) {
                         fcms.showMessage('L\'item n\'a pas été ajouté');
                     }
@@ -243,6 +198,55 @@ fcms.fnSelectableRows = function ( e ) {
             });
         }
     }
+};
+
+fcms.fnSuccessAddItem = function( data ) {
+    var aItem = new Array();
+
+    $('#' + oForm.attr('id') + ' input').filter(function() { return this.id.match(re); }).each(
+        function(){
+            var field = $(this).attr('id').replace(/^[a-zA-Z0-9]+_/g, '');
+            if (field in data) {
+                aItem.push(data[field]);
+            }
+
+        }
+    );
+
+    aItem.push(fcms.fnFormatDate(data['created_at']));
+    aItem.push(fcms.fnFormatDate(data['updated_at']));
+
+    var iRow = oTable.fnAddData(aItem);
+
+    $(oTable.fnGetNodes(iRow)).click( fcms.fnSelectableRows );
+
+    fcms.fnClearForm();
+
+    fcms.showMessage('L\'item a été ajouté avec succès.');
+
+    oTable.$('tr.row_selected').removeClass('row_selected');
+};
+
+fcms.fnSuccessUpdateData = function( data ) {
+    var aItem = new Array();
+
+    $('#' + oForm.attr('id') + ' input').filter(function() { return this.id.match(re); }).each(
+        function(){
+            var field = $(this).attr('id').replace(/^[a-zA-Z0-9]+_/g, '');
+            if (field in data) {
+                aItem.push(data[field]);
+            }
+        }
+    );
+    aItem.push(fcms.fnFormatDate(data['created_at']));
+    aItem.push(fcms.fnFormatDate(data['updated_at']));
+
+    oTable.fnUpdate(aItem, fcms.fnGetSelected(oTable)[0]);
+
+    fcms.fnClearForm();
+    oTable.$('tr.row_selected').removeClass('row_selected');
+
+    fcms.showMessage('L\'item a été modifié avec succès.');
 };
 
 fcms.fnSuccessGetData = function( data ) {

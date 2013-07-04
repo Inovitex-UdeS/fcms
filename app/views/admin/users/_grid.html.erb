@@ -1,0 +1,21 @@
+<h5>Utilisateurs existants</h5>
+<table class="table table-bordered" id="tableUsers">
+  <thead><tr>
+    <th>Id</th>
+    <th>Nom</th>
+    <th>Adresse courriel</th>
+    <th>Date de création</th>
+    <th>Dernière de mise à jour</th>
+  </tr></thead>
+  <tbody>
+  <% @users.each do |user| %>
+      <tr>
+        <td><%= user.id %></label></td>
+        <td><%= user.first_name %> <%= user.last_name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.created_at %></td>
+        <td><%= user.updated_at %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

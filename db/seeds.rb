@@ -26,6 +26,8 @@ CSV.foreach("#{Rails.root}/tools/eastern_schools.csv", :headers => true) do |row
   end
 end
 
+
+
 # ContactInfos
 contact1 = Contactinfo.create(telephone: '819-843-7004', address: '112 rue rene', city_id: City.where(:name => 'Magog').first.id, province: 'Québec', postal_code: 'J1X3W5')
 contact2 = Contactinfo.create(telephone: '111-111-1111', address: '1111 rue argyll', city_id: City.where(:name => 'Sherbrooke').first.id, province: 'Québec', postal_code: 'J1Z8V4')
@@ -211,7 +213,7 @@ if DEMO_PLANIF
       usr = User.where("first_name='#{prenoms[0].to_s}' and last_name='#{noms[0].to_s}'")
       usr.first ?
           usr = usr.first :
-          usr = User.create(last_name: row[6].strip, first_name: row[5].strip, gender: true, birthday: '1991-07-29', email: count.to_s+"@inovitex.com", password: 'password', contactinfo_id: contact1.id, confirmed_at: '2013-05-28 02:01:11.70392')
+          usr = User.create(last_name: noms[0].to_s, first_name: prenoms[0].to_s, gender: true, birthday: '1991-07-29', email: count.to_s+"@inovitex.com", password: 'password', contactinfo_id: contact1.id, confirmed_at: '2013-05-28 02:01:11.70392')
 
 
       reg = Registration.create(user_teacher_id: user2.id, user_owner_id: usr.id, school_id: sch.id, edition_id: edition1.id, category_id: 1, duration: row[7].to_i)

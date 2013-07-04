@@ -1,9 +1,11 @@
 <tr class="fields">
   <td>
-    <div class="input-append">
-      <%= f.association :piece, prompt: "Choisissez une pièce", label: false, wrapper: false, :input_html=> {class: 'piece_select'}, label_method: lambda { |piece| piece.composer.name + " " + piece.title } %>
-      <button href="#addNewPiece" class="btn" type="button" data-toggle="modal">Ajouter</button>
-    </div>
+    <select class="select optional" id="registration_performances_attributes_new_performances_piece_attributes_composer_id" name="registration[performances_attributes][new_performances][piece_attributes][composer_id]">
+      <option value="">Choisissez un compositeur</option>
+    </select>
+  </td>
+  <td>
+    <input class="select optional" id="registration_performances_attributes_new_performances_piece_attributes_title" name="registration[performances_attributes][new_performances][piece_attributes][title]"/>
   </td>
   <td><%= number_field_tag 'unit_duration', nil, :step => 0.5, :in => 0..30, :onchange => 'calculateTotDuration()' %></td>
   <td><%= f.link_to_remove 'Supprimer', :class => 'btn' %></td>

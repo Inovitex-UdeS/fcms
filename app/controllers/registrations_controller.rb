@@ -28,9 +28,25 @@ class RegistrationsController < ApplicationController
       if @registration.association_cache[:registrations_users]
         @registration.association_cache.delete(:registrations_users)
       end
+      if @registration.association_cache[:performances]
+        @registration.association_cache.delete(:performances)
+      end
 
       if !@registration.save
         render :json => { :message => @registration.errors.full_messages }, :status => :unprocessable_entity
+      end
+
+      # Manually create performances
+      if association_cache[:performances]
+        association_cache[:performances].target.each do |perf|
+          composer_id = perf.association_cache[:piece].target.attributes['composer_id']
+          piece_title = perf.association_cache[:piece].target.attributes['title']
+
+          piece = Piece.where("composer_id=#{composer_id} AND title='#{piece_title}'").first
+          piece ||= Piece.create(title: piece_title, composer_id: composer_id)
+
+          Performance.create(registration_id: @registration.id, piece_id: piece.id)
+        end
       end
 
       # Create registrations_user for the current user

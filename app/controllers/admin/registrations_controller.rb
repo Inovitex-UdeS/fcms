@@ -1,6 +1,7 @@
 #encoding: utf-8
 class Admin::RegistrationsController < ApplicationController
   def new
+    @user = User.new
     @registrations = Registration.all
     @registration = Registration.new
     @current_edition = Setting.find_by_key('current_edition_id').value

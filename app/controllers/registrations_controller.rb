@@ -1,5 +1,4 @@
 #encoding: utf-8
-
 class RegistrationsController < ApplicationController
   def index
     @registrations = current_user.registrations

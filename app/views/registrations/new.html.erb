@@ -1,5 +1,14 @@
 <h3>Inscription au festival</h3>
-<%= simple_nested_form_for @registration, :remote => true do |f| %>
-    <%= f.hidden_field :user_owner_id, :value => @owner_id %>
-    <%= render :partial => '/registrations/form', :locals => {:f => f} %>
+
+<% if not isEndOfRegistrations?%>
+    <%= simple_nested_form_for @registration, :remote => true do |f| %>
+        <%= f.hidden_field :user_owner_id, :value => @owner_id %>
+        <%= render :partial => '/registrations/form', :locals => {:f => f} %>
+    <% end %>
+<% else %>
+    <p>La période d'inscriptions pour cette édition est terminée.</p>
+    <p>Au plaisir de vous revoir l'années prochaine!</p>
+    <br />
+    <p>Merci</p>
+    <p>L'équipe du Festival Concours de Musique de Sherbrooke</p>
 <% end %>

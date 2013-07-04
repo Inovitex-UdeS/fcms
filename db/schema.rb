@@ -11,18 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130619214444) do
+ActiveRecord::Schema.define(:version => 20130704005239) do
 
   create_table "agegroups", :force => true do |t|
     t.integer  "edition_id",                  :null => false
     t.integer  "category_id",                 :null => false
-    t.date     "min"
-    t.date     "max"
     t.string   "description",  :limit => 128
     t.integer  "fee"
     t.integer  "max_duration"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "min"
+    t.integer  "max"
   end
 
   add_index "agegroups", ["category_id"], :name => "category_id_fk"
@@ -30,13 +30,15 @@ ActiveRecord::Schema.define(:version => 20130619214444) do
   add_index "agegroups", ["id"], :name => "agegroups_pk", :unique => true
 
   create_table "categories", :force => true do |t|
-    t.string   "name",        :limit => 256,                    :null => false
-    t.integer  "nb_perf_min",                                   :null => false
-    t.integer  "nb_perf_max"
+    t.string   "name",            :limit => 256,                    :null => false
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "group",                      :default => false
+    t.boolean  "group",                          :default => false
+    t.integer  "nb_participants",                :default => 1
+    t.boolean  "accompanyist",                   :default => false
+    t.integer  "nb_piece_lim1"
+    t.integer  "nb_piece_lim2"
   end
 
   add_index "categories", ["id"], :name => "categories_pk", :unique => true
@@ -156,6 +158,8 @@ ActiveRecord::Schema.define(:version => 20130619214444) do
     t.integer  "duration",        :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "age_max"
+    t.integer  "timeslot_id"
   end
 
   add_index "registrations", ["category_id"], :name => "category_id_fk2"
@@ -252,6 +256,18 @@ ActiveRecord::Schema.define(:version => 20130619214444) do
 
   add_index "settings", ["key"], :name => "configs_pk", :unique => true
 
+  create_table "timeslots", :force => true do |t|
+    t.string   "label",       :null => false
+    t.integer  "edition_id",  :null => false
+    t.integer  "category_id", :null => false
+    t.integer  "duration",    :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "timeslots", ["edition_id"], :name => "edition_id_fk3"
+  add_index "timeslots", ["id"], :name => "timeslots_pk", :unique => true
+
   create_table "users", :force => true do |t|
     t.integer  "contactinfo_id"
     t.string   "last_name",              :limit => 64,                 :null => false
@@ -313,6 +329,7 @@ ActiveRecord::Schema.define(:version => 20130619214444) do
   add_foreign_key "registrations", "editions", :name => "fk_registra_edition_i_editions", :dependent => :restrict
   add_foreign_key "registrations", "payments", :name => "fk_registra_registrat_payments", :dependent => :restrict
   add_foreign_key "registrations", "schools", :name => "fk_registra_school_id_schools", :dependent => :restrict
+  add_foreign_key "registrations", "timeslots", :name => "registrations_timeslot_id_fk"
   add_foreign_key "registrations", "users", :name => "fk_registra_user_owne_users", :column => "user_owner_id", :dependent => :restrict
   add_foreign_key "registrations", "users", :name => "fk_registra_user_teac_users", :column => "user_teacher_id", :dependent => :restrict
 
@@ -326,6 +343,9 @@ ActiveRecord::Schema.define(:version => 20130619214444) do
   add_foreign_key "schools", "contactinfos", :name => "fk_schools_contactin_contacti", :dependent => :restrict
   add_foreign_key "schools", "schoolboards", :name => "fk_schools_schoolboa_schoolbo", :dependent => :restrict
   add_foreign_key "schools", "schooltypes", :name => "fk_schools_schooltyp_schoolty", :dependent => :restrict
+
+  add_foreign_key "timeslots", "categories", :name => "timeslots_category_id_fk"
+  add_foreign_key "timeslots", "editions", :name => "fk_timeslot_edition", :dependent => :restrict
 
   add_foreign_key "users", "contactinfos", :name => "fk_users_contactin_contacti", :dependent => :restrict
 

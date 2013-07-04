@@ -27,12 +27,16 @@ $(document).ready(function(){
 function changeCategory(category_id) {
     if (category_id=="" || category_id=="Choisissez une classe") return; // please select - possibly you want something else here
     $.getJSON('/admin/categories/' + category_id, function(data) {
-        nbPerfMax = data.category.nb_perf_max;
-        nbPerfMin = data.category.nb_perf_min;
-        maxDuration = data.max_duration.max_duration;
+        nbPerfMax = data['category']['nb_perf_max'];
+        nbPerfMin = data['category']['nb_perf_min'];
+        if (data['agegroup']) maxDuration = data['agegroup']['max_duration'];
+        else maxDuration = null;
         group = data.category.group;
         if (group) $("#AutresParticipants").show();
         else $("#AutresParticipants").hide();
+
+        if (maxDuration == null) fcms.showMessage('Vous ne correspondez pas à une catégorie d\'âge, vous n\'avez donc pas le droit de vous inscrire dans cette classe', 3);
+        $('input[type=submit]').attr('disabled', (maxDuration == null));
     });
 }
 
@@ -46,6 +50,7 @@ function calculateTotDuration() {
     });
     $('#registration_duration').val(curDuration);
     if(curDuration > maxDuration) fcms.showMessage('Vous avez dépassé la limite de temps permise pour cette catégorie.', 2);
+    $('input[type=submit]').attr('disabled', curDuration > maxDuration);
 }
 
 // TRIGGERS SECTION

@@ -76,6 +76,9 @@ gem 'cancan', '1.6.10'
 # Autocomplete
 gem 'rails3-jquery-autocomplete', '1.0.11'
 
+# Excel
+gem 'spreadsheet', '~> 0.8.5'
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

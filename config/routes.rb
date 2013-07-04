@@ -23,6 +23,8 @@ devise_for :users, :controllers => {:registrations => 'devise_registrations', :i
   resources :users
   resources :registrations
 
+  match 'ProduceExcel' => 'home#ProduceExcel'
+
 
   get 'autocomplete/cities'
   get 'autocomplete/schools'

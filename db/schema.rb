@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(:version => 20130619214444) do
   add_index "agegroups", ["id"], :name => "agegroups_pk", :unique => true
 
   create_table "categories", :force => true do |t|
-    t.string   "name",        :limit => 256,                    :null => false
+    t.string   "name",        :limit => 128,                    :null => false
     t.integer  "nb_perf_min",                                   :null => false
     t.integer  "nb_perf_max"
     t.text     "description"
@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(:version => 20130619214444) do
   add_index "cities", ["name"], :name => "ak_name_cities", :unique => true
 
   create_table "composers", :force => true do |t|
-    t.string   "name",       :limit => 256, :null => false
+    t.string   "name",       :limit => 128, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -137,7 +137,7 @@ ActiveRecord::Schema.define(:version => 20130619214444) do
 
   create_table "pieces", :force => true do |t|
     t.integer  "composer_id",                :null => false
-    t.string   "title",       :limit => 256, :null => false
+    t.string   "title",       :limit => 128, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -181,7 +181,7 @@ ActiveRecord::Schema.define(:version => 20130619214444) do
   add_index "registrations_users", ["user_id"], :name => "user_id_fk3"
 
   create_table "roles", :force => true do |t|
-    t.string   "name",       :limit => 256, :null => false
+    t.string   "name",       :limit => 128, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -225,7 +225,7 @@ ActiveRecord::Schema.define(:version => 20130619214444) do
     t.integer  "contactinfo_id"
     t.integer  "schooltype_id",                 :null => false
     t.integer  "schoolboard_id",                :null => false
-    t.string   "name",           :limit => 256, :null => false
+    t.string   "name",           :limit => 128, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -296,37 +296,37 @@ ActiveRecord::Schema.define(:version => 20130619214444) do
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
   add_index "users", ["unlock_token"], :name => "index_users_on_unlock_token", :unique => true
 
-  add_foreign_key "agegroups", "categories", :name => "fk_agegroup_category__categori", :dependent => :restrict
-  add_foreign_key "agegroups", "editions", :name => "fk_agegroup_edition_i_editions", :dependent => :restrict
+  add_foreign_key "agegroups", "categories", :name => "fk_agegroup_category__categori"
+  add_foreign_key "agegroups", "editions", :name => "fk_agegroup_edition_i_editions"
 
-  add_foreign_key "contactinfos", "cities", :name => "fk_contacti_city_id_cities", :dependent => :restrict
+  add_foreign_key "contactinfos", "cities", :name => "fk_contacti_city_id_cities"
 
-  add_foreign_key "payments", "registrations", :name => "fk_payments_registrat_registra", :dependent => :restrict
-  add_foreign_key "payments", "users", :name => "fk_payments_user_id_users", :dependent => :restrict
+  add_foreign_key "payments", "registrations", :name => "fk_payments_registrat_registra"
+  add_foreign_key "payments", "users", :name => "fk_payments_user_id_users"
 
-  add_foreign_key "performances", "pieces", :name => "fk_performa_piece_id_pieces", :dependent => :restrict
-  add_foreign_key "performances", "registrations", :name => "fk_performa_registrat_registra", :dependent => :restrict
+  add_foreign_key "performances", "pieces", :name => "fk_performa_piece_id_pieces"
+  add_foreign_key "performances", "registrations", :name => "fk_performa_registrat_registra"
 
-  add_foreign_key "pieces", "composers", :name => "fk_pieces_composer__composer", :dependent => :restrict
+  add_foreign_key "pieces", "composers", :name => "fk_pieces_composer__composer"
 
-  add_foreign_key "registrations", "categories", :name => "fk_registra_category__categori", :dependent => :restrict
-  add_foreign_key "registrations", "editions", :name => "fk_registra_edition_i_editions", :dependent => :restrict
-  add_foreign_key "registrations", "payments", :name => "fk_registra_registrat_payments", :dependent => :restrict
-  add_foreign_key "registrations", "schools", :name => "fk_registra_school_id_schools", :dependent => :restrict
-  add_foreign_key "registrations", "users", :name => "fk_registra_user_owne_users", :column => "user_owner_id", :dependent => :restrict
-  add_foreign_key "registrations", "users", :name => "fk_registra_user_teac_users", :column => "user_teacher_id", :dependent => :restrict
+  add_foreign_key "registrations", "categories", :name => "fk_registra_category__categori"
+  add_foreign_key "registrations", "editions", :name => "fk_registra_edition_i_editions"
+  add_foreign_key "registrations", "payments", :name => "fk_registra_registrat_payments"
+  add_foreign_key "registrations", "schools", :name => "fk_registra_school_id_schools"
+  add_foreign_key "registrations", "users", :name => "fk_registra_user_owne_users", :column => "user_owner_id"
+  add_foreign_key "registrations", "users", :name => "fk_registra_user_teac_users", :column => "user_teacher_id"
 
-  add_foreign_key "registrations_users", "instruments", :name => "fk_registra_instrumen_instrume", :dependent => :restrict
-  add_foreign_key "registrations_users", "registrations", :name => "fk_registra_registrat_registra", :dependent => :restrict
-  add_foreign_key "registrations_users", "users", :name => "fk_registra_user_id_users", :dependent => :restrict
+  add_foreign_key "registrations_users", "instruments", :name => "fk_registra_instrumen_instrume"
+  add_foreign_key "registrations_users", "registrations", :name => "fk_registra_registrat_registra"
+  add_foreign_key "registrations_users", "users", :name => "fk_registra_user_id_users"
 
-  add_foreign_key "roles_users", "roles", :name => "fk_roles_us_role_id_roles", :dependent => :restrict
-  add_foreign_key "roles_users", "users", :name => "fk_roles_us_user_id_users", :dependent => :restrict
+  add_foreign_key "roles_users", "roles", :name => "fk_roles_us_role_id_roles"
+  add_foreign_key "roles_users", "users", :name => "fk_roles_us_user_id_users"
 
-  add_foreign_key "schools", "contactinfos", :name => "fk_schools_contactin_contacti", :dependent => :restrict
-  add_foreign_key "schools", "schoolboards", :name => "fk_schools_schoolboa_schoolbo", :dependent => :restrict
-  add_foreign_key "schools", "schooltypes", :name => "fk_schools_schooltyp_schoolty", :dependent => :restrict
+  add_foreign_key "schools", "contactinfos", :name => "fk_schools_contactin_contacti"
+  add_foreign_key "schools", "schoolboards", :name => "fk_schools_schoolboa_schoolbo"
+  add_foreign_key "schools", "schooltypes", :name => "fk_schools_schooltyp_schoolty"
 
-  add_foreign_key "users", "contactinfos", :name => "fk_users_contactin_contacti", :dependent => :restrict
+  add_foreign_key "users", "contactinfos", :name => "fk_users_contactin_contacti"
 
 end

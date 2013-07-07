@@ -56,8 +56,8 @@ gem 'client_side_validations', '3.2.5'
 gem 'client_side_validations-simple_form', '2.1.0'
 gem 'rails-i18n', '0.7.3'
 
-# PostgreSQL gem
-gem 'pg', '0.15.1'
+# MySQL gem
+gem 'mysql2', '0.3.11'
 gem 'foreigner', '1.4.1'
 
 # Datatables

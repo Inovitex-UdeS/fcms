@@ -1,21 +1,21 @@
 development:
-  adapter: postgresql
+  adapter: mysql2 
   database: fcms
-  username: root
+  username: fcms 
   password: pass
   host: localhost
 
 test: &test
-  adapter: postgresql
+  adapter: mysql2 
   database: fcms
-  username: root
+  username: fcms 
   password: pass
   host: localhost
 
 production:
-  adapter: postgresql
+  adapter: mysql2 
   database: fcms
-  username: root
+  username: fcms 
   password: pass
   host: localhost
 

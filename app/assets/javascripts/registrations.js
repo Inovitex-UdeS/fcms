@@ -127,7 +127,6 @@ function sendInviteNewUser() {
 }
 
 function AddNewComposer() {
-    var composer_name = $('#composer_name').val();
     $.ajax({
         url     : '/composers',
         type    : 'post',

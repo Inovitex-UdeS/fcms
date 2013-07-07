@@ -1,5 +1,5 @@
 #encoding: utf-8
-class CurrenteditionsController < ApplicationController
+class Admin::CurrenteditionsController < ApplicationController
 
   def create
     begin

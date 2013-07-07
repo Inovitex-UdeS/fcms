@@ -126,6 +126,22 @@ function sendInviteNewUser() {
     var lol =1;
 }
 
-function sendNewPiece() {
-    var lol =1;
+function AddNewComposer() {
+    var composer_name = $('#composer_name').val();
+    $.ajax({
+        url     : '/composers',
+        type    : 'post',
+        dataType: 'json',
+        data    : $('#new_composer').serialize(),
+        success : function( data ) {
+            $('#addNewComposer').modal('hide');
+            $("#new_composer")[0].reset();
+            fcms.showMessage('Le compositeur a été ajouté avec succès');
+        },
+        error   : function( xhr, err ) {
+            $('#addNewComposer').modal('hide');
+            $("#new_composer")[0].reset();
+            fcms.showMessage('Le compositeur n\'a pas été ajouté');
+        }
+    });
 }

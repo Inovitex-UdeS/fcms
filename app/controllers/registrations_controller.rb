@@ -11,6 +11,7 @@ class RegistrationsController < ApplicationController
     @teachers = User.teachers
     @participants = User.participants
     @user = User.new
+    @composer = Composer.new
   end
 
   def create

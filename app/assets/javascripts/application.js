@@ -25,6 +25,8 @@
 //= require twitter/bootstrap
 //= require jasny-bootstrap
 //= require bootstrap-datepicker
+//= require select2
+//= require select2_locale_fr
 //= require underscore
 
 /*  --- SCRIPT --- */

@@ -34,6 +34,7 @@ devise_for :users, :controllers => {:registrations => 'devise_registrations', :i
   get 'autocomplete/schools'
   get 'autocomplete/pieces'
   get 'autocomplete/users'
+  get 'autocomplete/composers'
 
   get 'users/juges/new', to: 'users#new', as: '/juges/new'
 

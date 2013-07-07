@@ -55,7 +55,56 @@ function calculateTotDuration() {
 
 // TRIGGERS SECTION
 $(document).on('nested:fieldAdded:performances', function(event){
-    $(event.field.find('td .piece_select')[0]).typeahead();
+    $(event.field.find('td .composer_select')[0]).select2({
+        minimumInputLength: 2,
+        id: function(e) { return e.value},
+        ajax: {
+            url: '/autocomplete/composers',
+            dataType: 'json',
+            type: "GET",
+            data: function (term, page) {
+                return {
+                    composer: term
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data
+                };
+            }
+        },
+        formatResult: function (item) {
+            return ('<div>' + item.label + '</div>');
+        },
+        formatSelection: function (item) {
+            return (item.label);
+        },
+        escapeMarkup: function (m) {
+            return m;
+        }
+    });
+
+    $(event.field.find('td > input')[0]).on('change', function(e) {
+
+        $(e.target).parent().next().find('input').attr('data-composer', e.val)
+
+    });
+
+    $(event.field.find('td:nth-child(2) > input')[0]).typeahead({
+        source: function (query, process) {
+
+
+            $.get('/autocomplete/pieces', { q: query, c: this.$element.attr('data-composer') }, function (data) {
+                labels = []
+
+                $.each(data, function (i, item) {
+                    labels.push(item.label)
+                })
+
+                process(labels)
+            })
+        }
+    });
 });
 
 $(document).on('nested:fieldRemoved:performances', function(event){

@@ -1,12 +1,10 @@
 <tr class="fields">
   <td>
-    <select class="select optional" id="registration_performances_attributes_new_performances_piece_attributes_composer_id" name="registration[performances_attributes][new_performances][piece_attributes][composer_id]">
-      <option value="">Choisissez un compositeur</option>
-    </select>
+    <input type="hidden" class="select optional composer_select input-large" id="registration_performances_attributes_new_performances_piece_attributes_composer_id" name="registration[performances_attributes][new_performances][piece_attributes][composer_id]" data-placeholder="Choisir un compositeur"/>
   </td>
   <td>
-    <input class="select optional" id="registration_performances_attributes_new_performances_piece_attributes_title" name="registration[performances_attributes][new_performances][piece_attributes][title]"/>
+    <input class="input-large" id="registration_performances_attributes_new_performances_piece_attributes_title" name="registration[performances_attributes][new_performances][piece_attributes][title]" data-composer=""/>
   </td>
-  <td><%= number_field_tag 'unit_duration', nil, :step => 0.5, :in => 0..30, :onchange => 'calculateTotDuration()' %></td>
+  <td><%= number_field_tag 'unit_duration', nil, :step => 0.5, :in => 0..30, :onchange => 'calculateTotDuration()', :class => 'input-small' %></td>
   <td><%= f.link_to_remove 'Supprimer', :class => 'btn' %></td>
 </tr>

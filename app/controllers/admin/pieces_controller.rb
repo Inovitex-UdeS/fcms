@@ -1,5 +1,6 @@
 #encoding: utf-8
 class Admin::PiecesController < ApplicationController
+  before_filter :prevent_non_admin
 
   def new
     @piece = Piece.new

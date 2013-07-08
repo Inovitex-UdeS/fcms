@@ -1,5 +1,6 @@
 #encoding: utf-8
 class Admin::SchoolsController < ApplicationController
+  before_filter :prevent_non_admin
 
   def new
     @school = School.new

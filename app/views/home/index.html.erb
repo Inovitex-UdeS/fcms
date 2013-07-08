@@ -1,3 +1,7 @@
+<% if alert -%>
+    <p class="alert alert-danger"><%= alert %></p>
+<% end -%>
+
 <div class="dash-page"><center><h1>Bienvenue<%= ", cher " + current_user.roles.first.name  unless current_user.roles.empty?%> !</h1></center>
   <div class="dash-left">
     <h2>Liens utiles</h2> <br/>

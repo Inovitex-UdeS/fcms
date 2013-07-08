@@ -1,5 +1,7 @@
 #encoding: utf-8
 class Admin::InstrumentsController < ApplicationController
+  before_filter :prevent_non_admin
+
   def new
     @instrument = Instrument.new
     @instruments = Instrument.all

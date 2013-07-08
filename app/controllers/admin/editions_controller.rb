@@ -1,5 +1,7 @@
 #encoding: utf-8
 class Admin::EditionsController < ApplicationController
+  before_filter :prevent_non_admin
+
   def new
     @edition = Edition.new
     @editions = Edition.all

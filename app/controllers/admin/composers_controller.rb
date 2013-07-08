@@ -1,5 +1,6 @@
 #encoding: utf-8
 class Admin::ComposersController < ApplicationController
+  before_filter :prevent_non_admin
 
   def new
     @composer = Composer.new

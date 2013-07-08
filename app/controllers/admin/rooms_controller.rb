@@ -1,5 +1,7 @@
 #encoding: utf-8
 class Admin::RoomsController < ApplicationController
+  before_filter :prevent_non_admin
+
   def new
     @room = Room.new
     @rooms = Room.all

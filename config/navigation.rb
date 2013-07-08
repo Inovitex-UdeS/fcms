@@ -83,10 +83,10 @@ SimpleNavigation::Configuration.run do |navigation|
       sub_nav.item :key_4_1, 'Élément de menu 1', '#'
     end
 
-    primary.item :divider_4, nil, nil, :class => 'divider-vertical'
+    primary.item :divider_4, nil, nil, :class => 'divider-vertical', :if => Proc.new { current_user.is_admin? }
 
     # TODO: Replace 'user_signed_in?' with actual admin permissions lookup   --> Genre  current_user.has_role?(:administrateur)
-    primary.item :key_5, 'Administration' , '/admin', :icon => 'icon-cog' do |sub_nav|
+    primary.item :key_5, 'Administration' , '/admin', :icon => 'icon-cog', :if => Proc.new { current_user.is_admin? } do |sub_nav|
       sub_nav.item :key_5_1, 'Vue d\'ensemble', '/admin', :icon => 'iconic-chart'
       sub_nav.item :key_5_2, 'Gérer les inscriptions', new_admin_registration_path
       sub_nav.item :key_5_3, '', nil, :class=> 'divider'

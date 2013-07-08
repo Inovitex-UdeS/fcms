@@ -1,5 +1,7 @@
 #encoding: utf-8
 class Admin::RegistrationsController < ApplicationController
+  before_filter :prevent_non_admin
+
   def new
     @user = User.new
     @registrations = Registration.all

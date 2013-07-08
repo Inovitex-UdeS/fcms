@@ -1,5 +1,7 @@
 #encoding: utf-8
 class Admin::JugesController < ApplicationController
+  before_filter :prevent_non_admin
+
   def new
     @role = Role.new
     @juges = User.juges

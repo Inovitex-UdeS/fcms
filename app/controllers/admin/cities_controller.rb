@@ -1,5 +1,6 @@
 #encoding: utf-8
 class Admin::CitiesController < ApplicationController
+  before_filter :prevent_non_admin
 
   def new
     @city = City.new

@@ -1,5 +1,4 @@
-class Admin::CategoriesController < ApplicationController
-  before_filter :prevent_non_admin
+class CategoriesController < ApplicationController
 
   def show
     @category = Category.find(params[:id])

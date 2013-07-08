@@ -26,7 +26,7 @@ $(document).ready(function(){
 
 function changeCategory(category_id) {
     if (category_id=="" || category_id=="Choisissez une classe") return; // please select - possibly you want something else here
-    $.getJSON('/admin/categories/' + category_id, function(data) {
+    $.getJSON('/categories/' + category_id, function(data) {
         nbPerfMax = data['category']['nb_perf_max'];
         nbPerfMin = data['category']['nb_perf_min'];
         if (data['agegroup']) maxDuration = data['agegroup']['max_duration'];

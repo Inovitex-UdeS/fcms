@@ -9,7 +9,6 @@ devise_for :users, :controllers => {:registrations => 'devise_registrations', :i
      get '', to: 'dashboard#index', as: '/'
 
      resources :accompanists
-     resources :categories
      resources :cities
      resources :editions
      resources :instruments
@@ -26,6 +25,7 @@ devise_for :users, :controllers => {:registrations => 'devise_registrations', :i
      resources :pieces
    end
 
+  resources :categories
   resources :users
   resources :registrations
   resources :composers

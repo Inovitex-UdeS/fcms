@@ -55,5 +55,7 @@ class User < ActiveRecord::Base
     return self.has_role?('Administrateur')
   end
 
-
+  def name
+    self.first_name + " " + self.last_name
+  end
 end

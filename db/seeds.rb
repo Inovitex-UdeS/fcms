@@ -203,7 +203,7 @@ if DEMO_PLANIF
       usr.first ?
           usr = usr.first :
           usr = User.create(last_name: row[6].strip, first_name: row[5].strip, gender: true, birthday: '1991-07-29', email: count.to_s+"@inovitex.com", password: 'password', contactinfo_id: contact1.id, confirmed_at: '2013-05-28 02:01:11.70392')
-      reg = Registration.create(user_teacher_id: user2.id, user_owner_id: usr.id, school_id: sch.id, edition_id: edition1.id, category_id: 1, duration: row[7].to_i)
+      reg = Registration.create(user_teacher_id: user2.id, user_owner_id: usr.id, school_id: sch.id, edition_id: edition1.id, category_id: cat.id, duration: row[7].to_i)
       RegistrationsUser.create(instrument_id: instr.id, registration_id: reg.id, user_id: usr.id)
 
     else
@@ -216,7 +216,7 @@ if DEMO_PLANIF
           usr = User.create(last_name: noms[0].to_s, first_name: prenoms[0].to_s, gender: true, birthday: '1991-07-29', email: count.to_s+"@inovitex.com", password: 'password', contactinfo_id: contact1.id, confirmed_at: '2013-05-28 02:01:11.70392')
 
 
-      reg = Registration.create(user_teacher_id: user2.id, user_owner_id: usr.id, school_id: sch.id, edition_id: edition1.id, category_id: 1, duration: row[7].to_i)
+      reg = Registration.create(user_teacher_id: user2.id, user_owner_id: usr.id, school_id: sch.id, edition_id: edition1.id, category_id: cat.id, duration: row[7].to_i)
 
 
       prenoms.each_index { |i|

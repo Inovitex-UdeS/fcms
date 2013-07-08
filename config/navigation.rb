@@ -104,15 +104,17 @@ SimpleNavigation::Configuration.run do |navigation|
       sub_nav.item :key_5_15,'', nil, :class=> 'divider'
       sub_nav.item :key_5_16,'Inviter un utilisateur', '/users/invitation/new'
       sub_nav.item :key_5_17,'Gérer les utilisateurs', '/users'
+      sub_nav.item :key_5_18, '', nil, :class=> 'divider'
+      sub_nav.item :key_5_19, 'Classes d\'inscritpion', new_admin_category_path
     end
 
-    primary.item :divider_5, nil, nil, :class => 'divider-vertical'
+    primary.item :divider_6, nil, nil, :class => 'divider-vertical'
 
-    primary.item :key_6, 'Compte', nil, :icon => 'icon-user' do |sub_nav|
-      sub_nav.item :key_6_1, 'Profil', edit_user_path(current_user)
-      sub_nav.item :key_6_2, 'Courriel et mot de passe', edit_user_registration_path
-      sub_nav.item :key_6_3, '', nil, :class=> 'divider'
-      sub_nav.item :key_6_4, 'Déconnexion', destroy_user_session_path, :method => :delete
+    primary.item :key_7, 'Compte', nil, :icon => 'icon-user' do |sub_nav|
+      sub_nav.item :key_7_1, 'Profil', edit_user_path(current_user)
+      sub_nav.item :key_7_2, 'Courriel et mot de passe', edit_user_registration_path
+      sub_nav.item :key_7_3, '', nil, :class=> 'divider'
+      sub_nav.item :key_7_4, 'Déconnexion', destroy_user_session_path, :method => :delete
     end
 
     # you can also specify a css id or class to attach to this particular level

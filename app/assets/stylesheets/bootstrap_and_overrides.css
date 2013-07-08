@@ -147,3 +147,10 @@ optionsRadios { margin-right: 10px; }
 .table tr.even.row_selected td { background-color: #E7E7E7; }
 .table tr.odd.row_selected td { background-color: #E7E7E7; }
 .btn-grid { margin-right: 5px}
+
+.table tr.even.row_edited td { background-color: #ADADAD; }
+.table tr.odd.row_edited td { background-color: #ADADAD; }
+.table tr td input { display: none; }
+.table tr td label { display: block; }
+.table tr.row_edited td input { display: block; }
+.table tr.row_edited td label { display: none; }

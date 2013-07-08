@@ -1,0 +1,51 @@
+<h5>AJOUTER OU MODIFIER UNE CLASSE</h5>
+<div class="col">
+  <%= simple_form_for [:admin, @category] do |f| %>
+      <div class="form-horizontal">
+          <div class="control-group">
+            <label class="control-label"><b>Nom de la classe d'inscription</b></label>
+            <div class="controls">
+              <div class="input-prepend">
+                <span class="add-on"><i class="icon-font"></i></span>
+                <%= f.text_field :name, :autofocus => true, :class => 'input-xlarge' %>
+              </div>
+              <br />
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label"><b>Description</b></label>
+            <div class="controls">
+              <div class="input-prepend">
+                <span class="add-on"><i class="icon-tag"></i></span>
+               <%= f.text_area :description, :rows=>'3', :class=> 'input-xlarge' %>
+              </div>
+              <br />
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label"><b>Participants</b></label>
+            <div class="input-prepend">
+              <label class="checkbox"> <%= f.text_field :nb_perf_min, :class => 'input-small' %> participant(s) par inscription (minimum)</label>
+              <br />
+
+              <label class="checkbox"> <%= f.text_field :nb_perf_max, :class => 'input-small' %> participant(s) par inscription (maximum)</label>
+            </div>
+            <br />
+
+            <div class="controls">
+              <div class="input-prepend">
+                <label class="checkbox"> <%= f.check_box :has_accompanyist%> <label>Demander un accompagnateur à l'inscription</label></label>
+              </div>
+              <br />
+            </div>
+          </div>
+
+          <%= render :partial => '/admin/agegroups/editableGrid' %>
+      </div>
+      <div class="form-actions">
+        <%= f.button :submit, 'Enregistrer' , :class => 'btn btn-primary' %>
+      </div>
+  <% end %>
+</div>

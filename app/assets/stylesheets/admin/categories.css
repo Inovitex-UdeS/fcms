@@ -1,0 +1,10 @@
+.form-horizontal .control-label { width: 300px; text-align: left; }
+.input-small {
+    left: 5px;
+    width: 30px;
+    margin-right: 10px;
+}
+input[type="checkbox"] { left: 146px; }
+.checkbox label { margin-left: 144px; }
+
+.control-hidden  { display: none;  }

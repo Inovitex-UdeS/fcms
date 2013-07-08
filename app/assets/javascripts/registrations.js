@@ -113,7 +113,34 @@ $(document).on('nested:fieldRemoved:performances', function(event){
 });
 
 $(document).on('nested:fieldAdded:registrations_users', function(event){
-    $(event.field.find('td .user_select')[0]).typeahead();
+    $(event.field.find('td .user_select')[0]).select2({
+        minimumInputLength: 2,
+        id: function(e) { return e.value},
+        ajax: {
+            url: '/autocomplete/participants',
+            dataType: 'json',
+            type: "GET",
+            data: function (term, page) {
+                return {
+                    user: term
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data
+                };
+            }
+        },
+        formatResult: function (item) {
+            return ('<div>' + item.label + '</div>');
+        },
+        formatSelection: function (item) {
+            return (item.label);
+        },
+        escapeMarkup: function (m) {
+            return m;
+        }
+    });
     $('#totUsers').text($('#users .fields').length);
 });
 
@@ -122,8 +149,23 @@ $(document).on('nested:fieldRemoved:registrations_users', function(event){
     $('#totUsers').text($('#users .fields').length);
 });
 
-function sendInviteNewUser() {
-    var lol =1;
+function inviteNewUser() {
+    $.ajax({
+        url     : '/users/invitation',
+        type    : 'post',
+        dataType: 'json',
+        data    : $('#new_user').serialize(),
+        success : function( data ) {
+            $('#inviteNewUser').modal('hide');
+            $("#new_user")[0].reset();
+            fcms.showMessage('L\'utilisateur a été invité avec succès');
+        },
+        error   : function( xhr, err ) {
+            $('#inviteNewUser').modal('hide');
+            $("#new_user")[0].reset();
+            fcms.showMessage('L\'utilisateur n\'a pas été invité', 3);
+        }
+    });
 }
 
 function AddNewComposer() {
@@ -140,7 +182,7 @@ function AddNewComposer() {
         error   : function( xhr, err ) {
             $('#addNewComposer').modal('hide');
             $("#new_composer")[0].reset();
-            fcms.showMessage('Le compositeur n\'a pas été ajouté');
+            fcms.showMessage('Le compositeur n\'a pas été ajouté', 3);
         }
     });
 }

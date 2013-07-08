@@ -21,10 +21,12 @@
           <span class="add-on"><i class="icon-envelope"></i></span>
           <%= f.text_field :email, :placeholder => 'Adresse courriel', :class => 'input-xlarge' %>
         </div>
+
+        <%= f.hidden_field :role_ids, :value => Role.find_by_name('Participant').id %>
     <% end %>
   </div>
   <div class="modal-footer">
     <button class="btn" data-dismiss="modal" aria-hidden="true">Fermer</button>
-    <button class="btn btn-primary" onclick="sendInviteNewUser();  return false;">Enregistrer</button>
+    <button class="btn btn-primary" onclick="inviteNewUser();  return false;">Enregistrer</button>
   </div>
 </div>

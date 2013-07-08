@@ -44,7 +44,14 @@ class AutocompleteController < ApplicationController
   end
 
   def participants
-    @participants = User.participants
+    search = params[:user]
+
+    if search
+      @participants = User.participants.where("first_name LIKE '%#{search}%' OR last_name LIKE '%#{search}%' OR email LIKE '%#{search}%' ")
+    else
+      @participants = User.participants
+    end
+
     render :json => @participants.collect {|o| {:label => o.first_name + ' ' + o.last_name + ' (' + o.email + ')', :value => o.id.to_s}}
   end
 

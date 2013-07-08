@@ -14,11 +14,24 @@ class Users::InvitationsController < Devise::InvitationsController
       @user.update_attribute(:birthday, '1980-05-12')
       @user.update_attribute(:password, 'password')
 
-      if @user.save
-        redirect_to new_user_invitation_path, :notice => 'L\'invitation a bien été envoyée!'
-      else
-        redirect_to new_user_invitation_path, :alert => 'Erreur lors de l\'invitation'
+      respond_to do |format|
+        if @user.save
+          format.html {
+            redirect_to new_user_invitation_path, :notice => 'L\'invitation a bien été envoyée!'
+          }
+          format.json {
+            render :json => { :message => 'L\'invitation a bien été envoyée!' }, :status => :ok
+          }
+        else
+          format.html {
+            redirect_to new_user_invitation_path, :alert => 'Erreur lors de l\'invitation'
+          }
+          format.json {
+            render :json => { :message => @user.errors.full_messages }, :status => :unprocessable_entity
+          }
+        end
       end
+
     end
   end
 end

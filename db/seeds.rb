@@ -30,11 +30,12 @@ end
 
 # ContactInfos
 contact1 = Contactinfo.create(telephone: '819-843-7004', address: '112 rue rene', city_id: City.where(:name => 'Magog').first.id, province: 'Québec', postal_code: 'J1X3W5')
-contact2 = Contactinfo.create(telephone: '111-111-1111', address: '1111 rue argyll', city_id: City.where(:name => 'Sherbrooke').first.id, province: 'Québec', postal_code: 'J1Z8V4')
+contact2 = Contactinfo.create(telephone: '111-111-1111', address: '1111 rue argyll', city_id: City.where(:name => 'Notre-Dame-des-Bois').first.id, province: 'Québec', postal_code: 'J1Z8V4')
 contact3 = Contactinfo.create(telephone: '911', address: '007 thugstreet', city_id: City.where(:name => 'Sherbrooke').first.id, province: 'Québec',  postal_code: 'J1Z8V4')
-contact4 = Contactinfo.create(telephone: '819-563-2050', address: '195 rue Marquette', city_id: City.where(:name => 'Sherbrooke').first.id, province: 'Québec', postal_code: 'J1H1L6')
-contact5 = Contactinfo.create(telephone: '819-444-4444', address: '194 rue Marquette', city_id: City.where(:name => 'Sherbrooke').first.id, province: 'Québec', postal_code: 'J1H1L5')
-contact6 = Contactinfo.create(telephone: '819-333-3333', address: '193 rue Marquette', city_id: City.where(:name => 'Sherbrooke').first.id, province: 'Québec', postal_code: 'J1H1L4')
+contact4 = Contactinfo.create(telephone: '819-563-2050', address: '658 rue Rue', city_id: City.where(:name => 'Sherbrooke').first.id, province: 'Québec', postal_code: 'J1H1L6')
+contact5 = Contactinfo.create(telephone: '819-444-4444', address: '194 rue de la Patate', city_id: City.where(:name => 'Stanstead').first.id, province: 'Québec', postal_code: 'J1H1L5')
+contact6 = Contactinfo.create(telephone: '819-333-3333', address: '193 rue Marquette', city_id: City.where(:name => 'Waterville').first.id, province: 'Québec', postal_code: 'J1H1L4')
+contact5 = Contactinfo.create(telephone: '450-271-7305', address: '260 rue St-Michel', city_id: City.where(:name => 'Saint-François-Xavier-de-Brompton').first.id, province: 'Québec', postal_code: 'J1H1L5')
 
 # Users
 user1 = User.create(last_name: 'Gauthier', first_name: 'Jean-Philippe', gender: true, birthday: '1991-07-29', email: 'j-p.g@hotmail.com', password: 'password', contactinfo_id: contact1.id, confirmed_at: '2013-05-28 02:01:11.70392')
@@ -202,7 +203,7 @@ if DEMO_PLANIF
       usr = User.where("first_name='#{row[5].strip}' and last_name='#{row[6].strip}'")
       usr.first ?
           usr = usr.first :
-          usr = User.create(last_name: row[6].strip, first_name: row[5].strip, gender: true, birthday: '1991-07-29', email: count.to_s+"@inovitex.com", password: 'password', contactinfo_id: contact1.id, confirmed_at: '2013-05-28 02:01:11.70392')
+          usr = User.create(last_name: row[6].strip, first_name: row[5].strip, gender: true, birthday: '1991-07-29', email: count.to_s+"@inovitex.com", password: 'password', contactinfo_id: Contactinfo.find(1+rand(6)).id, confirmed_at: '2013-05-28 02:01:11.70392')
       reg = Registration.create(user_teacher_id: user2.id, user_owner_id: usr.id, school_id: sch.id, edition_id: edition1.id, category_id: cat.id, duration: row[7].to_i)
       RegistrationsUser.create(instrument_id: instr.id, registration_id: reg.id, user_id: usr.id)
 
@@ -213,7 +214,7 @@ if DEMO_PLANIF
       usr = User.where("first_name='#{prenoms[0].to_s}' and last_name='#{noms[0].to_s}'")
       usr.first ?
           usr = usr.first :
-          usr = User.create(last_name: noms[0].to_s, first_name: prenoms[0].to_s, gender: true, birthday: '1991-07-29', email: count.to_s+"@inovitex.com", password: 'password', contactinfo_id: contact1.id, confirmed_at: '2013-05-28 02:01:11.70392')
+          usr = User.create(last_name: noms[0].to_s, first_name: prenoms[0].to_s, gender: true, birthday: '1991-07-29', email: count.to_s+"@inovitex.com", password: 'password', contactinfo_id: Contactinfo.find(1+rand(6)).id, confirmed_at: '2013-05-28 02:01:11.70392')
 
 
       reg = Registration.create(user_teacher_id: user2.id, user_owner_id: usr.id, school_id: sch.id, edition_id: edition1.id, category_id: cat.id, duration: row[7].to_i)

@@ -7,4 +7,9 @@ class Contactinfo < ActiveRecord::Base
   belongs_to :city
 
   accepts_nested_attributes_for :city, allow_destroy: true
+
+
+  def full_address
+    address + ", " + city.name + ", QC, " + postal_code + "  tel:" + telephone
+  end
 end

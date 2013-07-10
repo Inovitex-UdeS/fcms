@@ -147,7 +147,7 @@ ActiveRecord::Schema.define(:version => 20130718024341) do
 
   add_index "pieces", ["composer_id"], :name => "composer_id_fk"
   add_index "pieces", ["id"], :name => "pieces_pk", :unique => true
-  add_index "pieces", ["title"], :name => "ak_title_pieces", :unique => true
+  add_index "pieces", ["title"], :name => "ak_title_pieces" 
 
   create_table "registrations", :force => true do |t|
     t.integer  "user_owner_id",   :null => false

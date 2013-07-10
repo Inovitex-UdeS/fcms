@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130619214444) do
+ActiveRecord::Schema.define(:version => 20130710201442) do
 
   create_table "agegroups", :force => true do |t|
     t.integer  "edition_id",                  :null => false
@@ -52,13 +52,14 @@ ActiveRecord::Schema.define(:version => 20130619214444) do
   add_index "cities", ["name"], :name => "ak_name_cities", :unique => true
 
   create_table "composers", :force => true do |t|
-    t.string   "name",       :limit => 128, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "last_name",  :null => false
+    t.string   "first_name"
+    t.integer  "page_id"
   end
 
   add_index "composers", ["id"], :name => "composers_pk", :unique => true
-  add_index "composers", ["name"], :name => "ak_name_composer", :unique => true
 
   create_table "contactinfos", :force => true do |t|
     t.integer  "city_id",                    :null => false
@@ -136,15 +137,15 @@ ActiveRecord::Schema.define(:version => 20130619214444) do
   add_index "performances", ["registration_id"], :name => "registration_id_fk"
 
   create_table "pieces", :force => true do |t|
-    t.integer  "composer_id",                :null => false
-    t.string   "title",       :limit => 128, :null => false
+    t.integer  "composer_id", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "title",       :null => false
+    t.integer  "page_id"
   end
 
   add_index "pieces", ["composer_id"], :name => "composer_id_fk"
   add_index "pieces", ["id"], :name => "pieces_pk", :unique => true
-  add_index "pieces", ["title"], :name => "ak_title_pieces", :unique => true
 
   create_table "registrations", :force => true do |t|
     t.integer  "user_owner_id",   :null => false

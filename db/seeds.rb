@@ -8,10 +8,27 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 require 'csv'
 
+# Do not load all composers and pieces by default
+load_all_composers_and_pieces = true
+
+# Composers and pieces
+if load_all_composers_and_pieces
+  CSV.foreach("#{Rails.root}/tools/composer.csv", :headers => true) do |row|
+    name = row[0].split(', ')
+    if name.size > 1
+      Composer.create(last_name: name[0], first_name: name[1], page_id: row[2])
+    else
+      Composer.create(last_name: name[0], page_id: row[2])
+    end
+  end
+  CSV.foreach("#{Rails.root}/tools/piece.csv", :headers => true) do |row|
+    Piece.create(title: row[1], composer_id: Composer.where(:page_id => row[0]).first.id, page_id: row[3])
+  end
+end
+
 # Rooms
 room1 = Room.create(capacity: 32, name: 'C1-3125', location: 'UdeS', description: 'Local de rencontre')
 room2 = Room.create(capacity: 100, name: 'Sale Bandeen', location: 'CEGEP de Sherbrooke', description: 'Plus grande salle du festival')
-
 
 # Cities
 CSV.foreach("#{Rails.root}/tools/eastern_cities.csv") do |row|
@@ -94,8 +111,8 @@ agegroup15 = Agegroup.create(edition_id: edition1.id, category_id: category5.id,
 agegroup16 = Agegroup.create(edition_id: edition1.id, category_id: category5.id, min: '1992-07-01', max: '1990-07-01', fee:25, max_duration: 7)# 12+ ans 
 
 # Composers
-composer1 = Composer.create(name: 'SOR F.')
-composer2 = Composer.create(name: 'SANZ G.')
+composer1 = Composer.create(last_name: 'Barnby', first_name: 'Joseph')
+composer2 = Composer.create(last_name: 'Bach', first_name: 'Johann Sebastian')
 
 # Pieces
 piece1 = Piece.create(composer_id: composer1.id, title: 'Theme et variations op.45 no 3')

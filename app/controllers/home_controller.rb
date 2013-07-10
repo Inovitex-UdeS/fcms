@@ -9,57 +9,48 @@ class HomeController < ApplicationController
     # Beau guide : http://spreadsheet.rubyforge.org/files/GUIDE_txt.html
     require 'spreadsheet'
 
-
     excel_doc = Spreadsheet::Workbook.new # Créer le book!
 
 
     ## MAIN SHEET ##
+
+    header_format = Spreadsheet::Format.new :weight => :bold,
+                                            :size => 12
+    timeslot_format = Spreadsheet::Format.new :weight => :bold,
+                                            :size => 12
+
     sheet_All = excel_doc.create_worksheet  :name => "TOUT" # On crée un TAB Excel avec un nom :)
 
-    sheet_All.row(0).replace ["#", "Catégorie", "Bloc associé", "Participants", "Instrument",  "Durée","École", "Courriel", "#Tel", "#civil","ville", "code postal",  ] # On set les colonnes du workbook
-    it = 1
-    Registration.order(:category_id)[0..160].each do |reg|
-      if (it==36)
-        bam = 3
-      end
-      reg_users =  reg_instruments =  tslot =  participants = nil
-      courriels =   tels = civils =  cities =  postals = nil
+    sheet_All.row(0).replace ["#", "Catégorie", "Bloc associé", "Participants", "Instrument",  "Durée", "Courriel", "#Tel", "Rue","Ville", "Code postal", "École" ] # On set les colonnes du workbook
+    sheet_All.row(0).each_index do |i|
+      sheet_All.column(i).width = sheet_All.row(0).at(i).to_s.length+3
+    end
 
-      reg_users = reg.users
-      reg_instruments = reg.instruments.order(:user_id)
+    it = 1
+    Registration.order(:category_id)[0..-1].each do |reg|
+      instruments = participants = courriels = tels = ""
+      civils = cities = postals = ""
 
       tslot = reg.timeslot ? reg.timeslot.label : ""
-      participants = reg_users.first.name
-      courriels = reg_users.first.email
-      tels = reg_users.first.contactinfo.telephone
-      civils = reg_users.first.contactinfo.address
-      cities = reg_users.first.contactinfo.city.name
-      postals = reg_users.first.contactinfo.postal_code
 
-      reg.users.all[1..-1].each do |u|
-        participants << "\n" + "#{u.name}"
-        courriels << "\n" + "#{u.email}"
-        tels << "\n" + "#{u.contactinfo.telephone}"
-        civils << "\n" + "#{u.contactinfo.address}"
-        cities << "\n" + "#{u.contactinfo.city.name}"
-        postals << "\n" + "#{u.contactinfo.postal_code}"
+      reg.users.each do |u|
+        participants += "#{u.name}" + "\n"
+        courriels +=  "#{u.email}"+"\n"
+        ctact = Contactinfo.find(u.contactinfo.id)
+        tels +=     "#{ctact.telephone}"  + "\n"
+        civils +=   "#{ctact.address}"+ "\n"
+        cities +=   "#{ctact.city.name}"+ "\n"
+        postals +=  "#{ctact.postal_code}" + "\n"
       end
 
-      instruments = reg_instruments.first.name
-      reg_instruments[1..-1].each do |i|
-        instruments << "\n" + "#{i.name}"
+      reg.instruments.order(:user_id).each do |i|
+        instruments +=  "#{i.name}" + "\n"
       end
 
-      #[reg.id, reg.category.name, tslot, participants, instruments,  reg.duration,  courriels, tels, civils, cities, postals ]
-      sheet_All.row(it).replace [  reg.id, participants,  tels,  cities ]
+      sheet_All.row(it).replace [reg.id, reg.category.name, tslot, participants, instruments,  reg.duration,  courriels, tels, civils, cities, postals, reg.school.name ]
       it = it + 1
     end
 
-    sheet_All.row(0).height = 18
-
-    header_format = Spreadsheet::Format.new :color => :blue,
-                                            :weight => :bold,
-                                            :size => 12
     sheet_All.row(0).default_format = header_format
 
     unless false
@@ -67,26 +58,37 @@ class HomeController < ApplicationController
       Category.order(:name).each do |cat|
         unless cat.timeslots.empty?
           irow = 0
-          sheet = excel_doc.create_worksheet  :name =>  cat.name.truncate(12) # sub tabs
+          # Create subtab
+          sheet = excel_doc.create_worksheet  :name =>  cat.name.truncate(12)
+          # Adjust column width
+          headers = ["", "#", "Catégorie", "Participants", "Instruments",  "Durée", "Âge"]
+          sheet.column(0).width = 20
+          headers[1..-1].each_index do |i|
+            sheet.column(i).width = headers.at(i).to_s.length+3
+          end
+
+          # Fill sheet
           cat.timeslots.each do |ts|
             sheet.row(irow).replace [ts.label]
+            sheet.row(irow).default_format = timeslot_format
             irow+=1
-            sheet.row(irow).replace ["#", "Catégorie", "Participants", "Instrument",  "Durée", "Âge"]
+            sheet.row(irow).replace headers
+
+            sheet.row(irow).default_format = header_format
             irow+=1
 
             ts.registrations.each do |reg|
-              reg_users = reg.users
-              reg_instruments = reg.instruments.order(:user_id)
-              participants =reg_users.first.name
-              instruments = reg_instruments.first.name
-              reg_users[1..-1].each do |u|
-                participants << "\n" + "#{u.name}"
+              participants = instruments = ''
+
+              reg.users.each do |u|
+                participants += "#{u.name}" + "\n"
               end
 
-              reg_instruments[1..-1].each do |i|
-                instruments << "\n" + "#{i.name}"
+              reg.instruments.order(:user_id).each do |i|
+                instruments += "#{i.name}" + "\n"
               end
-              sheet.row(irow).replace [reg.id, reg.category.name, participants, instruments, reg.duration,  reg.age_max]
+
+              sheet.row(irow).replace ['', reg.id, reg.category.name, participants, instruments, reg.duration,  reg.age_max]
               irow+=1
             end
           end

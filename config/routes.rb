@@ -19,6 +19,9 @@ devise_for :users, :controllers => {:registrations => 'devise_registrations', :i
      resources :schoolboards
      resources :schooltypes
      resources :agegroups
+     resources :planification
+
+     match 'planification/categories/:id' => 'planification#categories', :method => :get
    end
 
   resources :users

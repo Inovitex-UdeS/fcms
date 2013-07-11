@@ -27,19 +27,31 @@
           <div class="control-group">
             <label class="control-label"><b>Participants</b></label>
             <div class="input-prepend">
-              <label class="checkbox"> <%= f.text_field :nb_perf_min, :class => 'input-small' %> participant(s) par inscription (minimum)</label>
+              <label class="checkbox"> <%= f.text_field :nb_participants, :class => 'input-small' %> participant(s) par inscription (minimum)</label>
               <br />
-
-              <label class="checkbox"> <%= f.text_field :nb_perf_max, :class => 'input-small' %> participant(s) par inscription (maximum)</label>
             </div>
             <br />
 
             <div class="controls">
               <div class="input-prepend">
-                <label class="checkbox"> <%= f.check_box :has_accompanyist%> <label>Demander un accompagnateur à l'inscription</label></label>
+                <label class="checkbox"> <%= f.check_box :accompanyist%> <label>Demander un accompagnateur à l'inscription</label></label>
               </div>
               <br />
             </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label"><b>Nombre de pièces</b></label>
+            <div class="input-prepend">
+              <label class="checkbox"> <%= f.text_field :nb_piece_lim1, :class => 'input-small' %> pièces par classe d'inscription</label>
+            </div>
+            <br />
+
+            <div class="input-prepend">
+              <label class="checkbox"> <%= f.text_field :nb_piece_lim2, :class => 'input-small' %> pièces <b>de chant</b> par classe d'inscription</label>
+              <br />
+            </div>
+            <br />
           </div>
 
           <%= render :partial => '/admin/agegroups/editableGrid' %>

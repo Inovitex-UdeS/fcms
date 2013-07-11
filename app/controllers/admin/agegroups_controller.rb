@@ -8,7 +8,7 @@ class Admin::AgegroupsController < ApplicationController
     begin
       @agegroup = Agegroup.find(params[:id])
       if @agegroup
-        if @agegroup.update_attributes(params[:agegroup])
+        if @agegroup.update_attributes(ActiveSupport::JSON.decode(params[:agegroup]))
           render :json => @agegroup
         else
           render :json => {:message => "Le groupe d'âge n'a pu être mis à jour"}, :status => :unprocessable_entity

@@ -16,13 +16,17 @@ class Admin::CategoriesController < ApplicationController
     @categories = Category.all
     @category = Category.new
 
-    @agegroups = Agegroup.all
+    @agegroups = Agegroup.where(:category_id => Category.first()[:id])
     @agegroup  = Agegroup.new
   end
 
   def show
     @category = Category.find(params[:id])
-    render :json => @category
+    @agegroups = Agegroup.where(:category_id => @category[:id])
+    render :json => {
+      :category => @category,
+      :agegroups => @agegroups
+    }
   end
 
   def destroy

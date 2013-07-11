@@ -88,7 +88,8 @@ $(document).ready(function() {
 
     // Rows Select Event
     $("#classes_list tbody tr").click(function(event) {
-        fcms.fnSelectableRows(oClassesList, $(this), oClassesForm);
+        oAgegroupsList.fnClearTable()
+        fcms.fnSelectClass($(this), oClassesForm);
     });
 
     // -- Agegroups list   ---------------------------------------------------------------------------------------------
@@ -186,6 +187,24 @@ $(document).ready(function() {
         "</div>"
     );
 
+    $('#itemModified_modal_saveButton').click(function (e) {
+        e.preventDefault();
+        fcms.fnSaveEditedRow();
+        fcms.fnHideItemModified();
+    });
+
+    $('#itemModified_modal_cancelButton').click(function (e) {
+        fcms.fnEditButtons(false);
+        oAgegroupsList.$('tr.row_edited').removeClass('row_edited');
+    });
+
+    //
+    $('#agegroups_saveItem').click(function (e) {
+        e.preventDefault();
+        fcms.fnSaveEditedRow();
+        fcms.fnHideItemModified();
+    });
+
     // Button containers
     var oAgegroupsAddButton = $('#agegroups_addItem');
     var oAgegroupsDeleteButton = $('#agegroups_deleteItem');
@@ -196,7 +215,7 @@ $(document).ready(function() {
 
     // Rows Select Event
     $('#agegroups_list tbody tr').click(function(event) {
-        fcms.fnSelectableRows(oAgegroupsList, $(this), null);
+        fcms.fnSelectAgegroup($(this));
     });
 
     // Rows Double click Event
@@ -204,49 +223,46 @@ $(document).ready(function() {
         fcms.fnEditableRow(oAgegroupsList, $(this));
     });
 
-    // Item Modified modal window events
-    $('#itemModified_modal').bind('show', function() {
-        // Item modified modal Save button event
-        $('#itemModified_modal_saveButton').click(function (e) {
-            var oRow = fcms.fnGetEdited(oAgegroupsList).first();
-            var rowId = oRow.children().first().text();
+    fcms.fnSaveEditedRow = function (e) {
+        var oRow = fcms.fnGetEdited(oAgegroupsList).first();
+        var rowId = oRow.children().first().text();
 
-            var oControls = oRow.children().children('input');
-            var newAgegroup = {};
+        var oLabels = oRow.children().children('label');
+        var oControls = oRow.children().children('input');
+        var newAgegroup = {};
 
-            var length = oControls.length;
-            newAgegroup['id'] = rowId;
-            for (var i = 0; i < length; i++) {
-                newAgegroup[oControls[i].id] = oControls[i].value;
-            }
+        var length = oControls.length;
+        newAgegroup['id'] = rowId;
+        for (var i = 0; i < length; i++) {
+            newAgegroup[oControls[i].id] = oControls[i].value;
+        }
 
+        var paramsJSON = JSON.stringify((newAgegroup));
 
-
-            var paramsJSON = JSON.stringify((newAgegroup));
-
-            $.ajax({
-                url     : '/admin/agegroups/' + rowId,
-                type    : 'put',
-                dataType: 'json',
-                data    : paramsJSON,
-                success : function (data) {
-                    var aItem = new Array();
-                    console.log(data);
-
-                },
-                error   : function (xhr, err) {
-                    console.log(xhr, err);
+        $.ajax({
+            url     : '/admin/agegroups/' + rowId,
+            type    : 'put',
+            dataType: 'json',
+            data    : {"agegroup": paramsJSON},
+            success : function (data) {
+                fcms.fnEditButtons(false);
+                var aItem = new Array();
+                aItem.push(rowId);
+                for (var i = 0;i < oControls.length; i++) {
+                    if (oControls[i].id in data) {
+                        aItem.push(data[oControls[i].id]);
+                    }
                 }
-            });
 
+                oAgegroupsList.fnAddData(aItem);
+                oAgegroupsList.fnDeleteRow(oRow[0]);
 
+            },
+            error   : function (xhr, err) {
+                console.log("error");
+            }
         });
-
-        // Item modified modal Cancel button event
-        $('#itemModified_modal_cancelButton').click(function (e) {
-
-        });
-    });
+    };
 
     // -- General grid functions    ------------------------------------------------------------------------------------
     fcms.fnGetSelected = function ( oTable ) {
@@ -265,21 +281,53 @@ $(document).ready(function() {
         );
     };
 
-    fcms.fnSelectableRows = function ( oTable, oRow, oForm ) {
-        // If an item is currently editing
-        if (oTable.$('tr').hasClass('row_edited')) {
-
+    fcms.fnSelectAgegroup = function ( oRow ) {
+        // If item is already editing
+        if (oRow.hasClass('row_edited')) {
+            return;
         }
 
         // If item is already selected
-        if (oRow.hasClass('row_selected')) {
+        else if (oRow.hasClass('row_selected')) {
+            oRow.removeClass('row_selected');
+        }
+
+        // If item isn't already selected
+        else {
+            // If an item is currently editing
+            if (oAgegroupsList.$('tr').hasClass('row_edited')) {
+                fcms.fnShowItemModified();
+            }
+
+            // If another item is currently selected
+            else if (oAgegroupsList.$('tr').hasClass('row_selected')) {
+                oAgegroupsList.$('tr.row_selected').removeClass('row_selected');
+            }
+
+            oRow.addClass('row_selected');
+        }
+    };
+
+    fcms.fnSelectClass = function ( oRow, oForm ) {
+        // If item is already editing
+        if (oRow.hasClass('row_edited')) {
+            return;
+        }
+
+        // If item is already selected
+        else if (oRow.hasClass('row_selected')) {
             oRow.removeClass('row_selected');
             if(oForm) fcms.fnClearForm(oForm);
         }
 
         // If item isn't already selected
         else {
-            oTable.$('tr.row_selected').removeClass('row_selected');
+            // If an item is currently editing
+            if (oClassesList.$('tr').hasClass('row_edited')) {
+                fcms.fnShowItemModified();
+            }
+
+            oClassesList.$('tr.row_selected').removeClass('row_selected');
             oRow.addClass('row_selected');
             var id = oRow.children().first().text();
 
@@ -292,11 +340,54 @@ $(document).ready(function() {
                         $('#' + oForm.attr('id') + ' input').filter(function() { return this.id.match(re); }).each(
                             function(){
                                 var field = $(this).attr('id').replace(modelName + "_", "");
-                                if (field in data) {
-                                    $(this).val(data[field]);
+                                if (field in data['category']) {
+                                    $(this).val(data['category'][field]);
                                 }
                             }
                         );
+
+                        var oAgegroup = data['agegroups'];
+                        for (var i = 0; i < oAgegroup.length; i++) {
+                            var aItem = new Array();
+                            aItem.push(oAgegroup[i]['id']);
+                            aItem.push(oAgegroup[i]['description']);
+                            aItem.push(oAgegroup[i]['min']);
+                            aItem.push(oAgegroup[i]['max']);
+                            aItem.push(oAgegroup[i]['fee']);
+                            aItem.push(oAgegroup[i]['max_duration']);
+
+                            var iRow = oAgegroupsList.fnAddData(aItem);
+                            $(oAgegroupsList.fnGetNodes(iRow)).click( function(event) {
+                                fcms.fnSelectAgegroup($(this))
+                            });
+                            $(oAgegroupsList.fnGetNodes(iRow)).dblclick( function(event) {
+                                fcms.fnEditableRow(oAgegroupsList, $(this));
+                            });
+
+                            var oRowChild = $(oAgegroupsList.fnGetNodes(iRow)).children('td');
+
+                            $(oRowChild[1]).empty();
+                            $(oRowChild[1]).append('<label id="description">' + oAgegroup[i]['description'] + '</label>');
+                            $(oRowChild[1]).append('<input id="description" type="text" class="input-xlarge control-hidden" placeholder="Description" value="' + oAgegroup[i]['description'] + '">');
+
+                            $(oRowChild[2]).empty();
+                            $(oRowChild[2]).append('<label id="min">' + oAgegroup[i]['min'] + '</label>');
+                            $(oRowChild[2]).append('<input id="min" type="number" class="input-small control-hidden" value="' + oAgegroup[i]['min'] + '">');
+
+                            $(oRowChild[3]).empty();
+                            $(oRowChild[3]).append('<label id="max">' + oAgegroup[i]['max'] + '</label>');
+                            $(oRowChild[3]).append('<input id="max" type="number" class="input-small control-hidden" value="' + oAgegroup[i]['max'] + '">');
+
+                            $(oRowChild[4]).empty();
+                            $(oRowChild[4]).append('<label id="fee">' + oAgegroup[i]['fee'] + '</label>');
+                            $(oRowChild[4]).append('<input id="fee" type="number" class="input-small control-hidden" value="' + oAgegroup[i]['fee'] + '">');
+
+                            $(oRowChild[5]).empty();
+                            $(oRowChild[5]).append('<label id="max_duration">' + oAgegroup[i]['max_duration'] + '</label>');
+                            $(oRowChild[5]).append('<input id="max_duration" type="number" class="input-small control-hidden" value="' + oAgegroup[i]['max_duration'] + '">');
+
+                            console.log($(oAgegroupsList.fnGetNodes(iRow)));
+                        }
                     }
                 });
             }
@@ -340,5 +431,9 @@ $(document).ready(function() {
 
     fcms.fnShowItemModified = function () {
         mItemModified.modal('show');
+    };
+
+    fcms.fnHideItemModified = function () {
+        mItemModified.modal('hide');
     };
 });

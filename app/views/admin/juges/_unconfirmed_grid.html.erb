@@ -1,0 +1,22 @@
+<h5>Juges non-confimés</h5>
+<table class="table table-bordered" id="tableUnconfimredJuges">
+  <thead><tr>
+    <th>Id</th>
+    <th>Nom</th>
+    <th>Adresse courriel</th>
+    <th>Confirmation</th>
+  </tr></thead>
+  <tbody>
+  <% @ujuges.each do |juge| %>
+      <tr>
+        <td><%= juge.id %></label></td>
+        <td><%= juge.first_name %> <%= juge.last_name %></td>
+        <td><%= juge.email %></td>
+        <td>
+          <a class ="btn btn-primary" href="/admin/juges/<%= juge.id %>/confirm"><i class="icon-ok"></i> Accepter</a>
+          <a class ="btn" href="/admin/juges/<%= juge.id %>/reject"><i class="icon-remove"></i>Refuser</a>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table><hr>

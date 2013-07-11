@@ -5,7 +5,7 @@
 
 $(document).ready(function() {
     $('#role_user_ids').typeahead();
-    fcms.bindTable($('.table'));
+    fcms.bindTable($('#tableJuges'));
     fcms.initTable();
     fcms.fnInjectDeleteButton('/admin/juges/', $('#role_user_ids'));
 

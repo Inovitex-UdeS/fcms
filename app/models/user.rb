@@ -39,11 +39,15 @@ class User < ActiveRecord::Base
   end
 
   def self.juges
-    User.with_role('Juge')#.where(confirmed: true)
+    User.joins(:roles).where(:roles_users => {:confirmed => true}, :roles => {:name => 'Juge'})
+  end
+
+  def self.unconfirmed_juges
+    User.joins(:roles).where(:roles_users => {:confirmed => false}, :roles => {:name => 'Juge'})
   end
 
   def self.admins
-    User.with_role('Administrateur')#.where(confirmed: true)
+    User.with_role('Administrateur')
   end
 
   # Instance methods

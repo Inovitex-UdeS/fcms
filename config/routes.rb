@@ -13,7 +13,6 @@ devise_for :users, :controllers => {:registrations => 'devise_registrations', :i
      resources :editions
      resources :instruments
      resources :rooms
-     resources :juges
      resources :teachers
      resources :composers
      resources :schools
@@ -26,6 +25,13 @@ devise_for :users, :controllers => {:registrations => 'devise_registrations', :i
      resources :agegroups
      resources :planification
      resources :categories
+
+     resources :juges do
+       member do
+         get 'confirm'
+         get 'reject'
+       end
+     end
 
      match 'planification/categories/:id' => 'planification#categories', :method => :get
      match 'ProduceExcel' => 'planification#ProduceExcel'

@@ -4,11 +4,10 @@
   To use Glyphicons sprites instead of Font Awesome, replace with "require twitter-bootstrap-static/sprites"
 
   Otherwise, use "require twitter-bootstrap-static/fontawesome"
-  =require twitter-bootstrap-static/fontawesome
 
-  =require twitter-bootstrap-static/fontawesome
+  *= require twitter-bootstrap-static/fontawesome
   */
-=require twitter-bootstrap-static/fontawesome
+
 html, body {
     font-family: "Open Sans";
     line-height: normal;

@@ -28,12 +28,15 @@ devise_for :users, :controllers => {:registrations => 'devise_registrations', :i
      resources :categories
 
      match 'planification/categories/:id' => 'planification#categories', :method => :get
+     match 'ProduceExcel' => 'planification#ProduceExcel'
    end
 
   resources :categories
   resources :users
   resources :registrations
   resources :composers
+
+
 
   get 'autocomplete/cities'
   get 'autocomplete/schools'

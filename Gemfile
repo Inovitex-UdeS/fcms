@@ -80,6 +80,9 @@ gem 'rails3-jquery-autocomplete', '1.0.11'
 # Select2 gem
 gem 'select2-rails', '3.4.3'
 
+# Excel
+gem 'spreadsheet', '~> 0.8.5'
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

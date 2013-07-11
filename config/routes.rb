@@ -25,6 +25,7 @@ devise_for :users, :controllers => {:registrations => 'devise_registrations', :i
      resources :pieces
      resources :agegroups
      resources :planification
+     resources :categories
 
      match 'planification/categories/:id' => 'planification#categories', :method => :get
    end

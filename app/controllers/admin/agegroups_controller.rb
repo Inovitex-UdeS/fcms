@@ -23,4 +23,32 @@ class Admin::AgegroupsController < ApplicationController
       render :json => {:message => "Erreur lors de la mise à jour du groupe d'âge"}, :status => :unprocessable_entity
     end
   end
+
+  def create
+    begin
+      @agegroup = Agegroup.new(ActiveSupport::JSON.decode(params[:agegroup]))
+
+      if @agegroup.save
+        render :json => @agegroup
+      else
+        render :json => {:message => @agegroup.errors.full_messages}, :status => :unprocessable_entity
+      end
+    rescue
+      render :json => {:message => @agegroup.errors.full_messages}, :status => :unprocessable_entity
+    end
+  end
+
+  def destroy
+    begin
+      agegroup = Agegroup.find(params[:id])
+      if agegroup
+        agegroup.destroy
+        render :json => {:message => "Le groupe d'âge a été supprimé avec succès"}, :status => :ok
+      else
+        render :json => {:message =>  "Le groupe d'âge n'a pas été trouvé"}, :status => :unprocessable_entity
+      end
+    rescue
+      render :json => {:message => "Erreur lors de la suppression du groupe d'âge"}, :status => :unprocessable_entity
+    end
+  end
 end

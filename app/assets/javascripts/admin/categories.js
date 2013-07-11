@@ -1,6 +1,5 @@
 //= require dataTables/jquery.dataTables
 //= require dataTables/jquery.dataTables.bootstrap
-
 $(document).ready(function() {
     var oClassesForm = $('form');
 
@@ -157,7 +156,7 @@ $(document).ready(function() {
                 "<div class='control-group'>" +
                     "<label class='control-label'>Durée maximale (mnin)</label>" +
                     "<div class='controls'>" +
-                        "<input id='addAgegroup_modal_duration' type='number' class='input-small control-hidden'>" +
+                        "<input id='addAgegroup_modal_max_duration' type='number' class='input-small control-hidden'>" +
                     "</div>" +
                 "</div>" +
             "</div>" +
@@ -198,11 +197,32 @@ $(document).ready(function() {
         oAgegroupsList.$('tr.row_edited').removeClass('row_edited');
     });
 
-    //
+    // Save existing Agegroup button event
     $('#agegroups_saveItem').click(function (e) {
         e.preventDefault();
         fcms.fnSaveEditedRow();
         fcms.fnHideItemModified();
+    });
+
+    // Delete existing Agegroup button event
+    $('#agegroups_deleteItem').click(function (e) {
+        var oRow = fcms.fnGetSelected(oAgegroupsList).first();
+        var rowId = oRow.children().first().text();
+
+        $.ajax({
+            url: '/admin/agegroups/' + rowId,
+            type: 'delete',
+            complete: function(result) {
+                oAgegroupsList.fnDeleteRow(oRow[0]);
+                fcms.showMessage('L\'item a été supprimé avec succès');
+            }
+        });
+    });
+
+    // Save new Agegroup button event
+    $('#addAgegroup_modal_addButton').click(function (e) {
+        e.preventDefault();
+        fcms.fnCreateAgegroup();
     });
 
     // Button containers
@@ -212,6 +232,7 @@ $(document).ready(function() {
 
     // Modal window containers
     var mItemModified = $('#itemModified_modal');
+    var mAddAgegroup  = $('#addAgegroup_modal');
 
     // Rows Select Event
     $('#agegroups_list tbody tr').click(function(event) {
@@ -254,7 +275,14 @@ $(document).ready(function() {
                     }
                 }
 
-                oAgegroupsList.fnAddData(aItem);
+                var iRow = oAgegroupsList.fnAddData(aItem);
+                $(oAgegroupsList.fnGetNodes(iRow)).click( function(event) {
+                    fcms.fnSelectAgegroup($(this))
+                });
+                $(oAgegroupsList.fnGetNodes(iRow)).dblclick( function(event) {
+                    fcms.fnEditableRow(oAgegroupsList, $(this));
+                });
+
                 oAgegroupsList.fnDeleteRow(oRow[0]);
 
             },
@@ -262,6 +290,55 @@ $(document).ready(function() {
                 console.log("error");
             }
         });
+    };
+
+    fcms.fnCreateAgegroup = function () {
+        var oControls = $('#addAgegroup_modal').children('div.modal-body').children('div.control-group').children('div').children();
+        var newAgegroup = {};
+
+        var length = oControls.length;
+        for (var i = 0; i < length; i++) {
+            newAgegroup[oControls[i].id.replace('addAgegroup_modal_', '')] = oControls[i].value;
+        }
+
+        newAgegroup['edition_id'] = '1';
+        newAgegroup['category_id'] = fcms.fnGetSelected(oClassesList).children().first().text();
+
+        var paramsJSON = JSON.stringify((newAgegroup));
+
+        $.ajax({
+            url     : '/admin/agegroups',
+            type    : 'post',
+            dataType: 'json',
+            data    : {"agegroup": paramsJSON},
+            success : function (data) {
+                var aItem = new Array();
+                aItem.push(data['id']);
+                aItem.push(data['description']);
+                aItem.push(data['min']);
+                aItem.push(data['max']);
+                aItem.push(data['fee']);
+                aItem.push(data['max_duration'])
+
+                var iRow = oAgegroupsList.fnAddData(aItem);
+
+                var aColumnId = new Array();
+                aColumnId.push('id');
+                aColumnId.push('description');
+                aColumnId.push('min');
+                aColumnId.push('max');
+                aColumnId.push('fee');
+                aColumnId.push('max_duration');
+
+                fcms.fnAgegroupRowBinder(iRow, aItem, aColumnId);
+                fcms.fnHideAddAgegroup();
+
+            },
+            error   : function (xhr, err) {
+                console.log("error");
+            }
+
+        })
     };
 
     // -- General grid functions    ------------------------------------------------------------------------------------
@@ -357,36 +434,16 @@ $(document).ready(function() {
                             aItem.push(oAgegroup[i]['max_duration']);
 
                             var iRow = oAgegroupsList.fnAddData(aItem);
-                            $(oAgegroupsList.fnGetNodes(iRow)).click( function(event) {
-                                fcms.fnSelectAgegroup($(this))
-                            });
-                            $(oAgegroupsList.fnGetNodes(iRow)).dblclick( function(event) {
-                                fcms.fnEditableRow(oAgegroupsList, $(this));
-                            });
 
-                            var oRowChild = $(oAgegroupsList.fnGetNodes(iRow)).children('td');
+                            var aColumnId = new Array();
+                            aColumnId.push('id');
+                            aColumnId.push('description');
+                            aColumnId.push('min');
+                            aColumnId.push('max');
+                            aColumnId.push('fee');
+                            aColumnId.push('max_duration');
 
-                            $(oRowChild[1]).empty();
-                            $(oRowChild[1]).append('<label id="description">' + oAgegroup[i]['description'] + '</label>');
-                            $(oRowChild[1]).append('<input id="description" type="text" class="input-xlarge control-hidden" placeholder="Description" value="' + oAgegroup[i]['description'] + '">');
-
-                            $(oRowChild[2]).empty();
-                            $(oRowChild[2]).append('<label id="min">' + oAgegroup[i]['min'] + '</label>');
-                            $(oRowChild[2]).append('<input id="min" type="number" class="input-small control-hidden" value="' + oAgegroup[i]['min'] + '">');
-
-                            $(oRowChild[3]).empty();
-                            $(oRowChild[3]).append('<label id="max">' + oAgegroup[i]['max'] + '</label>');
-                            $(oRowChild[3]).append('<input id="max" type="number" class="input-small control-hidden" value="' + oAgegroup[i]['max'] + '">');
-
-                            $(oRowChild[4]).empty();
-                            $(oRowChild[4]).append('<label id="fee">' + oAgegroup[i]['fee'] + '</label>');
-                            $(oRowChild[4]).append('<input id="fee" type="number" class="input-small control-hidden" value="' + oAgegroup[i]['fee'] + '">');
-
-                            $(oRowChild[5]).empty();
-                            $(oRowChild[5]).append('<label id="max_duration">' + oAgegroup[i]['max_duration'] + '</label>');
-                            $(oRowChild[5]).append('<input id="max_duration" type="number" class="input-small control-hidden" value="' + oAgegroup[i]['max_duration'] + '">');
-
-                            console.log($(oAgegroupsList.fnGetNodes(iRow)));
+                            fcms.fnAgegroupRowBinder(iRow, aItem, aColumnId);
                         }
                     }
                 });
@@ -436,4 +493,54 @@ $(document).ready(function() {
     fcms.fnHideItemModified = function () {
         mItemModified.modal('hide');
     };
+
+    fcms.fnHideAddAgegroup = function () {
+        mAddAgegroup.modal('hide');
+    };
+
+    /* fnAgegroupRowBinder
+        params :    oRow        Row obtained via fnAddData within a DataTable
+                    aAgegroup   Associative Array with Agegroup detail
+                                    0 = ID          2 = description 4 = max     6 = max_duration
+                                    1 = created_at  3 = min         5 = fee
+
+        Add proper HTML content to the row, filled with appropriate value and binded correctly.
+     */
+    fcms.fnAgegroupRowBinder = function (oRow, aItem, aColumnId) {
+        var oRowChild = $(oAgegroupsList.fnGetNodes(oRow)).children('td');
+
+        // ID is setted correctly by DataTable itself. No need to manipulate the cell.
+        for (var i = 0; i < aItem.length; i++) {
+            if (i > 0) {
+                $(oRowChild[i]).empty();
+                $(oRowChild[i]).append('<label id="' + aColumnId[i] + '">' + aItem[i] + '</label>');
+
+                // First cell is a text input
+                if (aColumnId[i] == 'description') {
+                    $(oRowChild[i]).append('<input id="' + aColumnId[i] + '" type="text" class="input-xlarge control-hidden" placeholder="' + aColumnId[i].charAt(0).toUpperCase() + '" value="' + aItem[i] + '">');
+                }
+                // Other cells are numeric steppers
+                else {
+                    $(oRowChild[i]).append('<input id="' + aColumnId[i] + '" type="number" class="input-small control-hidden" value="' + aItem[i] + '">');
+                }
+
+                $(oAgegroupsList.fnGetNodes(oRow)).click( function(event) {
+                    fcms.fnSelectAgegroup($(this))
+                });
+                $(oAgegroupsList.fnGetNodes(oRow)).dblclick( function(event) {
+                    fcms.fnEditableRow(oAgegroupsList, $(this));
+                });
+
+            }
+        }
+    };
+
+    fcms.fnClearForm = function ( e ) {
+        $('#' + oClassesForm.attr('id') + ' input').filter(function() { return this.id.match(re); }).each(
+            function(){
+                $(this).val('');
+            }
+        );
+    };
+
 });

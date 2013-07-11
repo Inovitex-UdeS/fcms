@@ -35,12 +35,26 @@ class Admin::CategoriesController < ApplicationController
 
       if category
         category.destroy
-        render :json => {:message => "Le juge a été supprimé avec succès"}, :status => :ok
+        render :json => {:message => "La catégorie a été supprimé avec succès"}, :status => :ok
       else
-        render :json => {:message =>  "Le juge n'a pas été trouvé"}, :status => :unprocessable_entity
+        render :json => {:message =>  "La catégorie n'a pas été trouvé"}, :status => :unprocessable_entity
       end
     rescue
-      render :json => {:message => "Erreur lors de la suppression du juge"}, :status => :unprocessable_entity
+      render :json => {:message => "Erreur lors de la suppression de la catégorie"}, :status => :unprocessable_entity
+    end
+  end
+
+  def create
+    begin
+      category = Category.new(params[:category])
+
+      if category.save
+        render :json => category
+      else
+        render :json => {:message => category.errors.full_messages}, :status => :unprocessable_entity
+      end
+    rescue
+      render :json => {:message => category.errors.full_messages}, :status => :unprocessable_entity
     end
   end
 end

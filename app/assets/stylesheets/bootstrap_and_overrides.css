@@ -5,7 +5,7 @@
   To use Glyphicons sprites instead of Font Awesome, replace with "require twitter-bootstrap-static/sprites"
   Otherwise, use "require twitter-bootstrap-static/fontawesome"
 
-  *= require font-awesome
+  =require twitter-bootstrap-static/fontawesome
   */
 
 html, body {

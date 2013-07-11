@@ -100,14 +100,14 @@ SimpleNavigation::Configuration.run do |navigation|
       sub_nav.item :key_5_11,'', nil, :class=> 'divider'
       sub_nav.item :key_5_12, 'Planifier le concours', '/admin/planification'
       sub_nav.item :key_5_13,'', nil, :class=> 'divider'
-      sub_nav.item :key_5_14, 'Gérer les accompagnateurs', new_admin_accompanyist_path
+      sub_nav.item :key_5_14, 'Gérer les accompagnateurs', new_admin_accompanist_path
       sub_nav.item :key_5_15, 'Gérer les juges', new_admin_juge_path
       sub_nav.item :key_5_16, 'Gérer les professeurs', new_admin_teacher_path
       sub_nav.item :key_5_17,'', nil, :class=> 'divider'
       sub_nav.item :key_5_18,'Inviter un utilisateur', '/users/invitation/new'
       sub_nav.item :key_5_19,'Gérer les utilisateurs', '/users'
       sub_nav.item :key_5_20, '', nil, :class=> 'divider'
-      sub_nav.item :key_5_21, 'Classes d\'inscritpion', new_admin_category_path
+      sub_nav.item :key_5_21, 'Classes d\'inscritpion', new_category_path#new_admin_category_path
     end
 
     primary.item :divider_6, nil, nil, :class => 'divider-vertical'

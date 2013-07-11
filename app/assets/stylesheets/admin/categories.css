@@ -1,3 +1,10 @@
+.table tr.even.row_edited td { background-color: #ADADAD; }
+.table tr.odd.row_edited td { background-color: #ADADAD; }
+.table tr td input { display: none; }
+.table tr td label { display: block; }
+.table tr.row_edited td input { display: block; }
+.table tr.row_edited td label { display: none; }
+
 .form-horizontal .control-label { width: 300px; text-align: left; }
 .input-small {
     left: 5px;

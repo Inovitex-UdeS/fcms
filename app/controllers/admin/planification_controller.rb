@@ -1,4 +1,7 @@
+#encoding: utf-8
 class Admin::PlanificationController < ApplicationController
+  before_filter :prevent_non_admin
+
   def index
   end
 

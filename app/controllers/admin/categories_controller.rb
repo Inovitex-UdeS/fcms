@@ -1,5 +1,7 @@
 #encoding: utf-8
 class Admin::CategoriesController < ApplicationController
+  before_filter :prevent_non_admin
+
   def index
     if params[:id]
       @category = Category.find(params[:id])

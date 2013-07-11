@@ -144,7 +144,7 @@ ul.nav li.dropdown:hover > ul.dropdown-menu{
     }
 }
 
-optionsRadios { margin-right: 10px; }
+.optionsRadios { margin-right: 10px; }
 
 /* --------------- Datatables --------------- */
 .table tr.even.row_selected td { background-color: #E7E7E7; }

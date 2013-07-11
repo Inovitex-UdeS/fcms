@@ -107,7 +107,7 @@ SimpleNavigation::Configuration.run do |navigation|
       sub_nav.item :key_5_18, 'Gérer les professeurs', new_admin_teacher_path
       sub_nav.item :key_5_19,'', nil, :class=> 'divider'
       sub_nav.item :key_5_20,'Inviter un utilisateur', '/users/invitation/new'
-      sub_nav.item :key_5_21,'Gérer les utilisateurs', '/users'
+      sub_nav.item :key_5_21,'Gérer les utilisateurs', new_admin_user_path
       sub_nav.item :key_5_22, '', nil, :class=> 'divider'
       sub_nav.item :key_5_23, 'Classes d\'inscription', new_admin_category_path
     end

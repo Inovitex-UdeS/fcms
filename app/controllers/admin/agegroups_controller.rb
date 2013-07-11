@@ -1,4 +1,7 @@
+#encoding: utf-8
 class Admin::AgegroupsController < ApplicationController
+  before_filter :prevent_non_admin
+
   def new
     @agegroups = Agegroup.all
     @agegroup = Agegroup.new

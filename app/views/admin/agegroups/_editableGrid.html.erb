@@ -12,23 +12,23 @@
       <tr>
         <td><%= agegroup.id %></td>
         <td>
-          <label><%= agegroup.description %></label>
+          <label id="description"><%= agegroup.description %></label>
           <input id="description" type="text" class="input-xlarge control-hidden" placeholder="Description" value="<%= agegroup.description %>">
         </td>
         <td>
-          <label><%= (Time.now.year - agegroup.min.year) %></label>
-          <input id="min" type="number" class="input-small control-hidden" value="<%= (Time.now.year - agegroup.min.year) %>">
+          <label id="min"><%= agegroup.min %></label>
+          <input id="min" type="number" class="input-small control-hidden" value="<%= agegroup.min %>">
         </td>
         <td>
-          <label><%= (Time.now.year - agegroup.max.year) %></label>
-          <input id="max" type="number" class="input-small control-hidden" value="<%= (Time.now.year - agegroup.max.year) %>">
+          <label id="max"><%= agegroup.max %></label>
+          <input id="max" type="number" class="input-small control-hidden" value="<%= agegroup.max %>">
         </td>
         <td>
-          <label><%= agegroup.fee %></label>
+          <label id="fee"><%= agegroup.fee %></label>
           <input id="fee" type="number" class="input-small control-hidden" value="<%= agegroup.fee %>">
         </td>
         <td>
-          <label><%= agegroup.max_duration %></label>
+          <label id="max_duration"><%= agegroup.max_duration %></label>
           <input id="max_duration" type="number" class="input-small control-hidden" value="<%= agegroup.max_duration %>">
         </td>
       </tr>

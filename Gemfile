@@ -47,6 +47,7 @@ gem 'jquery-rails', '2.2.1'
 gem 'remotipart', '1.0.5'
 gem 'twitter-bootstrap-rails', '2.2.6'
 gem 'jasny_bootstrap_extension_rails', '0.0.1'
+gem 'font-awesome-rails', '~> 3.2.1.2'
 gem 'underscore-rails', '1.4.4'
 
 # Form validation

@@ -1,0 +1,36 @@
+<h5>GROUPES D'ÂGE, COÛTS & LIMITES DE TEMPS</h5>
+<table class="table table-bordered" id="agegroups_list">
+  <thead><tr>
+    <th width="5%">Id</th>
+    <th width="45%">Description</th>
+    <th width="10%">Âge min.</th>
+    <th width="10%">Âge max.</th>
+    <th width="10%">Tarif ($)</th>
+    <th width="20%">Durée maximale (minutes)</th>
+  </tr></thead>
+  <% @agegroups.each do |agegroup| %>
+      <tr>
+        <td><%= agegroup.id %></td>
+        <td>
+          <label><%= agegroup.description %></label>
+          <input id="description" type="text" class="input-xlarge control-hidden" placeholder="Description" value="<%= agegroup.description %>">
+        </td>
+        <td>
+          <label><%= (Time.now.year - agegroup.min.year) %></label>
+          <input id="min" type="number" class="input-small control-hidden" value="<%= (Time.now.year - agegroup.min.year) %>">
+        </td>
+        <td>
+          <label><%= (Time.now.year - agegroup.max.year) %></label>
+          <input id="max" type="number" class="input-small control-hidden" value="<%= (Time.now.year - agegroup.max.year) %>">
+        </td>
+        <td>
+          <label><%= agegroup.fee %></label>
+          <input id="fee" type="number" class="input-small control-hidden" value="<%= agegroup.fee %>">
+        </td>
+        <td>
+          <label><%= agegroup.max_duration %></label>
+          <input id="max_duration" type="number" class="input-small control-hidden" value="<%= agegroup.max_duration %>">
+        </td>
+      </tr>
+  <% end %>
+</table><hr>

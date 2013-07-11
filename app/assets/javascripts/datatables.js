@@ -143,9 +143,16 @@ fcms.bindForm = function (form, type) {
 
 };
 
-fcms.initTable = function () {
+fcms.mergeObjects = function(obj1, obj2) {
+    if (obj2)
+        for (var i in obj2)
+            { obj1[i] = obj2[i]; }
+    return obj1;
+}
+
+fcms.initTable = function (customSettings) {
     // Init the table
-    oTable = $(oTable).dataTable({
+    oTable = $(oTable).dataTable(fcms.mergeObjects({
         "bInfo": false,
         "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
         "sPaginationType": "bootstrap" ,
@@ -171,6 +178,15 @@ fcms.initTable = function () {
                 "sSortDescending": ": activer pour trier la colonne par ordre décroissant"
             }
         }
+    }, customSettings));
+
+    var filterDiv = oTable.parents('.dataTables_wrapper').find('.dataTables_filter');
+    var contents = $('<div class="input-prepend"></div>')
+        .append('<span class="add-on"><i class="icon-search"></i></span>')
+        .append(filterDiv.find('input'));
+    filterDiv.html('').append(contents).css({
+        textAlign: "right",
+        marginBottom: 5
     });
 };
 
@@ -314,4 +330,7 @@ fcms.fnInjectDeleteButton = function (deletePath, select) {
             });
         }
     });
+
+
+
 };

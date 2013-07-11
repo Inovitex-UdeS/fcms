@@ -1,0 +1,61 @@
+.panel { width: 100%; display: block; margin: 0 auto 10px auto; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: moz-none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+#panel-controls  { display: table; }
+#panel-controls .sub-controls { display: table-cell; padding: 5px 10px; vertical-align: top; }
+#panel-controls .sub-controls-left { float: left; }
+#panel-controls .sub-controls-right { float: right; }
+#panel-controls #sub-controls-up { padding-right: 0px; border-left: 1px dotted; padding-top: 30px; }
+#panel-controls #sub-controls-down { padding-left: 0px; }
+
+.dataTable { font-size: 11px; }
+.dataTable td { cursor: pointer; }
+.table th, .table td { padding: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.table th { padding: 3px 20px 3px 3px; font-size: 11.5px; }
+
+.dataTables_scroll { /* border: 1px dotted; */ }
+
+
+
+table.dataTable { border: none; margin-bottom: 0 !important; }
+
+.table-bordered th {
+    border: none;
+    border-bottom: 1px solid #dddddd;
+}
+
+.table-bordered td {
+    border: none;
+}
+
+.table-bordered thead:last-child tr:last-child>th:first-child, .table-bordered tbody:last-child tr:last-child>td:first-child, .table-bordered tbody:last-child tr:last-child>th:first-child, .table-bordered tfoot:last-child tr:last-child>td:first-child, .table-bordered tfoot:last-child tr:last-child>th:first-child,
+.table-bordered thead:first-child tr:first-child>th:first-child, .table-bordered tbody:first-child tr:first-child>td:first-child, .table-bordered tbody:first-child tr:first-child>th:first-child,
+.table-bordered thead:last-child tr:last-child>th:last-child, .table-bordered tbody:last-child tr:last-child>td:last-child, .table-bordered tbody:last-child tr:last-child>th:last-child, .table-bordered tfoot:last-child tr:last-child>td:last-child, .table-bordered tfoot:last-child tr:last-child>th:last-child {
+    webkit-border-bottom-left-radius: 0px;
+    -moz-border-radius-bottomleft: 0px;
+    border-bottom-left-radius: 0px;
+    -webkit-border-bottom-right-radius: 0px;
+    -moz-border-radius-bottomright: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.table-bordered tr.odd {
+    background-color: #FFFBEF;
+}
+.table-bordered tr.even {
+    background-color: #fffdfa;
+}
+
+.table-bordered tr.selected {
+    color: #fff;
+    text-decoration: none;
+    background-color: #aa0911;
+}
+
+.table-dragger { height: 10px; width: 100%; text-align: center; font-size: 10px; color: #bbb; border-top: 1px solid #eee; border-bottom: 1px solid #eee; cursor: pointer; line-height: 1px; }

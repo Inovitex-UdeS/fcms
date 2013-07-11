@@ -1,3 +1,4 @@
+#encoding: utf-8
 class Admin::CategoriesController < ApplicationController
   def index
     if params[:id]

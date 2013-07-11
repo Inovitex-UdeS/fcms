@@ -6,7 +6,7 @@
   Otherwise, use "require twitter-bootstrap-static/fontawesome"
   =require twitter-bootstrap-static/fontawesome
 
-  *= require font-awesome
+  =require twitter-bootstrap-static/fontawesome
   */
 =require twitter-bootstrap-static/fontawesome
 html, body {

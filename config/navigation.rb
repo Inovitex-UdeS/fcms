@@ -90,26 +90,26 @@ SimpleNavigation::Configuration.run do |navigation|
       sub_nav.item :key_5_1, 'Vue d\'ensemble', '/admin', :icon => 'iconic-chart'
       sub_nav.item :key_5_2, 'Gérer les inscriptions', new_admin_registration_path
       sub_nav.item :key_5_3, '', nil, :class=> 'divider'
-      sub_nav.item :key_5_4, 'Gérer les commissions scolaires', new_admin_schoolboard_path
-      sub_nav.item :key_5_5, 'Gérer les compositeurs', new_admin_composer_path
-      sub_nav.item :key_5_6, 'Gérer les écoles', new_admin_school_path
-      sub_nav.item :key_5_7, 'Gérer les éditions', new_admin_edition_path
-      sub_nav.item :key_5_8, 'Gérer les instruments', new_admin_instrument_path
-      sub_nav.item :key_5_9, 'Gérer les locaux', new_admin_room_path
-      sub_nav.item :key_5_10, 'Gérer les pièces', new_admin_piece_path
-      sub_nav.item :key_5_11, 'Gérer les types d\'écoles', new_admin_schooltype_path
-      sub_nav.item :key_5_12, 'Gérer les villes', new_admin_city_path
-      sub_nav.item :key_5_13,'', nil, :class=> 'divider'
-      sub_nav.item :key_5_14, 'Planifier le concours', '/admin/planification'
-      sub_nav.item :key_5_15,'', nil, :class=> 'divider'
-      sub_nav.item :key_5_16, 'Gérer les accompagnateurs', new_admin_accompanist_path
-      sub_nav.item :key_5_17, 'Gérer les juges', new_admin_juge_path
-      sub_nav.item :key_5_18, 'Gérer les professeurs', new_admin_teacher_path
-      sub_nav.item :key_5_19,'', nil, :class=> 'divider'
-      sub_nav.item :key_5_20,'Inviter un utilisateur', '/users/invitation/new'
-      sub_nav.item :key_5_21,'Gérer les utilisateurs', new_admin_user_path
-      sub_nav.item :key_5_22, '', nil, :class=> 'divider'
-      sub_nav.item :key_5_23, 'Classes d\'inscription', new_admin_category_path
+      sub_nav.item :key_5_4, 'Gérer les classes', new_admin_category_path
+      sub_nav.item :key_5_5, 'Gérer les commissions scolaires', new_admin_schoolboard_path
+      sub_nav.item :key_5_6, 'Gérer les compositeurs', new_admin_composer_path
+      sub_nav.item :key_5_7, 'Gérer les écoles', new_admin_school_path
+      sub_nav.item :key_5_8, 'Gérer les éditions', new_admin_edition_path
+      sub_nav.item :key_5_9, 'Gérer les instruments', new_admin_instrument_path
+      sub_nav.item :key_5_10, 'Gérer les locaux', new_admin_room_path
+      sub_nav.item :key_5_11, 'Gérer les pièces', new_admin_piece_path
+      sub_nav.item :key_5_12, 'Gérer les types d\'écoles', new_admin_schooltype_path
+      sub_nav.item :key_5_13, 'Gérer les villes', new_admin_city_path
+      sub_nav.item :key_5_14,'', nil, :class=> 'divider'
+      sub_nav.item :key_5_15, 'Planifier le concours', '/admin/planification'
+      sub_nav.item :key_5_16,'', nil, :class=> 'divider'
+      sub_nav.item :key_5_17, 'Gérer les accompagnateurs', new_admin_accompanist_path
+      sub_nav.item :key_5_18, 'Gérer les juges', new_admin_juge_path
+      sub_nav.item :key_5_19, 'Gérer les professeurs', new_admin_teacher_path
+      sub_nav.item :key_5_20,'', nil, :class=> 'divider'
+      sub_nav.item :key_5_21,'Inviter un utilisateur', '/users/invitation/new'
+      sub_nav.item :key_5_22,'Gérer les utilisateurs', new_admin_user_path
+
     end
 
     primary.item :divider_6, nil, nil, :class => 'divider-vertical'

@@ -32,12 +32,12 @@ group :assets do
   gem 'therubyracer', '0.11.4'
   gem 'uglifier', '2.1.1'
   gem 'yui-compressor', '0.9.6'
-
-  # Datatables
-  gem 'sass-rails',   '3.2.3'
-  gem 'bootstrap-sass', '2.0.2'
-  gem 'jquery-datatables-rails', git: 'git://github.com/rweng/jquery-datatables-rails.git'
 end
+
+# Datatables
+gem 'sass-rails',   '3.2.3'
+gem 'bootstrap-sass', '2.0.2'
+gem 'jquery-datatables-rails', git: 'git://github.com/rweng/jquery-datatables-rails.git'
 
 # Navigation
 gem 'simple-navigation', '3.11.0'

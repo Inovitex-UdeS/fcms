@@ -1,24 +1,96 @@
 #encoding: utf-8
 class Admin::PlanificationController < ApplicationController
   before_filter :prevent_non_admin
+  #TODO: remove this line after debugging
+  protect_from_forgery :except => :timeslot
 
   def index
   end
 
   def categories
     selected_category = Category.find(params[:id])
-    registrations = Registration.all(:joins => :users, :conditions => {:category_id => params[:id]})
+    timeslots = Timeslot.all(
+        :conditions => {
+            :category_id => params[:id],
+            :edition_id => Setting.find_by_key('current_edition_id')
+        },
+        :include => [
+            :registrations
+        ]
+    )
+    registrations = Registration.all(
+        :conditions => {
+            :category_id => params[:id],
+            :edition_id => Setting.find_by_key('current_edition_id')
+        },
+        :include => [
+            :registrations_users => [
+                :user,
+                :instrument
+            ],
+            :performances => [
+                :piece => [ :composer ]
+            ]
+        ]
+    )
+
+    # Put all registrations for this category in an array
+    registrations_array = []
+    registrations.each do |reg|
+      reg_obj = {
+          :category => selected_category.name,
+          :duration => reg.duration,
+          :age => reg.age_max,
+          :users => [],
+          :performances => []
+      }
+      registrations_array.insert reg.id, reg_obj
+
+      reg.registrations_users.each do |u|
+        reg_obj[:users] << {
+            :first_name => u.user.first_name,
+            :last_name => u.user.last_name,
+            :instrument => u.instrument.name
+        }
+      end
+
+      reg.performances.each do |p|
+        reg_obj[:performances] << {
+            :composer => p.piece.composer.name,
+            :title => p.piece.title
+        }
+      end
+    end
 
     render :json => {
         :id => selected_category.id,
         :name => selected_category.name,
-        :registrations =>
-            registrations.as_json(:include => :users
-        )
+        :timeslots => timeslots,
+        :registrations => registrations_array.as_json()
     }
   end
 
+  def timeslot
+    if request.get?
+      ts = Timeslot.find(params[:id])
+      regs = []
+      ts.registrations.each do |r|
+        regs << r.id
+      end
 
+      render :json => {
+        :id => ts.id,
+        :category_id => ts.category_id,
+        :duration => ts.duration,
+        :label => ts.label,
+        :registrations => regs
+      }
+
+    elsif request.post?
+      #TODO: complete POST
+      render :json => { :message => "post" }
+    end
+  end
 
   def ProduceExcel
     # Beau guide : http://spreadsheet.rubyforge.org/files/GUIDE_txt.html

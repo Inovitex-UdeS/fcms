@@ -19,6 +19,11 @@ $(document).ready(function() {
         viewMode: 2
     });
 
+    $('#edition_edit_limit_date').datepicker({
+        format: 'yyyy-mm-dd',
+        viewMode: 2
+    });
+
     fcms.bindTable($('.table'));
     fcms.initTable();
     fcms.bindForm($('#new_edition'), 3);

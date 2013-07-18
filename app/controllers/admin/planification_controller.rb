@@ -2,7 +2,7 @@
 class Admin::PlanificationController < ApplicationController
   before_filter :prevent_non_admin
   #TODO: remove this line after debugging
-  protect_from_forgery :except => :timeslot
+  protect_from_forgery :except => :timeslots
 
   def index
   end
@@ -41,6 +41,7 @@ class Admin::PlanificationController < ApplicationController
           :category => selected_category.name,
           :duration => reg.duration,
           :age => reg.age_max,
+          :timeslot_id => reg.timeslot_id,
           :users => [],
           :performances => []
       }
@@ -70,7 +71,7 @@ class Admin::PlanificationController < ApplicationController
     }
   end
 
-  def timeslot
+  def timeslots
     if request.get?
       ts = Timeslot.find(params[:id])
       regs = []
@@ -87,8 +88,24 @@ class Admin::PlanificationController < ApplicationController
       }
 
     elsif request.post?
-      #TODO: complete POST
-      render :json => { :message => "post" }
+      if params[:id] > -1
+        timeslot = Timeslot.find(params[:id])
+      else
+        timeslot = Timeslot.new
+      end
+
+      timeslot.label       = params[:label]
+      timeslot.category_id = params[:category_id]
+      timeslot.duration    = params[:duration]
+
+      timeslot.registrations.clear
+      params[:registrations].each do |i|
+        timeslot.registrations << Registration.find(i)
+      end
+
+      timeslot.save
+
+      render :json => timeslot
     end
   end
 

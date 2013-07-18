@@ -37,6 +37,8 @@ class RegistrationsController < ApplicationController
       # Round duration to top
       @registration.duration = @registration.duration.ceil
 
+
+
       # Clear association cache because we need to manually create it
       association_cache = @registration.association_cache.clone
       if @registration.association_cache[:instruments]
@@ -77,6 +79,13 @@ class RegistrationsController < ApplicationController
           reg.save
         end
       end
+
+      # Update age max
+      age_max = 0;
+      @registration.users.each do |user|
+        age_max = user.age if user.age > age_max
+      end
+      @registration.update_attribute(:age_max, age_max)
 
       render :json => {:registration => @registration, :message => 'L\'inscription a été crée avec succès'}
     rescue => e

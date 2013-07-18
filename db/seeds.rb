@@ -229,7 +229,7 @@ if DEMO_PLANIF
       usr.first ?
           usr = usr.first :
           usr = User.create(last_name: row[6].strip, first_name: row[5].strip, gender: true, birthday: '1991-07-29', email: count.to_s+"@inovitex.com", password: 'password', contactinfo_id: Contactinfo.find(1+rand(6)).id, confirmed_at: '2013-05-28 02:01:11.70392')
-      reg = Registration.create(user_teacher_id: user2.id, user_owner_id: usr.id, school_id: sch.id, edition_id: edition1.id, category_id: cat.id, duration: row[7].to_i, age_max: 6+rand(20))
+      reg = Registration.create(user_teacher_id: teach.id, user_owner_id: usr.id, school_id: sch.id, edition_id: edition.id, category_id: cat.id, duration: row[7].to_i, age_max: 6+rand(20))
       RegistrationsUser.create(instrument_id: instr.id, registration_id: reg.id, user_id: usr.id)
 
     else
@@ -242,7 +242,7 @@ if DEMO_PLANIF
           usr = User.create(last_name: noms[0].to_s, first_name: prenoms[0].to_s, gender: true, birthday: '1991-07-29', email: count.to_s+"@inovitex.com", password: 'password', contactinfo_id: Contactinfo.find(1+rand(6)).id, confirmed_at: '2013-05-28 02:01:11.70392')
 
 
-      reg = Registration.create(user_teacher_id: user2.id, user_owner_id: usr.id, school_id: sch.id, edition_id: edition1.id, category_id: cat.id, duration: row[7].to_i, age_max: 6+rand(20))
+      reg = Registration.create(user_teacher_id: teach.id, user_owner_id: usr.id, school_id: sch.id, edition_id: edition.id, category_id: cat.id, duration: row[7].to_i, age_max: 6+rand(20))
 
 
       prenoms.each_index { |i|
@@ -250,7 +250,7 @@ if DEMO_PLANIF
         tmp = User.where("first_name='#{prenoms[i].to_s}' and last_name='#{noms[i].to_s}'")
         tmp.first ?
             tmp = tmp.first :
-            tmp = User.create(last_name: noms[i], first_name: prenoms[i], gender: true, birthday: '1991-07-29', email: count.to_s+"-"+i.to_s+"@inovitex.com", password: 'password', contactinfo_id: contact1.id, confirmed_at: '2013-05-28 02:01:11.70392')
+            tmp = User.create(last_name: noms[i], first_name: prenoms[i], gender: true, birthday: '1991-07-29', email: count.to_s+"-"+i.to_s+"@inovitex.com", password: 'password', contactinfo_id: Contactinfo.find(1), confirmed_at: '2013-05-28 02:01:11.70392')
 
         RegistrationsUser.create(instrument_id: instr.id, registration_id: reg.id, user_id: tmp.id)
       }

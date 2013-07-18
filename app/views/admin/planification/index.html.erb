@@ -1,88 +1,78 @@
 <% content_for(:head) do %>
   <script type="text/javascript">
-    var inscriptions = [];
+    fcms.currentCategory = [];
 
     $(document).ready(function() {
+      // Hide the planification section
       $('#section-2').hide();
-      $('.panel:not(#panel-categories)').hide();
 
+      // On category selection
       $('#input-planned-category').on('change', function() {
-        $('#section-2').show('fast');
-      });
-
-      $('#input-timeslot-id').on('change', function() {
-        $('.panel:not(#panel-categories)').show('fast');
-      });
-
-      // Create the tables
-      $('.table-inscriptions').each(function() {
-        // Initialize DataTables
-        oTable = $(this);
-        fcms.initTable({
-          "bPaginate": false,
-          "bInfo": false,
-          "sScrollY": 200,
-          "sScrollX": "100%"
-        });
-
-        // Hide last "row-fluid" thingy and resizable function
-        var wrapper = oTable.parents('.dataTables_wrapper');
-        wrapper.find('.row-fluid:last').remove();
-        wrapper.after('<div class="table-dragger" data-for-table="table-inscriptions-all"><i class="icon-ellipsis-horizontal"></i></div>')
-      });
-
-      // Add/remove selection on table row click
-      $('.dataTable').on('click', 'tbody tr', function(e) {
-
-        // Toggle the clicked element
-        $(this).toggleClass('selected');
-
-        // If shift key is down, toggle elements before and after
-        if (e.shiftKey) {
-          var selected = $(this).hasClass('selected');
-          var filter = selected ? '.selected' : ':not(.selected)';
-          var allRows = $(this).parent('tbody').children('tr');
-
-          // Toggle rows from top to current
-          var first = $(this).prevAll('tr'+filter).last().index();
-          if (first > -1) {
-            for (var i = $(this).index(allRows)-1; i >= first; i--)
-              allRows.eq(i).toggleClass('selected');
-          }
-
-          // Toggle rows from current to bottom
-          var last = $(this).nextAll('tr'+filter).first().index();
-          if (last > -1) {
-            for (var i = $(this).index(allRows)+1; i <= last; i++)
-              allRows.eq(i).toggleClass('selected');
-          }
-
-          // Prevent mouse selection
-          // TODO: MAKE SURE THIS WORKS
-          if(e.stopPropagation) e.stopPropagation();
-          if(e.preventDefault) e.preventDefault();
-          e.cancelBubble=true;
-          e.returnValue=false;
-          return false;
+        var selectedOption = $(this).children("option:selected");
+        var categoryId = selectedOption.attr('value');
+        var categoryName = selectedOption.text();
+        if (!categoryId || categoryId < 0) {
+          $('#section-2').hide('fast');
+          return;
         }
-      })
+
+        $.ajax({
+          url: "http://localhost:3000/admin/planification/categories/" + categoryId,
+          success: function(data) {
+            fcms.currentCategory = data;
+
+            var tsInput = $('#input-timeslot-id');
+            tsInput.find('option').remove().end().append('<option></option>');
+            _.each(fcms.currentCategory.timeslots, function(ts) {
+              $('<option></option>').attr('value', ts.id).text(ts.label).appendTo(tsInput);
+            });
+
+            $('.panel:not(#panel-categories)').hide();
+            $('#section-2').show('fast');
+          },
+          error: function() {
+            alert("Les sous-catégories pour la classe " + categoryName + " n'ont pas pu être chargées.")
+          }
+        })
+      });
+
+      // On timeslot selection
+      $('#input-timeslot-id').on('change', function() {
+        var selectedOption = $(this).children("option:selected");
+        var timeslotId = selectedOption.attr('value');
+        var timeslotName = selectedOption.text();
+        if (!timeslotId || timeslotId < 0) {
+          $('.panel:not(#panel-categories)').hide('fast');
+          return;
+        }
+
+        $.ajax({
+          url: "http://localhost:3000/admin/planification/timeslots/" + timeslotId,
+          success: function(data) {
+            loadTimeslot(data);
+            $('.panel:not(#panel-categories)').show('fast');
+          },
+          error: function() {
+            alert("La sous-catégorie " + timeslotName + " n'a pas pu être chargée.");
+          }
+        });
+      });
 
       // Enable select-all and select-none buttons
-      $('#btn-select-all-down') .click(function(e) { $('#table-inscriptions-selected tr').addClass('selected'); });
-      $('#btn-select-none-down').click(function(e) { $('#table-inscriptions-selected tr').removeClass('selected'); });
+      $('#btn-select-all-down') .click(function() { $('#table-inscriptions-selected tr').addClass('selected'); });
+      $('#btn-select-none-down').click(function() { $('#table-inscriptions-selected tr').removeClass('selected'); });
 
-      $('#btn-select-all-up')   .click(function(e) { $('#table-inscriptions-all tr').addClass('selected'); });
-      $('#btn-select-none-up')  .click(function(e) { $('#table-inscriptions-all tr').removeClass('selected'); });
+      $('#btn-select-all-up')   .click(function() { $('#table-inscriptions-all tr').addClass('selected'); });
+      $('#btn-select-none-up')  .click(function() { $('#table-inscriptions-all tr').removeClass('selected'); });
 
       // Enable arrow buttons
-      $('#btn-move-all-down')       .click(function(e) { $('#table-inscriptions-selected tr').appendTo('#table-inscriptions-all'); });
-      $('#btn-move-selected-down')  .click(function(e) { $('#table-inscriptions-selected tr.selected').appendTo('#table-inscriptions-all'); });
-      $('#btn-move-all-up')         .click(function(e) { $('#table-inscriptions-all tr').appendTo('#table-inscriptions-selected'); });
-      $('#btn-move-selected-up')    .click(function(e) { $('#table-inscriptions-all tr.selected').appendTo('#table-inscriptions-selected'); });
+      $('#btn-move-all-down')       .click(function() { $('#table-inscriptions-selected tr').appendTo('#table-inscriptions-all'); });
+      $('#btn-move-selected-down')  .click(function() { $('#table-inscriptions-selected tr.selected').appendTo('#table-inscriptions-all'); });
+      $('#btn-move-all-up')         .click(function() { $('#table-inscriptions-all tr').appendTo('#table-inscriptions-selected'); });
+      $('#btn-move-selected-up')    .click(function() { $('#table-inscriptions-all tr.selected').appendTo('#table-inscriptions-selected'); });
 
-      // Enable table draggers
-      $('.table-dragger').on('mousedown', function(e){
-        //
+      // Enable mouse table draggers
+      $(document).on('mousedown', '.table-dragger', function(e){
         var id = $(this).data('for-table');
         var tbody = $('#'+id).parent('.dataTables_scrollBody');
 
@@ -96,7 +86,6 @@
         $(document).on('mousemove', function(me){
           tbody.height(sH - (sX - me.pageY));
         });
-
       });
     });
 
@@ -140,43 +129,7 @@
     </div>
 
     <h4>Inscriptions dans cette catégorie</h4>
-
-    <table class="table table-bordered table-inscriptions" id="table-inscriptions-selected">
-      <thead>
-        <tr>
-          <th>Id</th>
-          <th>Classe</th>
-          <th>Instrument</th>
-          <th>Âge</th>
-          <th>Nom</th>
-          <th>Compositeur(s)</th>
-          <th>Pièce(s)</th>
-          <th>Durée</th>
-          <th>École</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>1</td><td>récital</td><td>trompette</td><td>16</td><td>Christopher Kerr Barr</td><td>ANDRIEU F.<br />HANDEL G.F.<br />PARÈS G.</td><td>Premier solo de concours<br />Sonate en Fa majeur<br />Fantaisie-Caprice</td><td>16</td><td>cons.Mt.</td></tr>
-        <tr><td>2</td><td>répertoire</td><td>piano</td><td>9</td><td>Mathilde St-Jean-Perron</td><td>NIAMATH L.<br />MOZART W.A.<br /></td><td>Les Pingouins<br />Sonatine Viennoise # 4 en Sib Maj.</td><td>4</td><td>Laplante</td></tr>
-        <tr><td>3</td><td>concerto osjs</td><td>clarinette</td><td>19</td><td>Myriam Roy</td><td>CRUSSEL B.H.<br /></td><td>Concerto no 3 en Sib Majeur Op. 11<br />1er mouv (Allegro risoluto) et 2e mouv. (Andante moderato)</td><td>18</td><td>Cégep</td></tr>
-        <tr><td>4</td><td>récital</td><td>clarinette</td><td>19</td><td>Myriam Roy</td><td>CRUSSEL B.H.<br />STRAVINSSKY I.</td><td>Concerto no 3 Op. 11: 2e et 3e mouv.<br />Three Short Pieces for clarinet</td><td>24</td><td>Cégep</td></tr>
-        <tr><td>5</td><td>concerto osjs</td><td>piano</td><td>16</td><td>Geneviève Routhier</td><td>SHOSTAIKOVITCH D.</td><td>Concerto no 2, Op, 102, 1r mouv.</td><td>8</td><td>Cégep</td></tr>
-        <tr><td>6</td><td>musique canadienne</td><td>piano</td><td>16</td><td>Geneviève Routhier</td><td>PÉPI N C.</td><td>Danse frénétique</td><td>4</td><td>Cégep</td></tr>
-        <tr><td>7</td><td>répertoire</td><td>piano</td><td>16</td><td>Geneviève Routhier</td><td>BACH J.S.<br />LISZT f.</td><td>Prélude et Fugue BWV 859<br />Sonate 104 del Pétraca</td><td>12</td><td>Cégep</td></tr>
-        <tr><td>8</td><td>répertoire</td><td>violoncelle</td><td>13</td><td>Nicolas Routhier</td><td>BACH J.S.<br />FAURÉ G.</td><td>Suite no 1 en sol majeur: Gigue<br />Élégie, Op. 24</td><td>10</td><td>Cégep</td></tr>
-        <tr><td>9</td><td>répertoire</td><td>piano</td><td>12</td><td>Julie Larochelle</td><td>BACH J.S.<br />SHOSTAKOVITCH D.</td><td>Petit Prélude en sol mineur BWV 930<br />Trois danses fantastiques, Op. 5</td><td>5</td><td>MND</td></tr>
-        <tr><td>10</td><td>ensemble vocal</td><td>chant</td><td>29</td><td>Simon Landry<br />Joé Lampron-Dandonneau<br />Julien Horbatuk<br /> Jean-Philippe Lupien</td><td>BERLIN I.<br />SMITH B.<br />LEVINM.</td><td>Puttin'on the Ritz<br />That Lucky Old Sun<br />Cruelle Devil</td><td>12</td><td>USH</td></tr>
-        <tr><td>11</td><td>répertoire</td><td>piano</td><td>13</td><td>Béatrice Beaudin-Caillé</td><td>BACH J.S.<br />RHENÉ-BATON</td><td>Petit prélude en ré majeur BWV 925<br />Prélude ancien en si mineur</td><td>7</td><td>Pianissimo</td></tr>
-        <tr><td>12</td><td>récital</td><td>clavecin</td><td>23</td><td>Daniel Laplante</td><td>COUPERIN F.<br />SCARLATTI D.<br />GRAUPNER C.</td><td>Quatrième Ordre<br />Sonate en Ré K. 358<br />Chacone en La</td><td>29</td><td>Soly</td></tr>
-        <tr><td>13</td><td>répertoire</td><td>piano</td><td>11</td><td>Béatrice Drolet-Sénéchal</td><td>CHOPIN F.<br />SCARLATTI D.</td><td>Prélude Op. 28 no 15<br />Sonate en fa  K 82 L30</td><td>7</td><td>Pianissimo</td></tr>
-        <tr><td>14</td><td>répertoire</td><td>piano</td><td>11</td><td>Mathieu Grenier</td><td>BACH C.P.E.<br />MENDELSSOHN F.</td><td>Solfeggiotto<br />Venetian BoatSong Opus 30 no 6</td><td>5</td><td>Laplante</td></tr>
-        <tr><td>15</td><td>répertoire</td><td>piano</td><td>10</td><td>David Vigneau-Lecomte</td><td>PESCETTI G.B.<br />ALCON S.</td><td>Presto<br />Secret Mission</td><td>3</td><td>Pianissimo</td></tr>
-        <tr><td>16</td><td>concerto osjs</td><td>trombonne</td><td>16</td><td>Marie-Ange Boislard</td><td>RIMSKY-KOSAKOV N.</td><td>Concerto pour trombone et piano</td><td>10</td><td>Ringuette</td></tr>
-        <tr><td>17</td><td>répertoire</td><td>piano</td><td>11</td><td>Samuel Lin</td><td>MOZART W.A.<br />TURINA J.</td><td>Sonate K. 545: 1er mouv.<br />The Circus: Clowns</td><td>5</td><td>Clé de Sol</td></tr>
-        <tr><td>18</td><td>répertoire</td><td>piano</td><td>10</td><td>Florence Gendron</td><td>PEERSON C.<br />KABALEVSKY D.</td><td>La souris dans la cave au charbon<br />Op. 60 no 4: Rondo-Toccata</td><td>4</td><td>Pianissimo</td></tr>
-        <tr><td>19</td><td>répertoire</td><td>piano</td><td>13</td><td>Raphaël Ballard-Émond</td><td>TANSMAN A.<br />LEFÈVRE A.</td><td>Au téléscope, no 3: Saint-Lazarre<br />Lylatov</td><td>9</td><td>Pianissimo</td></tr>
-      </tbody>
-    </table>
+    <div id="div-inscriptions-selected"></div>
 
   </div>
 
@@ -203,31 +156,7 @@
 
   <div class="panel" id="panel-all">
     <h4>Toutes les inscriptions pour la classe <strong>Récital</strong></h4>
-    <table class="table table-bordered table-inscriptions" id="table-inscriptions-all">
-      <thead>
-      <tr>
-        <th>Id</th>
-        <th>Classe</th>
-        <th>Instrument</th>
-        <th>Âge</th>
-        <th>Nom</th>
-        <th>Compositeur(s)</th>
-        <th>Pièce(s)</th>
-        <th>Durée</th>
-        <th>École</th>
-      </tr>
-      </thead>
-      <tbody>
-        <tr><td>20</td><td>musique canadienne</td><td>piano</td><td>9</td><td>Elva Kabanza</td><td>TELLER N.</td><td>J'entends le moulin,  Nova Scotia Song</td><td>4</td><td>Pianissimo</td></tr>
-        <tr><td>21</td><td>répertoire</td><td>piano</td><td>9</td><td>Elva Kabanza</td><td>BEETHOVEN L.V.<br />STARER R.</td><td>Für Elyse<br />Sketches in color: Shades of Blue , Pink</td><td>5</td><td>Pianissimo</td></tr>
-        <tr><td>22</td><td>festival</td><td>piano</td><td>8</td><td>Raphaël Échevin</td><td>ÉCHEVIN R/LONGVAL J.F.<br />NAKADA Y.</td><td>Fantaisie Cosmique<br />Danse des aborigènes</td><td>5</td><td>Pianissimo</td></tr>
-        <tr><td>23</td><td>festival</td><td>piano</td><td>10</td><td>Édouard Bocti</td><td>PARKER M.<br />NORTON C.</td><td>Fardango<br />Le Rag Time</td><td>5</td><td>Pianissimo</td></tr>
-        <tr><td>24</td><td>festival</td><td>piano</td><td>6</td><td>Victor Échevin</td><td>PRESTON M.<br />JENKINS C.</td><td>Cowboy On a Rocking Horse<br />Two Little Chipmunks</td><td>3</td><td>Pianissimo</td></tr>
-        <tr><td>25</td><td>répertoire</td><td>piano</td><td>11</td><td>François-</td><td>Nicolas Gitzhofer</td><td>DIABELLI A.<br />THOMPSON J.</td><td>Sonatina Op. 168 no 1: 1er mouv.<br />Argentina, Norway</td><td>6</td><td>Tremblay</td></tr>
-        <tr><td>26</td><td>festival</td><td>piano</td><td>7</td><td>Chloé Bocti</td><td>BACH J.S.<br />BERLIN B.</td><td>Menuet en Sol<br />The Marching Pigs</td><td>4</td><td>Pianissimo</td></tr>
-        <tr><td>27</td><td>répertoire</td><td>piano</td><td>11</td><td>Charlotte St-Jean-Perron</td><td>BRAHMS J<br />MIER M.</td><td>Valse op. 39 no 3<br />Danse Espagnole</td><td>4</td><td>Laplante</td></tr>
-      </tbody>
-    </table>
+    <div id="div-inscriptions-all"></div>
 
   </div>
 

@@ -1,7 +1,7 @@
 5;;Ensemble;harpe;13;Marie-Micelle | Kathleen | Ariane | Laurence | Lana;Roy | Weary | Gagne | Bujold | Benko;6
 4;;Ensemble;chant classique;29;Simon | Joe | Julien | Jean-Philippe;Landry | Lampron-Dandonneau | Horbatuk | Lupien;12
 4;;Ensemble;violoncelle;18;Roseline | Lysabel | Lorraine | Julien;Meunier | Graveson | Gauthier-Giroux | Thibault;10
-4;;Ensemble;alto;13;Felix | Micaelle | Laura | Sarah;Vigneau-Lecomte | Carette | Noel | Laliberte;6
+4;;Ensemble;Violon;13;Felix | Micaelle | Laura | Sarah;Vigneau-Lecomte | Carette | Noel | Laliberte;6
 4;;Ensemble;Violoncelle;16;Stephanie | Anne-Sophie | elyse | Maude;Loubier | Bergeron | Baillargeon | Simoneau;6
 3;;Ensemble;violoncelle;18;Roseline | Lysabel | Lorraine;Meunier | Graveson | Gauthier-Giroux;9
 3;;Ensemble;violon;16;Genevieve | eleonore | Nicolas;Routhier | Meunier | Routhier;9
@@ -100,7 +100,7 @@
 1;;Répertoire;piano;13;Maude;Letourneau;10
 1;;Répertoire;piano;11;William;Tremblay;5
 1;;Répertoire;piano;7;etienne;Tremblay;3
-1;;Répertoire;alto;16;Rose;Hamel;15
+1;;Répertoire;Violon;16;Rose;Hamel;15
 1;;Répertoire;piano;15;emile;Dubuc;7
 1;;Répertoire;piano;15;Louis;Smith;9
 1;;Festival;piano;7;Maelle;Pepin;3
@@ -140,7 +140,7 @@
 1;;Récital;piano;16;Malcolm;St-John;20
 1;;Récital;piano;18;Samuel;Adant;28
 1;;Répertoire;piano;16;Sandrine;Lemieux-Briere;9
-1;;Répertoire;alto;12;Chloe;Girard;6
+1;;Répertoire;Violon;12;Chloe;Girard;6
 1;;Répertoire;violon;16;Genevieve;Côte;14
 1;;Concerto OSJS;violon;16;Genevieve;Côte;11
 1;;Répertoire;piano;19;Audrey-Anne;Lavoie;14

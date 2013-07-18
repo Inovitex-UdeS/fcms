@@ -73,13 +73,13 @@ SimpleNavigation::Configuration.run do |navigation|
     
     primary.item :divider_2, nil, nil, :class => 'divider-vertical'
 
-    primary.item :key_3, 'Horaire', '#', :icon => 'icon-calendar' do |sub_nav|
+    primary.item :key_3, 'Horaire', '#', :icon => 'icon-calendar', :class => 'menu-disabled' do |sub_nav|
       sub_nav.item :key_3_1, 'Élément de menu 1', '#'
     end
 
     primary.item :divider_3, nil, nil, :class => 'divider-vertical'
 
-    primary.item :key_4, 'Résultats', '#', :icon => 'icon-bar-chart' do |sub_nav|
+    primary.item :key_4, 'Résultats', '#', :icon => 'icon-bar-chart', :class => 'menu-disabled' do |sub_nav|
       sub_nav.item :key_4_1, 'Élément de menu 1', '#'
     end
 

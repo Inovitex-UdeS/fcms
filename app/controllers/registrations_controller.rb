@@ -1,6 +1,7 @@
 #encoding: utf-8
 class RegistrationsController < ApplicationController
   before_filter :prevent_unconfirmed_judge, :only => :index
+  before_filter :prevent_non_participant, :only => :create
 
   def index
     @current_edition = Setting.find_by_key('current_edition_id').value
@@ -36,8 +37,6 @@ class RegistrationsController < ApplicationController
 
       # Round duration to top
       @registration.duration = @registration.duration.ceil
-
-
 
       # Clear association cache because we need to manually create it
       association_cache = @registration.association_cache.clone
@@ -92,5 +91,4 @@ class RegistrationsController < ApplicationController
       render :json => { :message => e.message }, :status => :unprocessable_entity
     end
   end
-
 end

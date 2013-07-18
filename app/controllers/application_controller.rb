@@ -13,9 +13,16 @@ class ApplicationController < ActionController::Base
   end
 
   def prevent_unconfirmed_judge
-    if  current_user.has_role?('Juge')
+    if current_user.has_role?('Juge')
       redirect_to root_path, :alert => 'Accès non-autorisé!' unless current_user.is_judge?
     end
   end
+
+  def prevent_non_participant
+    if !current_user.is_participant?
+      redirect_to root_path
+    end
+  end
+
 
 end

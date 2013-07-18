@@ -101,24 +101,32 @@ class Admin::PlanificationController < ApplicationController
 
     ## MAIN SHEET ##
 
-    header_format = Spreadsheet::Format.new :weight => :bold,
-                                            :size => 12
-    timeslot_format = Spreadsheet::Format.new :weight => :bold,
-                                              :size => 12
+    header_format = Spreadsheet::Format.new :weight => :bold, :size => 12
+    timeslot_format = Spreadsheet::Format.new :weight => :bold, :size => 12
 
     sheet_All = excel_doc.create_worksheet  :name => "TOUT" # On crée un TAB Excel avec un nom :)
 
-    sheet_All.row(0).replace ["#", "Catégorie", "Bloc associé", "Participants", "Instrument",  "Durée", "Courriel", "#Tel", "Rue","Ville", "Code postal", "École" ] # On set les colonnes du workbook
+    # On set les colonnes du workbook
+    sheet_All.row(0).replace  ["#", "Catégorie", "Bloc associé", "Participants", "Instrument",  "Durée", "Compositeur", "Oeuvre", "Courriel", "#Tel",
+                               "Rue","Ville", "Code postal", "Institution scolaire","École musique",  "Professeur","Courriel Prof", "Montant à payer", "Payé","#chq","Date Paiment",  "Résultat", "Note" ]
+
     sheet_All.row(0).each_index do |i|
       sheet_All.column(i).width = sheet_All.row(0).at(i).to_s.length+3
     end
 
     it = 1
     Registration.order(:category_id)[0..-1].each do |reg|
-      instruments = participants = courriels = tels = ""
-      civils = cities = postals = ""
+      instruments = participants = courriels = tels = composers = pieces = ""
+      civils = cities = postals = teacher =  teacher_email = ""
+      montant = 0
+
+      if (group = Agegroup.where(edition_id:1, :category_id=> reg.category).where("#{reg.age_max} BETWEEN min and max").first)
+        montant = group.fee * reg.users.count
+      end
 
       tslot = reg.timeslot ? reg.timeslot.label : ""
+      teacher = reg.teacher ? reg.teacher.name : ""
+      teacher_email = reg.teacher ? reg.teacher.email : ""
 
       reg.users.each do |u|
         participants += "#{u.name}" + "\n"
@@ -134,7 +142,13 @@ class Admin::PlanificationController < ApplicationController
         instruments +=  "#{i.name}" + "\n"
       end
 
-      sheet_All.row(it).replace [reg.id, reg.category.name, tslot, participants, instruments,  reg.duration,  courriels, tels, civils, cities, postals, reg.school.name ]
+      reg.performances.order(:id).each do |p|
+        composers +=  "#{p.piece.composer.name}" + "\n"
+        pieces +=  "#{p.piece.title}" + "\n"
+      end
+
+      sheet_All.row(it).replace       [reg.id, reg.category.name, tslot, participants, instruments,  reg.duration, composers, pieces, courriels, tels, civils, cities, postals, reg.school.name ," ", teacher ,teacher_email, montant, " "," "," "," "," " ]
+
       it = it + 1
     end
 

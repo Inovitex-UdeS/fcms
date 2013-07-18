@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130704005239) do
+ActiveRecord::Schema.define(:version => 20130718024341) do
 
   create_table "agegroups", :force => true do |t|
     t.integer  "edition_id",                  :null => false
@@ -82,12 +82,13 @@ ActiveRecord::Schema.define(:version => 20130704005239) do
   add_index "contests", ["id"], :name => "contests_pk", :unique => true
 
   create_table "editions", :force => true do |t|
-    t.integer  "year",       :null => false
-    t.date     "limit_date"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer  "year",            :null => false
     t.date     "start_date"
     t.date     "end_date"
+    t.date     "limit_date"
+    t.date     "edit_limit_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "editions", ["id"], :name => "editions_pk", :unique => true

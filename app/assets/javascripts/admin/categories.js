@@ -67,6 +67,11 @@ $(document).ready(function() {
     });
     // -- Control Events
     // Add Button click handler
+    $('#categories_addItem').click( function (e) {
+        e.preventDefault();
+        fcms.fnGetSelected(oClassesList).removeClass('row_selected');
+        fcms.fnClearForm();
+    });
 
     // Delete Button click handler
     $('#categories_deleteItem').click( function() {
@@ -74,7 +79,7 @@ $(document).ready(function() {
         if ( anSelected.length !== 0 ) {
             var id = oClassesList.fnGetData(oClassesList.fnGetPosition(anSelected[0]))[0];
             $.ajax({
-                url: modelUrl + id,
+                url: '/admin/categories' + id,
                 type: 'DELETE',
                 complete: function(result) {
                     oClassesList.fnDeleteRow(anSelected[0]);
@@ -186,6 +191,38 @@ $(document).ready(function() {
         "</div>"
     );
 
+    $('#addAgegroup_modal_addButton').click(function (e) {
+        var oControls = $('#addAgegroup_modal').children('.form-horizontal').children('.control-group').children('.controls').children();
+        var newAgegroup = {};
+
+        var length = oControls.length;
+        for (var i = 0; i < length; i++) {
+            newAgegroup[oControls[i].id.replace('addAgegroup_modal_', '')] = oControls[i].value;
+        }
+
+        newAgegroup['edition_id'] = '1';
+        newAgegroup['category_id'] = fcms.fnGetSelected(oClassesList).children().first().text();
+
+        var paramsJSON = JSON.stringify((newAgegroup));
+
+        $.ajax({
+
+        });
+    });
+
+    $('#saveCategories').click(function (e) {
+        e.preventDefault();
+
+        // In case it's an update
+        if (oClassesList.$('tr').hasClass('row_selected')) {
+            fcms.fnUpdateCategory();
+        }
+        else {
+            fcms.fnCreateCategory();
+        }
+
+    });
+
     $('#itemModified_modal_saveButton').click(function (e) {
         e.preventDefault();
         fcms.fnSaveEditedRow();
@@ -277,15 +314,17 @@ $(document).ready(function() {
                 }
 
                 var iRow = oAgegroupsList.fnAddData(aItem);
-                $(oAgegroupsList.fnGetNodes(iRow)).click( function(event) {
-                    fcms.fnSelectAgegroup($(this))
-                });
-                $(oAgegroupsList.fnGetNodes(iRow)).dblclick( function(event) {
-                    fcms.fnEditableRow(oAgegroupsList, $(this));
-                });
+
+                var aColumnId = new Array();
+                aColumnId.push('id');
+                aColumnId.push('description');
+                aColumnId.push('min');
+                aColumnId.push('max');
+                aColumnId.push('fee');
+                aColumnId.push('max_duration');
+                fcms.fnAgegroupRowBinder(iRow, aItem, aColumnId);
 
                 oAgegroupsList.fnDeleteRow(oRow[0]);
-
             },
             error   : function (xhr, err) {
                 console.log("error");
@@ -333,6 +372,8 @@ $(document).ready(function() {
 
                 fcms.fnAgegroupRowBinder(iRow, aItem, aColumnId);
                 fcms.fnHideAddAgegroup();
+
+                fcms.showMessage('L\'item a été ajouté avec succès');
 
             },
             error   : function (xhr, err) {
@@ -444,6 +485,10 @@ $(document).ready(function() {
                             aColumnId.push('max_duration');
 
                             fcms.fnAgegroupRowBinder(iRow, aItem, aColumnId);
+
+                            $(oClassesList.fnGetNodes(iRow)).click( function(event) {
+                                fcms.fnSelectAgegroup($(this))
+                            });
                         }
                     }
                 });
@@ -517,7 +562,7 @@ $(document).ready(function() {
 
                 // First cell is a text input
                 if (aColumnId[i] == 'description') {
-                    $(oRowChild[i]).append('<input id="' + aColumnId[i] + '" type="text" class="input-xlarge control-hidden" placeholder="' + aColumnId[i].charAt(0).toUpperCase() + '" value="' + aItem[i] + '">');
+                    $(oRowChild[i]).append('<input id="' + aColumnId[i] + '" type="text" class="input-xlarge control-hidden" placeholder="' + aColumnId[i] + '" value="' + aItem[i] + '">');
                 }
                 // Other cells are numeric steppers
                 else {
@@ -541,5 +586,55 @@ $(document).ready(function() {
                 $(this).val('');
             }
         );
+    };
+
+    fcms.fnUpdateCategory = function ( e ) {
+        var oRow = fcms.fnGetSelected(oClassesList);
+        oClassesList.fnDeleteRow(oRow[0]);
+        var id = oRow.children().first().text();
+
+        var params = oClassesForm.serialize();
+        $.ajax({
+            url     : '/admin/categories/' + id,
+            type    : 'PUT',
+            dataType: 'json',
+            data    : params,
+            success : function( data ) {
+                var aItem = new Array();
+                aItem.push(data['id']);
+                aItem.push(data['name']);
+                var iRow = oClassesList.fnAddData(aItem);
+                fcms.fnClearForm();
+
+                fcms.showMessage('L\'item a été modifié avec succès');
+
+                $(oClassesList.fnGetNodes(iRow)).click( function(event) {
+                    fcms.fnSelectClass($(this), oClassesForm);
+                });
+            }
+
+        });
+    };
+
+    fcms.fnCreateCategory = function ( e ) {
+        var params = oClassesForm.serialize();
+        $.ajax({
+            url     : '/admin/categories/',
+            type    : 'POST',
+            data    : params,
+            success : function (data) {
+                var aItem = new Array();
+                aItem.push(data['id']);
+                aItem.push(data['name']);
+                var iRow = oClassesList.fnAddData(aItem);
+                fcms.fnClearForm();
+
+                fcms.showMessage('L\'item a été créé avec succès');
+
+                $(oClassesList.fnGetNodes(iRow)).click( function(event) {
+                    fcms.fnSelectClass($(this), oClassesForm);
+                });
+            }
+        });
     };
 });

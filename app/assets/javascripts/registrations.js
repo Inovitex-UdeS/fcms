@@ -1,13 +1,14 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
 
+//= require datatables
+
 var nbPerfMax = 0;
 var nbPerfMin = 0;
 var maxDuration = 0;
 var group = false;
 var curDuration = 0;
 var nbPersMax = 12;
-
 
 // Autocomplete
 $(document).ready(function(){

@@ -9,6 +9,47 @@ $(document).ready(function(){
     fcms.bindForm($('form'), 3);
 
     // Remove default behavior and put logic for this specific page
+    fcms.fnSuccessAddItem = function( data ) {
+        var aItem = new Array();
+
+        aItem.push(data['id'])
+        aItem.push(data['name'])
+        aItem.push(data['schoolboard']['name'])
+        aItem.push(data['schooltype']['name'])
+        aItem.push(fcms.fnFormatDate(data['created_at']));
+        aItem.push(fcms.fnFormatDate(data['updated_at']));
+
+        var iRow = oTable.fnAddData(aItem);
+
+        $(oTable.fnGetNodes(iRow)).click( fcms.fnSelectableRows );
+
+        fcms.fnClearForm();
+
+        fcms.showMessage('L\'institution scolaire a été ajoutée avec succès.');
+
+        oTable.$('tr.row_selected').removeClass('row_selected');
+    };
+
+    // Remove default behavior and put logic for this specific page
+    fcms.fnSuccessUpdateData = function( data ) {
+        var aItem = new Array();
+
+        aItem.push(data['id'])
+        aItem.push(data['name'])
+        aItem.push(data['schoolboard']['name'])
+        aItem.push(data['schooltype']['name'])
+        aItem.push(fcms.fnFormatDate(data['created_at']));
+        aItem.push(fcms.fnFormatDate(data['updated_at']));
+
+        oTable.fnUpdate(aItem, fcms.fnGetSelected(oTable)[0]);
+
+        fcms.fnClearForm();
+        oTable.$('tr.row_selected').removeClass('row_selected');
+
+        fcms.showMessage('L\'institution soclaire a été modifiée avec succès.');
+    };
+
+    // Remove default behavior and put logic for this specific page
     fcms.fnSuccessGetData = function( data ) {
 
         $('#school_id').val(data['id']);
@@ -39,4 +80,7 @@ $(document).ready(function(){
     $('#school_schooltype_id').typeahead();
     $('#school_schoolboard_id').typeahead();
     $('#school_contactinfo_attributes_city_id').typeahead();
+
+
+
 });

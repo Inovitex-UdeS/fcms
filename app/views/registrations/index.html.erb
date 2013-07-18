@@ -1,2 +1,11 @@
+<% content_for(:head) do %>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            fcms.bindTable($('.table'));
+            fcms.initTable();
+        });
+    </script>
+<% end %>
+
 <h3>Inscriptions au festival</h3>
 <%= render :partial => 'registrations/grid' %>

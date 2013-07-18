@@ -1,7 +1,23 @@
 #encoding: utf-8
 class RegistrationsController < ApplicationController
+  before_filter :prevent_unconfirmed_judge, :only => :index
+
   def index
-    @registrations = current_user.registrations
+    @current_edition = Setting.find_by_key('current_edition_id').value
+    @registrations = []
+
+    if current_user.is_participant?
+      @registrations += current_user.registrations.where("edition_id=#{@current_edition}")
+    end
+
+    if current_user.is_teacher?
+      @registrations += Registration.where("edition_id=#{@current_edition} AND user_teacher_id=#{current_user.id}")
+    end
+
+    if current_user.is_judge?
+      @registrations = Registration.where("edition_id=#{@current_edition}")
+    end
+
   end
 
   def new

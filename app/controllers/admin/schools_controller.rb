@@ -13,12 +13,12 @@ class Admin::SchoolsController < ApplicationController
     begin
       @school = School.new(params[:school])
       if @school.save
-        render :json => @school
+        render :json => @school.to_json(:include => {:contactinfo => {:include => :city}, :schooltype => {}, :schoolboard => {} } )
       else
         render :json => {:message => @school.errors.full_messages}, :status => :unprocessable_entity
       end
-    rescue
-      render :json => {:message => @school.errors.full_messages}, :status => :unprocessable_entity
+    rescue => e
+      render :json => {:message => e.message}, :status => :unprocessable_entity
     end
   end
 
@@ -41,7 +41,7 @@ class Admin::SchoolsController < ApplicationController
       @school = School.find(params[:id])
       if @school
         if @school.update_attributes(params[:school])
-          render :json => @school
+          render :json => @school.to_json(:include => {:contactinfo => {:include => :city}, :schooltype => {}, :schoolboard => {} } )
         else
           render :json =>{:message => "L'école' n'a pu être mise à jour"}, :status => :unprocessable_entity
         end

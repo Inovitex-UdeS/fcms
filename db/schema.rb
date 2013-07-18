@@ -23,8 +23,6 @@ ActiveRecord::Schema.define(:version => 20130718024341) do
     t.datetime "updated_at"
     t.integer  "min"
     t.integer  "max"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   add_index "agegroups", ["category_id"], :name => "category_id_fk"
@@ -41,8 +39,6 @@ ActiveRecord::Schema.define(:version => 20130718024341) do
     t.boolean  "accompanyist",                   :default => false
     t.integer  "nb_piece_lim1"
     t.integer  "nb_piece_lim2"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   add_index "categories", ["id"], :name => "categories_pk", :unique => true
@@ -64,8 +60,6 @@ ActiveRecord::Schema.define(:version => 20130718024341) do
     t.string   "last_name"
     t.string   "first_name"
     t.integer  "page_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   add_index "composers", ["id"], :name => "composers_pk", :unique => true
@@ -153,7 +147,6 @@ ActiveRecord::Schema.define(:version => 20130718024341) do
     t.integer  "page_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "page_id"
   end
 
   add_index "pieces", ["composer_id"], :name => "composer_id_fk"
@@ -172,8 +165,6 @@ ActiveRecord::Schema.define(:version => 20130718024341) do
     t.datetime "updated_at"
     t.integer  "age_max",         :default => 0
     t.integer  "timeslot_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   add_index "registrations", ["category_id"], :name => "category_id_fk2"
@@ -214,8 +205,6 @@ ActiveRecord::Schema.define(:version => 20130718024341) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "confirmed",  :default => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   add_index "roles_users", ["role_id", "user_id"], :name => "roles_users_pk", :unique => true
@@ -318,8 +307,6 @@ ActiveRecord::Schema.define(:version => 20130718024341) do
     t.integer  "invitation_limit"
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

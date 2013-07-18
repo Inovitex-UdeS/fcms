@@ -186,6 +186,19 @@ $(document).ready(function() {
         "</div>"
     );
 
+    $('#saveCategories').click(function (e) {
+        e.preventDefault();
+
+        // In case it's an update
+        if (oClassesList.$('tr').hasClass('row_selected')) {
+            fcms.fnUpdateCategory();
+        }
+        else {
+            fcms.fnCreateCategory();
+        }
+
+    });
+
     $('#itemModified_modal_saveButton').click(function (e) {
         e.preventDefault();
         fcms.fnSaveEditedRow();
@@ -541,5 +554,26 @@ $(document).ready(function() {
                 $(this).val('');
             }
         );
+    };
+
+    fcms.fnUpdateCategory = function ( e ) {
+        var oRow = fcms.fnGetSelected(oClassesList);
+        var id = oRow.children().first().text();
+
+        var params = oClassesForm.serialize();
+        $.ajax({
+            url     : '/admin/categories/' + id,
+            type    : 'PUT',
+            dataType: 'json',
+            data    : params,
+            success : function( data ) {
+
+            }
+
+        });
+    };
+
+    fcms.fnCreateCategory = function ( e ) {
+        console.log("Creating category.");
     };
 });

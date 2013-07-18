@@ -47,18 +47,20 @@ class Admin::CategoriesController < ApplicationController
     end
   end
 
-  def create
+  def update
     begin
-      category = Category.new(params[:category])
-
-      if category.save
-        render :json => category
+      category = Category.find(params[:id])
+      if category
+        if category.update_attributes(params[:category])
+          render :json => category
+        else
+          render :json =>{:message => "La catégorie n'a pu être mise à jour"}, :status => :unprocessable_entity
+        end
       else
-        render :json => {:message => category.errors.full_messages}, :status => :unprocessable_entity
+        render :json => {:message =>  "La catégorie n'a pas été trouvée"}, :status => :unprocessable_entity
       end
     rescue
-      render :json => {:message => category.errors.full_messages}, :status => :unprocessable_entity
+      render :json => {:message => "Erreur lors de la mise à jour de la catégorie"}, :status => :unprocessable_entity
     end
   end
 end
-

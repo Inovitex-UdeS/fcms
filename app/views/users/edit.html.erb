@@ -16,7 +16,7 @@
 
     <div class="input-prepend">
       <span class="add-on"><i class="icon-user"></i></span>
-        <%= f.select :gender, options_for_select([['Masculin', true], ['Féminin', false]]), {:prompt => 'Choisissez votre sexe', :selected => @user.gender}, {:class => 'input-xlarge'}%>
+        <%= f.select :gender,[['Masculin', true], ['Féminin', false]], { :prompt => 'Choisissez votre sexe'}, {:class => 'input-xlarge'}%>
     </div>
     <br />
 

@@ -1,3 +1,15 @@
+<% content_for(:head) do %>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#user_birthday').datepicker({
+                format: 'yyyy-mm-dd',
+                viewMode: 2
+            });
+        });
+    </script>
+<% end %>
+
+
 <h3><i class="icon-envelope"></i> Inviter un utilisateur</h3>
 <%= simple_form_for @user,
     :url => url_for(:action => 'create', :controller => 'invitations'),
@@ -23,7 +35,13 @@
 
     <div class="input-prepend">
       <span class="add-on"><i class="icon-envelope"></i></span>
-      <%= f.text_field :email, :placeholder => 'Adresse courriel', :class => 'input-xlarge' %>
+      <%= f.text_field :email, :placeholder => 'Adresse courriel', :class => 'input-large' %>
+    </div>
+    <br />
+
+    <div class="input-prepend">
+      <span class="add-on"><i class="icon-gift"></i></span>
+      <%= f.text_field :birthday, :class => 'input-medium', :placeholder => "Date de naissance", :'data-mask' => '9999-99-99' %>
     </div>
 
     <h5>Rôle de l'utilisateur</h5>

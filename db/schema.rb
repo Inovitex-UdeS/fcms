@@ -19,10 +19,10 @@ ActiveRecord::Schema.define(:version => 20130718024341) do
     t.string   "description",  :limit => 128
     t.integer  "fee"
     t.integer  "max_duration"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.integer  "min"
     t.integer  "max"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "agegroups", ["category_id"], :name => "category_id_fk"
@@ -32,13 +32,13 @@ ActiveRecord::Schema.define(:version => 20130718024341) do
   create_table "categories", :force => true do |t|
     t.string   "name",            :limit => 128,                    :null => false
     t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.boolean  "group",                          :default => false
     t.integer  "nb_participants",                :default => 1
     t.boolean  "accompanyist",                   :default => false
     t.integer  "nb_piece_lim1"
     t.integer  "nb_piece_lim2"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "categories", ["id"], :name => "categories_pk", :unique => true
@@ -55,11 +55,11 @@ ActiveRecord::Schema.define(:version => 20130718024341) do
 
   create_table "composers", :force => true do |t|
     t.string   "name",       :limit => 128, :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.string   "last_name"
     t.string   "first_name"
     t.integer  "page_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "composers", ["id"], :name => "composers_pk", :unique => true
@@ -144,9 +144,9 @@ ActiveRecord::Schema.define(:version => 20130718024341) do
   create_table "pieces", :force => true do |t|
     t.integer  "composer_id",                :null => false
     t.string   "title",       :limit => 128, :null => false
+    t.integer  "page_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "page_id"
   end
 
   add_index "pieces", ["composer_id"], :name => "composer_id_fk"
@@ -161,10 +161,10 @@ ActiveRecord::Schema.define(:version => 20130718024341) do
     t.integer  "edition_id",      :null => false
     t.integer  "category_id",     :null => false
     t.integer  "duration",        :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.integer  "age_max"
     t.integer  "timeslot_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "registrations", ["category_id"], :name => "category_id_fk2"
@@ -202,9 +202,9 @@ ActiveRecord::Schema.define(:version => 20130718024341) do
   create_table "roles_users", :force => true do |t|
     t.integer  "role_id",                       :null => false
     t.integer  "user_id",                       :null => false
+    t.boolean  "confirmed",  :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "confirmed",  :default => false
   end
 
   add_index "roles_users", ["role_id", "user_id"], :name => "roles_users_pk", :unique => true
@@ -299,14 +299,14 @@ ActiveRecord::Schema.define(:version => 20130718024341) do
     t.string   "unlock_token"
     t.datetime "locked_at"
     t.string   "authentication_token"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.string   "invitation_token",       :limit => 60
     t.datetime "invitation_sent_at"
     t.datetime "invitation_accepted_at"
     t.integer  "invitation_limit"
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

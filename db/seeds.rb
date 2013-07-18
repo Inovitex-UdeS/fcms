@@ -47,12 +47,12 @@ if load_all_composers_and_pieces
 end
 
 # Rooms
-room1 = Room.create(capacity: 32, name: 'C1-3125', location: 'UdeS', description: 'Local de rencontre')
-room2 = Room.create(capacity: 100, name: 'Sale Bandeen', location: 'CEGEP de Sherbrooke', description: 'Plus grande salle du festival')
+Room.create(capacity: 200, name: 'Alfred-Des Rochers', location: 'Cégep de Sherbrooke', description: 'Très grande salle')
+Room.create(capacity: 100, name: 'Bandeen', location: 'Université Bishop', description: 'Grande salle')
+Room.create(capacity: 300, name: 'Centre Culturel', location: 'Université de Sherbrooke', description: 'Énorme Grande salle')
 
 # Cities
-
-puts "Loading Cities And Schools..."
+puts "Loading Cities"
 CSV.foreach("#{Rails.root}/tools/eastern_cities.csv") do |row|
   if !City.exists?(:name => row[1])
     City.create(name: row[1])
@@ -64,49 +64,16 @@ CSV.foreach("#{Rails.root}/tools/eastern_schools.csv", :headers => true) do |row
   end
 end
 
-
-
-# ContactInfos
-contact1 = Contactinfo.create(telephone: '819-843-7004', address: '112 rue rene', city_id: City.where(:name => 'Magog').first.id, province: 'Québec', postal_code: 'J1X3W5')
-contact2 = Contactinfo.create(telephone: '111-111-1111', address: '1111 rue argyll', city_id: City.where(:name => 'Notre-Dame-des-Bois').first.id, province: 'Québec', postal_code: 'J1Z8V4')
-contact3 = Contactinfo.create(telephone: '911', address: '007 thugstreet', city_id: City.where(:name => 'Sherbrooke').first.id, province: 'Québec',  postal_code: 'J1Z8V4')
-contact4 = Contactinfo.create(telephone: '819-563-2050', address: '658 rue Rue', city_id: City.where(:name => 'Sherbrooke').first.id, province: 'Québec', postal_code: 'J1H1L6')
-contact5 = Contactinfo.create(telephone: '819-444-4444', address: '194 rue de la Patate', city_id: City.where(:name => 'Stanstead').first.id, province: 'Québec', postal_code: 'J1H1L5')
-contact6 = Contactinfo.create(telephone: '819-333-3333', address: '193 rue Marquette', city_id: City.where(:name => 'Waterville').first.id, province: 'Québec', postal_code: 'J1H1L4')
-contact5 = Contactinfo.create(telephone: '450-271-7305', address: '260 rue St-Michel', city_id: City.where(:name => 'Saint-François-Xavier-de-Brompton').first.id, province: 'Québec', postal_code: 'J1H1L5')
-
-# Users
-user1 = User.create(last_name: 'Gauthier', first_name: 'Jean-Philippe', gender: true, birthday: '1991-07-29', email: 'j-p.g@hotmail.com', password: 'password', contactinfo_id: contact1.id, confirmed_at: '2013-05-28 02:01:11.70392')
-user2 = User.create(last_name: 'Paquette', first_name: 'Daniel', gender: true, birthday: '1980-05-12', email: 'dp@me.com', password: 'password', contactinfo_id: contact2.id,confirmed_at: '2013-05-28 02:01:11.70392')
-user3 = User.create(last_name: 'Mine', first_name: 'Ad', gender: true, birthday: '1980-05-12', email: 'admin@admin.com', password: 'password', contactinfo_id: contact3.id,confirmed_at: '2013-05-28 02:01:11.70392')
-user4 = User.create(last_name: 'coderre', first_name: 'laurens', gender: true, birthday: '1991-07-29', email: 'lcoderre@me.com', password: 'password', contactinfo_id: contact1.id, confirmed_at: '2013-05-28 02:01:11.70392')
-user5 = User.create(last_name: '2', first_name: 'Accompagnateur', gender: true, birthday: '1980-05-12', email: 'premier@accompagnateur.com', password: 'password', contactinfo_id: contact6.id,confirmed_at: '2013-05-28 02:01:11.70392')
-user6 = User.create(last_name: '1', first_name: 'Juge', gender: true, birthday: '1980-05-12', email: 'premier@juge.com', password: 'password', contactinfo_id: contact5.id,confirmed_at: '2013-05-28 02:01:11.70392')
-
-# Roles
-role1 = Role.create(name: 'Participant')
-role2 = Role.create(name: 'Professeur')
-role3 = Role.create(name: 'Administrateur')
-role4 = Role.create(name: 'Juge')
-role5 = Role.create(name: 'Accompagnateur')
-
-# Users_Roles
-user1.roles << role1
-user2.roles << role2
-RolesUser.where('user_id='+user2.id.to_s + ' and role_id=' + role2.id.to_s).first.confirmed=true
-user3.roles << role3
-user4.roles << role1
-user5.roles << role5
-user6.roles << role4
-
 # Edition
-edition1 = Edition.create(year: 2012, start_date: '2007-05-01', end_date: '2007-05-06', limit_date: '2007-02-01')
-Setting.create(key: 'current_edition_id', value: edition1.id)
+Edition.create(year: 2012, start_date: '2012-05-01', end_date: '2012-05-06', limit_date: '2012-02-01', edit_limit_date: '2012-04-01')
+Edition.create(year: 2013, start_date: '2013-05-01', end_date: '2013-05-06', limit_date: '2013-02-01', edit_limit_date: '2013-04-01')
+edition = Edition.create(year: 2014, start_date: '2014-04-30', end_date: '2014-05-05', limit_date: '2014-02-20', edit_limit_date: '2014-04-15')
+Setting.create(key: 'current_edition_id', value: edition.id)
 
 
 puts "Loading default categories and settings..."
 # Categories
-category1 = Category.create(name: 'Répertoire', 					nb_participants:01, accompanyist:true,	description:"Les instrumentistes doivent interpréter deux pièces de caractère et de style contrastant. En inst11.id, les candidats doivent présenter trois pièces.")
+category1 = Category.create(name: 'Répertoire', 					nb_participants:01, accompanyist:true,	description:"Les instrumentistes doivent interpréter deux pièces de caractère et de style contrastant. En chant, les candidats doivent présenter trois pièces.")
 category2 = Category.create(name: 'Musique canadienne',   			nb_participants:01, accompanyist:false,	description:"Cette classe, s'adresse à la fois aux solistes et aux participants en musique d'ensemble. Les participants doivent interpréter une oeuvre d'un compositeur canadien choisie au catalogue du Centre de musique canadienne (CMC) pour recevoir la bourse. La liste des œuvres autorisées se trouve sur le site du CMC : www.centremusique.ca Les oeuvres non inscrites au catalogue du CMC peuvent être acceptées dans cette catégorie, mais ne seront pas accessibles à la bource du CMC." )
 category3 = Category.create(name: 'Festival',  						nb_participants:12, accompanyist:false,	description:"Cette classe est ouverte aux élèves désirant participer au FCMS sans l’aspect compétition. Les participants peuvent présenter une ou deux pièces (inst11.id trois pièces). Les participants ne sont pas admissibles aux bourses d’excellence. Ils reçoivent toutefois commentaires, note et certificat de participation. Ils sont également admissibles aux bourses de participation données lors des concerts des finalistes.")
 category4 = Category.create(name: 'Récital',  						nb_participants:12, accompanyist:false,	description:"Cette classe s’adresse aux musiciens de 15 ans et plus qui participent au Concours de musique du Canada ou qui sont inscrits en interprétation (Cégep, Conservatoire ou Université). Les participants doivent interpréter deux ou trois pièces  de style et d’époque contrastants. Une de ces pièces doit être de l’époque baroque ou classique. Pour les instruments plus récents (percussions, saxophone..) le répertoire doit couvrir au moins deux périodes différentes. Les participants en inst12.id doivent présenter trois à cinq pièces de styles et d’époque contrastants dans trois langues différentes.")
@@ -115,69 +82,59 @@ category6 = Category.create(name: 'Concerto/Concertino',  			nb_participants:01,
 category7 = Category.create(name: 'Concerto OSJS',  				nb_participants:01, accompanyist:false,	description:"Les membres du jury déterminent parmi les participants au concours les solistes de la prochaine saison de l'OSJS. Un premier prix sera décerné chez les 16 ans et moins, un autre chez les 17 ans et plus et un troisième prix sera décerné à un des participants, indépendamment de sa catégorie. Les gagnants d'une édition ne pourront se présenter l'année suivante. Ils pourront toutefois se présenter à nouveau par la suite. Les participants doivent présenter un ou plusieurs mouvements d'un concerto ou d'une oeuvre concertante. En inst11.id, les candidats peuvent présenter un ou deux airs d'opéra, d'oratorio, ou toute oeuvre pour voix et orchestre. Les résultats de la catégorie Concerto seront dévoilés lors du concert des finalistes, dimanche le 5 mai et non à la fin des auditions, comme dans les autres catégories.œ")
 
 # Répertoire
-agegroup1 = Agegroup.create(edition_id: edition1.id, category_id: category1.id, min:7, max: 9, fee: 33,  max_duration: 5)# (7 à 9 ans)
-agegroup2 = Agegroup.create(edition_id: edition1.id, category_id: category1.id, min:10, max:11 , fee: 36, max_duration:7)# (10 à 11 ans)
-agegroup3 = Agegroup.create(edition_id: edition1.id, category_id: category1.id, min:12, max:13 , fee: 38, max_duration:10)#(12 à 13 ans)
-agegroup4 = Agegroup.create(edition_id: edition1.id, category_id: category1.id, min:14, max:16 , fee: 39, max_duration:15)#(14 à 16 ans)
-agegroup5 = Agegroup.create(edition_id: edition1.id, category_id: category1.id, min:17, max:99 , fee: 40, max_duration:15)#(17 ans et plus)
+agegroup1 = Agegroup.create(edition_id: edition.id, category_id: category1.id, min:7, max: 9, fee: 33,  max_duration: 5)# (7 à 9 ans)
+agegroup2 = Agegroup.create(edition_id: edition.id, category_id: category1.id, min:10, max:11 , fee: 36, max_duration:7)# (10 à 11 ans)
+agegroup3 = Agegroup.create(edition_id: edition.id, category_id: category1.id, min:12, max:13 , fee: 38, max_duration:10)#(12 à 13 ans)
+agegroup4 = Agegroup.create(edition_id: edition.id, category_id: category1.id, min:14, max:16 , fee: 39, max_duration:15)#(14 à 16 ans)
+agegroup5 = Agegroup.create(edition_id: edition.id, category_id: category1.id, min:17, max:99 , fee: 40, max_duration:15)#(17 ans et plus)
 
 # Concerto/concertino
-agegroup6 = Agegroup.create(edition_id: edition1.id, category_id: category6.id, min: 0, max: 11, fee: 40, max_duration: 15)# 11- ans
-agegroup7 = Agegroup.create(edition_id: edition1.id, category_id: category6.id, min: 12 , max: 17, fee: 50, max_duration: 20)# 12-17 ans
+agegroup6 = Agegroup.create(edition_id: edition.id, category_id: category6.id, min: 0, max: 11, fee: 40, max_duration: 15)# 11- ans
+agegroup7 = Agegroup.create(edition_id: edition.id, category_id: category6.id, min: 12 , max: 17, fee: 50, max_duration: 20)# 12-17 ans
 
 # Festival
-agegroup8 =  Agegroup.create(edition_id: edition1.id, category_id: category3.id, min: 07, max: 9, fee: 25, max_duration: 5) # 7-9 ans
-agegroup9 =  Agegroup.create(edition_id: edition1.id, category_id: category3.id, min: 10, max: 11, fee: 27, max_duration: 7) # 10-11 ans
-agegroup10 = Agegroup.create(edition_id: edition1.id, category_id: category3.id, min: 12, max: 13, fee: 30, max_duration: 10)# 12-13 ans
-agegroup11 = Agegroup.create(edition_id: edition1.id, category_id: category3.id, min: 14, max: 16, fee: 32, max_duration: 15)# 14-16 ans
-agegroup12 = Agegroup.create(edition_id: edition1.id, category_id: category3.id, min: 17, max: 99, fee: 35, max_duration: 15)# 17+ ans
+agegroup8 =  Agegroup.create(edition_id: edition.id, category_id: category3.id, min: 07, max: 9, fee: 25, max_duration: 5) # 7-9 ans
+agegroup9 =  Agegroup.create(edition_id: edition.id, category_id: category3.id, min: 10, max: 11, fee: 27, max_duration: 7) # 10-11 ans
+agegroup10 = Agegroup.create(edition_id: edition.id, category_id: category3.id, min: 12, max: 13, fee: 30, max_duration: 10)# 12-13 ans
+agegroup11 = Agegroup.create(edition_id: edition.id, category_id: category3.id, min: 14, max: 16, fee: 32, max_duration: 15)# 14-16 ans
+agegroup12 = Agegroup.create(edition_id: edition.id, category_id: category3.id, min: 17, max: 99, fee: 35, max_duration: 15)# 17+ ans
 
 # Récital
-agegroup13 = Agegroup.create(edition_id: edition1.id, category_id: category4.id, min: 15, max: 16, fee:55, max_duration: 20)# 15-16 ans
-agegroup14 = Agegroup.create(edition_id: edition1.id, category_id: category4.id, min: 17, max: 99, fee:65, max_duration: 30)# 17+ ans
+agegroup13 = Agegroup.create(edition_id: edition.id, category_id: category4.id, min: 15, max: 16, fee:55, max_duration: 20)# 15-16 ans
+agegroup14 = Agegroup.create(edition_id: edition.id, category_id: category4.id, min: 17, max: 99, fee:65, max_duration: 30)# 17+ ans
 
 # Ensemble
-agegroup15 = Agegroup.create(edition_id: edition1.id, category_id: category5.id, min: 07, max: 9, fee: 20, max_duration: 5) # (7 à 9 ans)
-agegroup16 = Agegroup.create(edition_id: edition1.id, category_id: category5.id, min: 10, max: 11, fee: 20, max_duration: 7) # (10 à 11 ans)
-agegroup17 = Agegroup.create(edition_id: edition1.id, category_id: category5.id, min: 12, max: 13, fee: 25, max_duration: 10)# (12 à 13 ans)
-agegroup18 = Agegroup.create(edition_id: edition1.id, category_id: category5.id, min: 14, max: 16, fee: 25, max_duration: 15)# (14 à 16 ans)
-agegroup19 = Agegroup.create(edition_id: edition1.id, category_id: category5.id, min: 17, max: 99, fee: 25, max_duration: 15)# (17 ans et plus)
+agegroup15 = Agegroup.create(edition_id: edition.id, category_id: category5.id, min: 07, max: 9, fee: 20, max_duration: 5) # (7 à 9 ans)
+agegroup16 = Agegroup.create(edition_id: edition.id, category_id: category5.id, min: 10, max: 11, fee: 20, max_duration: 7) # (10 à 11 ans)
+agegroup17 = Agegroup.create(edition_id: edition.id, category_id: category5.id, min: 12, max: 13, fee: 25, max_duration: 10)# (12 à 13 ans)
+agegroup18 = Agegroup.create(edition_id: edition.id, category_id: category5.id, min: 14, max: 16, fee: 25, max_duration: 15)# (14 à 16 ans)
+agegroup19 = Agegroup.create(edition_id: edition.id, category_id: category5.id, min: 17, max: 99, fee: 25, max_duration: 15)# (17 ans et plus)
 
 # Concerto OSJS
-agegroup20 = Agegroup.create(edition_id: edition1.id, category_id: category7.id, min: 00, max: 16, fee:55, max_duration: 30)# (16 ans et moins)
-agegroup21 = Agegroup.create(edition_id: edition1.id, category_id: category7.id, min: 17, max: 99, fee:65, max_duration: 30)# (17 ans et plus)
+agegroup20 = Agegroup.create(edition_id: edition.id, category_id: category7.id, min: 00, max: 16, fee:55, max_duration: 30)# (16 ans et moins)
+agegroup21 = Agegroup.create(edition_id: edition.id, category_id: category7.id, min: 17, max: 99, fee:65, max_duration: 30)# (17 ans et plus)
 
 # Musique canadienne
-agegroup27 = Agegroup.create(edition_id: edition1.id, category_id: category2.id, min: 07, max: 9, fee: 33, max_duration: 5) # (7 à 9 ans)
-agegroup28 = Agegroup.create(edition_id: edition1.id, category_id: category2.id, min: 10, max: 11, fee: 36, max_duration: 7) # (10 à 11 ans)
-agegroup29 = Agegroup.create(edition_id: edition1.id, category_id: category2.id, min: 12, max: 13, fee: 38, max_duration: 10)# (12 à 13 ans)
-agegroup30 = Agegroup.create(edition_id: edition1.id, category_id: category2.id, min: 14, max: 16, fee: 39, max_duration: 15)# (14 à 16 ans)
-agegroup31 = Agegroup.create(edition_id: edition1.id, category_id: category2.id, min: 17, max: 99, fee: 40, max_duration: 15)# (17 ans et plus)
-
-
-# Composers
-composer1 = Composer.create(name: 'SOR F.')
-composer2 = Composer.create(name: 'SANZ G.')
-
-# Pieces
-piece1 = Piece.create(composer_id: composer1.id, title: 'Theme et variations op.45 no 3')
-piece2 = Piece.create(composer_id: composer2.id, title: 'Canarios')
-
-# Schoolbaords
-schoolboard1 = Schoolboard.create(name: 'Commission Scolaire des Sommets')
+agegroup27 = Agegroup.create(edition_id: edition.id, category_id: category2.id, min: 07, max: 9, fee: 33, max_duration: 5) # (7 à 9 ans)
+agegroup28 = Agegroup.create(edition_id: edition.id, category_id: category2.id, min: 10, max: 11, fee: 36, max_duration: 7) # (10 à 11 ans)
+agegroup29 = Agegroup.create(edition_id: edition.id, category_id: category2.id, min: 12, max: 13, fee: 38, max_duration: 10)# (12 à 13 ans)
+agegroup30 = Agegroup.create(edition_id: edition.id, category_id: category2.id, min: 14, max: 16, fee: 39, max_duration: 15)# (14 à 16 ans)
+agegroup31 = Agegroup.create(edition_id: edition.id, category_id: category2.id, min: 17, max: 99, fee: 40, max_duration: 15)# (17 ans et plus)
 
 puts "Loading school data..."
-
-# Schooltypes
+# Schools
 CSV.foreach("#{Rails.root}/tools/eastern_schools.csv", :headers => true) do |row|
+
+  if !Schoolboard.exists?(:name => row[14])
+    Schoolboard.create(name: row[14])
+  end
+
   if !Schooltype.exists?(:name => row[1])
     Schooltype.create(name: row[1])
   end
-end
 
-# Schools
-CSV.foreach("#{Rails.root}/tools/eastern_schools.csv", :headers => true) do |row|
-  School.create(name: row[0], contactinfo_id: contact4.id, schooltype_id: Schooltype.where(:name => row[1]).first.id, schoolboard_id: schoolboard1.id)
+  school_contact = Contactinfo.create(telephone: row[3], address: row[17], city_id: City.find_by_name(row[2]).id, province: 'Québec', postal_code: row[19])
+  School.create(name: row[0], contactinfo_id: school_contact.id,  schooltype_id: Schooltype.find_by_name(row[1]).id, schoolboard_id: Schoolboard.find_by_name(row[14]).id)
 end
 
 # Instruments
@@ -189,38 +146,64 @@ inst6  = Instrument.create(name: "Violoncelle")
 inst7  = Instrument.create(name: "Clarinette")
 inst8  = Instrument.create(name: "Contrebasse")
 inst9  = Instrument.create(name: "Trombonne")
-inst10 = Instrument.create(name: "Cello")
-inst11 = Instrument.create(name: "Chant")
 inst12 = Instrument.create(name: "Chant classique")
 inst13 = Instrument.create(name: "Comédie musicale")
 inst14 = Instrument.create(name: "Clavecin")
 inst15 = Instrument.create(name: "Trompette")
-inst16 = Instrument.create(name: "Alto")
 inst17 = Instrument.create(name: "Flûte traversière")
 inst17 = Instrument.create(name: "Harpe")
 
-# Registration
-registration1 = Registration.create(user_teacher_id: user2.id, user_owner_id: user1.id, school_id: School.find(1).id, edition_id: edition1.id, category_id: category1.id, duration: 5)
-registration2 = Registration.create(user_teacher_id: user2.id, user_owner_id: user4.id, school_id: School.find(2).id, edition_id: edition1.id, category_id: category1.id, duration: 5)
-registration3 = Registration.create(user_teacher_id: user2.id, user_owner_id: user4.id, school_id: School.find(3).id, edition_id: edition1.id, category_id: category1.id, duration: 5)
-registration4 = Registration.create(user_teacher_id: user2.id, user_owner_id: user4.id, school_id: School.find(4).id, edition_id: edition1.id, category_id: category1.id, duration: 5)
 
-# Payments
-payment1 = Payment.create(user_id: user1.id, registration_id: registration1.id, mode: 'Cheque', no_chq: 1, name_chq: 'Jean-Philippe Gauthier', date_chq: '2007-05-05', depot_date: '2007-05-05', invoice: 'invoice1', cash: 38)
+# Roles
+part_role = Role.create(name: 'Participant')
+teach_role = Role.create(name: 'Professeur')
+admin_role = Role.create(name: 'Administrateur')
+judge_role = Role.create(name: 'Juge')
+accom_role = Role.create(name: 'Accompagnateur')
+
+
+# ContactInfos
+contact_admin = Contactinfo.create(telephone: '819-843-7004', address: '112 rue de l\'administrateur', city_id: City.find_by_name('Sherbrooke').id, province: 'Québec', postal_code: 'J1X3W5')
+contact_part1 = Contactinfo.create(telephone: '819-412-1233', address: '112 rue du participant 1', city_id: City.find_by_name('Danville').id, province: 'Québec', postal_code: 'J1X0V5')
+contact_part2 = Contactinfo.create(telephone: '819-412-1123', address: '112 rue du participant 2', city_id: City.find_by_name('Asbestos').id, province: 'Québec', postal_code: 'J1Q123')
+contact_teach = Contactinfo.create(telephone: '819-123-2543', address: '112 rue du professeur', city_id: City.find_by_name('Magog').id, province: 'Québec', postal_code: 'J1X0V6')
+contact_accom = Contactinfo.create(telephone: '819-547-7689', address: '112 rue de l\'accompagnateur', city_id: City.find_by_name('Austin').id, province: 'Québec', postal_code: 'J3X4D6')
+contact_judge = Contactinfo.create(telephone: '819-678-5467', address: '112 rue du juge', city_id: City.find_by_name('Compton').id, province: 'Québec', postal_code: 'J53D4F')
+
+# Users
+admin = User.create(last_name: 'Tremblay', first_name: 'Madeleine', gender: false, birthday: '1960-05-29', email: 'admin@admin.com', password: 'password', contactinfo_id: contact_admin.id, confirmed_at: '2013-05-28 02:01:11.70392')
+part1 = User.create(last_name: 'Icipant1', first_name: 'Part', gender: true, birthday: '2000-02-12', email: 'user1@iuse.com', password: 'passuser1', contactinfo_id: contact_part1.id, confirmed_at: '2013-05-28 02:01:11.70392')
+part2 = User.create(last_name: 'Icipant2', first_name: 'Part', gender: true, birthday: '1996-03-21', email: 'user2@iuse.com', password: 'passuser2', contactinfo_id: contact_part2.id, confirmed_at: '2013-05-28 02:01:11.70392')
+teach = User.create(last_name: 'Esseur', first_name: 'Prof', gender: true, birthday: '1988-07-29', email: 'teacher@iteach.com', password: 'passteach', contactinfo_id: contact_teach.id, confirmed_at: '2013-05-28 02:01:11.70392')
+accom = User.create(last_name: 'Pagnateur', first_name: 'Accom', gender: true, birthday: '1991-02-2', email: 'accomp@iaccomp.com', password: 'passaccomp', contactinfo_id: contact_accom.id, confirmed_at: '2013-05-28 02:01:11.70392')
+judge = User.create(last_name: 'Ge', first_name: 'Ju', gender: true, birthday: '1971-03-20', email: 'judge@ijudge.com', password: 'passjudge', contactinfo_id: contact_judge.id, confirmed_at: '2013-05-28 02:01:11.70392')
+
+# Users_Roles
+admin.roles << admin_role
+part1.roles << part_role
+part2.roles << part_role
+teach.roles << teach_role
+accom.roles << accom_role
+judge.roles << judge_role
+RolesUser.where("user_id=#{judge.id} AND role_id=#{judge_role.id}").first.update_attribute(:confirmed, true)
+
+# Registration
+#registration1 = Registration.create(user_teacher_id: user2.id, user_owner_id: user1.id, school_id: School.find(1).id, edition_id: edition1.id, category_id: category1.id, duration: 5)
+#registration2 = Registration.create(user_teacher_id: user2.id, user_owner_id: user4.id, school_id: School.find(2).id, edition_id: edition1.id, category_id: category1.id, duration: 5)
+#registration3 = Registration.create(user_teacher_id: user2.id, user_owner_id: user4.id, school_id: School.find(3).id, edition_id: edition1.id, category_id: category1.id, duration: 5)
+#registration4 = Registration.create(user_teacher_id: user2.id, user_owner_id: user4.id, school_id: School.find(4).id, edition_id: edition1.id, category_id: category1.id, duration: 5)
 
 # Registrations_Users
-registrationsuser1 = RegistrationsUser.create(instrument_id: inst1.id, registration_id: registration1.id, user_id: user1.id)
-registrationsuser2 = RegistrationsUser.create(instrument_id: inst1.id, registration_id: registration2.id, user_id: user4.id)
-registrationsuser3 = RegistrationsUser.create(instrument_id: inst1.id, registration_id: registration3.id, user_id: user4.id)
-registrationsuser4 = RegistrationsUser.create(instrument_id: inst1.id, registration_id: registration4.id, user_id: user4.id)
+#registrationsuser1 = RegistrationsUser.create(instrument_id: inst1.id, registration_id: registration1.id, user_id: user1.id)
+#registrationsuser2 = RegistrationsUser.create(instrument_id: inst1.id, registration_id: registration2.id, user_id: user4.id)
+#registrationsuser3 = RegistrationsUser.create(instrument_id: inst1.id, registration_id: registration3.id, user_id: user4.id)
+#registrationsuser4 = RegistrationsUser.create(instrument_id: inst1.id, registration_id: registration4.id, user_id: user4.id)
 
 # Performance
-performance1 = Performance.create(piece_id: piece1.id, registration_id: registration1.id)
-performance2 = Performance.create(piece_id: piece2.id, registration_id: registration1.id)
+#performance1 = Performance.create(piece_id: piece1.id, registration_id: registration1.id)
+#performance2 = Performance.create(piece_id: piece2.id, registration_id: registration1.id)
 
-
-
-DEMO_PLANIF = true
+DEMO_PLANIF = false
 if DEMO_PLANIF
   puts "Loading 2013 Excel Data..."
 

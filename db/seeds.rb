@@ -9,12 +9,50 @@
 
 require 'csv'
 
+# Do not load all composers and pieces by default
+load_all_composers_and_pieces = true
+
+# Composers and pieces
+if load_all_composers_and_pieces
+  puts "Loading Composers..."
+  CSV.foreach("#{Rails.root}/tools/composer.csv", :headers => true) do |row|
+    array_name = row[0].split(', ')
+    name = row[0]
+    unless array_name.size == 1 # Filter CSV for names only fitting the format "LastName, FirstName1 Firstname2"
+      lname = array_name.first
+      fname = array_name.last
+
+      fname_string = ""   # transfer "Johann Sebastian" --> "J.S."
+      fname.split(' ').each do |tmp|
+        tmp.split('-').each do |temp|
+          fname_string += temp[0].to_s.upcase + "."
+        end
+      end
+      # Redefine name, assuming all went well
+      name = lname.upcase + ", " + fname_string
+
+      Composer.find_or_create_by_name(name: name, page_id: row[2])
+    end
+  end
+
+
+  puts "Loading Composers pieces..."
+  CSV.foreach("#{Rails.root}/tools/piece.csv", :headers => true) do |row|
+    comp = nil
+    if (comp = Composer.find_by_page_id(row[0]))
+      Piece.create(title: row[1], composer_id: comp.id, page_id: row[3])
+    end
+
+  end
+end
+
 # Rooms
 room1 = Room.create(capacity: 32, name: 'C1-3125', location: 'UdeS', description: 'Local de rencontre')
 room2 = Room.create(capacity: 100, name: 'Sale Bandeen', location: 'CEGEP de Sherbrooke', description: 'Plus grande salle du festival')
 
-
 # Cities
+
+puts "Loading Cities And Schools..."
 CSV.foreach("#{Rails.root}/tools/eastern_cities.csv") do |row|
   if !City.exists?(:name => row[1])
     City.create(name: row[1])
@@ -65,6 +103,8 @@ user6.roles << role4
 edition1 = Edition.create(year: 2012, start_date: '2007-05-01', end_date: '2007-05-06', limit_date: '2007-02-01')
 Setting.create(key: 'current_edition_id', value: edition1.id)
 
+
+puts "Loading default categories and settings..."
 # Categories
 category1 = Category.create(name: 'Répertoire', 					nb_participants:01, accompanyist:true,	description:"Les instrumentistes doivent interpréter deux pièces de caractère et de style contrastant. En inst11.id, les candidats doivent présenter trois pièces.")
 category2 = Category.create(name: 'Musique canadienne',   			nb_participants:01, accompanyist:false,	description:"Cette classe, s'adresse à la fois aux solistes et aux participants en musique d'ensemble. Les participants doivent interpréter une oeuvre d'un compositeur canadien choisie au catalogue du Centre de musique canadienne (CMC) pour recevoir la bourse. La liste des œuvres autorisées se trouve sur le site du CMC : www.centremusique.ca Les oeuvres non inscrites au catalogue du CMC peuvent être acceptées dans cette catégorie, mais ne seront pas accessibles à la bource du CMC." )
@@ -126,6 +166,8 @@ piece2 = Piece.create(composer_id: composer2.id, title: 'Canarios')
 # Schoolbaords
 schoolboard1 = Schoolboard.create(name: 'Commission Scolaire des Sommets')
 
+puts "Loading school data..."
+
 # Schooltypes
 CSV.foreach("#{Rails.root}/tools/eastern_schools.csv", :headers => true) do |row|
   if !Schooltype.exists?(:name => row[1])
@@ -176,11 +218,11 @@ registrationsuser4 = RegistrationsUser.create(instrument_id: inst1.id, registrat
 performance1 = Performance.create(piece_id: piece1.id, registration_id: registration1.id)
 performance2 = Performance.create(piece_id: piece2.id, registration_id: registration1.id)
 
-### THIS IS FUCKING BULLSHIT.  C'est à prendre seulement pour les tests!
+
 
 DEMO_PLANIF = true
 if DEMO_PLANIF
-
+  puts "Loading 2013 Excel Data..."
 
   count = 0
   CSV.foreach("#{Rails.root}/tools/test.csv") do |row|

@@ -57,6 +57,9 @@ ActiveRecord::Schema.define(:version => 20130718024341) do
     t.string   "name",       :limit => 128, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "last_name"
+    t.string   "first_name"
+    t.integer  "page_id"
   end
 
   add_index "composers", ["id"], :name => "composers_pk", :unique => true
@@ -143,11 +146,12 @@ ActiveRecord::Schema.define(:version => 20130718024341) do
     t.string   "title",       :limit => 128, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "page_id"
   end
 
   add_index "pieces", ["composer_id"], :name => "composer_id_fk"
   add_index "pieces", ["id"], :name => "pieces_pk", :unique => true
-  add_index "pieces", ["title"], :name => "ak_title_pieces", :unique => true
+  add_index "pieces", ["title"], :name => "ak_title_pieces"
 
   create_table "registrations", :force => true do |t|
     t.integer  "user_owner_id",   :null => false

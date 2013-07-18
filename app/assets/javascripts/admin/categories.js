@@ -313,8 +313,8 @@ $(document).ready(function() {
                     }
                 }
 
-                var id = oAgegroupsList.fnAddData(aItem);
-                var iRow = oAgegroupsList.fnGetData(id[0]);
+                var iRow = oAgegroupsList.fnAddData(aItem);
+
                 var aColumnId = new Array();
                 aColumnId.push('id');
                 aColumnId.push('description');
@@ -322,14 +322,7 @@ $(document).ready(function() {
                 aColumnId.push('max');
                 aColumnId.push('fee');
                 aColumnId.push('max_duration');
-
                 fcms.fnAgegroupRowBinder(iRow, aItem, aColumnId);
-                $(iRow).bind('click', function(event) {
-                    fcms.fnSelectAgegroup($(this));
-                });
-                $(iRow).dblclick( function(event) {
-                    fcms.fnEditableRow(oAgegroupsList, $(this));
-                });
 
                 oAgegroupsList.fnDeleteRow(oRow[0]);
             },
@@ -379,6 +372,8 @@ $(document).ready(function() {
 
                 fcms.fnAgegroupRowBinder(iRow, aItem, aColumnId);
                 fcms.fnHideAddAgegroup();
+
+                fcms.showMessage('L\'item a été ajouté avec succès');
 
             },
             error   : function (xhr, err) {
@@ -490,6 +485,10 @@ $(document).ready(function() {
                             aColumnId.push('max_duration');
 
                             fcms.fnAgegroupRowBinder(iRow, aItem, aColumnId);
+
+                            $(oClassesList.fnGetNodes(iRow)).click( function(event) {
+                                fcms.fnSelectAgegroup($(this))
+                            });
                         }
                     }
                 });
@@ -604,8 +603,14 @@ $(document).ready(function() {
                 var aItem = new Array();
                 aItem.push(data['id']);
                 aItem.push(data['name']);
-                oClassesList.fnAddData(aItem);
+                var iRow = oClassesList.fnAddData(aItem);
                 fcms.fnClearForm();
+
+                fcms.showMessage('L\'item a été modifié avec succès');
+
+                $(oClassesList.fnGetNodes(iRow)).click( function(event) {
+                    fcms.fnSelectClass($(this), oClassesForm);
+                });
             }
 
         });
@@ -621,8 +626,14 @@ $(document).ready(function() {
                 var aItem = new Array();
                 aItem.push(data['id']);
                 aItem.push(data['name']);
-                oClassesList.fnAddData(aItem);
+                var iRow = oClassesList.fnAddData(aItem);
                 fcms.fnClearForm();
+
+                fcms.showMessage('L\'item a été créé avec succès');
+
+                $(oClassesList.fnGetNodes(iRow)).click( function(event) {
+                    fcms.fnSelectClass($(this), oClassesForm);
+                });
             }
         });
     };

@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   has_many :registrations, :through => :registrations_users
 
   belongs_to :contactinfo
+  belongs_to :school
 
   accepts_nested_attributes_for :contactinfo, :allow_destroy => true
 

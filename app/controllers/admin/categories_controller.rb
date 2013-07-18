@@ -63,4 +63,17 @@ class Admin::CategoriesController < ApplicationController
       render :json => {:message => "Erreur lors de la mise à jour de la catégorie"}, :status => :unprocessable_entity
     end
   end
+
+  def create
+    begin
+      category = Category.new(params[:category])
+      if category.save
+        render :json => category
+      else
+        render :json => {:message => category.errors.full_messages}, :status => :unprocessable_entity
+      end
+    rescue
+      render :json => {:message => category.errors.full_messages}, :status => :unprocessable_entity
+    end
+  end
 end

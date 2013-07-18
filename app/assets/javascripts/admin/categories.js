@@ -558,6 +558,7 @@ $(document).ready(function() {
 
     fcms.fnUpdateCategory = function ( e ) {
         var oRow = fcms.fnGetSelected(oClassesList);
+        oClassesList.fnDeleteRow(oRow[0]);
         var id = oRow.children().first().text();
 
         var params = oClassesForm.serialize();
@@ -567,13 +568,29 @@ $(document).ready(function() {
             dataType: 'json',
             data    : params,
             success : function( data ) {
-
+                var aItem = new Array();
+                aItem.push(data['id']);
+                aItem.push(data['name']);
+                oClassesList.fnAddData(aItem);
+                fcms.fnClearForm();
             }
 
         });
     };
 
     fcms.fnCreateCategory = function ( e ) {
-        console.log("Creating category.");
+        var params = oClassesForm.serialize();
+        $.ajax({
+            url     : '/admin/categories/',
+            type    : 'POST',
+            data    : params,
+            success : function (data) {
+                var aItem = new Array();
+                aItem.push(data['id']);
+                aItem.push(data['name']);
+                oClassesList.fnAddData(aItem);
+                fcms.fnClearForm();
+            }
+        });
     };
 });

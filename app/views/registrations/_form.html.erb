@@ -3,7 +3,8 @@
 <h5>Professeur</h5>
 <%= f.association :teacher, collection: @teachers, prompt: "Choisissez un professeur", label_method: lambda { |usr| usr.first_name + " " + usr.last_name + " (" + usr.email + ")"}, label: false, :input_html => {:class => "input-large"} %>
 
-<%= f.association :school, prompt: "Choisissez une institution scolaire", label: false, :input_html => {:class => "input-hidden"}, :value => @user_school %>
+<%= f.hidden_field :school_id, :value => @current_edition %>
+
 
 <h5>Programme musical</h5>
 <%= f.association :category, prompt: "Choisissez une catégorie", label: false, :input_html => {:onchange => "changeCategory(this.value)"} %>

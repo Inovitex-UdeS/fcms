@@ -19,10 +19,6 @@ class ApplicationController < ActionController::Base
   end
 
   def prevent_non_participant
-    if !current_user.is_participant?
-      redirect_to root_path
-    end
+      redirect_to root_path, :alert => 'Accès non-autorisé!' unless current_user.is_participant?
   end
-
-
 end

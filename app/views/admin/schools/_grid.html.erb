@@ -14,8 +14,8 @@
         <td><%= school.name %></td>
         <td><%= school.schoolboard.name %></td>
         <td><%= school.schooltype.name %></td>
-        <td><%= school.created_at %></td>
-        <td><%= school.updated_at %></td>
+        <td><%= school.created_at.strftime("%d/%m/%Y") %></td>
+        <td><%= school.updated_at.strftime("%d/%m/%Y") %></td>
       </tr>
   <% end %>
 </table><hr>

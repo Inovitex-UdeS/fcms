@@ -12,8 +12,8 @@
         <td><%= piece.id %></td>
         <td><%= piece.title %></td>
         <td><%= piece.composer.name %></td>
-        <td><%= piece.created_at %></td>
-        <td><%= piece.updated_at %></td>
+        <td><%= piece.created_at.strftime("%d/%m/%Y") %></td>
+        <td><%= piece.updated_at.strftime("%d/%m/%Y") %></td>
       </tr>
   <% end %>
 </table><hr>

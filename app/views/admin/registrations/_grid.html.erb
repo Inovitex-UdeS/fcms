@@ -52,8 +52,8 @@
         <td><%= reg.teacher.first_name %> <%= reg.teacher.last_name %></td>
         <td> <%= reg.duration %> min. </td>
         <td> <%= reg.edition.year %> </td>
-        <td><%= reg.created_at %></td>
-        <td><%= reg.updated_at %></td>
+        <td><%= reg.created_at.strftime("%d/%m/%Y") %></td>
+        <td><%= reg.updated_at.strftime("%d/%m/%Y") %></td>
       </tr>
   <% end %>
   </tbody>

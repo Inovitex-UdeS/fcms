@@ -11,8 +11,8 @@
       <tr>
         <td><%= instrument.id %></td>
         <td><%= instrument.name %></td>
-        <td><%= instrument.created_at %></td>
-        <td><%= instrument.updated_at %></td>
+        <td><%= instrument.created_at.strftime("%d/%m/%Y") %></td>
+        <td><%= instrument.updated_at.strftime("%d/%m/%Y") %></td>
       </tr>
   <% end %>
   </tbody>

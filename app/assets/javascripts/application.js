@@ -75,6 +75,5 @@ fcms.fnFormatDate = function ( unformattedDate ) {
     var cur_sec = date.getUTCSeconds();
     if (cur_sec < 10) cur_sec =  "0" + cur_sec;
 
-    return date.getUTCFullYear() + '-' + cur_month + '-' + cur_date + ' ' +
-        cur_hour + ':' + cur_min + ':' + cur_sec + ' UTC';
+    return cur_date + '/' + cur_month + '/' + date.getFullYear();
 };

@@ -1,12 +1,30 @@
 #encoding: utf-8
 class RegistrationsController < ApplicationController
+  before_filter :prevent_unconfirmed_judge, :only => :index
+  before_filter :prevent_non_participant, :only => :create
+
   def index
-    @registrations = current_user.registrations
+    @current_edition = Setting.find_by_key('current_edition_id').value
+    @registrations = []
+
+    if current_user.is_participant?
+      @registrations += current_user.registrations.where("edition_id=#{@current_edition}")
+    end
+
+    if current_user.is_teacher?
+      @registrations += Registration.where("edition_id=#{@current_edition} AND user_teacher_id=#{current_user.id}")
+    end
+
+    if current_user.is_judge?
+      @registrations = Registration.where("edition_id=#{@current_edition}")
+    end
+
   end
 
   def new
     @registration = Registration.new
     @owner_id = current_user.id
+    @user_school = User.find(@owner_id).school_id
     @current_edition = Setting.find_by_key('current_edition_id').value
     @teachers = User.teachers
     @participants = User.participants
@@ -62,10 +80,16 @@ class RegistrationsController < ApplicationController
         end
       end
 
+      # Update age max
+      age_max = 0;
+      @registration.users.each do |user|
+        age_max = user.age if user.age > age_max
+      end
+      @registration.update_attribute(:age_max, age_max)
+
       render :json => {:registration => @registration, :message => 'L\'inscription a été crée avec succès'}
     rescue => e
       render :json => { :message => e.message }, :status => :unprocessable_entity
     end
   end
-
 end

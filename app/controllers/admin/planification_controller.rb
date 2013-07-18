@@ -1,24 +1,113 @@
 #encoding: utf-8
 class Admin::PlanificationController < ApplicationController
   before_filter :prevent_non_admin
+  #TODO: remove this line after debugging
+  protect_from_forgery :except => :timeslots
 
   def index
   end
 
   def categories
     selected_category = Category.find(params[:id])
-    registrations = Registration.all(:joins => :users, :conditions => {:category_id => params[:id]})
+    timeslots = Timeslot.all(
+        :conditions => {
+            :category_id => params[:id],
+            :edition_id => Setting.find_by_key('current_edition_id')
+        },
+        :include => [
+            :registrations
+        ]
+    )
+    registrations = Registration.all(
+        :conditions => {
+            :category_id => params[:id],
+            :edition_id => Setting.find_by_key('current_edition_id')
+        },
+        :include => [
+            :registrations_users => [
+                :user,
+                :instrument
+            ],
+            :performances => [
+                :piece => [ :composer ]
+            ]
+        ]
+    )
+
+    # Put all registrations for this category in an array
+    registrations_array = []
+    registrations.each do |reg|
+      reg_obj = {
+          :category => selected_category.name,
+          :duration => reg.duration,
+          :age => reg.age_max,
+          :timeslot_id => reg.timeslot_id,
+          :users => [],
+          :performances => []
+      }
+      registrations_array.insert reg.id, reg_obj
+
+      reg.registrations_users.each do |u|
+        reg_obj[:users] << {
+            :first_name => u.user.first_name,
+            :last_name => u.user.last_name,
+            :instrument => u.instrument.name
+        }
+      end
+
+      reg.performances.each do |p|
+        reg_obj[:performances] << {
+            :composer => p.piece.composer.name,
+            :title => p.piece.title
+        }
+      end
+    end
 
     render :json => {
         :id => selected_category.id,
         :name => selected_category.name,
-        :registrations =>
-            registrations.as_json(:include => :users
-        )
+        :timeslots => timeslots,
+        :registrations => registrations_array.as_json()
     }
   end
 
+  def timeslots
+    if request.get?
+      ts = Timeslot.find(params[:id])
+      regs = []
+      ts.registrations.each do |r|
+        regs << r.id
+      end
 
+      render :json => {
+        :id => ts.id,
+        :category_id => ts.category_id,
+        :duration => ts.duration,
+        :label => ts.label,
+        :registrations => regs
+      }
+
+    elsif request.post?
+      if params[:id] > -1
+        timeslot = Timeslot.find(params[:id])
+      else
+        timeslot = Timeslot.new
+      end
+
+      timeslot.label       = params[:label]
+      timeslot.category_id = params[:category_id]
+      timeslot.duration    = params[:duration]
+
+      timeslot.registrations.clear
+      params[:registrations].each do |i|
+        timeslot.registrations << Registration.find(i)
+      end
+
+      timeslot.save
+
+      render :json => timeslot
+    end
+  end
 
   def ProduceExcel
     # Beau guide : http://spreadsheet.rubyforge.org/files/GUIDE_txt.html
@@ -29,24 +118,32 @@ class Admin::PlanificationController < ApplicationController
 
     ## MAIN SHEET ##
 
-    header_format = Spreadsheet::Format.new :weight => :bold,
-                                            :size => 12
-    timeslot_format = Spreadsheet::Format.new :weight => :bold,
-                                              :size => 12
+    header_format = Spreadsheet::Format.new :weight => :bold, :size => 12
+    timeslot_format = Spreadsheet::Format.new :weight => :bold, :size => 12
 
     sheet_All = excel_doc.create_worksheet  :name => "TOUT" # On crée un TAB Excel avec un nom :)
 
-    sheet_All.row(0).replace ["#", "Catégorie", "Bloc associé", "Participants", "Instrument",  "Durée", "Courriel", "#Tel", "Rue","Ville", "Code postal", "École" ] # On set les colonnes du workbook
+    # On set les colonnes du workbook
+    sheet_All.row(0).replace  ["#", "Catégorie", "Bloc associé", "Participants", "Instrument",  "Durée", "Compositeur", "Oeuvre", "Courriel", "#Tel",
+                               "Rue","Ville", "Code postal", "Institution scolaire","École musique",  "Professeur","Courriel Prof", "Montant à payer", "Payé","#chq","Date Paiment",  "Résultat", "Note" ]
+
     sheet_All.row(0).each_index do |i|
       sheet_All.column(i).width = sheet_All.row(0).at(i).to_s.length+3
     end
 
     it = 1
     Registration.order(:category_id)[0..-1].each do |reg|
-      instruments = participants = courriels = tels = ""
-      civils = cities = postals = ""
+      instruments = participants = courriels = tels = composers = pieces = ""
+      civils = cities = postals = teacher =  teacher_email = ""
+      montant = 0
+
+      if (group = Agegroup.where(edition_id:1, :category_id=> reg.category).where("#{reg.age_max} BETWEEN min and max").first)
+        montant = group.fee * reg.users.count
+      end
 
       tslot = reg.timeslot ? reg.timeslot.label : ""
+      teacher = reg.teacher ? reg.teacher.name : ""
+      teacher_email = reg.teacher ? reg.teacher.email : ""
 
       reg.users.each do |u|
         participants += "#{u.name}" + "\n"
@@ -62,7 +159,13 @@ class Admin::PlanificationController < ApplicationController
         instruments +=  "#{i.name}" + "\n"
       end
 
-      sheet_All.row(it).replace [reg.id, reg.category.name, tslot, participants, instruments,  reg.duration,  courriels, tels, civils, cities, postals, reg.school.name ]
+      reg.performances.order(:id).each do |p|
+        composers +=  "#{p.piece.composer.name}" + "\n"
+        pieces +=  "#{p.piece.title}" + "\n"
+      end
+
+      sheet_All.row(it).replace       [reg.id, reg.category.name, tslot, participants, instruments,  reg.duration, composers, pieces, courriels, tels, civils, cities, postals, reg.school.name ," ", teacher ,teacher_email, montant, " "," "," "," "," " ]
+
       it = it + 1
     end
 

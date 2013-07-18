@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   has_many :registrations, :through => :registrations_users
 
   belongs_to :contactinfo
+  belongs_to :school
 
   accepts_nested_attributes_for :contactinfo, :allow_destroy => true
 
@@ -59,7 +60,28 @@ class User < ActiveRecord::Base
     return self.has_role?('Administrateur')
   end
 
+  def is_judge?
+    return (self.has_role?('Juge') && RolesUser.where("role_id=#{Role.find_by_name('Juge').id} and user_id=#{self.id}").first.confirmed)
+  end
+
+  def is_participant?
+    return self.has_role?('Participant')
+  end
+
+  def is_accompagnist?
+    return self.has_role?('Accompagnateur')
+  end
+
+  def is_teacher?
+    return self.has_role?('Professeur')
+  end
+
   def name
     self.first_name + " " + self.last_name
+  end
+
+  def age
+    now = Time.now.utc.to_date
+    now.year - self.birthday.year - ((now.month > self.birthday.month || (now.month == self.birthday.month && now.day >= self.birthday.day)) ? 0 : 1)
   end
 end

@@ -2,7 +2,7 @@
 <table class="table table-bordered">
   <thead><tr>
     <th>Id</th>
-    <th>Capacié</th>
+    <th>Capacité</th>
     <th>Nom</th>
     <th>Location</th>
     <th>Description</th>
@@ -16,8 +16,8 @@
         <td><%= room.name %></td>
         <td><%= room.location %></td>
         <td><%= room.description %></td>
-        <td><%= room.created_at %></td>
-        <td><%= room.updated_at %></td>
+        <td><%= room.created_at.strftime("%d/%m/%Y") %></td>
+        <td><%= room.updated_at.strftime("%d/%m/%Y") %></td>
       </tr>
   <% end %>
 </table><hr>

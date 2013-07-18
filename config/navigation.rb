@@ -73,13 +73,13 @@ SimpleNavigation::Configuration.run do |navigation|
     
     primary.item :divider_2, nil, nil, :class => 'divider-vertical'
 
-    primary.item :key_3, 'Horaire', '#', :icon => 'icon-calendar' do |sub_nav|
+    primary.item :key_3, 'Horaire', '#', :icon => 'icon-calendar', :class => 'menu-disabled' do |sub_nav|
       sub_nav.item :key_3_1, 'Élément de menu 1', '#'
     end
 
     primary.item :divider_3, nil, nil, :class => 'divider-vertical'
 
-    primary.item :key_4, 'Résultats', '#', :icon => 'icon-bar-chart' do |sub_nav|
+    primary.item :key_4, 'Résultats', '#', :icon => 'icon-bar-chart', :class => 'menu-disabled' do |sub_nav|
       sub_nav.item :key_4_1, 'Élément de menu 1', '#'
     end
 
@@ -93,11 +93,11 @@ SimpleNavigation::Configuration.run do |navigation|
       sub_nav.item :key_5_4, 'Gérer les classes', new_admin_category_path
       sub_nav.item :key_5_5, 'Gérer les commissions scolaires', new_admin_schoolboard_path
       sub_nav.item :key_5_6, 'Gérer les compositeurs', new_admin_composer_path
-      sub_nav.item :key_5_7, 'Gérer les écoles', new_admin_school_path
-      sub_nav.item :key_5_8, 'Gérer les éditions', new_admin_edition_path
+      sub_nav.item :key_5_7, 'Gérer les éditions', new_admin_edition_path
+      sub_nav.item :key_5_8, 'Gérer les institutions scolaires', new_admin_school_path
       sub_nav.item :key_5_9, 'Gérer les instruments', new_admin_instrument_path
       sub_nav.item :key_5_10, 'Gérer les locaux', new_admin_room_path
-      sub_nav.item :key_5_11, 'Gérer les pièces', new_admin_piece_path
+      sub_nav.item :key_5_11, 'Gérer les oeuvres', new_admin_piece_path
       sub_nav.item :key_5_12, 'Gérer les types d\'écoles', new_admin_schooltype_path
       sub_nav.item :key_5_13, 'Gérer les villes', new_admin_city_path
       sub_nav.item :key_5_14,'', nil, :class=> 'divider'
@@ -114,7 +114,7 @@ SimpleNavigation::Configuration.run do |navigation|
 
     primary.item :divider_6, nil, nil, :class => 'divider-vertical'
 
-    primary.item :key_7, 'Compte', edit_user_path(current_user), :icon => 'icon-user' do |sub_nav|
+    primary.item :key_7, 'Compte', nil, :icon => 'icon-user' do |sub_nav|
       sub_nav.item :key_7_1, 'Profil', edit_user_path(current_user)
       sub_nav.item :key_7_2, 'Courriel et mot de passe', edit_user_registration_path
       sub_nav.item :key_7_3, '', nil, :class=> 'divider'

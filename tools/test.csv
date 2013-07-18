@@ -1,17 +1,17 @@
 5;;Ensemble;harpe;13;Marie-Micelle | Kathleen | Ariane | Laurence | Lana;Roy | Weary | Gagne | Bujold | Benko;6
-4;;Ensemble;chant;29;Simon | Joe | Julien | Jean-Philippe;Landry | Lampron-Dandonneau | Horbatuk | Lupien;12
+4;;Ensemble;chant classique;29;Simon | Joe | Julien | Jean-Philippe;Landry | Lampron-Dandonneau | Horbatuk | Lupien;12
 4;;Ensemble;violoncelle;18;Roseline | Lysabel | Lorraine | Julien;Meunier | Graveson | Gauthier-Giroux | Thibault;10
-4;;Ensemble;alto;13;Felix | Micaelle | Laura | Sarah;Vigneau-Lecomte | Carette | Noel | Laliberte;6
-4;;Ensemble;cello;16;Stephanie | Anne-Sophie | elyse | Maude;Loubier | Bergeron | Baillargeon | Simoneau;6
+4;;Ensemble;Violon;13;Felix | Micaelle | Laura | Sarah;Vigneau-Lecomte | Carette | Noel | Laliberte;6
+4;;Ensemble;Violoncelle;16;Stephanie | Anne-Sophie | elyse | Maude;Loubier | Bergeron | Baillargeon | Simoneau;6
 3;;Ensemble;violoncelle;18;Roseline | Lysabel | Lorraine;Meunier | Graveson | Gauthier-Giroux;9
-3;;Ensemble ;violon ;16;Genevieve | eleonore | Nicolas;Routhier | Meunier | Routhier;9
+3;;Ensemble;violon;16;Genevieve | eleonore | Nicolas;Routhier | Meunier | Routhier;9
 3;;Musique canadienne;violon;20;Myriam | Francois | Violette;Roy | Dubois | Khodabakhshi;5
 2;;Ensemble;flûte;12;Marie  | Leanne;St-Onge | St-Onge;5
 2;;Ensemble;piano;15;Audrey | Marianne;Longpre | Roy-Vigneau;4
-2;;Ensemble;cello;16;Madeleine | Jeanne;Côte | Côte;15
-2;;Ensemble;cello;12;Annie | Jules;Longpre | Bonneville;5
+2;;Ensemble;Violoncelle;16;Madeleine | Jeanne;Côte | Côte;15
+2;;Ensemble;Violoncelle;12;Annie | Jules;Longpre | Bonneville;5
 2;;Ensemble;violon;18;Felix | Violette;Marquis | Khodabakhshi;5
-2;;Ensemble;chant;13;Michel | Daphnee;Compagna | Lamontagne;5
+2;;Ensemble;chant classique;13;Michel | Daphnee;Compagna | Lamontagne;5
 2;;Ensemble;clarinette;21;Jean-Philippe | Virginie;Bilodeau | Turcotte-Côte;14
 2;;Ensemble;piano;10;Naila | Fabienne;Gagnier | Theis;3
 2;;Ensemble;piano;13;Beatrice | emy;Beaudin-Caille | Quirion;5
@@ -68,7 +68,7 @@
 1;;Répertoire;piano;9;Patrice;Beaudry;5
 1;;Concerto OSJS;piano;9;Patrice;Beaudry;5
 1;;Répertoire;violoncelle;11;Sara;Atala;8
-1;;Répertoire;piano;12;Marie;St-Onge ;9
+1;;Répertoire;piano;12;Marie;St-Onge;9
 1;;Répertoire;flûte traversière;10;Leanne;St-Onge;6
 1;;Concerto OSJS;piano;12;Marie;St-Onge;12
 1;;Répertoire;piano;10;Lydia;Davidson;6
@@ -78,14 +78,14 @@
 1;;Récital;violoncelle;17;Lorraine;Gauthier-Giroux;15
 1;;Répertoire;violoncelle;14;Madeleine;Côte;12
 1;;Concerto OSJS;violoncelle;14;Madeleine;Côte;15
-1;;Musique canadienne;piano;14;Annie;Longpre ;7
-1;;Répertoire;piano;12;Lea ;Longpre;7
+1;;Musique canadienne;piano;14;Annie;Longpre;7
+1;;Répertoire;piano;12;Lea;Longpre;7
 1;;Répertoire;piano;12;Nicholas;Bureau;10
 1;;Répertoire;guitare;14;Jeremie;Gagne;5
 1;;Répertoire;guitare;12;Jessie;Lambert;4
 1;;Concerto OSJS;piano;19;Lysandre;Menard;13
 1;;Récital;piano;19;Lysandre;Menard;25
-1;;Répertoire;violon ;17;Violette;Khodabakhshi;11
+1;;Répertoire;violon;17;Violette;Khodabakhshi;11
 1;;Concerto OSJS;violon;17;Violette;Khodabakhshi;11
 1;;Répertoire;violoncelle;10;Justin;Valiquette;7
 1;;Répertoire;piano;7;Jiaxin;Zheng;4
@@ -100,12 +100,12 @@
 1;;Répertoire;piano;13;Maude;Letourneau;10
 1;;Répertoire;piano;11;William;Tremblay;5
 1;;Répertoire;piano;7;etienne;Tremblay;3
-1;;Répertoire;alto;16;Rose;Hamel;15
-1;;Répertoire;piano;15;emile ;Dubuc;7
+1;;Répertoire;Violon;16;Rose;Hamel;15
+1;;Répertoire;piano;15;emile;Dubuc;7
 1;;Répertoire;piano;15;Louis;Smith;9
 1;;Festival;piano;7;Maelle;Pepin;3
 1;;Festival;piano;9;Rose;Dunnigan;4
-1;;Festival;piano;14; eliot;Dallaire-Payeur;4
+1;;Festival;piano;14;eliot;Dallaire-Payeur;4
 1;;Répertoire;piano;13;Zacharie;Smith;6
 1;;Concerto OSJS;piano;13;Zacharie;Smith;5
 1;;Répertoire;piano;8;Estelle;Gendron;4
@@ -125,22 +125,22 @@
 1;;Récital;piano;19;Marguerite;Royer;22
 2;;Ensemble;violon;12;Lea | Leila;Longpre | Atalla;4
 1;;Récital;chant classique;23;Catherine;St-Arnaud;18
-1;;Répertoire;piano;15;Francois ;Proulx;9
+1;;Répertoire;piano;15;Francois;Proulx;9
 2;;Ensemble;piano;15;Francois | Camille;Proulx | Paquette;10
 1;;Répertoire;violon;16;Julie;Côte;12
 1;;Répertoire;violon;15;Courtney;Drew;12
-1;;Répertoire;violon;13;Kathleen ;Weary;10
+1;;Répertoire;violon;13;Kathleen;Weary;10
 1;;Répertoire;Comédie musicale;15;Marie-Laurayne;Poulin;10
 1;;Répertoire;Comédie musicale;24;Marie-France;Charpentier;10
 1;;Répertoire;Comédie musicale;10;Michel;Compagna;7
-1;;Répertoire;Comédie musicale;22;Pamela ;Moya;11
+1;;Répertoire;Comédie musicale;22;Pamela;Moya;11
 1;;Concerto OSJS;violon;15;eleonore;Meunier;7
-1;;Répertoire;violon ;15;eleonore;Meunier;14
+1;;Répertoire;violon;15;eleonore;Meunier;14
 1;;Concerto OSJS;piano;16;Malcolm;St-John;10
 1;;Récital;piano;16;Malcolm;St-John;20
 1;;Récital;piano;18;Samuel;Adant;28
 1;;Répertoire;piano;16;Sandrine;Lemieux-Briere;9
-1;;Répertoire;alto;12;Chloe;Girard;6
+1;;Répertoire;Violon;12;Chloe;Girard;6
 1;;Répertoire;violon;16;Genevieve;Côte;14
 1;;Concerto OSJS;violon;16;Genevieve;Côte;11
 1;;Répertoire;piano;19;Audrey-Anne;Lavoie;14
@@ -152,15 +152,15 @@
 1;;Répertoire;guitare;13;Alexis;Robitaille;2
 1;;Répertoire;guitare;14;Simon;Bezeau;5
 1;;Répertoire;guitare;12;Samrik;Michaud;3
-1;;Répertoire;guitare;14;Philippe ;Morissette;
-1;;Récital;guitare;23;Vincent ;Lavoie;20
-1;;Concerto OSJS;piano;11;Vincent ;Leclair;8
-1;;Répertoire;piano;11;Vincent ;Leclair;6
+1;;Répertoire;guitare;14;Philippe;Morissette;
+1;;Récital;guitare;23;Vincent;Lavoie;20
+1;;Concerto OSJS;piano;11;Vincent;Leclair;8
+1;;Répertoire;piano;11;Vincent;Leclair;6
 1;;Festival;piano;9;Alexia;Croteau;3
 1;;Répertoire;piano;9;Clodine;Grant;3
 1;;Festival;guitare;5;Sean;Ritcher;2
 1;;Festival;piano;8;Estelle;Dupuis;3
-1;;Festival;chant classique;33;Maria ;Orkhis;7
+1;;Festival;chant classique;33;Maria;Orkhis;7
 1;;Festival;Comédie musicale;42;Claudia;Côte;4
 1;;Répertoire;Comédie musicale;11;Anne-Sophie;Gagnon-Metellus;7
 1;;Répertoire;piano;11;Jaeden;Bardati;7
@@ -178,9 +178,9 @@
 1;;Répertoire;chant classique;18;etienne;Isabel;10
 1;;Répertoire;Comédie musicale;17;Marc-Antoine;Viens;8
 1;;Concerto OSJS;clarinette;19;Nicholas;Kerr Barr;24
-1;;Répertoire;piano;10;Gabriel ;Vincent;5
+1;;Répertoire;piano;10;Gabriel;Vincent;5
 1;;Musique canadienne;piano;12;Nicholas;Bureau;7
-1;;Récital;clarinette;20; Sarah;Ramadan;25
+1;;Récital;clarinette;20;Sarah;Ramadan;25
 1;;Récital;chant classique;23;Paskale;Raymond;15
 1;;Récital;piano;16;Rosalie;Turcotte;18
 1;;Concerto OSJS;piano;16;Rosalie;Turcotte;20
@@ -191,17 +191,17 @@
 1;;Concerto/Concertino;violoncelle;10;Justin;Valiquette;5
 1;;Récital;chant classique;21;emilie;Charest;15
 1;;Récital;chant classique;26;Cormac;Eby;17
-1;;Récital;chant classique;22;Katherine ;Galpin ;25
-1;;Récital;chant classique;24;Jean-Philippe ;Lupien;27
+1;;Récital;chant classique;22;Katherine;Galpin;25
+1;;Récital;chant classique;24;Jean-Philippe;Lupien;27
 1;;Récital;chant classique;31;Mireille;Beriault;25
 1;;Récital;chant classique;20;Tabitha;Brasso-Ernst;15
 1;;Récital;chant classique;20;Joe;Lampron-Dandonneau;15
-1;;Récital;chant classique;22;Marianne ;Chapdeleine;18
-1;;Récital;Comédie musicale;22;Katherine ;Galpin ;20
+1;;Récital;chant classique;22;Marianne;Chapdeleine;18
+1;;Récital;Comédie musicale;22;Katherine;Galpin;20
 1;;Festival;piano;6;Aya;Ouyed;3
 1;;Répertoire;chant classique;17;Kareya;Audet;17
 1;;Répertoire;piano;17;Ariane;Lalumiere;9
-1;;Concerto OSJS;violon;16;Jeanne ;Côte;10
-1;;Répertoire;violon;16;Jeanne ;Côte;15
+1;;Concerto OSJS;violon;16;Jeanne;Côte;10
+1;;Répertoire;violon;16;Jeanne;Côte;15
 1;;Répertoire;guitare;33;Wilson;Santoyo;14
 1;;Répertoire;Comédie musicale;11;Anais;Dumont;7

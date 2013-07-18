@@ -9,28 +9,6 @@
     <th width="20%">Durée maximale (minutes)</th>
   </tr></thead>
   <% @agegroups.each do |agegroup| %>
-      <tr>
-        <td><%= agegroup.id %></td>
-        <td>
-          <label id="description"><%= agegroup.description %></label>
-          <input id="description" type="text" class="input-xlarge control-hidden" placeholder="Description" value="<%= agegroup.description %>">
-        </td>
-        <td>
-          <label id="min"><%= agegroup.min %></label>
-          <input id="min" type="number" class="input-small control-hidden" value="<%= agegroup.min %>">
-        </td>
-        <td>
-          <label id="max"><%= agegroup.max %></label>
-          <input id="max" type="number" class="input-small control-hidden" value="<%= agegroup.max %>">
-        </td>
-        <td>
-          <label id="fee"><%= agegroup.fee %></label>
-          <input id="fee" type="number" class="input-small control-hidden" value="<%= agegroup.fee %>">
-        </td>
-        <td>
-          <label id="max_duration"><%= agegroup.max_duration %></label>
-          <input id="max_duration" type="number" class="input-small control-hidden" value="<%= agegroup.max_duration %>">
-        </td>
-      </tr>
+
   <% end %>
 </table><hr>

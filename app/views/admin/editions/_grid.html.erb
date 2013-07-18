@@ -6,6 +6,7 @@
     <th>Date de début</th>
     <th>Date de fin</th>
     <th>Date limite d'inscription</th>
+    <th>Date limite de modification d'inscription</th>
     <th>Date de création</th>
     <th>Dernière mise à jour</th>
   </tr></thead>
@@ -16,8 +17,9 @@
         <td><%= edition.start_date %></td>
         <td><%= edition.end_date %></td>
         <td><%= edition.limit_date %></td>
-        <td><%= edition.created_at %></td>
-        <td><%= edition.updated_at %></td>
+        <td><%= edition.edit_limit_date %></td>
+        <td><%= edition.created_at.strftime("%d/%m/%Y") %></td>
+        <td><%= edition.updated_at.strftime("%d/%m/%Y") %></td>
       </tr>
   <% end %>
 </table><hr>

@@ -26,6 +26,12 @@
     </div>
     <br />
 
+    <div class="input-prepend">
+      <span class="add-on"><i class="icon-lock"></i></span>
+      <%= f.association :school, prompt: "Choisissez une institution scolaire", wrapper: false, label: false, :input_html => {:class => "input-xlarge"} %>
+    </div>
+    <br />
+
     <%= render :partial => 'shared/contactinfos', :locals=>{:f => f} %>
 
     <div class="form-actions">

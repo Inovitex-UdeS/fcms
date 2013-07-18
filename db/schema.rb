@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130704005239) do
+ActiveRecord::Schema.define(:version => 20130718163102) do
 
   create_table "agegroups", :force => true do |t|
     t.integer  "edition_id",                  :null => false
@@ -57,6 +57,9 @@ ActiveRecord::Schema.define(:version => 20130704005239) do
     t.string   "name",       :limit => 128, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "last_name"
+    t.string   "first_name"
+    t.integer  "page_id"
   end
 
   add_index "composers", ["id"], :name => "composers_pk", :unique => true
@@ -82,12 +85,13 @@ ActiveRecord::Schema.define(:version => 20130704005239) do
   add_index "contests", ["id"], :name => "contests_pk", :unique => true
 
   create_table "editions", :force => true do |t|
-    t.integer  "year",       :null => false
-    t.date     "limit_date"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer  "year",            :null => false
     t.date     "start_date"
     t.date     "end_date"
+    t.date     "limit_date"
+    t.date     "edit_limit_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "editions", ["id"], :name => "editions_pk", :unique => true
@@ -140,25 +144,26 @@ ActiveRecord::Schema.define(:version => 20130704005239) do
   create_table "pieces", :force => true do |t|
     t.integer  "composer_id",                :null => false
     t.string   "title",       :limit => 128, :null => false
+    t.integer  "page_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "pieces", ["composer_id"], :name => "composer_id_fk"
   add_index "pieces", ["id"], :name => "pieces_pk", :unique => true
-  add_index "pieces", ["title"], :name => "ak_title_pieces", :unique => true
+  add_index "pieces", ["title"], :name => "ak_title_pieces"
 
   create_table "registrations", :force => true do |t|
-    t.integer  "user_owner_id",   :null => false
+    t.integer  "user_owner_id",                  :null => false
     t.integer  "school_id"
     t.integer  "payment_id"
-    t.integer  "user_teacher_id", :null => false
-    t.integer  "edition_id",      :null => false
-    t.integer  "category_id",     :null => false
-    t.integer  "duration",        :null => false
+    t.integer  "user_teacher_id",                :null => false
+    t.integer  "edition_id",                     :null => false
+    t.integer  "category_id",                    :null => false
+    t.integer  "duration",                       :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "age_max"
+    t.integer  "age_max",         :default => 0
     t.integer  "timeslot_id"
   end
 
@@ -302,6 +307,7 @@ ActiveRecord::Schema.define(:version => 20130704005239) do
     t.integer  "invitation_limit"
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
+    t.integer  "school_id",                            :default => 1
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
@@ -312,6 +318,7 @@ ActiveRecord::Schema.define(:version => 20130704005239) do
   add_index "users", ["invitation_token"], :name => "index_users_on_invitation_token", :unique => true
   add_index "users", ["invited_by_id"], :name => "index_users_on_invited_by_id"
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+  add_index "users", ["school_id"], :name => "users_school_id_fk"
   add_index "users", ["unlock_token"], :name => "index_users_on_unlock_token", :unique => true
 
   add_foreign_key "agegroups", "categories", :name => "fk_agegroup_category__categori"
@@ -350,5 +357,6 @@ ActiveRecord::Schema.define(:version => 20130704005239) do
   add_foreign_key "timeslots", "editions", :name => "fk_timeslot_edition"
 
   add_foreign_key "users", "contactinfos", :name => "fk_users_contactin_contacti"
+  add_foreign_key "users", "schools", :name => "users_school_id_fk"
 
 end

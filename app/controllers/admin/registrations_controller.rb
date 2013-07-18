@@ -4,6 +4,7 @@ class Admin::RegistrationsController < ApplicationController
 
   def new
     @user = User.new
+    @user_school_id =
     @registrations = Registration.all
     @registration = Registration.new
     @current_edition = Setting.find_by_key('current_edition_id').value

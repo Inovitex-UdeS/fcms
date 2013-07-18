@@ -10,8 +10,8 @@
       <tr>
         <td><%= composer.id %></td>
         <td><%= composer.name %></td>
-        <td><%= composer.created_at %></td>
-        <td><%= composer.updated_at %></td>
+        <td><%= composer.created_at.strftime("%d/%m/%Y") %></td>
+        <td><%= composer.updated_at.strftime("%d/%m/%Y") %></td>
       </tr>
   <% end %>
 </table><hr>

@@ -187,3 +187,14 @@ function AddNewComposer() {
         }
     });
 }
+
+function ResetSelect2() {
+    $.each($('#performances .fields'), function(index, value) {
+        $(value).remove();
+    });
+
+    $.each($('#users .fields'), function(index, value) {
+        $(value).remove();
+    });
+    $('#totUsers').text($('#users .fields').length);
+}

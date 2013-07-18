@@ -12,7 +12,7 @@
         <td><%= accompanist.id %></label></td>
         <td><%= accompanist.first_name %> <%= accompanist.last_name %></td>
         <td><%= accompanist.email %></td>
-        <td><%= accompanist.created_at %></td>
+        <td><%= accompanist.created_at.strftime("%d/%m/%Y") %></td>
       </tr>
   <% end %>
   </tbody>

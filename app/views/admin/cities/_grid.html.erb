@@ -10,8 +10,8 @@
       <tr>
         <td><%= city.id %></td>
         <td><%= city.name %></td>
-        <td><%= city.created_at %></td>
-        <td><%= city.updated_at %></td>
+        <td><%= city.created_at.strftime("%d/%m/%Y") %></td>
+        <td><%= city.updated_at.strftime("%d/%m/%Y") %></td>
       </tr>
   <% end %>
 </table><hr>

@@ -12,7 +12,7 @@
         <td><%= juge.id %></label></td>
         <td><%= juge.first_name %> <%= juge.last_name %></td>
         <td><%= juge.email %></td>
-        <td><%= juge.created_at %></td>
+        <td><%= juge.created_at.strftime("%d/%m/%Y") %></td>
       </tr>
   <% end %>
   </tbody>

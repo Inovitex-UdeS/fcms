@@ -10,8 +10,8 @@
       <tr>
         <td><%= schoolboard.id %></td>
         <td><%= schoolboard.name %></td>
-        <td><%= schoolboard.created_at %></td>
-        <td><%= schoolboard.updated_at %></td>
+        <td><%= schoolboard.created_at.strftime("%d/%m/%Y") %></td>
+        <td><%= schoolboard.updated_at.strftime("%d/%m/%Y") %></td>
       </tr>
   <% end %>
 </table><hr>

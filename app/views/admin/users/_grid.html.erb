@@ -13,8 +13,8 @@
         <td><%= user.id %></label></td>
         <td><%= user.first_name %> <%= user.last_name %></td>
         <td><%= user.email %></td>
-        <td><%= user.created_at %></td>
-        <td><%= user.updated_at %></td>
+        <td><%= user.created_at.strftime("%d/%m/%Y") %></td>
+        <td><%= user.updated_at.strftime("%d/%m/%Y") %></td>
       </tr>
   <% end %>
   </tbody>

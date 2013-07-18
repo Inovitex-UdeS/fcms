@@ -13,9 +13,7 @@
       </div>
     </div>
 
-
     <%= f.hidden_field :school_id, :value => @current_edition %>
-
 
     <h5>Programme musical</h5>
     <%= f.association :category, prompt: "Choisissez une catégorie", label: false, :input_html => {:onchange => "changeCategory(this.value)"} %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130718024341) do
+ActiveRecord::Schema.define(:version => 20130718163102) do
 
   create_table "agegroups", :force => true do |t|
     t.integer  "edition_id",                  :null => false
@@ -307,6 +307,7 @@ ActiveRecord::Schema.define(:version => 20130718024341) do
     t.integer  "invitation_limit"
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
+    t.integer  "school_id",                            :default => 1
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
@@ -317,6 +318,7 @@ ActiveRecord::Schema.define(:version => 20130718024341) do
   add_index "users", ["invitation_token"], :name => "index_users_on_invitation_token", :unique => true
   add_index "users", ["invited_by_id"], :name => "index_users_on_invited_by_id"
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+  add_index "users", ["school_id"], :name => "users_school_id_fk"
   add_index "users", ["unlock_token"], :name => "index_users_on_unlock_token", :unique => true
 
   add_foreign_key "agegroups", "categories", :name => "fk_agegroup_category__categori"
@@ -355,5 +357,6 @@ ActiveRecord::Schema.define(:version => 20130718024341) do
   add_foreign_key "timeslots", "editions", :name => "fk_timeslot_edition"
 
   add_foreign_key "users", "contactinfos", :name => "fk_users_contactin_contacti"
+  add_foreign_key "users", "schools", :name => "users_school_id_fk"
 
 end

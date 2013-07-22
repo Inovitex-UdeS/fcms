@@ -21,6 +21,9 @@ class Admin::JugesController < ApplicationController
 
       if @juge
         @juge.roles << role
+        if usr_role = @juge.roles_users.where(role_id: role.id).first
+          usr_role.update_attribute(:confirmed, true)
+        end
 
         if @juge.save
           render :json => @juge

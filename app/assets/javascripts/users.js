@@ -8,6 +8,5 @@ $(document).ready(function() {
     });
 
     $('#user_contactinfo_attributes_city_id').typeahead();
-    $('#user_gender').typeahead();
     $('#user_school_id').typeahead();
 });

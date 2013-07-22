@@ -66,7 +66,7 @@ ActiveRecord::Schema.define(:version => 20130718163102) do
   add_index "composers", ["name"], :name => "ak_name_composer", :unique => true
 
   create_table "contactinfos", :force => true do |t|
-    t.integer  "city_id",                    :null => false
+    t.integer  "city_id"
     t.string   "telephone",   :limit => 16
     t.string   "address",     :limit => 128
     t.string   "address2",    :limit => 128

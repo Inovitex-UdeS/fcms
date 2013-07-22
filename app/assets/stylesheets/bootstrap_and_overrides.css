@@ -191,3 +191,5 @@ ul.nav li.dropdown:hover > ul.dropdown-menu{
 input.input-hidden {
     display: none;
 }
+
+.form-horizontal .control-label { width: auto; }

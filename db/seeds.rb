@@ -66,7 +66,7 @@ end
 
 # Edition
 Edition.create(year: 2012, start_date: '2012-05-01', end_date: '2012-05-06', limit_date: '2012-02-01', edit_limit_date: '2012-04-01')
-Edition.create(year: 2013, start_date: '2013-05-01', end_date: '2013-05-06', limit_date: '2013-02-01', edit_limit_date: '2013-04-01')
+edition2013 = Edition.create(year: 2013, start_date: '2013-05-01', end_date: '2013-05-06', limit_date: '2013-02-01', edit_limit_date: '2013-04-01')
 edition = Edition.create(year: 2014, start_date: '2014-04-30', end_date: '2014-05-05', limit_date: '2014-02-20', edit_limit_date: '2014-04-15')
 Setting.create(key: 'current_edition_id', value: edition.id)
 
@@ -133,7 +133,7 @@ CSV.foreach("#{Rails.root}/tools/eastern_schools.csv", :headers => true) do |row
     Schooltype.create(name: row[1])
   end
 
-  school_contact = Contactinfo.create(telephone: row[3], address: row[17], city_id: City.find_by_name(row[2]).id, province: 'Québec', postal_code: row[19])
+  school_contact = Contactinfo.create(telephone: row[3], address: row[16], city_id: City.find_by_name(row[2]).id, province: 'Québec', postal_code: row[18].gsub(/\s+/, ""))
   School.create(name: row[0], contactinfo_id: school_contact.id,  schooltype_id: Schooltype.find_by_name(row[1]).id, schoolboard_id: Schoolboard.find_by_name(row[14]).id)
 end
 
@@ -187,25 +187,37 @@ accom.roles << accom_role
 judge.roles << judge_role
 RolesUser.where("user_id=#{judge.id} AND role_id=#{judge_role.id}").first.update_attribute(:confirmed, true)
 
+unless true  #test Laurens pour exportation excel
+             # Composers
+  composer1 = Composer.create(name: 'SOR F.')
+  composer2 = Composer.create(name: 'SANZ G.')
+
+# Pieces
+  piece1 = Piece.create(composer_id: composer1.id, title: 'Theme et variations op.45 no 3')
+  piece2 = Piece.create(composer_id: composer2.id, title: 'Canarios')
+
 # Registration
-#registration1 = Registration.create(user_teacher_id: user2.id, user_owner_id: user1.id, school_id: School.find(1).id, edition_id: edition1.id, category_id: category1.id, duration: 5)
-#registration2 = Registration.create(user_teacher_id: user2.id, user_owner_id: user4.id, school_id: School.find(2).id, edition_id: edition1.id, category_id: category1.id, duration: 5)
-#registration3 = Registration.create(user_teacher_id: user2.id, user_owner_id: user4.id, school_id: School.find(3).id, edition_id: edition1.id, category_id: category1.id, duration: 5)
-#registration4 = Registration.create(user_teacher_id: user2.id, user_owner_id: user4.id, school_id: School.find(4).id, edition_id: edition1.id, category_id: category1.id, duration: 5)
+  registration1 = Registration.create(user_teacher_id: teach.id, user_owner_id: part1.id, school_id: School.find(1).id, edition_id: edition2013.id, category_id: category5.id, duration: 5)
+  registration2 = Registration.create(user_teacher_id: teach.id, user_owner_id: part2.id, school_id: School.find(2).id, edition_id: edition2013.id, category_id: category5.id, duration: 5)
+  registration3 = Registration.create(user_teacher_id: teach.id, user_owner_id: part2.id, school_id: School.find(3).id, edition_id: edition2013.id, category_id: category5.id, duration: 5)
+  registration4 = Registration.create(user_teacher_id: teach.id, user_owner_id: part2.id, school_id: School.find(4).id, edition_id: edition2013.id, category_id: category5.id, duration: 5)
 
 # Registrations_Users
-#registrationsuser1 = RegistrationsUser.create(instrument_id: inst1.id, registration_id: registration1.id, user_id: user1.id)
-#registrationsuser2 = RegistrationsUser.create(instrument_id: inst1.id, registration_id: registration2.id, user_id: user4.id)
-#registrationsuser3 = RegistrationsUser.create(instrument_id: inst1.id, registration_id: registration3.id, user_id: user4.id)
-#registrationsuser4 = RegistrationsUser.create(instrument_id: inst1.id, registration_id: registration4.id, user_id: user4.id)
+  registrationsuser1 = RegistrationsUser.create(instrument_id: inst1.id, registration_id: registration1.id, user_id: part1.id)
+  registrationsuser2 = RegistrationsUser.create(instrument_id: inst1.id, registration_id: registration2.id, user_id: part2.id)
+  registrationsuser3 = RegistrationsUser.create(instrument_id: inst1.id, registration_id: registration3.id, user_id: part2.id)
+  registrationsuser4 = RegistrationsUser.create(instrument_id: inst1.id, registration_id: registration4.id, user_id: part2.id)
 
 # Performance
-#performance1 = Performance.create(piece_id: piece1.id, registration_id: registration1.id)
-#performance2 = Performance.create(piece_id: piece2.id, registration_id: registration1.id)
+  performance1 = Performance.create(piece_id: Piece.find(1).id, registration_id: registration1.id)
+  performance2 = Performance.create(piece_id: Piece.find(2).id, registration_id: registration1.id)
+end
 
-DEMO_PLANIF = false
+DEMO_PLANIF = true
 if DEMO_PLANIF
   puts "Loading 2013 Excel Data..."
+
+  demo_edition = Edition.find_by_year(2013)
 
   count = 0
   CSV.foreach("#{Rails.root}/tools/test.csv") do |row|
@@ -228,8 +240,8 @@ if DEMO_PLANIF
       usr = User.where("first_name='#{row[5].strip}' and last_name='#{row[6].strip}'")
       usr.first ?
           usr = usr.first :
-          usr = User.create(last_name: row[6].strip, first_name: row[5].strip, gender: true, birthday: '1991-07-29', email: count.to_s+"@inovitex.com", password: 'password', contactinfo_id: Contactinfo.find(1+rand(6)).id, confirmed_at: '2013-05-28 02:01:11.70392')
-      reg = Registration.create(user_teacher_id: teach.id, user_owner_id: usr.id, school_id: sch.id, edition_id: edition.id, category_id: cat.id, duration: row[7].to_i, age_max: 6+rand(20))
+          usr = User.create(last_name: row[6].strip, first_name: row[5].strip, gender: true, birthday: '1991-07-29', email: count.to_s+"@inovitex.com", password: 'password', contactinfo_id: Contactinfo.find(1+rand(3)).id, confirmed_at: '2013-05-28 02:01:11.70392')
+      reg = Registration.create(user_teacher_id: teach.id, user_owner_id: usr.id, school_id: sch.id, edition_id: demo_edition.id, category_id: cat.id, duration: row[7].to_i, age_max: 6+rand(20))
       RegistrationsUser.create(instrument_id: instr.id, registration_id: reg.id, user_id: usr.id)
 
     else
@@ -239,10 +251,10 @@ if DEMO_PLANIF
       usr = User.where("first_name='#{prenoms[0].to_s}' and last_name='#{noms[0].to_s}'")
       usr.first ?
           usr = usr.first :
-          usr = User.create(last_name: noms[0].to_s, first_name: prenoms[0].to_s, gender: true, birthday: '1991-07-29', email: count.to_s+"@inovitex.com", password: 'password', contactinfo_id: Contactinfo.find(1+rand(6)).id, confirmed_at: '2013-05-28 02:01:11.70392')
+          usr = User.create(last_name: noms[0].to_s, first_name: prenoms[0].to_s, gender: true, birthday: '1991-07-29', email: count.to_s+"@inovitex.com", password: 'password', contactinfo_id: Contactinfo.find(1+rand(3)).id, confirmed_at: '2013-05-28 02:01:11.70392')
 
 
-      reg = Registration.create(user_teacher_id: teach.id, user_owner_id: usr.id, school_id: sch.id, edition_id: edition.id, category_id: cat.id, duration: row[7].to_i, age_max: 6+rand(20))
+      reg = Registration.create(user_teacher_id: teach.id, user_owner_id: usr.id, school_id: sch.id, edition_id: demo_edition.id, category_id: cat.id, duration: row[7].to_i, age_max: 6+rand(20))
 
 
       prenoms.each_index { |i|
@@ -250,11 +262,22 @@ if DEMO_PLANIF
         tmp = User.where("first_name='#{prenoms[i].to_s}' and last_name='#{noms[i].to_s}'")
         tmp.first ?
             tmp = tmp.first :
-            tmp = User.create(last_name: noms[i], first_name: prenoms[i], gender: true, birthday: '1991-07-29', email: count.to_s+"-"+i.to_s+"@inovitex.com", password: 'password', contactinfo_id: Contactinfo.find(1), confirmed_at: '2013-05-28 02:01:11.70392')
+            tmp = User.create(last_name: noms[i], first_name: prenoms[i], gender: true, birthday: '1991-07-29', email: count.to_s+"-"+i.to_s+"@inovitex.com", password: 'password', contactinfo_id: Contactinfo.find(1+rand(3)).id, confirmed_at: '2013-05-28 02:01:11.70392')
 
         RegistrationsUser.create(instrument_id: instr.id, registration_id: reg.id, user_id: tmp.id)
       }
 
     end
+  end
+
+  ts1 = Timeslot.create(label: "Piano XX-YY ans", edition_id: demo_edition.id, category_id: category1.id, duration:101)
+  ts2 = Timeslot.create(label: "Autres 75 et moins", edition_id: demo_edition.id, category_id: category1.id, duration:57)
+
+  Registration.where("id IN (1, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32)").each do |r|
+    r.update_attribute(:timeslot_id, ts1.id)
+  end
+
+  Registration.where("id IN (13, 14, 15, 16, 17, 18, 19)").each do |r|
+    r.update_attribute(:timeslot_id, ts2.id)
   end
 end

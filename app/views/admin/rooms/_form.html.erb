@@ -1,35 +1,60 @@
 <h5>Ajouter ou modifier un local</h5>
 <div class="col">
   <%= simple_form_for [:admin, @room] do |f| %>
-      <div class="input-prepend">
-        <span class="add-on"><i class="iconic-hash"></i></span>
-        <%= f.text_field :id, :class => 'input-small', :disabled => true%>
+      <div class="control-group">
+        <label class="control-label"><b>Identifiant</b></label>
+        <div class="controls">
+          <div class="input-prepend">
+            <span class="add-on"><i class="iconic-hash"></i></span>
+            <%= f.text_field :id, :class => 'input-small', :disabled => true%>
+          </div>
+          <br />
+        </div>
       </div>
-      <br />
 
-      <div class="input-prepend">
-        <span class="add-on"><i class="iconic-hash"></i></span>
-        <%= f.text_field :capacity, :autofocus => true, :placeholder => 'Capacité', :class => 'input-small' %>
+      <div class="control-group">
+        <label class="control-label"><b>Capacité</b></label>
+        <div class="controls">
+          <div class="input-prepend">
+            <span class="add-on"><i class="iconic-hash"></i></span>
+            <%= f.text_field :capacity, :autofocus => true, :placeholder => 'Capacité', :class => 'input-small' %>
+          </div>
+          <br />
+        </div>
       </div>
-      <br />
 
-      <div class="input-prepend">
-        <span class="add-on"><i class="icon-font"></i></span>
-        <%= f.text_field :name, :placeholder => 'Nom du local', :class => 'input-xlarge' %>
+      <div class="control-group">
+        <label class="control-label"><b>Nom du local</b></label>
+        <div class="controls">
+          <div class="input-prepend">
+            <span class="add-on"><i class="icon-font"></i></span>
+            <%= f.text_field :name, :placeholder => 'Nom du local', :class => 'input-xlarge' %>
+          </div>
+          <br />
+        </div>
       </div>
-      <br />
 
-      <div class="input-prepend">
-        <span class="add-on"><i class="icon-map-marker"></i></span>
-        <%= f.text_field :location, :placeholder => 'Localtion', :class => 'input-xlarge' %>
+      <div class="control-group">
+        <label class="control-label"><b>Localtion</b></label>
+        <div class="controls">
+          <div class="input-prepend">
+            <span class="add-on"><i class="icon-map-marker"></i></span>
+            <%= f.text_field :location, :placeholder => 'Localtion', :class => 'input-xlarge' %>
+          </div>
+          <br />
+        </div>
       </div>
-      <br />
 
-      <div class="input-prepend">
-        <span class="add-on"><i class="icon-font"></i></span>
-        <%= f.text_field :description, :placeholder => 'Description du local', :class => 'input-xlarge' %>
+      <div class="control-group">
+        <label class="control-label"><b>Description du local</b></label>
+        <div class="controls">
+          <div class="input-prepend">
+            <span class="add-on"><i class="icon-font"></i></span>
+            <%= f.text_field :description, :placeholder => 'Description du local', :class => 'input-xlarge' %>
+          </div>
+          <br />
+        </div>
       </div>
-      <br />
       <div class="form-actions">
         <%= f.button :submit, 'Enregistrer' , :class => 'btn btn-primary' %>
       </div>

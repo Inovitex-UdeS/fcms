@@ -11,7 +11,6 @@ class Users::InvitationsController < Devise::InvitationsController
   def create
     begin
       @user = User.new(params[:user])
-      @user.update_attribute(:birthday, '1980-05-12')
       @user.update_attribute(:password, 'password')
 
       respond_to do |format|

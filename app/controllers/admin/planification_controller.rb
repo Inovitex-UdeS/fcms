@@ -137,7 +137,7 @@ class Admin::PlanificationController < ApplicationController
       civils = cities = postals = teacher =  teacher_email = ""
       montant = 0
 
-      if (group = Agegroup.where(edition_id:1, :category_id=> reg.category).where("#{reg.age_max} BETWEEN min and max").first)
+      if (group = Agegroup.where(edition_id: Setting.find_by_key('current_edition_id').value , :category_id=> reg.category).where("#{reg.age_max} BETWEEN min and max").first)
         montant = group.fee * reg.users.count
       end
 
@@ -179,7 +179,7 @@ class Admin::PlanificationController < ApplicationController
           # Create subtab
           sheet = excel_doc.create_worksheet  :name =>  cat.name.truncate(12)
           # Adjust column width
-          headers = ["", "#", "Catégorie", "Participants", "Instruments",  "Durée", "Âge"]
+          headers = ["", "#", "Catégorie", "Participants", "Instruments",  "Durée", "Âge", "Compositeur", "Oeuvre"]
           sheet.column(0).width = 20
           headers[1..-1].each_index do |i|
             sheet.column(i).width = headers.at(i).to_s.length+3
@@ -197,6 +197,13 @@ class Admin::PlanificationController < ApplicationController
 
             ts.registrations.each do |reg|
               participants = instruments = ''
+              pieces = ""
+              composers = ""
+
+              reg.performances.each do |perf|
+                pieces += "#{perf.piece.title}" + "\n"
+                composers += "#{perf.piece.composer.name}" + "\n"
+              end
 
               reg.users.each do |u|
                 participants += "#{u.name}" + "\n"
@@ -206,13 +213,50 @@ class Admin::PlanificationController < ApplicationController
                 instruments += "#{i.name}" + "\n"
               end
 
-              sheet.row(irow).replace ['', reg.id, reg.category.name, participants, instruments, reg.duration,  reg.age_max]
+              sheet.row(irow).replace ['', reg.id, reg.category.name, participants, instruments, reg.duration,  reg.age_max, composers, pieces]
               irow+=1
             end
+            sheet.row(irow).replace ['','','','','','Durée totale:', ts.duration ]
+            irow+=2
           end
         end
       end
     end
+
+
+    sheet_user = excel_doc.create_worksheet  :name =>  "USERS"
+    headers = ["Nom", "Prénom", "Âge", "Rôle(s)", "Nombre d'inscriptions", "Courriel","#Tel",
+               "Rue","Ville", "Code postal",]
+    sheet_user.row(0).replace headers
+    sheet_user.column(0).width = 20
+    headers.each_index do |i|
+      sheet_user.column(i).width = headers.at(i).to_s.length+3
+    end
+    sheet_user.row(0).default_format = header_format
+
+    i = 1
+    User.all.each do |u|
+      roles = ""
+      u.roles.each do |role|
+        roles += "#{role.name} \n"
+      end
+
+      if c = u.contactinfo
+        tel = c.telephone
+        rue = c.address
+        ville = c.city.name
+        post = c.postal_code
+      else
+        tel   = ""
+        rue   = ""
+        ville = ""
+        post  = ""
+      end
+      regcount = u.registrations.where(edition_id: Setting.find_by_key('current_edition_id')).size
+      sheet_user.row(i).replace [u.last_name, u.first_name, u.age , roles, regcount, u.email, tel,rue, ville, post]
+      i += 1
+    end
+
 
     # Sauvegarder le fichier excel
     spreadsheet = StringIO.new

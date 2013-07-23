@@ -9,6 +9,7 @@
         <th>Professeur</th>
         <th>Durée</th>
         <th>Année de l'édition</th>
+        <th></th>
       </tr>
   </thead>
   <tbody>
@@ -45,8 +46,12 @@
             <% end %>
           </td>
           <td><%= reg.teacher.first_name %> <%= reg.teacher.last_name %></td>
-          <td> <%= reg.duration %> min. </td>
-          <td> <%= reg.edition.year %> </td>
+          <td><%= reg.duration %> min. </td>
+          <td><%= reg.edition.year %> </td>
+          <td>
+            <% if reg.user_owner_id == current_user.id %>
+                <a class="btn btn-primary" href="/registrations/<%= reg.id %>/edit">Modifier</a></td>
+            <% end %>
         </tr>
       <% end %>
   </tbody>

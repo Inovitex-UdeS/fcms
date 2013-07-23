@@ -92,4 +92,75 @@ class RegistrationsController < ApplicationController
       render :json => { :message => e.message }, :status => :unprocessable_entity
     end
   end
+
+  def edit
+    @registration = Registration.find(params[:id])
+    if @registration.user_owner_id  != current_user.id
+      redirect_to root_path, :alert => "Vous n'êtes pas autorisé à consulter les inscriptions des autres"
+    end
+    @teachers = User.teachers
+    @participants = User.participants
+    @user_school = @registration.owner.school_id
+    @current_edition = @registration.edition_id
+    @user = User.new
+    @composer = Composer.new
+  end
+
+  def update
+    begin
+      @registration = Registration.find(params[:id])
+
+      if current_user.id != @registration.user_owner_id
+        render :json => { :message => "Vous n'êtes pas le propriétaire de l'enregistrement" }, :status => :unprocessable_entity
+      end
+
+      # Manually update registration
+      @registration.user_teacher_id = params[:registration][:user_teacher_id]
+      @registration.duration = params[:registration][:duration].to_i.ceil
+      @registration.category_id = params[:registration][:category_id]
+
+      if !@registration.save
+        render :json => { :message => @registration.errors.full_messages }, :status => :unprocessable_entity
+      end
+
+      @registration.performances.delete_all
+
+      # Manually create performances
+      if params[:registration][:performances_attributes]
+        params[:registration][:performances_attributes].each do |perf|
+          composer_id = perf[1][:piece_attributes][:composer_id]
+          piece_title = perf[1][:piece_attributes][:title]
+
+          piece = Piece.where("composer_id=#{composer_id} AND title='#{piece_title}'").first
+          piece ||= Piece.create(title: piece_title, composer_id: composer_id)
+
+          Performance.create(registration_id: @registration.id, piece_id: piece.id)
+        end
+      end
+
+      RegistrationsUser.delete_all("registration_id = #{@registration.id}")
+
+      # Create registrations_user for the current user
+      RegistrationsUser.create(user_id: current_user.id, instrument_id:  params[:registration][:instrument_ids], registration_id: @registration.id)
+
+      # Create remaining registration_users
+      if params[:registration][:registrations_users_attributes]
+        params[:registration][:registrations_users_attributes].each do |user|
+          RegistrationsUser.create(user_id: user[1][:user_id], instrument_id:  user[1][:instrument_id], registration_id: @registration.id)
+        end
+      end
+
+      # Update age max
+      age_max = 0;
+      @registration.users.each do |user|
+        age_max = user.age if user.age > age_max
+      end
+      @registration.update_attribute(:age_max, age_max)
+
+      render :json => {:registration => @registration, :message => 'L\'inscription a été crée avec succès'}
+    rescue => e
+      render :json => { :message => e.message }, :status => :unprocessable_entity
+    end
+  end
+
 end

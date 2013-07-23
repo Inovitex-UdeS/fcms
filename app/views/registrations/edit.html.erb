@@ -1,0 +1,44 @@
+<% content_for(:head) do %>
+<script type="text/javascript">
+    //= require datatables
+    //= require registrations
+
+    $(document).ready(function(){
+
+        $("#performances > tbody").children().remove();
+        $("#users > tbody").children().remove();
+
+        $("#AutresParticipants").hide();
+        changeCategory($('#registration_category_id').val());
+
+        $('.edit_registration').on('ajax:success', function(evt, data, status, xhr) {
+            fcms.showMessage('La modification de l\'inscription au festival a été complétée avec succès!');
+        });
+
+        $('.edit_registration').on('ajax:error', function(event, xhr, status) {
+            fcms.showMessage(xhr.responseText, 3);
+        });
+
+        $('.section-submenu').html("<h4><p><i class=\"icon-edit\"></i> Inscriptions</p></h4><ul><li id=\"key_2_1\"><a href=\"/registrations\">Voir ses inscriptions</a></li><li class=\"active simple-navigation-active-leaf\" id=\"key_2_2\"><a href=\"/registrations/new\" class=\"active\">S'inscrire au concours</a></li><li class=\"divider\" id=\"key_2_4\"><span></span></li><li id=\"key_2_5\"><a href=\"#\">Payer son inscription</a></li></ul>");
+    });
+
+</script>
+
+<% end %>
+
+<h3>Modification de l'inscription</h3>
+
+<% if not isEndOfEditRegistrations? %>
+    <%= simple_nested_form_for @registration, :remote => true do |f| %>
+        <%= f.hidden_field :user_owner_id, :value => @registration.user_owner_id %>
+        <%= render :partial => '/registrations/form', :locals => {:f => f} %>
+    <% end %>
+    <%= render :partial => '/registrations/addcomposer' %>
+    <%= render :partial => '/registrations/inviteuser' %>
+<% else %>
+    <p>La période de modification des inscriptions pour cette édition est terminée.</p>
+    <p>Au plaisir de vous voir au festival!</p>
+    <br />
+    <p>Merci</p>
+    <p>L'équipe du Festival Concours de Musique de Sherbrooke</p>
+<% end %>

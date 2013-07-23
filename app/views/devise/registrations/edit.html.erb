@@ -4,11 +4,11 @@
   <%= devise_error_messages! %>
 
     <div class="control-group">
-      <label class="control-label"><b>Adresse courriel</b></label>
+      <label class="control-label"><h5>Adresse courriel</h5></label>
       <div class="controls">
         <div class="input-prepend">
           <span class="add-on"><i class="icon-envelope"></i></span>
-          <%= f.email_field :email, :class => 'input-xlarge', :autofocus => true, :placeholder => "Courriel" %>
+          <%= f.email_field :email, :class => 'input-xlarge' %>
         </div>
         <br />
       </div>
@@ -19,33 +19,33 @@
   <% end %>
 
     <div class="control-group">
-      <label class="control-label"><b>Nouveau mot de passe</b></label>
+      <label class="control-label"><h5>Nouveau mot de passe</h5></label>
       <div class="controls">
         <div class="input-prepend">
           <span class="add-on"><i class="icon-lock"></i></span>
-          <%= f.password_field :password, :'data-toggle' => 'tooltip', :'data-animation' => true,  :'data-original-title' => "Laissez vide si vous ne voulez pas le changer", :class => 'input-xlarge', :autocomplete => 'off', :placeholder => "Nouveau mot de passe" %>
+          <%= f.password_field :password, :'data-toggle' => 'tooltip', :'data-animation' => true,  :'data-original-title' => "Laissez vide si vous ne voulez pas le changer", :class => 'input-xlarge', :autocomplete => 'off' %>
         </div>
         <br />
       </div>
     </div>
 
     <div class="control-group">
-      <label class="control-label"><b>Confirmez votre mot de passe</b></label>
+      <label class="control-label"><h5>Confirmation du nouveau mot de passe</h5></label>
       <div class="controls">
         <div class="input-prepend">
           <span class="add-on"><i class="icon-lock"></i></span>
-          <%= f.password_field :password_confirmation, :'data-toggle' => 'tooltip', :'data-animation' => true,  :'data-original-title' => "Laissez vide si vous ne voulez pas le changer", :class => 'input-xlarge', :autocomplete => 'off', :placeholder => "Confirmation du nouveau mot de passe" %>
+          <%= f.password_field :password_confirmation, :'data-toggle' => 'tooltip', :'data-animation' => true,  :'data-original-title' => "Laissez vide si vous ne voulez pas le changer", :class => 'input-xlarge', :autocomplete => 'off'%>
         </div>
         <br />
       </div>
     </div>
 
     <div class="control-group">
-      <label class="control-label"><b>Ancien mot de passe</b></label>
+      <label class="control-label"><h5>Ancien mot de passe</h5></label>
       <div class="controls">
         <div class="input-prepend">
           <span class="add-on"><i class="icon-lock"></i></span>
-          <%= f.password_field :current_password, :'data-toggle' => 'tooltip', :'data-animation' => true,  :'data-original-title' => "Vous devez écrire votre ancien mot de passe pour confirmer le changement", :class => 'input-xlarge', :autocomplete => 'off', :placeholder => "Ancien mot de passe" %><br />
+          <%= f.password_field :current_password, :'data-toggle' => 'tooltip', :'data-animation' => true,  :'data-original-title' => "Vous devez écrire votre ancien mot de passe pour confirmer le changement", :class => 'input-xlarge', :autocomplete => 'off'%><br />
         </div>
         <br />
       </div>

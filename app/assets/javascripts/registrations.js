@@ -26,7 +26,7 @@ $(document).ready(function(){
 });
 
 function changeCategory(category_id) {
-    if (category_id=="" || category_id=="Choisissez une classe") return; // please select - possibly you want something else here
+    if (category_id=="" || category_id=="Classe") return; // please select - possibly you want something else here
     $.getJSON('/categories/' + category_id, function(data) {
         nbPerfMax = data['category']['nb_perf_max'];
         nbPerfMin = data['category']['nb_perf_min'];

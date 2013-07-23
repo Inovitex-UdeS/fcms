@@ -3,11 +3,10 @@
 
     <h5>Professeur</h5>
     <div class="control-group">
-      <label class="control-label"><b>Choisissez un professeur</b></label>
       <div class="controls">
         <div class="input-prepend">
           <span class="add-on"><i class="icon-user"></i></span>
-          <%= f.association :teacher, wrapper: false, collection: @teachers, prompt: "Choisissez un professeur", label_method: lambda { |usr| usr.first_name + " " + usr.last_name + " (" + usr.email + ")"}, label: false, :input_html => {:class => "input-large"} %>
+          <%= f.association :teacher, wrapper: false, collection: @teachers, label_method: lambda { |usr| usr.first_name + " " + usr.last_name + " (" + usr.email + ")"}, label: false, :input_html => {:class => "input-large"} %>
         </div>
         <br />
       </div>
@@ -16,8 +15,8 @@
     <%= f.hidden_field :school_id, :value => @current_edition %>
 
     <h5>Programme musical</h5>
-    <%= f.association :category, prompt: "Choisissez une catégorie", label: false, :input_html => {:onchange => "changeCategory(this.value)"} %>
-    <%= f.association :instruments, prompt: "Choisissez un instrument", label: false,  as: :collection_select %>
+    <%= f.association :category, prompt: "Classe", label: false, :input_html => {:onchange => "changeCategory(this.value)"} %>
+    <%= f.association :instruments, prompt: "Instrument", label: false,  as: :collection_select %>
 
     <h5>Pièces performées</h5>
 
@@ -69,6 +68,6 @@
     </div>
 
     <div class="form-actions">
-      <%= f.button :submit, 'Enregistrer l\'inscription' , :class => 'btn btn-primary' %>
+      <%= f.button :submit, 'Enregistrer' , :class => 'btn btn-primary' %>
       <%= button_tag "Recommencer", type: :reset %>
     </div>

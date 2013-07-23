@@ -1,34 +1,39 @@
-<h5>Ajouter ou modifier un utilisateur</h5>
+<h4>Ajouter ou modifier un utilisateur</h4>
 
 <%= simple_form_for [:admin, @user] do |f| %>
 
     <div class="input-prepend">
+      <label class="control-label"><h5>Identifiant</h5></label>
       <span class="add-on"><i class="iconic-hash"></i></span>
       <%= f.text_field :id, :class => 'input-small', :readonly => true%>
     </div>
     <br />
 
     <div class="input-prepend">
+      <label class="control-label"><h5>Prénom</h5></label>
       <span class="add-on"><i class="icon-user"></i></span>
-      <%= f.text_field :first_name, :autofocus => true, :placeholder => 'Prénom', :class => 'input-xlarge' %>
+      <%= f.text_field :first_name, :class => 'input-xlarge' %>
     </div>
     <br />
     <div class="input-prepend">
+      <label class="control-label"><h5>Nom de famille</h5></label>
       <span class="add-on"><i class="icon-user"></i></span>
-      <%= f.text_field :last_name, :placeholder => 'Nom', :class => 'input-xlarge' %>
+      <%= f.text_field :last_name, :class => 'input-xlarge' %>
     </div>
     <br />
 
     <div class="input-prepend">
+      <label class="control-label"><h5>Sexe</h5></label>
       <span class="add-on"><i class="icon-user"></i></span>
-      <%= f.select :gender, options_for_select([['Masculin', true], ['Féminin', false]]), {:prompt => 'Choisissez votre sexe'}, {:class => 'input-xlarge select'}%>
+      <%= f.select :gender, options_for_select([['Masculin', true], ['Féminin', false]]), {:class => 'input-xlarge select'}%>
     </div>
     <br />
 
 
     <div class="input-prepend">
+      <label class="control-label"><h5>Date de fête</h5></label>
       <span class="add-on"><i class="icon-calendar"></i></span>
-      <%= f.text_field :birthday, :placeholder => 'Date de naissance', :class => 'input-medium', :'data-mask' => '9999-99-99' %><br />
+      <%= f.text_field :birthday, :class => 'input-medium', :'data-mask' => '9999-99-99' %><br />
     </div>
     <br />
 

@@ -1,8 +1,8 @@
-<h5>Ajouter ou modifier un compsiteur</h5>
+<h4>Ajouter ou modifier un compsiteur</h4>
 <div class="col">
     <%= simple_form_for [:admin, @composer] do |f| %>
       <div class="control-group">
-        <label class="control-label"><b>Identifiant</b></label>
+        <label class="control-label"><h5>Identifiant</h5></label>
         <div class="controls">
           <div class="input-prepend">
             <span class="add-on"><i class="iconic-hash"></i></span>
@@ -13,11 +13,11 @@
       </div>
 
       <div class="control-group">
-        <label class="control-label"><b>Nom du compositeur</b></label>
+        <label class="control-label"><h5>Nom du compositeur</h5></label>
         <div class="controls">
           <div class="input-prepend">
             <span class="add-on"><i class="icon-font"></i></span>
-            <%= f.text_field :name, :autofocus => true, :placeholder => 'Nom du compositeur', :class => 'input-xlarge' %>
+            <%= f.text_field :name, :class => 'input-xlarge' %>
           </div>
           <br />
         </div>

@@ -1,8 +1,8 @@
-<h5>Ajouter ou modifier une oeuvre</h5>
+<h4>Ajouter ou modifier une oeuvre</h4>
 <div class="col">
     <%= simple_form_for [:admin, @piece] do |f| %>
       <div class="control-group">
-        <label class="control-label"><b>Identifiant</b></label>
+        <label class="control-label"><h5>Identifiant</h5></label>
         <div class="controls">
           <div class="input-prepend">
             <span class="add-on"><i class="iconic-hash"></i></span>
@@ -13,22 +13,22 @@
       </div>
 
       <div class="control-group">
-        <label class="control-label"><b>Titre de la pièce</b></label>
+        <label class="control-label"><h5>Titre</h5></label>
         <div class="controls">
           <div class="input-prepend">
             <span class="add-on"><i class="icon-font"></i></span>
-            <%= f.text_field :title, :placeholder => 'Titre de la pièce', :class => 'input-xlarge' %>
+            <%= f.text_field :title, :class => 'input-xlarge' %>
           </div>
           <br />
         </div>
       </div>
 
       <div class="control-group">
-        <label class="control-label"><b>Choisissez le compositeur</b></label>
+        <label class="control-label"><h5>Compositeur</h5></label>
         <div class="controls">
           <div class="input-prepend">
             <span class="add-on"><i class="icon-user"></i></span>
-            <%= f.association :composer, :label => false, :prompt => 'Choisissez le compositeur', :input_html => { :class => 'input-xlarge'}, :wrapper => false %>
+            <%= f.association :composer, label: false, :input_html => { :class => 'input-xlarge'}, :wrapper => false %>
           </div>
           <br />
         </div>

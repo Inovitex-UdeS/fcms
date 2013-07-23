@@ -21,7 +21,7 @@
           success: function(data) {
             fcms.currentCategory = data;
 
-            var tsInput = $('#input-timeslot-id');
+            var tsInput = $('#select-timeslot');
             tsInput.find('option').remove().end().append('<option></option>');
             _.each(fcms.currentCategory.timeslots, function(ts) {
               $('<option></option>').attr('value', ts.id).text(ts.label).appendTo(tsInput);
@@ -37,7 +37,7 @@
       });
 
       // On timeslot selection
-      $('#input-timeslot-id').on('change', function() {
+      $('#select-timeslot').on('change', function() {
         var selectedOption = $(this).children("option:selected");
         var timeslotId = selectedOption.attr('value');
         var timeslotName = selectedOption.text();
@@ -50,7 +50,6 @@
           url: "http://localhost:3000/admin/planification/timeslots/" + timeslotId,
           success: function(data) {
             loadTimeslot(data);
-            $('.panel:not(#panel-categories)').show('fast');
           },
           error: function() {
             alert("La sous-catégorie " + timeslotName + " n'a pas pu être chargée.");
@@ -58,35 +57,23 @@
         });
       });
 
-      // Enable select-all and select-none buttons
-      $('#btn-select-all-down') .click(function() { $('#table-inscriptions-selected tr').addClass('selected'); });
-      $('#btn-select-none-down').click(function() { $('#table-inscriptions-selected tr').removeClass('selected'); });
+      // On timeslot creation
+      $('#btn-create-timeslot').click(function() {
+        loadTimeslot();
+      });
 
-      $('#btn-select-all-up')   .click(function() { $('#table-inscriptions-all tr').addClass('selected'); });
-      $('#btn-select-none-up')  .click(function() { $('#table-inscriptions-all tr').removeClass('selected'); });
+      // Enable select-all and select-none buttons
+      $('#btn-select-all-down')     .click(function() { $('#table-inscriptions-selected tr.draggable').addClass('selected'); });
+      $('#btn-select-none-down')    .click(function() { $('#table-inscriptions-selected tr.draggable').removeClass('selected'); });
+
+      $('#btn-select-all-up')       .click(function() { $('#table-inscriptions-all      tr.draggable').addClass('selected'); });
+      $('#btn-select-none-up')      .click(function() { $('#table-inscriptions-all      tr.draggable').removeClass('selected'); });
 
       // Enable arrow buttons
-      $('#btn-move-all-down')       .click(function() { $('#table-inscriptions-selected tr').appendTo('#table-inscriptions-all'); });
-      $('#btn-move-selected-down')  .click(function() { $('#table-inscriptions-selected tr.selected').appendTo('#table-inscriptions-all'); });
-      $('#btn-move-all-up')         .click(function() { $('#table-inscriptions-all tr').appendTo('#table-inscriptions-selected'); });
-      $('#btn-move-selected-up')    .click(function() { $('#table-inscriptions-all tr.selected').appendTo('#table-inscriptions-selected'); });
-
-      // Enable mouse table draggers
-      $(document).on('mousedown', '.table-dragger', function(e){
-        var id = $(this).data('for-table');
-        var tbody = $('#'+id).parent('.dataTables_scrollBody');
-
-        var sH = tbody.height();
-        var sX = e.pageY;
-
-        $(document).on('mouseup', function(me){
-          $(document).off('mouseup').off('mousemove');
-        });
-
-        $(document).on('mousemove', function(me){
-          tbody.height(sH - (sX - me.pageY));
-        });
-      });
+      $('#btn-move-all-down')       .click(function() { moveRows($('#table-inscriptions-selected tr.draggable'),          fcms.table_selected, fcms.table_all); });
+      $('#btn-move-selected-down')  .click(function() { moveRows($('#table-inscriptions-selected tr.draggable.selected'), fcms.table_selected, fcms.table_all); });
+      $('#btn-move-all-up')         .click(function() { moveRows($('#table-inscriptions-all      tr.draggable'),          fcms.table_all, fcms.table_selected); });
+      $('#btn-move-selected-up')    .click(function() { moveRows($('#table-inscriptions-all      tr.draggable.selected'), fcms.table_all, fcms.table_selected); });
     });
 
   </script>
@@ -111,25 +98,47 @@
   <div class="panel" id="panel-categories">
     <h4>Catégories d'inscription</h4>
     <div class="form-inline">
-      <label for="input-timeslot-id">Catégorie d'inscription: </label>&nbsp;&nbsp;
-      <select id="input-timeslot-id"><option></option><option>Récital piano 14 ans</option></select>
-      <a class="btn btn-small btn-success" href="#"><i class="icon-plus"></i></a>
-      <a class="btn btn-small btn-danger " href="#"><i class="icon-minus"></i></a>
+      <label for="select-timeslot">Catégorie d'inscription: </label>&nbsp;&nbsp;
+      <select id="select-timeslot"></select>
+      <a class="btn btn-small btn-success" href="#" id="btn-create-timeslot"><i class="icon-plus"></i></a>
+      <a class="btn btn-small btn-danger " href="#" id="btn-delete-timeslot"><i class="icon-minus"></i></a>
     </div>
   </div>
 
   <div class="panel" id="panel-selected">
     <hr>
 
+    <div id="timeslot-buttons-top">
+      <button class="btn btn-success btn-small input-large" id="btn-save-timeslot">Enregistrer les modifications</button><br />
+      <button class="btn btn-danger btn-small input-large" id="btn-remove-timeslot">Supprimer la catégorie</button>
+    </div>
     <h4>Détails de la catégorie</h4>
 
-    <div class="input-prepend">
-      <span class="add-on">Nom de la catégorie</span>
-      <input id="input-timeslot-name" type="text" value="Récital piano 14 ans">
+    <div class="control-group">
+      <label class="control-label"><b>Identifiant</b></label>
+      <div class="controls">
+        <div class="input-prepend">
+          <span class="add-on"><i class="iconic-hash"></i></span>
+          <input class="input-small" id="input-timeslot-id" type="text" disabled="true">
+        </div>
+        <br />
+      </div>
+    </div>
+
+
+    <div class="control-group">
+      <label class="control-label" for="input-timeslot-name"><b>Nom de la catégorie</b></label>
+      <div class="controls">
+        <div class="input-prepend">
+          <span class="add-on"><i class="icon-font"></i></span>
+          <input class="input-xlarge" id="input-timeslot-name" type="text">
+        </div>
+        <br />
+      </div>
     </div>
 
     <h4>Inscriptions dans cette catégorie</h4>
-    <div id="div-inscriptions-selected"></div>
+    <div class="div-inscriptions" id="div-inscriptions-selected"></div>
 
   </div>
 
@@ -156,7 +165,7 @@
 
   <div class="panel" id="panel-all">
     <h4>Toutes les inscriptions pour la classe <strong>Récital</strong></h4>
-    <div id="div-inscriptions-all"></div>
+    <div class="div-inscriptions" id="div-inscriptions-all"></div>
 
   </div>
 

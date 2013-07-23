@@ -1,65 +1,65 @@
 <%= f.simple_fields_for :contactinfo do |c| %>
     <div class="control-group">
-      <label class="control-label"><b>Téléphone</b></label>
+      <label class="control-label"><h5>Téléphone</h5></label>
       <div class="controls">
         <div class="input-prepend">
           <span class="add-on"><i class="iconic-hash"></i></span>
-          <%= c.telephone_field :telephone, :class => 'input-xlarge', :placeholder => "Téléphone", :'data-mask' => '999-999-9999' %>
+          <%= c.telephone_field :telephone, :class => 'input-xlarge', :'data-mask' => '999-999-9999' %>
         </div>
         <br />
       </div>
     </div>
 
     <div class="control-group">
-      <label class="control-label"><b>Adresse ligne 1</b></label>
+      <label class="control-label"><h5>Adresse ligne 1</h5></label>
       <div class="controls">
         <div class="input-prepend">
           <span class="add-on"><i class="icon-font"></i></span>
-          <%= c.text_field :address, :class => 'input-xlarge', :placeholder => "Adresse ligne 1" %>
+          <%= c.text_field :address, :class => 'input-xlarge' %>
         </div>
         <br />
       </div>
     </div>
 
     <div class="control-group">
-      <label class="control-label"><b>Adresse ligne 2</b></label>
+      <label class="control-label"><h5>Adresse ligne 2</h5></label>
       <div class="controls">
         <div class="input-prepend">
           <span class="add-on"><i class="icon-font"></i></span>
-          <%= c.text_field :address2, :class => 'input-xlarge', :placeholder => "Adresse ligne 2" %>
+          <%= c.text_field :address2, :class => 'input-xlarge'%>
         </div>
         <br />
       </div>
     </div>
 
     <div class="control-group">
-      <label class="control-label"><b>Code postal</b></label>
+      <label class="control-label"><h5>Code postal</h5></label>
       <div class="controls">
         <div class="input-prepend">
           <span class="add-on"><i class="icon-home"></i></span>
-          <%= c.text_field :postal_code, :class => 'input-xlarge', :placeholder =>  "Code postal" %>
+          <%= c.text_field :postal_code, :class => 'input-xlarge'%>
         </div>
         <br />
       </div>
     </div>
 
     <div class="control-group">
-      <label class="control-label"><b>Choisissez une ville</b></label>
+      <label class="control-label"><h5>Ville</h5></label>
       <div class="controls">
         <div class="input-prepend">
           <span class="add-on"><i class="icon-building"></i></span>
-          <%= c.association :city, :label => false, :prompt => 'Choisissez une ville', :input_html => { :class => 'input-xlarge'}, :wrapper => false %>
+          <%= c.association :city, :label => false, :input_html => { :class => 'input-xlarge'}, :wrapper => false %>
         </div>
         <br />
       </div>
     </div>
 
     <div class="control-group">
-      <label class="control-label"><b>Province</b></label>
+      <label class="control-label"><h5>Province</h5></label>
       <div class="controls">
         <div class="input-prepend">
           <span class="add-on"><i class="icon-globe"></i></span>
-          <%= c.text_field :province, :class => 'input-xlarge', :placeholder => "Province" %>
+          <%= c.text_field :province, :class => 'input-xlarge' %>
         </div>
         <br />
       </div>

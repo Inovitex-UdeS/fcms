@@ -1,67 +1,67 @@
 <%= f.simple_fields_for :contactinfo do |c| %>
     <div class="control-group">
-      <label class="control-label"><h5>Téléphone</h5></label>
-      <div class="controls">
-        <div class="input-prepend">
-          <span class="add-on"><i class="iconic-hash"></i></span>
-          <%= c.telephone_field :telephone, :class => 'input-xlarge', :'data-mask' => '999-999-9999' %>
-        </div>
-        <br />
-      </div>
+        <label class="control-label"><h5>Téléphone</h5>
+            <div class="controls">
+                <div class="input-prepend">
+                    <span class="add-on"><i class="iconic-hash"></i></span>
+                    <%= c.telephone_field :telephone, :class => 'input-xlarge', :'data-mask' => '999-999-9999' %>
+                </div>
+            </div>
+        </label>
     </div>
 
     <div class="control-group">
-      <label class="control-label"><h5>Adresse ligne 1</h5></label>
-      <div class="controls">
-        <div class="input-prepend">
-          <span class="add-on"><i class="icon-font"></i></span>
-          <%= c.text_field :address, :class => 'input-xlarge' %>
-        </div>
-        <br />
-      </div>
+        <label class="control-label"><h5>Adresse ligne 1</h5>
+            <div class="controls">
+                <div class="input-prepend">
+                    <span class="add-on"><i class="icon-font"></i></span>
+                    <%= c.text_field :address, :class => 'input-xlarge' %>
+                </div>
+            </div>
+        </label>
     </div>
 
     <div class="control-group">
-      <label class="control-label"><h5>Adresse ligne 2</h5></label>
-      <div class="controls">
-        <div class="input-prepend">
-          <span class="add-on"><i class="icon-font"></i></span>
-          <%= c.text_field :address2, :class => 'input-xlarge'%>
-        </div>
-        <br />
-      </div>
+        <label class="control-label"><h5>Adresse ligne 2</h5>
+            <div class="controls">
+                <div class="input-prepend">
+                    <span class="add-on"><i class="icon-font"></i></span>
+                    <%= c.text_field :address2, :class => 'input-xlarge'%>
+                </div>
+            </div>
+        </label>
     </div>
 
     <div class="control-group">
-      <label class="control-label"><h5>Code postal</h5></label>
-      <div class="controls">
-        <div class="input-prepend">
-          <span class="add-on"><i class="icon-home"></i></span>
-          <%= c.text_field :postal_code, :class => 'input-xlarge'%>
-        </div>
-        <br />
-      </div>
+        <label class="control-label"><h5>Code postal</h5>
+            <div class="controls">
+                <div class="input-prepend">
+                    <span class="add-on"><i class="icon-home"></i></span>
+                    <%= c.text_field :postal_code, :class => 'input-xlarge'%>
+                </div>
+            </div>
+        </label>
     </div>
 
     <div class="control-group">
-      <label class="control-label"><h5>Ville</h5></label>
-      <div class="controls">
-        <div class="input-prepend">
-          <span class="add-on"><i class="icon-building"></i></span>
-          <%= c.association :city, :label => false, :input_html => { :class => 'input-xlarge'}, :wrapper => false %>
-        </div>
-        <br />
-      </div>
+        <label class="control-label"><h5>Ville</h5>
+            <div class="controls">
+                <div class="input-prepend">
+                    <span class="add-on"><i class="icon-building"></i></span>
+                    <%= c.association :city, :label => false, :input_html => { :class => 'input-xlarge'}, :wrapper => false %>
+                </div>
+            </div>
+        </label>
     </div>
 
     <div class="control-group">
-      <label class="control-label"><h5>Province</h5></label>
-      <div class="controls">
-        <div class="input-prepend">
-          <span class="add-on"><i class="icon-globe"></i></span>
-          <%= c.text_field :province, :class => 'input-xlarge' %>
-        </div>
-        <br />
-      </div>
+        <label class="control-label"><h5>Province</h5>
+            <div class="controls">
+                <div class="input-prepend">
+                    <span class="add-on"><i class="icon-globe"></i></span>
+                    <%= c.text_field :province, :class => 'input-xlarge' %>
+                </div>
+            </div>
+        </label>
     </div>
 <% end %>

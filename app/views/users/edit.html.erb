@@ -1,66 +1,64 @@
 <h3>Page de profil</h3>
 
 <%= simple_form_for(@user) do |f| %>
-
-        <div class="control-group">
-          <label class="control-label"><h5>Prénom</h5></label>
-          <div class="controls">
-            <div class="input-prepend">
-              <span class="add-on"><i class="icon-font"></i></span>
-              <%= f.text_field :first_name, wrapper: false, :class => 'input-xlarge' %>
+    <div class="control-group">
+        <label class="control-label"><h5>Prénom</h5>
+            <div class="controls">
+                <div class="input-prepend">
+                    <span class="add-on"><i class="icon-font"></i></span>
+                    <%= f.text_field :first_name, wrapper: false, :class => 'input-xlarge' %>
+                </div>
             </div>
-            <br />
-          </div>
+        </label>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label"><h5>Nom de famille</h5>
+            <div class="controls">
+                <div class="input-prepend">
+                    <span class="add-on"><i class="icon-font"></i></span>
+                    <%= f.text_field :last_name, :class => 'input-xlarge' %>
+                </div>
+            </div>
+        </label>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label"><h5>Sexe</h5>
+            <div class="controls">
+                <div class="input-prepend">
+                    <span class="add-on"><i class="icon-user"></i></span>
+                    <%= f.select :gender, options_for_select([['Masculin', true], ['Féminin', false]]), {:selected => @user.gender}, {:class => 'input-xlarge'}%>
+                </div>
+            </div>
+        </label>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label"><h5>Date de naissance</h5>
+            <div class="controls">
+                <div class="input-prepend">
+                    <span class="add-on"><i class="icon-calendar"></i></span>
+                    <%= f.text_field :birthday, :class => 'input-xlarge', :'data-mask' => '9999-99-99' %>
+            </div>
         </div>
+    </label>
+    </div>
 
+    <div class="control-group">
+        <label class="control-label"><h5>Choisissez une institution scolaire</h5>
+            <div class="controls">
+                <div class="input-prepend">
+                    <span class="add-on"><i class="icon-home"></i></span>
+                    <%= f.association :school, wrapper: false, label: false, :input_html => {:class => "input-xlarge"} %>
+                </div>
+            </div>
+        </label>
+    </div>
 
-      <div class="control-group">
-        <label class="control-label"><h5>Nom de famille</h5></label>
-        <div class="controls">
-          <div class="input-prepend">
-            <span class="add-on"><i class="icon-font"></i></span>
-            <%= f.text_field :last_name, :class => 'input-xlarge' %>
-          </div>
-          <br />
-        </div>
-      </div>
+    <%= render :partial => 'shared/contactinfos', :locals=>{:f => f} %>
 
-      <div class="control-group">
-        <label class="control-label"><h5>Sexe</h5></label>
-        <div class="controls">
-          <div class="input-prepend">
-            <span class="add-on"><i class="icon-user"></i></span>
-            <%= f.select :gender, options_for_select([['Masculin', true], ['Féminin', false]]), {:selected => @user.gender}, {:class => 'input-xlarge'}%>
-          </div>
-          <br />
-        </div>
-      </div>
-
-      <div class="control-group">
-        <label class="control-label"><h5>Date de naissance</h5></label>
-        <div class="controls">
-          <div class="input-prepend">
-            <span class="add-on"><i class="icon-calendar"></i></span>
-            <%= f.text_field :birthday, :class => 'input-xlarge', :'data-mask' => '9999-99-99' %>
-          </div>
-          <br />
-        </div>
-      </div>
-
-      <div class="control-group">
-        <label class="control-label"><h5>Choisissez une institution scolaire</h5></label>
-        <div class="controls">
-          <div class="input-prepend">
-            <span class="add-on"><i class="icon-home"></i></span>
-            <%= f.association :school, wrapper: false, label: false, :input_html => {:class => "input-xlarge"} %>
-          </div>
-          <br />
-        </div>
-      </div>
-
-        <%= render :partial => 'shared/contactinfos', :locals=>{:f => f} %>
-
-        <div class="form-actions">
-            <%= f.submit "Enregistrer", class: "btn btn-primary" %>
-        </div>
+    <div class="form-actions">
+        <%= f.submit "Enregistrer", class: "btn btn-primary" %>
+    </div>
 <% end %>

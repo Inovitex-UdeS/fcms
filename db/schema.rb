@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130718163102) do
+ActiveRecord::Schema.define(:version => 20130724203110) do
 
   create_table "agegroups", :force => true do |t|
     t.integer  "edition_id",                  :null => false
@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(:version => 20130718163102) do
     t.datetime "updated_at"
     t.boolean  "group",                          :default => false
     t.integer  "nb_participants",                :default => 1
-    t.boolean  "accompanyist",                   :default => false
+    t.boolean  "accompanist",                    :default => false
     t.integer  "nb_piece_lim1"
     t.integer  "nb_piece_lim2"
   end

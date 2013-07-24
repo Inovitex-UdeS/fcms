@@ -103,10 +103,11 @@ SimpleNavigation::Configuration.run do |navigation|
       sub_nav.item :key_5_16,'', nil, :class=> 'divider'
       sub_nav.item :key_5_17, 'Gérer les accompagnateurs', new_admin_accompanist_path
       sub_nav.item :key_5_18, 'Gérer les juges', new_admin_juge_path
-      sub_nav.item :key_5_19, 'Gérer les professeurs', new_admin_teacher_path
-      sub_nav.item :key_5_20,'', nil, :class=> 'divider'
-      sub_nav.item :key_5_21,'Inviter un utilisateur', '/users/invitation/new'
-      sub_nav.item :key_5_22,'Gérer les utilisateurs', new_admin_user_path
+      sub_nav.item :key_5_19, 'Gérer les participants', new_admin_participant_path
+      sub_nav.item :key_5_20, 'Gérer les professeurs', new_admin_teacher_path
+      sub_nav.item :key_5_21,'', nil, :class=> 'divider'
+      sub_nav.item :key_5_22,'Inviter un utilisateur', '/users/invitation/new'
+      sub_nav.item :key_5_23,'Gérer les utilisateurs', new_admin_user_path
 
     end
 

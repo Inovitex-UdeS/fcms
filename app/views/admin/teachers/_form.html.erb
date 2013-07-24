@@ -1,6 +1,6 @@
 <h5>Assigner le rôle de professeur à un utilisateur</h5>
 
-<%= simple_form_for @role, :remote => true, :validate=>true,
+<%= simple_form_for @role, :remote => true,
                   :url => url_for(:action => 'create', :controller => 'admin/teachers'),
                   :method => 'post' do |f| %>
 

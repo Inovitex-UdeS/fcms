@@ -38,6 +38,9 @@ function changeCategory(category_id) {
 
         if (maxDuration == null) fcms.showMessage('Vous ne correspondez pas à une catégorie d\'âge, vous n\'avez donc pas le droit de vous inscrire dans cette classe', 3);
         $('input[type=submit]').attr('disabled', (maxDuration == null));
+
+        if (maxDuration != null) $('.unit_duration').attr('max', maxDuration)
+        else  $('.unit_duration').attr('max', 0)
     });
 }
 
@@ -106,6 +109,9 @@ $(document).on('nested:fieldAdded:performances', function(event){
             })
         }
     });
+
+    if (maxDuration != null) $(event.field.children().find('.unit_duration')).attr('max', maxDuration)
+    else  $(event.field.children().find('.unit_duration')).attr('max', 0)
 });
 
 $(document).on('nested:fieldRemoved:performances', function(event){

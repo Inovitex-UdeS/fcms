@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130724203110) do
+ActiveRecord::Schema.define(:version => 20130724210002) do
 
   create_table "agegroups", :force => true do |t|
     t.integer  "edition_id",                  :null => false
@@ -154,17 +154,18 @@ ActiveRecord::Schema.define(:version => 20130724203110) do
   add_index "pieces", ["title"], :name => "ak_title_pieces"
 
   create_table "registrations", :force => true do |t|
-    t.integer  "user_owner_id",                  :null => false
+    t.integer  "user_owner_id",                      :null => false
     t.integer  "school_id"
     t.integer  "payment_id"
-    t.integer  "user_teacher_id",                :null => false
-    t.integer  "edition_id",                     :null => false
-    t.integer  "category_id",                    :null => false
-    t.integer  "duration",                       :null => false
+    t.integer  "user_teacher_id",                    :null => false
+    t.integer  "edition_id",                         :null => false
+    t.integer  "category_id",                        :null => false
+    t.integer  "duration",                           :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "age_max",         :default => 0
+    t.integer  "age_max",             :default => 0
     t.integer  "timeslot_id"
+    t.integer  "user_accompanist_id"
   end
 
   add_index "registrations", ["category_id"], :name => "category_id_fk2"
@@ -173,6 +174,7 @@ ActiveRecord::Schema.define(:version => 20130724203110) do
   add_index "registrations", ["payment_id"], :name => "payment_id_fk"
   add_index "registrations", ["school_id"], :name => "school_id_fk"
   add_index "registrations", ["timeslot_id"], :name => "registrations_timeslot_id_fk"
+  add_index "registrations", ["user_accompanist_id"], :name => "index_registrations_on_user_accompanist_id"
   add_index "registrations", ["user_owner_id"], :name => "user_owner_id_fk"
   add_index "registrations", ["user_teacher_id"], :name => "user_teacher_id_fk"
 
@@ -341,6 +343,7 @@ ActiveRecord::Schema.define(:version => 20130724203110) do
   add_foreign_key "registrations", "timeslots", :name => "registrations_timeslot_id_fk"
   add_foreign_key "registrations", "users", :name => "fk_registra_user_owne_users", :column => "user_owner_id"
   add_foreign_key "registrations", "users", :name => "fk_registra_user_teac_users", :column => "user_teacher_id"
+  add_foreign_key "registrations", "users", :name => "fk_registration_accompanist", :column => "user_accompanist_id"
 
   add_foreign_key "registrations_users", "instruments", :name => "fk_registra_instrumen_instrume"
   add_foreign_key "registrations_users", "registrations", :name => "fk_registra_registrat_registra"

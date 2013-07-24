@@ -1,8 +1,8 @@
-<h5>Ajouter ou modifier une institution scolaire</h5>
+<h4>Ajouter ou modifier une institution scolaire</h4>
 <div class="col">
-    <%= simple_form_for [:admin, @school] do |f| %>
+    <%= simple_form_for [:admin, @school], :validate=>true do |f| %>
       <div class="control-group">
-        <label class="control-label"><b>Identifiant</b></label>
+        <label class="control-label"><h5>Identifiant</h5></label>
         <div class="controls">
           <div class="input-prepend">
             <span class="add-on"><i class="iconic-hash"></i></span>
@@ -13,38 +13,37 @@
       </div>
 
       <div class="control-group">
-        <label class="control-label"><b>Nom de l'école</b></label>
+        <label class="control-label"><h5>Nom de l'institution scolaire</h5></label>
         <div class="controls">
           <div class="input-prepend">
             <span class="add-on"><i class="icon-font"></i></span>
-            <%= f.text_field :name, :placeholder => 'Nom de l\'école', :class => 'input-xlarge' %>
+            <%= f.text_field :name, :class => 'input-xlarge' %>
           </div>
           <br />
         </div>
       </div>
 
       <div class="control-group">
-        <label class="control-label"><b>Choisissez le type d'école</b></label>
+        <label class="control-label"><h5>Type d'école</h5></label>
         <div class="controls">
           <div class="input-prepend">
             <span class="add-on"><i class="icon-tag"></i></span>
-            <%= f.association :schooltype, :label => false, :prompt => 'Choisissez le type d\'école', :input_html => { :class => 'input-xlarge'}, :wrapper => false %>
+            <%= f.association :schooltype, :label => false, :input_html => { :class => 'input-xlarge'}, :wrapper => false %>
           </div>
           <br />
         </div>
       </div>
 
       <div class="control-group">
-        <label class="control-label"><b>Choisissez le type d'école</b></label>
+        <label class="control-label"><h5>Commission scolaire</h5></label>
         <div class="controls">
           <div class="input-prepend">
             <span class="add-on"><i class="icon-bell"></i></span>
-            <%= f.association :schoolboard, :label => false, :prompt => 'Choisissez la comission scolaire', :input_html => { :class => 'input-xlarge'}, :wrapper => false %>
+            <%= f.association :schoolboard, :label => false, :input_html => { :class => 'input-xlarge'}, :wrapper => false %>
           </div>
           <br />
         </div>
       </div>
-        <br />
 
       <%= render :partial => 'shared/contactinfos', :locals => {:f => f} %>
 

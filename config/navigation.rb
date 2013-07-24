@@ -64,22 +64,20 @@ SimpleNavigation::Configuration.run do |navigation|
     
     primary.item :divider_1, nil, nil, :class => 'divider-vertical'
 
-    primary.item :key_2, 'Inscriptions' , new_registration_path, :icon => 'icon-edit' do |sub_nav|
+    primary.item :key_2, 'Inscriptions', new_registration_path, :icon => 'icon-edit' do |sub_nav|
       sub_nav.item :key_2_1, 'Voir ses inscriptions', registrations_path
       sub_nav.item :key_2_2, 'S\'inscrire au concours', new_registration_path
-      sub_nav.item :key_2_4, '', nil, :class=> 'divider'
-      sub_nav.item :key_2_5, 'Payer son inscription', '#'
     end
     
     primary.item :divider_2, nil, nil, :class => 'divider-vertical'
 
-    primary.item :key_3, 'Horaire', '#', :icon => 'icon-calendar', :class => 'menu-disabled' do |sub_nav|
+    primary.item :key_3, 'Horaire', '#', :icon => 'icon-calendar', :class => 'menu-disabled', :onclick => 'return false;' do |sub_nav|
       sub_nav.item :key_3_1, 'Élément de menu 1', '#'
     end
 
     primary.item :divider_3, nil, nil, :class => 'divider-vertical'
 
-    primary.item :key_4, 'Résultats', '#', :icon => 'icon-bar-chart', :class => 'menu-disabled' do |sub_nav|
+    primary.item :key_4, 'Résultats', '#', :icon => 'icon-bar-chart', :class => 'menu-disabled', :onclick => 'return false;' do |sub_nav|
       sub_nav.item :key_4_1, 'Élément de menu 1', '#'
     end
 
@@ -114,7 +112,7 @@ SimpleNavigation::Configuration.run do |navigation|
 
     primary.item :divider_6, nil, nil, :class => 'divider-vertical'
 
-    primary.item :key_7, 'Compte', nil, :icon => 'icon-user' do |sub_nav|
+    primary.item :key_7, 'Compte', nil, :icon => 'icon-user', :link => {:onclick => 'return false;'} do |sub_nav|
       sub_nav.item :key_7_1, 'Profil', edit_user_path(current_user)
       sub_nav.item :key_7_2, 'Courriel et mot de passe', edit_user_registration_path
       sub_nav.item :key_7_3, '', nil, :class=> 'divider'

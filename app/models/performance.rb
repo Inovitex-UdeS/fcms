@@ -1,4 +1,5 @@
 class Performance < ActiveRecord::Base
+  validates :piece_id, :presence => true
 
   # Association macros
   belongs_to :piece

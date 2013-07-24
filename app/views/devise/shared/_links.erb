@@ -3,7 +3,7 @@
     <%= link_to "< Retour à la page de connexion", new_session_path(resource_name) %><br />
   <% end -%>
 
-  <%- if devise_mapping.registerable? && controller_name != 'registrations' && controller_name != 'sessions'  && controller_name != 'passwords' %>
+  <%- if devise_mapping.registerable? && controller_name != 'devise_registrations' && controller_name != 'sessions'  && controller_name != 'passwords' %>
     <%= link_to "Se créer un compte", new_registration_path(resource_name) %><br />
   <% end -%>
 

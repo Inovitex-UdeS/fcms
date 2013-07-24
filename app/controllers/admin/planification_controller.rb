@@ -12,7 +12,7 @@ class Admin::PlanificationController < ApplicationController
     timeslots = Timeslot.all(
         :conditions => {
             :category_id => params[:id],
-            :edition_id => Setting.find_by_key('current_edition_id')
+            :edition_id => Setting.find_by_key('current_edition_id').value
         },
         :include => [
             :registrations
@@ -21,7 +21,7 @@ class Admin::PlanificationController < ApplicationController
     registrations = Registration.all(
         :conditions => {
             :category_id => params[:id],
-            :edition_id => Setting.find_by_key('current_edition_id')
+            :edition_id => Setting.find_by_key('current_edition_id').value
         },
         :include => [
             :registrations_users => [
@@ -96,7 +96,7 @@ class Admin::PlanificationController < ApplicationController
 
       timeslot.label       = params[:label]
       timeslot.category_id = params[:category_id]
-      timeslot.duration    = params[:duration]
+      timeslot.duration    = params[:duration] || 0
 
       timeslot.registrations.clear
       params[:registrations].each do |i|

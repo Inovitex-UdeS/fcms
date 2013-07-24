@@ -1,4 +1,11 @@
-.panel { width: 100%; display: block; margin: 0 auto 10px auto; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;
+.panel {
+    width: 100%;
+    display: block;
+    margin: 0 auto 10px auto;
+    position: relative;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -6,6 +13,9 @@
     -ms-user-select: none;
     user-select: none;
 }
+
+#timeslot-buttons-top { position: absolute; top: 22px; right: 0px; }
+#timeslot-buttons-top .btn { margin-bottom: 5px; }
 
 #panel-controls  { display: table; }
 #panel-controls .sub-controls { display: table-cell; padding: 5px 10px; vertical-align: top; }
@@ -15,13 +25,9 @@
 #panel-controls #sub-controls-down { padding-left: 0px; }
 
 .dataTable { font-size: 11px; }
-.dataTable td { cursor: pointer; }
-.table th, .table td { padding: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dataTable tr.draggable { cursor: pointer; }
+.table th, .table td { padding: 3px 15px 3px 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .table th { padding: 3px 20px 3px 3px; font-size: 11.5px; }
-
-.dataTables_scroll { /* border: 1px dotted; */ }
-
-
 
 table.dataTable { border: none; margin-bottom: 0 !important; }
 
@@ -58,4 +64,24 @@ table.dataTable { border: none; margin-bottom: 0 !important; }
     background-color: #aa0911;
 }
 
-.table-dragger { height: 10px; width: 100%; text-align: center; font-size: 10px; color: #bbb; border-top: 1px solid #eee; border-bottom: 1px solid #eee; cursor: pointer; line-height: 1px; }
+.table-inscriptions { width: 100%; }
+
+.table-footer {
+    border-top: 1px solid #eee;
+    padding: 4px 8px;
+    font-size: 12px;
+    background-color: #f7f7f7;
+    font-weight: bold;
+}
+
+.table-dragger {
+    height: 10px;
+    width: 100%;
+    text-align: center;
+    font-size: 10px;
+    color: #bbb;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    line-height: 1px;
+}

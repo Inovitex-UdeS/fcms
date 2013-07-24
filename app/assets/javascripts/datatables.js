@@ -52,13 +52,13 @@ fcms.bindForm = function (form, type) {
     switch(type)
     {
         case 1:
-            htmlToInput = '<a id="addItem" class="btn btn-primary" href="#">Ajouter</a>';
+            htmlToInput = '<a id="addItem" class="btn btn-primary" href="#">Nouveau</a>';
             break;
         case 2:
             htmlToInput = '<a id="deleteItem" class="btn" href="#">Supprimer</a></div>';
             break;
         case 3:
-            htmlToInput = '<a id="addItem" class="btn btn-primary" href="#">Ajouter</a><a id="deleteItem" class="btn" href="#">Supprimer</a></div>';
+            htmlToInput = '<a id="addItem" class="btn btn-primary" href="#">Nouveau</a><a id="deleteItem" class="btn" href="#">Supprimer</a></div>';
             break;
     }
 

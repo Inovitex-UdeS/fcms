@@ -1,68 +1,68 @@
-<h5>Ajouter ou modifier une édition</h5>
+<h4>Ajouter ou modifier une édition</h4>
 <div class="col">
-    <%= simple_form_for [:admin, @edition] do |f| %>
+    <%= simple_form_for [:admin, @edition], :validate=>true do |f| %>
 
       <div class="control-group">
-        <label class="control-label"><b>Identifiant</b></label>
+        <label class="control-label"><h5>Identifiant</h5></label>
         <div class="controls">
           <div class="input-prepend">
             <span class="add-on"><i class="iconic-hash"></i></span>
-            <%= f.text_field :id, :class => 'input-small', :disabled => true%>
+            <%= f.text_field :id, :class => 'input-small', :disabled => true %>
           </div>
           <br />
         </div>
       </div>
 
       <div class="control-group">
-        <label class="control-label"><b>Année de l'édition</b></label>
+        <label class="control-label"><h5>Année de l'édition</h5></label>
         <div class="controls">
           <div class="input-prepend">
             <span class="add-on"><i class="iconic-hash"></i></span>
-            <%= f.text_field :year, :autofocus => true, :placeholder => 'Année de l\'édition', :class => 'input-xlarge' %>
+            <%= f.text_field :year, :class => 'input-xlarge' %>
           </div>
           <br />
         </div>
       </div>
 
       <div class="control-group">
-        <label class="control-label"><b>Date de début</b></label>
+        <label class="control-label"><h5>Date de début de l'évènement</h5></label>
         <div class="controls">
           <div class="input-prepend">
             <span class="add-on"><i class="icon-calendar"></i></span>
-            <%= f.text_field :start_date, :placeholder => 'Date de début', :class => 'input-xlarge', :'data-mask' => '9999-99-99' %><br />
+            <%= f.text_field :start_date, :class => 'input-xlarge', :'data-mask' => '9999-99-99' %><br />
           </div>
           <br />
         </div>
       </div>
 
       <div class="control-group">
-        <label class="control-label"><b>Date de fin</b></label>
+        <label class="control-label"><h5>Date de fin de l'évènement</h5></label>
         <div class="controls">
           <div class="input-prepend">
             <span class="add-on"><i class="icon-calendar"></i></span>
-            <%= f.text_field :end_date, :placeholder => 'Date de fin', :class => 'input-xlarge', :'data-mask' => '9999-99-99' %><br />
+            <%= f.text_field :end_date, :class => 'input-xlarge', :'data-mask' => '9999-99-99' %><br />
           </div>
           <br />
         </div>
       </div>
 
       <div class="control-group">
-        <label class="control-label"><b>Date limite d'inscription</b></label>
+        <label class="control-label"><h5>Date limite d'inscription</h5></label>
         <div class="controls">
           <div class="input-prepend">
             <span class="add-on"><i class="icon-calendar"></i></span>
-            <%= f.text_field :limit_date, :placeholder => 'Date limite d\'inscription', :class => 'input-xlarge', :'data-mask' => '9999-99-99' %><br />
+            <%= f.text_field :limit_date, :class => 'input-xlarge', :'data-mask' => '9999-99-99' %><br />
           </div>
           <br />
         </div>
       </div>
 
       <div class="control-group">
-        <label class="control-label"><b>Date limite de modification d'inscription</b></label>
+        <label class="control-label"><h5>Date limite de modification d'inscription</h5></label>
         <div class="controls">
           <div class="input-prepend">
             <span class="add-on"><i class="icon-calendar"></i></span>
-            <%= f.text_field :edit_limit_date, :placeholder => 'Date limite de modification d\'inscription', :class => 'input-xlarge', :'data-mask' => '9999-99-99' %><br />
+            <%= f.text_field :edit_limit_date, :class => 'input-xlarge', :'data-mask' => '9999-99-99' %><br />
           </div>
           <br />
         </div>

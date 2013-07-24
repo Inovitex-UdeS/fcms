@@ -1,4 +1,7 @@
 class School < ActiveRecord::Base
+  validates :schooltype_id, :schoolboard_id, :presence => true
+  validates :name, :presence => true, :length => { :maximum => 128}, :uniqueness => true
+
 
   # Association macros
   has_many :registrations

@@ -1,4 +1,5 @@
 class Instrument < ActiveRecord::Base
+  validates :name, :presence => true, :uniqueness => true,  :length => { maximum: 64}
 
   # Association macros
   has_many :registrations_users

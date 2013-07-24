@@ -26,10 +26,12 @@ $(document).ready(function(){
 });
 
 function changeCategory(category_id) {
-    if (category_id=="" || category_id=="Choisissez une classe") return; // please select - possibly you want something else here
+    if (category_id=="" || category_id=="Classe") return; // please select - possibly you want something else here
     $.getJSON('/categories/' + category_id, function(data) {
         nbPerfMax = data['category']['nb_perf_max'];
         nbPerfMin = data['category']['nb_perf_min'];
+        $("#category-description").text(data['category']['description'])
+
         if (data['agegroup']) maxDuration = data['agegroup']['max_duration'];
         else maxDuration = null;
         group = data.category.group;
@@ -38,6 +40,9 @@ function changeCategory(category_id) {
 
         if (maxDuration == null) fcms.showMessage('Vous ne correspondez pas à une catégorie d\'âge, vous n\'avez donc pas le droit de vous inscrire dans cette classe', 3);
         $('input[type=submit]').attr('disabled', (maxDuration == null));
+
+        if (maxDuration != null) $('.unit_duration').attr('max', maxDuration);
+        else  $('.unit_duration').attr('max', 0);
     });
 }
 
@@ -106,6 +111,10 @@ $(document).on('nested:fieldAdded:performances', function(event){
             })
         }
     });
+
+    if (maxDuration != null) $(event.field.children().find('.unit_duration')).attr('max', maxDuration);
+    else  $(event.field.children().find('.unit_duration')).attr('max', 0);
+    $(event.field).hide().fadeIn("slow");
 });
 
 $(document).on('nested:fieldRemoved:performances', function(event){
@@ -143,6 +152,7 @@ $(document).on('nested:fieldAdded:registrations_users', function(event){
         }
     });
     $('#totUsers').text($('#users .fields').length);
+    $(event.field).hide().fadeIn("slow");
 });
 
 $(document).on('nested:fieldRemoved:registrations_users', function(event){

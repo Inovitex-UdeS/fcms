@@ -12,11 +12,15 @@ class RegistrationsController < ApplicationController
     end
 
     if current_user.is_teacher?
-      @registrations += Registration.where("edition_id=#{@current_edition} AND user_teacher_id=#{current_user.id}")
+      @registrations += Registration.where(edition_id:@current_edition, :user_teacher_id =>  current_user.id )
     end
 
     if current_user.is_judge?
-      @registrations = Registration.where("edition_id=#{@current_edition}")
+      @registrations = Registration.where(edition_id:@current_edition)
+    end
+
+    if current_user.is_accompanist?
+      @registrations = Registration.where(edition_id: @current_edition, :user_accompanist_id => current_user.id)
     end
 
   end

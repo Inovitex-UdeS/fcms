@@ -14,6 +14,7 @@ var nbPersMax = 12;
 $(document).ready(function(){
     $('#registration_user_teacher_id').typeahead();
     $('#registration_school_id').typeahead();
+    $('#registration_user_accompanist_id').typeahead();
 
     $('#new_registration').on('ajax:success', function(evt, data, status, xhr) {
         fcms.showMessage('L\'enregistrement au festival a été complété avec succès!');
@@ -34,9 +35,14 @@ function changeCategory(category_id) {
 
         if (data['agegroup']) maxDuration = data['agegroup']['max_duration'];
         else maxDuration = null;
+
         group = data.category.group;
         if (group) $("#AutresParticipants").show();
         else $("#AutresParticipants").hide();
+
+        accomp = data.category.accompanist;
+        if (accomp) $("#registration-accompanist").show();
+        else $("#registration-accompanist").hide();
 
         if (maxDuration == null) fcms.showMessage('Vous ne correspondez pas à une catégorie d\'âge, vous n\'avez donc pas le droit de vous inscrire dans cette classe', 3);
         $('input[type=submit]').attr('disabled', (maxDuration == null));

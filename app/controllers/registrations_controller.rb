@@ -27,6 +27,7 @@ class RegistrationsController < ApplicationController
     @user_school = User.find(@owner_id).school_id
     @current_edition = Setting.find_by_key('current_edition_id').value
     @teachers = User.teachers
+    @accompanists = User.accompanists
     @participants = User.participants
     @user = User.new
     @composer = Composer.new
@@ -99,6 +100,7 @@ class RegistrationsController < ApplicationController
       redirect_to root_path, :alert => "Vous n'êtes pas autorisé à consulter les inscriptions des autres"
     end
     @teachers = User.teachers
+    @accompanists = User.accompanists
     @participants = User.participants
     @user_school = @registration.owner.school_id
     @current_edition = @registration.edition_id

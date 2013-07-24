@@ -20,4 +20,31 @@ class Registration < ActiveRecord::Base
   accepts_nested_attributes_for :instruments, allow_destroy: true
   accepts_nested_attributes_for :registrations_users, allow_destroy: true
 
+  def as_simple_json
+    reg_obj = {
+        :category => category.name,
+        :duration => duration,
+        :age => age_max,
+        :timeslot_id => timeslot_id,
+        :users => [],
+        :performances => []
+    }
+
+    registrations_users.each do |u|
+      reg_obj[:users] << {
+          :first_name => u.user.first_name,
+          :last_name => u.user.last_name,
+          :instrument => u.instrument.name
+      }
+    end
+
+    performances.each do |p|
+      reg_obj[:performances] << {
+          :composer => p.piece.composer.name,
+          :title => p.piece.title
+      }
+    end
+
+    return reg_obj.as_json
+  end
 end

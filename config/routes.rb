@@ -24,6 +24,7 @@ devise_for :users, :controllers => {:registrations => 'devise_registrations', :i
      resources :pieces
      resources :agegroups
      resources :planification
+     resources :timeslots
      resources :categories
 
      resources :juges do
@@ -33,9 +34,6 @@ devise_for :users, :controllers => {:registrations => 'devise_registrations', :i
        end
      end
 
-     match 'planification/categories/:id' => 'planification#categories', :via => :get
-     match 'planification/timeslots/:id'  => 'planification#timeslots',  :via => :get
-     match 'planification/timeslots'      => 'planification#timeslots',  :via => :post
      match 'planif_excel' => 'planification#ProduceExcel'
      match 'users_excel' => 'users#ProduceExcel'
    end

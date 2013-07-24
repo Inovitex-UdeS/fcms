@@ -24,10 +24,10 @@ class User < ActiveRecord::Base
   # Scopes
   scope :with_role, lambda{ |role| joins(:roles).where(:roles => {:name => role}) }
 
-  # Validates
-  validates :first_name, :presence => true
-  validates :last_name, :presence => true
-  validates :birthday, :presence => true
+  ## Validates
+  #validates :first_name, :presence => true
+  #validates :last_name, :presence => true
+  #validates :birthday, :presence => true
 
   # Class methods
   def self.participants

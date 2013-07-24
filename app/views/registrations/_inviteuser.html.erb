@@ -15,7 +15,7 @@
     <h3 id="myModalLabel">Inviter un nouvel utilisateur</h3>
   </div>
   <div class="modal-body">
-    <%= simple_form_for @user, :remote => true do |f| %>
+    <%= simple_form_for @user, :remote => true , :validate=>true do |f| %>
 
         <h5>Informations personnelles</h5>
 

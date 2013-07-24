@@ -1,4 +1,7 @@
 class Contactinfo < ActiveRecord::Base
+  validates :telephone,  :length =>  { :maximum => 16 }
+  validates :address, :address2, :province , :length =>  { :maximum => 128 }
+  validates :postal_code, :length =>  { :maximum => 6 }
 
   # Association macros
   has_many :users

@@ -4,7 +4,7 @@
     <h3>Ajouter ou modifier une oeuvre</h3>
   </div>
   <div class="modal-body">
-    <%= simple_form_for [:admin, @piece] do |f| %>
+    <%= simple_form_for [:admin, @piece], :validate=>true do |f| %>
         <div class="control-group">
           <label class="control-label"><h5>Numéro</h5>
             <div class="controls">
@@ -15,6 +15,7 @@
             </div>
           </label>
         </div>
+      </div>
 
         <div class="control-group">
           <label class="control-label"><h5>Titre</h5>
@@ -26,6 +27,7 @@
             </div>
           </label>
         </div>
+      </div>
 
         <div class="control-group">
           <label class="control-label"><h5>Compositeur</h5>
@@ -37,8 +39,7 @@
             </div>
           </label>
         </div>
-
-        </div>
+      </div>
 
         <div class="modal-footer">
           <button type="button" class="btn" data-dismiss="modal">Fermer</button>

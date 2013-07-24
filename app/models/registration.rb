@@ -1,5 +1,5 @@
 class Registration < ActiveRecord::Base
-
+  validates :user_owner_id, :user_teacher_id, :edition_id, :category_id, :duration, :presence => true
   # Associations marcos
 
   has_many :performances

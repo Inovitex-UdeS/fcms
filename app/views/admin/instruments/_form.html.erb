@@ -4,7 +4,7 @@
     <h3>Ajouter ou modifier un instrument</h3>
   </div>
   <div class="modal-body">
-    <%= simple_form_for [:admin, @instrument], :remote => true do |f| %>
+    <%= simple_form_for [:admin, @instrument], :remote => true, :validate=>true do |f| %>
         <div class="control-group">
           <label class="control-label"><h5>Numéro</h5>
             <div class="controls">
@@ -15,6 +15,7 @@
             </div>
           </label>
         </div>
+      </div>
 
         <div class="control-group">
           <label class="control-label"><h5>Instrument</h5>

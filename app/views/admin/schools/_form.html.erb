@@ -4,7 +4,7 @@
     <h3>Ajouter ou modifier une institution scolaire</h3>
   </div>
   <div class="modal-body">
-    <%= simple_form_for [:admin, @school] do |f| %>
+    <%= simple_form_for [:admin, @school], :validate=>true do |f| %>
         <div class="control-group">
           <label class="control-label"><h5>Numéro</h5>
             <div class="controls">
@@ -15,6 +15,7 @@
             </div>
           </label>
         </div>
+      </div>
 
         <div class="control-group">
           <label class="control-label"><h5>Nom de l'institution scolaire</h5>
@@ -26,6 +27,7 @@
             </div>
           </label>
         </div>
+      </div>
 
         <div class="control-group">
           <label class="control-label"><h5>Type d'école</h5>
@@ -37,6 +39,7 @@
             </div>
           </label>
         </div>
+      </div>
 
         <div class="control-group">
           <label class="control-label"><h5>Commission scolaire</h5>
@@ -48,6 +51,7 @@
             </div>
           </label>
         </div>
+      </div>
 
         <%= render :partial => 'shared/contactinfos', :locals => {:f => f} %>
 

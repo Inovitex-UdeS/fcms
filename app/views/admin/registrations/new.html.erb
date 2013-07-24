@@ -10,7 +10,7 @@
 <h4>Inscriptions existantes au festival</h4>
     <%= render :partial => '/admin/registrations/grid' %>
 <h4>Ajouter une inscription au festival</h4>
-    <%= simple_nested_form_for [:admin, @registration] do |f| %>
+    <%= simple_nested_form_for [:admin, @registration], :validate=>true do |f| %>
         <h5>Utilisateur</h5>
         <%= f.association :owner, collection: @participants, prompt: "Choisissez un utilisateur", label_method: lambda { |usr| usr.first_name + " " + usr.last_name + " (" + usr.email + ")"}, label: false %>
         <%= render :partial => '/registrations/form', :locals => {:f => f} %>

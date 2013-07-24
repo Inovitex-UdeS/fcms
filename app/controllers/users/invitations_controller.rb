@@ -11,7 +11,7 @@ class Users::InvitationsController < Devise::InvitationsController
   def create
     begin
       @user = User.new(params[:user])
-      @user.update_attribute(:password, 'password')
+      @user.update_attribute(:password, SecureRandom.hex(8))
 
       respond_to do |format|
         if @user.save

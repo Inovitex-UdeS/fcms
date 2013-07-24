@@ -10,6 +10,7 @@ $(document).ready(function(){
 
     // Remove default behavior and put logic for this specific page
     fcms.fnSuccessAddItem = function( data ) {
+        $('#formModal').modal('hide');
         var aItem = new Array();
 
         aItem.push(data['id'])
@@ -32,6 +33,7 @@ $(document).ready(function(){
 
     // Remove default behavior and put logic for this specific page
     fcms.fnSuccessUpdateData = function( data ) {
+        $('#formModal').modal('hide');
         var aItem = new Array();
 
         aItem.push(data['id'])
@@ -75,6 +77,8 @@ $(document).ready(function(){
         $($('.select')[5]).val(data['contactinfo']['city']['name']);
         $($('.select')[5]).attr('data-value', data['contactinfo']['city']['id']);
         $('#school_contactinfo_attributes_province').val(data['contactinfo']['province']);
+
+        $('#formModal').modal('show');
     };
 
     $('#school_schooltype_id').typeahead();

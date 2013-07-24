@@ -17,9 +17,11 @@ $(document).ready(function(){
         $($('.select')[0]).val(data['composer']['id']);
         $($('.select')[1]).val(data['composer']['name']);
         $($('.select')[1]).attr('data-value', data['composer']['id']);
+        $('#formModal').modal('show');
     };
 
     fcms.fnSuccessUpdateData = function( data ) {
+        $('#formModal').modal('hide');
         var aItem = new Array();
 
         aItem.push(data['id']);
@@ -37,6 +39,7 @@ $(document).ready(function(){
     };
 
     fcms.fnSuccessAddItem = function( data ) {
+        $('#formModal').modal('hide');
         var aItem = new Array();
 
         aItem.push(data['id']);

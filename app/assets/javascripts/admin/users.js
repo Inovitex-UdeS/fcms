@@ -31,6 +31,7 @@ $(document).ready(function(){
         $($('.select')[3]).val(data['contactinfo']['city']['name']);
         $($('.select')[3]).attr('data-value', data['contactinfo']['city']['id']);
         $('#user_contactinfo_attributes_province').val(data['contactinfo']['province']);
+        $('#formModal').modal('show');
     };
 
     $('#user_gender').typeahead();

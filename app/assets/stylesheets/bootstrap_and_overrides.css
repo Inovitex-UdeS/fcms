@@ -193,3 +193,8 @@ input.input-hidden {
 }
 
 .form-horizontal .control-label { width: auto; }
+
+
+/* DataTables fixes */
+#addItem { margin-right:5px; }
+.datepicker{z-index:1151;}

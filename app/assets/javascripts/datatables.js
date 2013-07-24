@@ -44,7 +44,7 @@ fcms.bindForm = function (form, type) {
 
     // Add a click handler to the rows (selectable rows)
     $.each(oTable.fnGetNodes(), function() {
-        $(this).click( fcms.fnSelectableRows );
+        $(this).single_double_click(fcms.fnSelectableRows, fcms.fnEditableRows);
     });
 
     var htmlToInput = '';
@@ -52,13 +52,13 @@ fcms.bindForm = function (form, type) {
     switch(type)
     {
         case 1:
-            htmlToInput = '<a id="addItem" class="btn btn-primary" href="#">Nouveau</a>';
+            htmlToInput = '<a id="addItem" class="btn btn-primary" href="#" onclick="$(\'#formModal\').modal(\'show\')">Nouveau</a>';
             break;
         case 2:
             htmlToInput = '<a id="deleteItem" class="btn" href="#">Supprimer</a></div>';
             break;
         case 3:
-            htmlToInput = '<a id="addItem" class="btn btn-primary" href="#">Nouveau</a><a id="deleteItem" class="btn" href="#">Supprimer</a></div>';
+            htmlToInput = '<a id="addItem" class="btn btn-primary" href="#" onclick="$(\'#formModal\').modal(\'show\')">Nouveau</a><a id="deleteItem" class="btn" href="#">Supprimer</a></div>';
             break;
     }
 
@@ -101,7 +101,7 @@ fcms.bindForm = function (form, type) {
     }
 
     // Add ajax callbacks
-    $("input[type=submit]", oForm).click(function(){
+    $('#formSave').click(function(){
         var formId;
 
         $('#' + oForm.attr('id') + ' input').filter(function() { return this.id.match(/.*_id/g); }).each(
@@ -140,7 +140,6 @@ fcms.bindForm = function (form, type) {
         }
         return false;
     });
-
 };
 
 fcms.mergeObjects = function(obj1, obj2) {
@@ -190,7 +189,24 @@ fcms.initTable = function (customSettings) {
     });
 };
 
-// Selectable rows
+fcms.fnEditableRows = function ( e ) {
+    oTable.$('tr.row_selected').removeClass('row_selected');
+    $(this).addClass('row_selected');
+
+    // If we have a form bound to the fcms, fill in the values
+    if(oForm) {
+        var id = $(this).children().first().text();
+
+        $.ajax({
+            url     : modelUrl + id,
+            type    : 'GET',
+            dataType: 'json',
+            success : fcms.fnSuccessGetData
+        });
+    }
+};
+
+// Single click - Selectable rows
 fcms.fnSelectableRows = function ( e ) {
     if ($(this).hasClass('row_selected')) {
         $(this).removeClass('row_selected');
@@ -201,22 +217,12 @@ fcms.fnSelectableRows = function ( e ) {
     else {
         oTable.$('tr.row_selected').removeClass('row_selected');
         $(this).addClass('row_selected');
-
-        // If we have a form bound to the fcms, fill in the values
-        if(oForm) {
-            var id = $(this).children().first().text();
-
-            $.ajax({
-                url     : modelUrl + id,
-                type    : 'GET',
-                dataType: 'json',
-                success : fcms.fnSuccessGetData
-            });
-        }
     }
 };
 
 fcms.fnSuccessAddItem = function( data ) {
+    $('#formModal').modal('hide');
+
     var aItem = new Array();
 
     $('#' + oForm.attr('id') + ' input').filter(function() { return this.id.match(re); }).each(
@@ -234,7 +240,7 @@ fcms.fnSuccessAddItem = function( data ) {
 
     var iRow = oTable.fnAddData(aItem);
 
-    $(oTable.fnGetNodes(iRow)).click( fcms.fnSelectableRows );
+    $(oTable.fnGetNodes(iRow)).single_double_click(fcms.fnSelectableRows, fcms.fnEditableRows);
 
     fcms.fnClearForm();
 
@@ -244,6 +250,8 @@ fcms.fnSuccessAddItem = function( data ) {
 };
 
 fcms.fnSuccessUpdateData = function( data ) {
+    $('#formModal').modal('hide');
+
     var aItem = new Array();
 
     $('#' + oForm.attr('id') + ' input').filter(function() { return this.id.match(re); }).each(
@@ -274,6 +282,7 @@ fcms.fnSuccessGetData = function( data ) {
             }
         }
     );
+    $('#formModal').modal('show');
 };
 
 // Clear the form

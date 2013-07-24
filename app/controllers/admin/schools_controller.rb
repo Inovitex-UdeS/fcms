@@ -55,7 +55,7 @@ class Admin::SchoolsController < ApplicationController
 
   def show
     @school = School.find(params[:id])
-    render :json => @school.to_json(:include => {:contactinfo => {:include => :city}, :schooltype => {}, :schoolboard => {} } )
+    render :json => @school.to_json(:include => {:contactinfo => {:include => :city}, :schooltype => {}, :schoolboard => {} } ), :status => :ok
   end
 
 end

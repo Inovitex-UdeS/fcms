@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+  validates :last_name, :first_name ,:length => {maximum: 64}, :presence => true
+  validates :birthday, :presence => true
+  validates :email, :presence => true, :uniqueness => true
 
   # Association macros
   has_many :payments

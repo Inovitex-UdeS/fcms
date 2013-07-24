@@ -4,6 +4,7 @@
     <th>Id</th>
     <th>Nom</th>
     <th>Adresse courriel</th>
+    <th>Compte confirmé</th>
     <th>Date de création</th>
     <th>Dernière de mise à jour</th>
   </tr></thead>
@@ -13,6 +14,7 @@
         <td><%= user.id %></label></td>
         <td><%= user.first_name %> <%= user.last_name %></td>
         <td><%= user.email %></td>
+        <td><%= user.confirmed_at != nil ? 'Oui' : 'Non' %></td>
         <td><%= user.created_at.strftime("%d/%m/%Y") %></td>
         <td><%= user.updated_at.strftime("%d/%m/%Y") %></td>
       </tr>

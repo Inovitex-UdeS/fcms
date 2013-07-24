@@ -226,6 +226,6 @@ class Admin::PlanificationController < ApplicationController
     # Sauvegarder le fichier excel
     spreadsheet = StringIO.new
     excel_doc.write spreadsheet
-    send_data spreadsheet.string, :filename => "FCMS-Inscriptions-2012.xls", :type =>  "application/vnd.ms-excel"
+    send_data spreadsheet.string, :filename => "FCMS-Inscriptions-#{Edition.find(Setting.find_by_key('current_edition_id').value).year}.xls", :type =>  "application/vnd.ms-excel"
   end
 end

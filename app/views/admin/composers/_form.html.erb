@@ -1,6 +1,6 @@
 <h4>Ajouter ou modifier un compsiteur</h4>
 <div class="col">
-    <%= simple_form_for [:admin, @composer] do |f| %>
+    <%= simple_form_for [:admin, @composer], :validate=>true do |f| %>
       <div class="control-group">
         <label class="control-label"><h5>Identifiant</h5></label>
         <div class="controls">

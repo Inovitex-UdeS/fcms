@@ -1,6 +1,6 @@
 <h4>Ajouter ou modifier un utilisateur</h4>
 
-<%= simple_form_for [:admin, @user] do |f| %>
+<%= simple_form_for [:admin, @user],:validate=>true do |f| %>
 
     <div class="input-prepend">
       <label class="control-label"><h5>Identifiant</h5></label>

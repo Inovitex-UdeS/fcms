@@ -223,44 +223,9 @@ class Admin::PlanificationController < ApplicationController
       end
     end
 
-
-    sheet_user = excel_doc.create_worksheet  :name =>  "USERS"
-    headers = ["Nom", "Prénom", "Âge", "Rôle(s)", "Nombre d'inscriptions", "Courriel","#Tel",
-               "Rue","Ville", "Code postal",]
-    sheet_user.row(0).replace headers
-    sheet_user.column(0).width = 20
-    headers.each_index do |i|
-      sheet_user.column(i).width = headers.at(i).to_s.length+3
-    end
-    sheet_user.row(0).default_format = header_format
-
-    i = 1
-    User.all.each do |u|
-      roles = ""
-      u.roles.each do |role|
-        roles += "#{role.name} \n"
-      end
-
-      if c = u.contactinfo
-        tel = c.telephone
-        rue = c.address
-        ville = c.city.name
-        post = c.postal_code
-      else
-        tel   = ""
-        rue   = ""
-        ville = ""
-        post  = ""
-      end
-      regcount = u.registrations.where(edition_id: Setting.find_by_key('current_edition_id')).size
-      sheet_user.row(i).replace [u.last_name, u.first_name, u.age , roles, regcount, u.email, tel,rue, ville, post]
-      i += 1
-    end
-
-
     # Sauvegarder le fichier excel
     spreadsheet = StringIO.new
     excel_doc.write spreadsheet
-    send_data spreadsheet.string, :filename => "FCMS-Inscriptions-2012.xls", :type =>  "application/vnd.ms-excel"
+    send_data spreadsheet.string, :filename => "FCMS-Inscriptions-#{Edition.find(Setting.find_by_key('current_edition_id').value).year}.xls", :type =>  "application/vnd.ms-excel"
   end
 end

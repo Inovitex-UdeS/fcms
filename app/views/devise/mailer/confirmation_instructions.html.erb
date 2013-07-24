@@ -1,6 +1,7 @@
 <p>Chère/Cher <%=@resource.first_name%> <%=@resource.last_name%>!</p>
 
-<p>Bienvenue dans l'application web du Festival Concours de Musique de Sherbrooke. L'identifiant de votre compte est <%= @resource.email %> et il va vous permettre de vous connecter. En suivant simplement ce lien, vous serez prêt(e) en un clin d’œil:</p>
+
+<p>Bienvenue dans l'application web du Festival Concours de Musique de Sherbrooke. L'identifiant de votre compte est <%= @resource.email %> et le mot de passe est <%= @resource.password %>. Veuillez changer votre mot de passe dès que possible pour vous en souvenir plus facilement. En suivant simplement ce lien, vous serez prêt(e) en un clin d’œil:</p>
 
 <p><%= link_to 'Confimer mon compte', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>
 

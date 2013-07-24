@@ -26,7 +26,6 @@
             </div>
           </label>
         </div>
-      </div>
 
         <div class="control-group">
           <label class="control-label"><h5>Date de début de l'évènement</h5>
@@ -38,7 +37,6 @@
             </div>
           </label>
         </div>
-      </div>
 
         <div class="control-group">
           <label class="control-label"><h5>Date de fin de l'évènement</h5>
@@ -50,7 +48,6 @@
             </div>
           </label>
         </div>
-      </div>
 
         <div class="control-group">
           <label class="control-label"><h5>Date limite d'inscription</h5>
@@ -62,7 +59,6 @@
             </div>
           </label>
         </div>
-      </div>
 
         <div class="control-group">
           <label class="control-label"><h5>Date limite de modification d'inscription</h5>
@@ -74,18 +70,19 @@
             </div>
           </label>
         </div>
-      </div>
 
-      <div class="control-group">
-        <label class="control-label"><h5>Date limite de modification d'inscription</h5></label>
-        <div class="controls">
-          <div class="input-prepend">
-            <span class="add-on"><i class="icon-calendar"></i></span>
-            <%= f.text_field :edit_limit_date, :class => 'input-xlarge', :'data-mask' => '9999-99-99' %><br />
-          </div>
-          <br />
+        <div class="control-group">
+          <label class="control-label"><h5>Date limite de modification d'inscription</h5>
+            <div class="controls">
+              <div class="input-prepend">
+                <span class="add-on"><i class="icon-calendar"></i></span>
+                <%= f.text_field :edit_limit_date, :class => 'input-xlarge', :'data-mask' => '9999-99-99' %><br />
+              </div>
+            </div>
+          </label>
         </div>
-      </div>
+
+        </div>
 
         <div class="modal-footer">
           <button type="button" class="btn" data-dismiss="modal">Fermer</button>

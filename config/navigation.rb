@@ -112,7 +112,7 @@ SimpleNavigation::Configuration.run do |navigation|
 
     primary.item :divider_6, nil, nil, :class => 'divider-vertical'
 
-    primary.item :key_7, 'Compte', nil, :icon => 'icon-user', :onclick => 'return false;' do |sub_nav|
+    primary.item :key_7, 'Compte', nil, :icon => 'icon-user', :link => {:onclick => 'return false;'} do |sub_nav|
       sub_nav.item :key_7_1, 'Profil', edit_user_path(current_user)
       sub_nav.item :key_7_2, 'Courriel et mot de passe', edit_user_registration_path
       sub_nav.item :key_7_3, '', nil, :class=> 'divider'

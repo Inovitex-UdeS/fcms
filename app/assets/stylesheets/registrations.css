@@ -6,3 +6,10 @@
 #AutresParticipants {
     display: none;
 }
+
+.programme-musical-selectors{
+    /* float:left; */
+}
+.programme-musical{
+    /* float:none; */
+}

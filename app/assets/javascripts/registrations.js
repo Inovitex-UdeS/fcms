@@ -30,6 +30,8 @@ function changeCategory(category_id) {
     $.getJSON('/categories/' + category_id, function(data) {
         nbPerfMax = data['category']['nb_perf_max'];
         nbPerfMin = data['category']['nb_perf_min'];
+        $("#category-description").text(data['category']['description'])
+
         if (data['agegroup']) maxDuration = data['agegroup']['max_duration'];
         else maxDuration = null;
         group = data.category.group;

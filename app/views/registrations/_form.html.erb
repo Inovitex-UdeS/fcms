@@ -14,9 +14,14 @@
 
     <%= f.hidden_field :school_id, :value => @current_edition %>
 
-    <h5>Programme musical</h5>
-    <%= f.association :category, prompt: "Classe", label: false, :input_html => {:onchange => "changeCategory(this.value)"} %>
-    <%= f.association :instruments, prompt: "Instrument", label: false,  as: :collection_select %>
+    <div class="programme-musical">
+      <h5>Programme musical</h5>
+      <div class="programme-musical-selectors">
+        <%= f.association :category, prompt: "Classe", label: false, :input_html => {:onchange => "changeCategory(this.value)"} %>
+        <%= f.association :instruments, prompt: "Instrument", label: false,  as: :collection_select %>
+      </div>
+      <div id="category-description"></div>
+    </div>
 
     <h5>Pièces performées</h5>
 

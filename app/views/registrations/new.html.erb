@@ -2,7 +2,7 @@
 
 <% if current_user.is_participant? %>
     <% if not isEndOfRegistrations? %>
-        <%= simple_nested_form_for @registration, :remote => true, :validate=>true do |f| %>
+        <%= simple_nested_form_for @registration, :remote => true do |f| %>
             <%= f.hidden_field :user_owner_id, :value => @owner_id %>
             <%= render :partial => '/registrations/form', :locals => {:f => f} %>
         <% end %>

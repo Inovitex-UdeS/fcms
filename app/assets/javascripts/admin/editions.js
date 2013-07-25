@@ -24,6 +24,84 @@ $(document).ready(function() {
         viewMode: 2
     });
 
+    fcms.fnSuccessAddItem = function( data ) {
+        $('#formModal').modal('hide');
+
+        var aItem = new Array();
+
+        $('#' + oForm.attr('id') + ' input').filter(function() { return this.id.match(re); }).each(
+            function(){
+                var field = $(this).attr('id').replace(/^[a-zA-Z0-9]+_/g, '');
+                if (field in data) {
+                    aItem.push(data[field]);
+                }
+
+            }
+        );
+
+        aItem.push(fcms.fnFormatDate(data['created_at']));
+        aItem.push(fcms.fnFormatDate(data['updated_at']));
+
+        var iRow = oTable.fnAddData(aItem);
+
+        $(oTable.fnGetNodes(iRow)).single_double_click(fcms.fnSelectableRows, fcms.fnEditableRows);
+
+        fcms.fnClearForm();
+
+        $('#edition_id').append($('<option>', {
+            value: aItem[0],
+            text : aItem[1]
+        }));
+
+        fcms.showMessage('L\'item a été ajouté avec succès.');
+
+        oTable.$('tr.row_selected').removeClass('row_selected');
+    };
+
+
+    fcms.fnSuccessUpdateData = function( data ) {
+        $('#formModal').modal('hide');
+
+        var aItem = new Array();
+
+        $('#' + oForm.attr('id') + ' input').filter(function() { return this.id.match(re); }).each(
+            function(){
+                var field = $(this).attr('id').replace(/^[a-zA-Z0-9]+_/g, '');
+                if (field in data) {
+                    aItem.push(data[field]);
+                }
+            }
+        );
+        aItem.push(fcms.fnFormatDate(data['created_at']));
+        aItem.push(fcms.fnFormatDate(data['updated_at']));
+
+        var selected = fcms.fnGetSelected(oTable)[0];
+        var value = $(selected).children().first().text();
+
+        oTable.fnUpdate(aItem, selected);
+
+        $("#edition_id option[value=\'"+ value +"\']").remove();
+
+        $('#edition_id').append($('<option>', {
+            value: aItem[0],
+            text : aItem[1]
+        }));
+
+        fcms.fnClearForm();
+        oTable.$('tr.row_selected').removeClass('row_selected');
+
+        fcms.showMessage('L\'item a été modifié avec succès.');
+    };
+
+    fcms.fnSuccessRemoveData = function(result) {
+        var selected = fcms.fnGetSelected( oTable );
+        fcms.showMessage('L\'item a été supprimé avec succès');
+        oTable.fnDeleteRow(selected[0]);
+        $("#edition_id option[value=\'"+ $(selected).children().first().text() +"\']").remove();
+        fcms.fnClearForm();
+    };
+
+
     fcms.bindTable($('.table'));
     fcms.initTable();
     fcms.bindForm($('#new_edition'), 3);

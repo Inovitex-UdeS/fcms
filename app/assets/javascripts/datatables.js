@@ -90,11 +90,7 @@ fcms.bindForm = function (form, type) {
                 $.ajax({
                     url: modelUrl + id,
                     type: 'DELETE',
-                    complete: function(result) {
-                        fcms.showMessage('L\'item a été supprimé avec succès');
-                        oTable.fnDeleteRow(anSelected[0]);
-                        fcms.fnClearForm();
-                    }
+                    complete: fcms.fnSuccessRemoveData
                 });
             }
         });
@@ -292,6 +288,14 @@ fcms.fnSuccessGetData = function( data ) {
         }
     );
     $('#formModal').modal('show');
+};
+
+
+fcms.fnSuccessRemoveData = function(result) {
+    var selected = fcms.fnGetSelected( oTable );
+    fcms.showMessage('L\'item a été supprimé avec succès');
+    oTable.fnDeleteRow(selected[0]);
+    fcms.fnClearForm();
 };
 
 // Clear the form

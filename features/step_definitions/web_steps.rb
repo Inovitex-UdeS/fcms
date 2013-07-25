@@ -116,6 +116,10 @@ When /^(?:|I )wait for "([^"]*)"$/ do |field|
   sleep(field.to_i)
 end
 
+When /^I reload the page$/ do
+  visit :current_page
+end
+
 Then /^(?:|I )should see "([^"]*)"$/ do |text|
   if page.respond_to? :should
     page.should have_content(text)

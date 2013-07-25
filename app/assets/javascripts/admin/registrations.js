@@ -8,6 +8,8 @@ $(document).ready(function(){
     $('#registration_user_owner_id').typeahead();
     $("#AutresParticipants").hide();
     fcms.bindTable($('#registrations_table'));
-    fcms.initTable() ;
+    fcms.initTable({
+        "sScrollX": "100%"
+    }) ;
     $(".alert").alert();
 });

@@ -80,12 +80,7 @@ $(document).ready(function() {
 
         oTable.fnUpdate(aItem, selected);
 
-        $("#edition_id option[value=\'"+ value +"\']").remove();
-
-        $('#edition_id').append($('<option>', {
-            value: aItem[0],
-            text : aItem[1]
-        }));
+        $("#edition_id option[value=\'"+ value +"\']").text(aItem[1]);
 
         fcms.fnClearForm();
         oTable.$('tr.row_selected').removeClass('row_selected');

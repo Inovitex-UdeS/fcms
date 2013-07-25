@@ -46,9 +46,23 @@ body {
 /* Sub-navigation */
 .section-submenu h4 { margin: 0 0 10px 0; padding: 0; }
 .section-submenu ul { margin: 0 -20px; list-style: none; }
-.section-submenu li { padding: 4px 0; }
-.section-submenu li:hover, .section-submenu li.active {
+.section-submenu li { padding: 5px 0; line-height: 18px; }
+.section-submenu li:hover {
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  background-color: #0081c2;
+  background-image: -moz-linear-gradient(top,#EBAA37, #AB710A);
+  background-image: -webkit-gradient(linear,0 0,0 100%,from(#EBAA37),to(#AB710A));
+  background-image: -webkit-linear-gradient(top, #EBAA37, #AB710A);
+  background-image: -o-linear-gradient(top, #EBAA37, #AB710A);
+  background-image: linear-gradient(to bottom, #EBAA37, #AB710A);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFEBAA37',endColorstr='#FFAB710A',GradientType=0);
+}
+.section-submenu li.active {
     color: #fff;
+  font-weight: 600;
     text-decoration: none;
     background-color: #0081c2;
     background-image: -moz-linear-gradient(top,#aa0911, #8a2003);
@@ -82,11 +96,20 @@ body {
 }
 
 /* DataTables images */
-.table.dataTable thead .sorting_asc {
-    background: url(<%= image_path 'sort_asc.png' %>) no-repeat center right;
+table.dataTable:not(.table-clear) thead .sorting {
+  background-image: url(<%= image_path 'sort_both.png' %>);
+  background-repeat: no-repeat;
+  background-position: center right;
 }
-.table.dataTable thead .sorting_desc {
-    background: url(<%= image_path 'sort_desc.png' %>) no-repeat center right;
+table.dataTable thead .sorting_asc {
+    background-image: url(<%= image_path 'sort_asc.png' %>);
+    background-repeat: no-repeat;
+    background-position: center right;
+}
+table.dataTable thead .sorting_desc {
+    background-image: url(<%= image_path 'sort_desc.png' %>);
+    background-repeat: no-repeat;
+    background-position: center right;
 }
 
 

@@ -49,6 +49,7 @@ h1, h2, h3, h4, h5, h6 {
     color: #8A2003;
     font-family: 'Open Sans';
     font-weight: 300;
+    line-height: normal;
 }
 
 /* Reset the "mendatory" indicator */
@@ -147,9 +148,41 @@ ul.nav li.dropdown:hover > ul.dropdown-menu{
 .optionsRadios { margin-right: 10px; }
 
 /* --------------- Datatables --------------- */
-.table tr.even.row_selected td { background-color: #E7E7E7; }
-.table tr.odd.row_selected td { background-color: #E7E7E7; }
+table.dataTable {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    table-layout: fixed;
+    font-size: 13px;
+    margin-bottom: 9px !important;
+}
+.dataTables_scroll table.dataTable { table-layout: auto; }
+div.dataTables_length label { font-size: 13px; }
+div.dataTables_length select { margin: auto 4px; }
+
+table.dataTable th, .dataTable td {
+    padding: 5px 6px;
+    line-height: normal;
+}
+table.dataTable th, table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTable thead .sorting_desc {
+    background-color: #e8e5e5;
+    padding-right: 18px;
+    overflow: hidden; white-space: nowrap; text-overflow: ellipsis; word-break: break-all; word-wrap: break-word;
+}
+
+table.dataTable tbody tr:hover { cursor: pointer; background-color: #f5f5f5; }
+table.dataTable thead th:first-child { width: 20px; }
+td.dataTables_empty { background: #fff; cursor: auto; }
+
+.table tr.even.row_selected td { background-color: #FFBABA; }
+.table tr.odd.row_selected td { background-color: #FFBABA; }
 .btn-grid { margin-right: 5px}
+
+.pagination ul>li>a, .pagination ul>li>span {
+    padding: 2px 8px;
+    font-size: 13px;
+    line-height: normal;
+}
 
 .nav>li.menu-disabled>a {
     color: #BFBFBF;

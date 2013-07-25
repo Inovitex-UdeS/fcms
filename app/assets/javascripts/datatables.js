@@ -179,6 +179,7 @@ fcms.initTable = function (customSettings) {
         }
     }, customSettings));
 
+    // Update search box styling
     var filterDiv = oTable.parents('.dataTables_wrapper').find('.dataTables_filter');
     var contents = $('<div class="input-prepend"></div>')
         .append('<span class="add-on"><i class="icon-search"></i></span>')
@@ -186,6 +187,14 @@ fcms.initTable = function (customSettings) {
     filterDiv.html('').append(contents).css({
         textAlign: "right",
         marginBottom: 5
+    });
+
+    // Add tooltips for column headers
+    oTable.find('th').each( function() {
+        $(this).tooltip({
+            'title': $(this).text(),
+            'container': 'body'
+        });
     });
 };
 

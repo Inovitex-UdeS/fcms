@@ -126,7 +126,8 @@ class Admin::UsersController < ApplicationController
       end
 
       p.use_shared_strings = true     # THAT'S FOR LINE RETURNS FORMATTING...
-      p.serialize("FCMS-Utilisateurs-#{Edition.find(Setting.find_by_key('current_edition_id').value).year}.xls")
+      # This writes the file locally. I don't think we need it on the server
+      #p.serialize("FCMS-Utilisateurs-#{Edition.find(Setting.find_by_key('current_edition_id').value).year}.xls")
       send_data p.to_stream.read, :filename => "FCMS-Utilisateurs-#{Edition.find(Setting.find_by_key('current_edition_id').value).year}.xls", :type => "application/vnd.openxmlformates-officedocument.spreadsheetml.sheet"
     end
   end

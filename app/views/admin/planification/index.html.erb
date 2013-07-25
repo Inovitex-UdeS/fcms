@@ -10,56 +10,10 @@
       $('#input-planned-category').on('change', function() {
         var selectedOption = $(this).children("option:selected");
         var categoryId = selectedOption.attr('value');
-        var categoryName = selectedOption.text();
-        if (!categoryId || categoryId < 0) {
+        if (!categoryId || categoryId < 0)
           $('#section-2').hide('fast');
-          return;
-        }
-
-        $.ajax({
-          url: "http://localhost:3000/admin/planification/categories/" + categoryId,
-          success: function(data) {
-            fcms.currentCategory = data;
-
-            var tsInput = $('#select-timeslot');
-            tsInput.find('option').remove().end().append('<option></option>');
-            _.each(fcms.currentCategory.timeslots, function(ts) {
-              $('<option></option>').attr('value', ts.id).text(ts.label).appendTo(tsInput);
-            });
-
-            $('.panel:not(#panel-categories)').hide();
-            $('#section-2').show('fast');
-          },
-          error: function() {
-            alert("Les sous-catégories pour la classe " + categoryName + " n'ont pas pu être chargées.")
-          }
-        })
-      });
-
-      // On timeslot selection
-      $('#select-timeslot').on('change', function() {
-        var selectedOption = $(this).children("option:selected");
-        var timeslotId = selectedOption.attr('value');
-        var timeslotName = selectedOption.text();
-        if (!timeslotId || timeslotId < 0) {
-          $('.panel:not(#panel-categories)').hide('fast');
-          return;
-        }
-
-        $.ajax({
-          url: "http://localhost:3000/admin/planification/timeslots/" + timeslotId,
-          success: function(data) {
-            loadTimeslot(data);
-          },
-          error: function() {
-            alert("La sous-catégorie " + timeslotName + " n'a pas pu être chargée.");
-          }
-        });
-      });
-
-      // On timeslot creation
-      $('#btn-create-timeslot').click(function() {
-        loadTimeslot();
+        else
+          ajaxLoadCategory(categoryId);
       });
 
       // Enable select-all and select-none buttons
@@ -74,7 +28,85 @@
       $('#btn-move-selected-down')  .click(function() { moveRows($('#table-inscriptions-selected tr.draggable.selected'), fcms.table_selected, fcms.table_all); });
       $('#btn-move-all-up')         .click(function() { moveRows($('#table-inscriptions-all      tr.draggable'),          fcms.table_all, fcms.table_selected); });
       $('#btn-move-selected-up')    .click(function() { moveRows($('#table-inscriptions-all      tr.draggable.selected'), fcms.table_all, fcms.table_selected); });
+
+      // Enable save timeslot button
+      $('#btn-save-timeslot').click(saveTimeslot);
     });
+
+    function ajaxLoadCategory(category_id) {
+      $.ajax({
+        url: "<%=  url_for :controller => 'admin/planification' %>/" + category_id,
+        success: function(data) {
+          $('.panel:not(#panel-categories)').hide();
+          $('#section-2').show('fast');
+
+          loadCategory(data);
+        },
+        error: function() {
+          alert("Les sous-catégories pour la classe " + category_id + " n'ont pas pu être chargées.")
+        }
+      })
+    }
+
+    function ajaxLoadTimeslot(timeslot_id) {
+      $.ajax({
+        url: '<%= admin_timeslots_path %>/' + timeslot_id,
+        success: function(data) {
+          loadTimeslot(data);
+        },
+        error: function() {
+          alert("La sous-catégorie " + timeslot_id + " n'a pas pu être chargée.");
+        }
+      });
+    }
+
+    function ajaxSaveTimeslot(obj) {
+      // Post to application
+      $.ajax({
+        url: '<%= admin_timeslots_path %>',
+        type: "POST",
+        contentType: 'application/json',
+        dataType: 'json',
+        data: JSON.stringify(obj),
+        success: function(data) {
+          clearRegistrations(obj.id);
+
+          // Put all current registrations in this timeslot
+          for (var r in obj.registrations)
+            fcms.currentCategory.registrations[obj.registrations[r]].timeslot_id = data.id;
+
+          if (obj.id < 0) {
+            $('#input-timeslot-id').val(data.id);
+            var index = fcms["table_timeslots"].fnAddData(getTimeslotObjectForRow(data));
+            fcms["table_timeslots"].find('tr.selectable:eq(' + index[0] + ')').addClass('row_selected');
+          }
+          else {
+            fcms["table_timeslots"].fnUpdate(getTimeslotObjectForRow(data), fcms.fnGetSelected(fcms["table_timeslots"])[0]);
+          }
+
+          fcms.showMessage("Les modifications ont été enregistrées.");
+        },
+        error: function() {
+          fcms.showMessage("Les modifications n'ont pas pu être enregistrées.", "error");
+        }
+      })
+    }
+
+    function ajaxRemoveTimeslot(tsId, row) {
+      // Post to application
+      $.ajax({
+        url: '<%= admin_timeslots_path %>/' + tsId,
+        type: "DELETE",
+        success: function() {
+          fcms["table_timeslots"].fnDeleteRow(row);
+          $('.panel:not(#panel-categories)').hide('fast');
+          fcms.showMessage("La catégorie a été supprimée avec succès.");
+        },
+        error: function() {
+          fcms.showMessage("La catégorie n'a pas pu être supprimée.", "error");
+        }
+      })
+    }
 
   </script>
 
@@ -96,13 +128,8 @@
   <hr>
 
   <div class="panel" id="panel-categories">
-    <h4>Catégories d'inscription</h4>
-    <div class="form-inline">
-      <label for="select-timeslot">Catégorie d'inscription: </label>&nbsp;&nbsp;
-      <select id="select-timeslot"></select>
-      <a class="btn btn-small btn-success" href="#" id="btn-create-timeslot"><i class="icon-plus"></i></a>
-      <a class="btn btn-small btn-danger " href="#" id="btn-delete-timeslot"><i class="icon-minus"></i></a>
-    </div>
+    <h4>Plages horaires</h4>
+    <div id="div-timeslots"></div>
   </div>
 
   <div class="panel" id="panel-selected">
@@ -110,9 +137,8 @@
 
     <div id="timeslot-buttons-top">
       <button class="btn btn-success btn-small input-large" id="btn-save-timeslot">Enregistrer les modifications</button><br />
-      <button class="btn btn-danger btn-small input-large" id="btn-remove-timeslot">Supprimer la catégorie</button>
     </div>
-    <h4>Détails de la catégorie</h4>
+    <h4>Détails de la plage horaire</h4>
 
     <div class="control-group">
       <label class="control-label"><b>Identifiant</b></label>
@@ -125,19 +151,18 @@
       </div>
     </div>
 
-
     <div class="control-group">
-      <label class="control-label" for="input-timeslot-name"><b>Nom de la catégorie</b></label>
+      <label class="control-label" for="input-timeslot-name"><b>Nom de la plage horaire</b></label>
       <div class="controls">
         <div class="input-prepend">
           <span class="add-on"><i class="icon-font"></i></span>
-          <input class="input-xlarge" id="input-timeslot-name" type="text">
+          <input class="input-xlarge" id="input-timeslot-name" type="text" placeholder="Nom de la plage horaire">
         </div>
         <br />
       </div>
     </div>
 
-    <h4>Inscriptions dans cette catégorie</h4>
+    <h4>Inscriptions dans cette plage horaire</h4>
     <div class="div-inscriptions" id="div-inscriptions-selected"></div>
 
   </div>
@@ -164,7 +189,7 @@
   </div>
 
   <div class="panel" id="panel-all">
-    <h4>Toutes les inscriptions pour la classe <strong>Récital</strong></h4>
+    <h4>Inscriptions non-planifiées pour la classe <strong>Récital</strong></h4>
     <div class="div-inscriptions" id="div-inscriptions-all"></div>
 
   </div>

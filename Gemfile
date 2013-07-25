@@ -38,6 +38,7 @@ end
 gem 'sass-rails',   '3.2.3'
 gem 'bootstrap-sass', '2.0.2'
 gem 'jquery-datatables-rails', git: 'git://github.com/rweng/jquery-datatables-rails.git'
+gem 'ajax-datatables-rails'
 
 # Navigation
 gem 'simple-navigation', '3.11.0'

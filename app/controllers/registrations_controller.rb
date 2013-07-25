@@ -12,11 +12,15 @@ class RegistrationsController < ApplicationController
     end
 
     if current_user.is_teacher?
-      @registrations += Registration.where("edition_id=#{@current_edition} AND user_teacher_id=#{current_user.id}")
+      @registrations += Registration.where(edition_id:@current_edition, :user_teacher_id =>  current_user.id )
     end
 
     if current_user.is_judge?
-      @registrations = Registration.where("edition_id=#{@current_edition}")
+      @registrations = Registration.where(edition_id:@current_edition)
+    end
+
+    if current_user.is_accompanist?
+      @registrations = Registration.where(edition_id: @current_edition, :user_accompanist_id => current_user.id)
     end
 
   end
@@ -27,6 +31,7 @@ class RegistrationsController < ApplicationController
     @user_school = User.find(@owner_id).school_id
     @current_edition = Setting.find_by_key('current_edition_id').value
     @teachers = User.teachers
+    @accompanists = User.accompanists
     @participants = User.participants
     @user = User.new
     @composer = Composer.new
@@ -99,6 +104,7 @@ class RegistrationsController < ApplicationController
       redirect_to root_path, :alert => "Vous n'êtes pas autorisé à consulter les inscriptions des autres"
     end
     @teachers = User.teachers
+    @accompanists = User.accompanists
     @participants = User.participants
     @user_school = @registration.owner.school_id
     @current_edition = @registration.edition_id

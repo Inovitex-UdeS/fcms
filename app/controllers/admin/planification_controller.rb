@@ -1,112 +1,48 @@
 #encoding: utf-8
 class Admin::PlanificationController < ApplicationController
   before_filter :prevent_non_admin
-  #TODO: remove this line after debugging
-  protect_from_forgery :except => :timeslots
 
   def index
   end
 
-  def categories
+  def show
+    # Get the selected category
     selected_category = Category.find(params[:id])
+
+    # Find the timeslots for this category
     timeslots = Timeslot.all(
         :conditions => {
-            :category_id => params[:id],
+            :category_id => selected_category.id,
             :edition_id => Setting.find_by_key('current_edition_id').value
         },
-        :include => [
-            :registrations
-        ]
+        :include => [ :registrations ]
     )
+
+    # Find the registrations for this category
     registrations = Registration.all(
         :conditions => {
-            :category_id => params[:id],
+            :category_id => selected_category.id,
             :edition_id => Setting.find_by_key('current_edition_id').value
         },
         :include => [
-            :registrations_users => [
-                :user,
-                :instrument
-            ],
-            :performances => [
-                :piece => [ :composer ]
-            ]
+            :registrations_users => [ :user, :instrument ],
+            :performances => [ :piece => [ :composer ] ]
         ]
     )
 
-    # Put all registrations for this category in an array
+    # Put all registrations in an array for easy indexation
     registrations_array = []
     registrations.each do |reg|
-      reg_obj = {
-          :category => selected_category.name,
-          :duration => reg.duration,
-          :age => reg.age_max,
-          :timeslot_id => reg.timeslot_id,
-          :users => [],
-          :performances => []
-      }
-      registrations_array.insert reg.id, reg_obj
-
-      reg.registrations_users.each do |u|
-        reg_obj[:users] << {
-            :first_name => u.user.first_name,
-            :last_name => u.user.last_name,
-            :instrument => u.instrument.name
-        }
-      end
-
-      reg.performances.each do |p|
-        reg_obj[:performances] << {
-            :composer => p.piece.composer.name,
-            :title => p.piece.title
-        }
-      end
+      registrations_array.insert reg.id, reg.as_simple_json
     end
 
+    # Render everything
     render :json => {
         :id => selected_category.id,
         :name => selected_category.name,
-        :timeslots => timeslots,
-        :registrations => registrations_array.as_json()
+        :timeslots => timeslots.as_json,
+        :registrations => registrations_array.as_json
     }
-  end
-
-  def timeslots
-    if request.get?
-      ts = Timeslot.find(params[:id])
-      regs = []
-      ts.registrations.each do |r|
-        regs << r.id
-      end
-
-      render :json => {
-        :id => ts.id,
-        :category_id => ts.category_id,
-        :duration => ts.duration,
-        :label => ts.label,
-        :registrations => regs
-      }
-
-    elsif request.post?
-      if params[:id] > -1
-        timeslot = Timeslot.find(params[:id])
-      else
-        timeslot = Timeslot.new
-      end
-
-      timeslot.label       = params[:label]
-      timeslot.category_id = params[:category_id]
-      timeslot.duration    = params[:duration] || 0
-
-      timeslot.registrations.clear
-      params[:registrations].each do |i|
-        timeslot.registrations << Registration.find(i)
-      end
-
-      timeslot.save
-
-      render :json => timeslot
-    end
   end
 
   def ProduceExcel

@@ -2,6 +2,10 @@
 class Admin::ComposersController < ApplicationController
   before_filter :prevent_non_admin
 
+  def index
+    render json: ComposersDatatable.new(view_context)
+  end
+
   def new
     @composer = Composer.new
     @composers = Composer.all

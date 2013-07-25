@@ -2,6 +2,10 @@
 class Admin::PiecesController < ApplicationController
   before_filter :prevent_non_admin
 
+  def index
+    render json: PiecesDatatable.new(view_context)
+  end
+
   def new
     @piece = Piece.new
     @piece.composer ||= Composer.new

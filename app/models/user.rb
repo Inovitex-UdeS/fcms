@@ -71,7 +71,7 @@ class User < ActiveRecord::Base
     return self.has_role?('Participant')
   end
 
-  def is_accompagnist?
+  def is_accompanist?
     return self.has_role?('Accompagnateur')
   end
 

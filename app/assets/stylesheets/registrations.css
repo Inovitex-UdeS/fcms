@@ -6,7 +6,9 @@
 #AutresParticipants {
     display: none;
 }
-
+#registration-accompanist{
+    display: none;
+}
 .programme-musical-selectors{
     /* float:left; */
 }

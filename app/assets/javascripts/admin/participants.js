@@ -7,10 +7,10 @@ $(document).ready(function() {
     $('#role_user_ids').typeahead();
     fcms.bindTable($('.table'));
     fcms.initTable();
-    fcms.fnInjectDeleteButton('/admin/teachers/', $('#role_user_ids'));
+    fcms.fnInjectDeleteButton('/admin/participants/', $('#role_user_ids'));
 
     $('form').on('ajax:success', function(evt, data, status, xhr) {
-        fcms.showMessage('Le professeur a été ajouté avec succès!');
+        fcms.showMessage('Le participant a été ajouté avec succès!');
 
         var aItem = new Array();
         aItem.push(data['id']);
@@ -27,6 +27,10 @@ $(document).ready(function() {
     });
 
     $('form').on('ajax:error', function(event, xhr, status) {
+        fcms.showMessage(xhr.responseText, 3);
+    });
+
+    $('form').on('ajax:complete', function(evt, data, status, xhr) {
         fcms.showMessage(xhr.responseText, 3);
     });
 });

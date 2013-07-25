@@ -4,9 +4,27 @@
 //= require datatables
 
 $(document).ready(function(){
-    fcms.bindTable($('.table'));
-    fcms.initTable();
+
+    var tsDTOptions = {
+        "bInfo": false,
+        "bProcessing": true,
+        "bServerSide": true,
+        "sAjaxSource": $('#pieces-table').data('source'),
+        "fnDrawCallback": function( oSettings ) {
+            // Add a click handler to the rows (selectable rows)
+            $.each(oTable.fnGetNodes(), function() {
+                $(this).single_double_click(fcms.fnSelectableRows, fcms.fnEditableRows);
+            });
+        },
+        "aoColumnDefs": [
+            { 'bSortable': false, 'aTargets': [ 2 ] }
+        ]
+    };
+
+    fcms.bindTable($('#pieces-table'));
+    fcms.initTable(tsDTOptions);
     fcms.bindForm($('form'), 3);
+
 
     // Remove default behavior and put logic for this specific page
     fcms.fnSuccessGetData = function( data ) {

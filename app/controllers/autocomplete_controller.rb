@@ -45,9 +45,21 @@ class AutocompleteController < ApplicationController
 
   def participants
     search = params[:user]
+    userInReg = params[:noUser]
 
     if search
-      @participants = User.participants.where("first_name LIKE '%#{search}%' OR last_name LIKE '%#{search}%' OR email LIKE '%#{search}%' ")
+      query = "(first_name LIKE '%#{search}%' OR last_name LIKE '%#{search}%' OR email LIKE '%#{search}%')"
+
+      if userInReg
+        query += "AND users.id NOT IN("
+        userInReg.each do |user_id|
+            query += (user_id.to_s + ",")
+        end
+        query.chop!
+        query += ")"
+      end
+
+      @participants = User.participants.where(query)
     else
       @participants = User.participants
     end

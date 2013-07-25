@@ -198,3 +198,4 @@ input.input-hidden {
 /* DataTables fixes */
 #addItem { margin-right:5px; }
 .datepicker{z-index:1151;}
+.fcms-message.alert{z-index:1151;}

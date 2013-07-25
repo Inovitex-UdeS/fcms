@@ -14,6 +14,8 @@
     user-select: none;
 }
 
+tr.selectable, tr.draggable { cursor: pointer; }
+
 #timeslot-buttons-top { position: absolute; top: 22px; right: 0px; }
 #timeslot-buttons-top .btn { margin-bottom: 5px; }
 
@@ -24,25 +26,25 @@
 #panel-controls #sub-controls-up { padding-right: 0px; border-left: 1px dotted; padding-top: 30px; }
 #panel-controls #sub-controls-down { padding-left: 0px; }
 
-.dataTable { font-size: 11px; }
-.dataTable tr.draggable { cursor: pointer; }
-.table th, .table td { padding: 3px 15px 3px 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.table th { padding: 3px 20px 3px 3px; font-size: 11.5px; }
+.table-inscriptions { font-size: 11px; }
+.table-inscriptions th, .table-inscriptions td { padding: 3px 15px 3px 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-table.dataTable { border: none; margin-bottom: 0 !important; }
+.table-inscriptions { border: none; margin-bottom: 0 !important; }
 
-.table-bordered th {
+.table-inscriptions th {
     border: none;
     border-bottom: 1px solid #dddddd;
+    padding: 3px 20px 3px 3px;
+    font-size: 11.5px;
 }
 
-.table-bordered td {
+.table-inscriptions td {
     border: none;
 }
 
-.table-bordered thead:last-child tr:last-child>th:first-child, .table-bordered tbody:last-child tr:last-child>td:first-child, .table-bordered tbody:last-child tr:last-child>th:first-child, .table-bordered tfoot:last-child tr:last-child>td:first-child, .table-bordered tfoot:last-child tr:last-child>th:first-child,
-.table-bordered thead:first-child tr:first-child>th:first-child, .table-bordered tbody:first-child tr:first-child>td:first-child, .table-bordered tbody:first-child tr:first-child>th:first-child,
-.table-bordered thead:last-child tr:last-child>th:last-child, .table-bordered tbody:last-child tr:last-child>td:last-child, .table-bordered tbody:last-child tr:last-child>th:last-child, .table-bordered tfoot:last-child tr:last-child>td:last-child, .table-bordered tfoot:last-child tr:last-child>th:last-child {
+.table-inscriptions thead:last-child tr:last-child>th:first-child, .table-inscriptions tbody:last-child tr:last-child>td:first-child, .table-bordered tbody:last-child tr:last-child>th:first-child, .table-bordered tfoot:last-child tr:last-child>td:first-child, .table-bordered tfoot:last-child tr:last-child>th:first-child,
+.table-inscriptions thead:first-child tr:first-child>th:first-child, .table-inscriptions tbody:first-child tr:first-child>td:first-child, .table-bordered tbody:first-child tr:first-child>th:first-child,
+.table-inscriptions thead:last-child tr:last-child>th:last-child, .table-inscriptions tbody:last-child tr:last-child>td:last-child, .table-bordered tbody:last-child tr:last-child>th:last-child, .table-bordered tfoot:last-child tr:last-child>td:last-child, .table-bordered tfoot:last-child tr:last-child>th:last-child {
     webkit-border-bottom-left-radius: 0px;
     -moz-border-radius-bottomleft: 0px;
     border-bottom-left-radius: 0px;
@@ -51,14 +53,14 @@ table.dataTable { border: none; margin-bottom: 0 !important; }
     border-bottom-right-radius: 0px;
 }
 
-.table-bordered tr.odd {
+.table-inscriptions tr.odd {
     background-color: #FFFBEF;
 }
-.table-bordered tr.even {
+.table-inscriptions tr.even {
     background-color: #fffdfa;
 }
 
-.table-bordered tr.selected {
+.table-inscriptions tr.selected {
     color: #fff;
     text-decoration: none;
     background-color: #aa0911;

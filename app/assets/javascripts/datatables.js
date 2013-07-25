@@ -119,7 +119,7 @@ fcms.bindForm = function (form, type) {
                 data    : oForm.serialize(),
                 success : fcms.fnSuccessUpdateData,
                 error   : function( xhr, err ) {
-                    fcms.showMessage(xhr.responseText);
+                    fcms.showMessage(xhr.responseText, 3);
                 }
             });
         }
@@ -133,7 +133,7 @@ fcms.bindForm = function (form, type) {
                     data    : oForm.serialize(),
                     success : fcms.fnSuccessAddItem,
                     error   : function( xhr, err ) {
-                        fcms.showMessage(xhr.responseText);
+                        fcms.showMessage(xhr.responseText, 3);
                     }
                 });
             }

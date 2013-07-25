@@ -10,6 +10,7 @@ class Admin::RegistrationsController < ApplicationController
     @current_edition = Setting.find_by_key('current_edition_id').value
     @teachers = User.teachers
     @participants = User.participants
+    @accompanists = User.accompanists
   end
 
   def create

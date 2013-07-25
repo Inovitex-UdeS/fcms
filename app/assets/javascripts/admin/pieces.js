@@ -15,10 +15,7 @@ $(document).ready(function(){
             $.each(oTable.fnGetNodes(), function() {
                 $(this).single_double_click(fcms.fnSelectableRows, fcms.fnEditableRows);
             });
-        },
-        "aoColumnDefs": [
-            { 'bSortable': false, 'aTargets': [ 2 ] }
-        ]
+        }
     };
 
     fcms.bindTable($('#pieces-table'));

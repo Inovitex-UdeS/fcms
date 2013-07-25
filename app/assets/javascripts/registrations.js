@@ -9,6 +9,7 @@ var maxDuration = 0;
 var group = false;
 var curDuration = 0;
 var nbPersMax = 12;
+var userList = [];
 
 // Autocomplete
 $(document).ready(function(){
@@ -24,6 +25,8 @@ $(document).ready(function(){
     $('#new_registration').on('ajax:error', function(event, xhr, status) {
         fcms.showMessage(xhr.responseText, 3);
     });
+
+    userList = [$('#registration_user_owner_id').val()];
 });
 
 function changeCategory(category_id) {
@@ -138,7 +141,8 @@ $(document).on('nested:fieldAdded:registrations_users', function(event){
             type: "GET",
             data: function (term, page) {
                 return {
-                    user: term
+                    user: term,
+                    noUser: userList
                 };
             },
             results: function (data, page) {
@@ -157,6 +161,14 @@ $(document).on('nested:fieldAdded:registrations_users', function(event){
             return m;
         }
     });
+
+    $(event.field.find('td > input')[0]).on('change', function(e) {
+        userList = [$('#registration_user_owner_id').val()];
+        $.each($('#users input.user_select'), function(index, value){
+            userList.push($(value).val());
+        })
+    });
+
     $('#totUsers').text($('#users .fields').length);
     $(event.field).hide().fadeIn("slow");
 });
@@ -164,6 +176,10 @@ $(document).on('nested:fieldAdded:registrations_users', function(event){
 $(document).on('nested:fieldRemoved:registrations_users', function(event){
     event.field.remove();
     $('#totUsers').text($('#users .fields').length);
+    userList = [$('#registration_user_owner_id').val()];
+    $.each($('#users input.user_select'), function(index, value){
+        userList.push($(value).val());
+    })
 });
 
 function inviteNewUser() {

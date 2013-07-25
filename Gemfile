@@ -83,6 +83,8 @@ gem 'select2-rails', '3.4.3'
 
 # Excel
 gem 'spreadsheet', '~> 0.8.5'
+gem 'axlsx', '1.3.6'
+#gem 'acts_as_xlsx', '1.0.6'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

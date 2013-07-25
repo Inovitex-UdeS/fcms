@@ -5,6 +5,7 @@
     <th>Catégorie</th>
     <th>Instrument</th>
     <th>Participants</th>
+    <th>Âge</th>
     <th>Pièces</th>
     <th>Compositeurs</th>
     <th>Professeur</th>
@@ -39,6 +40,7 @@
               <br />
           <% end %>
         </td>
+        <td><%= reg.age_max %></td>
         <td>
           <% reg.performances.each do |perf| %>
               <%= perf.piece.title %> <br />

@@ -1,19 +1,12 @@
 <h5>Oeuvres existantes</h5>
-<table class="table table-bordered">
+<table id="pieces-table" class="table table-bordered" data-source="<%= admin_pieces_path%>">
   <thead><tr>
     <th>#</th>
     <th>Titre</th>
-    <th>Compositeur</th>
-    <th>Création</th>
+    <th>Compostieur</th>
+    <th>Date de création</th>
     <th>Dernière mise à jour</th>
   </tr></thead>
-  <% @pieces.each do |piece| %>
-      <tr>
-        <td><%= piece.id %></td>
-        <td><%= piece.title %></td>
-        <td><%= piece.composer.name %></td>
-        <td><%= piece.created_at.strftime("%d/%m/%Y") %></td>
-        <td><%= piece.updated_at.strftime("%d/%m/%Y") %></td>
-      </tr>
-  <% end %>
+  <tbody>
+  </tbody>
 </table><hr>

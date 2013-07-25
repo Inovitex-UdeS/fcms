@@ -1,17 +1,11 @@
 <h5>Compositeurs existants</h5>
-<table class="table table-bordered">
+<table id="composers-table" class="table table-bordered"data-source="<%= admin_composers_path %>">
   <thead><tr>
     <th>#</th>
     <th>Nom du compositeur</th>
     <th>Date de création</th>
     <th>Dernière mise à jour</th>
   </tr></thead>
-  <% @composers.each do |composer| %>
-      <tr>
-        <td><%= composer.id %></td>
-        <td><%= composer.name %></td>
-        <td><%= composer.created_at.strftime("%d/%m/%Y") %></td>
-        <td><%= composer.updated_at.strftime("%d/%m/%Y") %></td>
-      </tr>
-  <% end %>
+  <tbody>
+  </tbody>
 </table><hr>

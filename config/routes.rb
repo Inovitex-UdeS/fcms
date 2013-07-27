@@ -41,7 +41,13 @@ devise_for :users, :controllers => {:registrations => 'devise_registrations', :i
 
   resources :categories
   resources :users
-  resources :registrations
+
+  resources :registrations do
+    member do
+      get 'cancel'
+    end
+  end
+
   resources :composers
 
 

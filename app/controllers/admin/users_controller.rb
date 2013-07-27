@@ -95,7 +95,7 @@ class Admin::UsersController < ApplicationController
   def ProduceExcel
     require 'axlsx'
 
-    headers = ["Nom", "Prénom", "Âge", "Rôle(s)", "Nombre d'inscriptions", "Courriel","#Tel", "Rue","Ville", "Code postal"]
+    headers = ["Nom", "Prénom", "Âge", "Rôle(s)", "Nombre d'inscriptions", "Courriel", "#Tel", "Rue", "Ville", "Code postal"]
 
     Axlsx::Package.new do |p|
       p.workbook.styles do |s|

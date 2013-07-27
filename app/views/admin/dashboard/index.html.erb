@@ -1,2 +1,24 @@
 <h3><i class="iconic-chart"></i> Vue d'ensemble du festival</h3>
-<p>Find me in app/views/admin/dashboard/index.html.erb</p>
+<!-- <p>Find me in app/views/admin/dashboard/index.html.erb</p>
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
+-->
+
+<p>Nombre d'utilisateurs: <%= @users.size  %></p>
+<p>Nombre d'inscriptions à l'édition courante: <%= @registrations.size%></p>
+<p>Nombre de blocs de performances : <%=  @timeslots.size %></p>
+<br />
+
+<% if @registrations.size > 0 %>
+    <h4>Inscriptions par catégorie</h4>
+    <div id="categ-pie" class="pie"> <%= raw @categ_pie.render %> </div>
+
+    <h4>Inscriptions par instrument</h4>
+    <div id="instr-pie" class="pie"> <%= raw @instr_pie.render %> </div>
+
+<% else %>
+    <h5>Aucun enregistrement a été trouvé pour l'édition courante. </h5>
+<% end %>
+<h4>Âge des participants</h4>
+<div id="users-pie" class="pie"> <%= raw @users_pie.render %> </div>
+

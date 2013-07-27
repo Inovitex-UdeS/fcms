@@ -2,3 +2,16 @@
   Place all the styles related to the matching controller here.
   They will automatically be included in application.css.
 */
+
+.pie {
+    height:250px ;
+}
+
+.pie svg {
+    padding-right: 15px;
+    float:left ;
+}
+
+.pie .labels {
+    /*padding:25px;*/
+}

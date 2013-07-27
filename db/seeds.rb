@@ -241,7 +241,7 @@ if DEMO_PLANIF
       if usr.first
         usr = usr.first
         else
-          usr = User.create(last_name: row[6].strip, first_name: row[5].strip, gender: true, birthday: '1991-07-29', email: count.to_s+"@inovitex.com", password: 'password', contactinfo_id: Contactinfo.find(1+rand(3)).id, confirmed_at: '2013-05-28 02:01:11.70392')
+          usr = User.create(last_name: row[6].strip, first_name: row[5].strip, gender: true, birthday: "#{1985+rand(15)}-07-29", email: count.to_s+"@inovitex.com", password: 'password', contactinfo_id: Contactinfo.find(1+rand(3)).id, confirmed_at: '2013-05-28 02:01:11.70392')
           usr.roles << part_role
         end
 
@@ -257,7 +257,7 @@ if DEMO_PLANIF
       if usr.first
         usr = usr.first
       else
-        usr = User.create(last_name: noms[0].to_s, first_name: prenoms[0].to_s, gender: true, birthday: '1991-07-29', email: count.to_s+"@inovitex.com", password: 'password', contactinfo_id: Contactinfo.find(1+rand(3)).id, confirmed_at: '2013-05-28 02:01:11.70392')
+        usr = User.create(last_name: noms[0].to_s, first_name: prenoms[0].to_s, gender: true, birthday: "#{1985+rand(15)}-07-29", email: count.to_s+"@inovitex.com", password: 'password', contactinfo_id: Contactinfo.find(1+rand(3)).id, confirmed_at: '2013-05-28 02:01:11.70392')
         usr.roles << part_role
 
       end
@@ -271,7 +271,7 @@ if DEMO_PLANIF
         if tmp.first
           tmp = tmp.first
         else
-          tmp = User.create(last_name: noms[i], first_name: prenoms[i], gender: true, birthday: '1991-07-29', email: count.to_s+"-"+i.to_s+"@inovitex.com", password: 'password', contactinfo_id: Contactinfo.find(1+rand(3)).id, confirmed_at: '2013-05-28 02:01:11.70392')
+          tmp = User.create(last_name: noms[i], first_name: prenoms[i], gender: true, birthday: "#{1985+rand(15)}-07-29", email: count.to_s+"-"+i.to_s+"@inovitex.com", password: 'password', contactinfo_id: Contactinfo.find(1+rand(3)).id, confirmed_at: '2013-05-28 02:01:11.70392')
           tmp.roles << part_role
         end
         RegistrationsUser.create(instrument_id: instr.id, registration_id: reg.id, user_id: tmp.id)

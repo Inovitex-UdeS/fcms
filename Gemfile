@@ -86,6 +86,10 @@ gem 'spreadsheet', '~> 0.8.5'
 gem 'axlsx', '1.3.6'
 #gem 'acts_as_xlsx', '1.0.6'
 
+# Charts
+#gem 'gruff', '0.3.7'
+gem 'igs_pie_chart'
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

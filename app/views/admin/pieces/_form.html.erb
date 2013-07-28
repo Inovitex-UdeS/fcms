@@ -29,12 +29,7 @@
 
         <div class="control-group">
           <label class="control-label"><h5>Compositeur</h5>
-            <div class="controls">
-              <div class="input-prepend">
-                <span class="add-on"><i class="icon-user"></i></span>
-                <%= f.association :composer, label: false, :input_html => { :class => 'input-xlarge'}, :wrapper => false %>
-              </div>
-            </div>
+            <input type="hidden" class="select optional composer_select input-xlarge" id="piece_composer_id" name="piece[composer_id]" data-placeholder="Choisir un compositeur"/>
           </label>
         </div>
       </div>

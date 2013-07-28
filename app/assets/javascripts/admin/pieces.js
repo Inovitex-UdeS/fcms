@@ -27,11 +27,8 @@ $(document).ready(function(){
     fcms.fnSuccessGetData = function( data ) {
         $('#piece_id').val(data['id']);
         $('#piece_title').val(data['title']);
+        $('#piece_composer_id').select2('data', {value: data['composer']['id'], label: data['composer']['name']});
 
-        // Set school type
-        $($('.select')[0]).val(data['composer']['id']);
-        $($('.select')[1]).val(data['composer']['name']);
-        $($('.select')[1]).attr('data-value', data['composer']['id']);
         $('#formModal').modal('show');
     };
 
@@ -74,5 +71,40 @@ $(document).ready(function(){
         oTable.$('tr.row_selected').removeClass('row_selected');
     };
 
-    $('#piece_composer_id').typeahead();
+    $('#piece_composer_id').select2({
+        minimumInputLength: 2,
+        id: function(e) {
+            return e.value;
+        },
+        ajax: {
+            url: '/autocomplete/composers',
+            dataType: 'json',
+            type: "GET",
+            data: function (term, page) {
+                return {
+                    composer: term
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data
+                };
+            }
+        },
+        formatResult: function (item) {
+            return ('<div>' + item.label + '</div>');
+        },
+        formatSelection: function (item) {
+            return (item.label);
+        },
+        escapeMarkup: function (m) {
+            return m;
+        }
+    });
+
+    // Clear the form
+    fcms.fnClearForm = function () {
+        $('#piece_composer_id').select2('data', null);
+        $('form')[0].reset();
+    };
 });

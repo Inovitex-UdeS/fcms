@@ -2,6 +2,10 @@
 class Admin::UsersController < ApplicationController
   before_filter :prevent_non_admin
 
+  def index
+    render json: UsersDatatable.new(view_context)
+  end
+
   def new
     @users  = User.all
     @user = User.new

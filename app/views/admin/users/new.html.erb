@@ -3,6 +3,6 @@
     <a href="<%=  admin_users_excel_path %>" class="btn" ><i class="icon-download"></i> Télécharger la liste des utilisateurs au format Excel</a>
   </span>
 </h3>
-<p>Un utilisateur n'est toujours pas inscrit au portail ? <%= link_to "Cliquez ici pour l'inviter", 'users/invitation/new' %></p>
+<p>Un utilisateur n'est toujours pas inscrit au portail ? <%= link_to "Cliquez ici pour l'inviter", new_user_invitation_path %></p>
 <%= render :partial => '/admin/users/grid' %>
 <%= render :partial => '/admin/users/form' %>

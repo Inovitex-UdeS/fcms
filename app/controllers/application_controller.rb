@@ -8,6 +8,8 @@ class ApplicationController < ActionController::Base
     redirect_to root_path, :alert => exception.message
   end
 
+
+
   def prevent_non_admin
     redirect_to root_path, :alert => 'Accès non-autorisé!' unless current_user.is_admin?
   end

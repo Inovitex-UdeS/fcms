@@ -50,8 +50,6 @@ devise_for :users, :controllers => {:registrations => 'devise_registrations', :i
 
   resources :composers
 
-
-
   get 'autocomplete/cities'
   get 'autocomplete/schools'
   get 'autocomplete/pieces'
@@ -60,6 +58,8 @@ devise_for :users, :controllers => {:registrations => 'devise_registrations', :i
   get 'autocomplete/participants'
 
   get 'users/juges/new', to: 'users#new', as: '/juges/new'
+
+  get 'upgrade', to: 'upgrade#index'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

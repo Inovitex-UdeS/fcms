@@ -90,6 +90,9 @@ gem 'axlsx', '1.3.6'
 #gem 'gruff', '0.3.7'
 gem 'igs_pie_chart'
 
+# Prevent old browser
+gem 'browser', '0.2.0'
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

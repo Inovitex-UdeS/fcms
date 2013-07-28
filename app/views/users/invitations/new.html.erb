@@ -11,7 +11,7 @@
 
 
 <h3><i class="icon-envelope"></i> Inviter un utilisateur</h3>
-<%= simple_form_for @user, :validate=>true ,
+<%= simple_form_for @user, :validate => true ,
     :url => url_for(:action => 'create', :controller => 'invitations'),
     :method => 'post' do |f| %>
 
@@ -26,7 +26,7 @@
 
     <div class="input-prepend">
       <span class="add-on"><i class="icon-user"></i></span>
-      <%= f.text_field :first_name, :autofocus => true, :placeholder => 'Prénom', :class => 'input-medium' %>
+      <%= f.text_field :first_name, :placeholder => 'Prénom', :class => 'input-medium' %>
     </div>
     <div class="input-prepend">
       <%= f.text_field :last_name, :placeholder => 'Nom', :class => 'input-medium' %>

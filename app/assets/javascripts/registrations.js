@@ -289,13 +289,13 @@ function AddNewComposer() {
     });
 }
 
-function ResetSelect2() {
-    $.each($('#performances .fields'), function(index, value) {
-        $(value).remove();
-    });
+function clearForm() {
+    $('#performances > tbody > tr').remove();
+    $('#users > tbody > tr').remove();
 
-    $.each($('#users .fields'), function(index, value) {
-        $(value).remove();
-    });
+    $('#registration_user_teacher_id').select2('data', null);
+    $('#registration_user_accompanist_id').select2('data', null);
+
+    calculateTotDuration();
     $('#totUsers').text($('#users .fields').length);
 }

@@ -8,7 +8,7 @@
             <%= f.hidden_field :id, :value => @registration.id, :disabled => true %>
             <div class="form-actions">
               <%= f.button :submit, 'Enregistrer' , :class => 'btn btn-primary' %>
-              <%= button_tag "Recommencer", type: :reset %>
+              <%= button_tag 'Recommencer', type: :reset, onclick:'clearForm()' %>
             </div>
         <% end %>
         <%= render :partial => '/registrations/addcomposer' %>

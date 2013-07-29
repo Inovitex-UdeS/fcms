@@ -238,9 +238,13 @@ if DEMO_PLANIF
 
     if (row[0]=="1")
       usr = User.where("first_name='#{row[5].strip}' and last_name='#{row[6].strip}'")
-      usr.first ?
-          usr = usr.first :
-          usr = User.create(last_name: row[6].strip, first_name: row[5].strip, gender: true, birthday: '1991-07-29', email: count.to_s+"@inovitex.com", password: 'password', contactinfo_id: Contactinfo.find(1+rand(3)).id, confirmed_at: '2013-05-28 02:01:11.70392')
+      if usr.first
+        usr = usr.first
+        else
+          usr = User.create(last_name: row[6].strip, first_name: row[5].strip, gender: true, birthday: "#{1985+rand(15)}-07-29", email: count.to_s+"@inovitex.com", password: 'password', contactinfo_id: Contactinfo.find(1+rand(3)).id, confirmed_at: '2013-05-28 02:01:11.70392')
+          usr.roles << part_role
+        end
+
       reg = Registration.create(user_teacher_id: teach.id, user_owner_id: usr.id, school_id: sch.id, edition_id: demo_edition.id, category_id: cat.id, duration: row[7].to_i, age_max: 6+rand(20))
       RegistrationsUser.create(instrument_id: instr.id, registration_id: reg.id, user_id: usr.id)
 
@@ -249,21 +253,27 @@ if DEMO_PLANIF
       noms = row[6].split('|').map {|x| x.strip}
 
       usr = User.where("first_name='#{prenoms[0].to_s}' and last_name='#{noms[0].to_s}'")
-      usr.first ?
-          usr = usr.first :
-          usr = User.create(last_name: noms[0].to_s, first_name: prenoms[0].to_s, gender: true, birthday: '1991-07-29', email: count.to_s+"@inovitex.com", password: 'password', contactinfo_id: Contactinfo.find(1+rand(3)).id, confirmed_at: '2013-05-28 02:01:11.70392')
 
+      if usr.first
+        usr = usr.first
+      else
+        usr = User.create(last_name: noms[0].to_s, first_name: prenoms[0].to_s, gender: true, birthday: "#{1985+rand(15)}-07-29", email: count.to_s+"@inovitex.com", password: 'password', contactinfo_id: Contactinfo.find(1+rand(3)).id, confirmed_at: '2013-05-28 02:01:11.70392')
+        usr.roles << part_role
 
+      end
       reg = Registration.create(user_teacher_id: teach.id, user_owner_id: usr.id, school_id: sch.id, edition_id: demo_edition.id, category_id: cat.id, duration: row[7].to_i, age_max: 6+rand(20))
 
 
       prenoms.each_index { |i|
         tmp = nil
         tmp = User.where("first_name='#{prenoms[i].to_s}' and last_name='#{noms[i].to_s}'")
-        tmp.first ?
-            tmp = tmp.first :
-            tmp = User.create(last_name: noms[i], first_name: prenoms[i], gender: true, birthday: '1991-07-29', email: count.to_s+"-"+i.to_s+"@inovitex.com", password: 'password', contactinfo_id: Contactinfo.find(1+rand(3)).id, confirmed_at: '2013-05-28 02:01:11.70392')
 
+        if tmp.first
+          tmp = tmp.first
+        else
+          tmp = User.create(last_name: noms[i], first_name: prenoms[i], gender: true, birthday: "#{1985+rand(15)}-07-29", email: count.to_s+"-"+i.to_s+"@inovitex.com", password: 'password', contactinfo_id: Contactinfo.find(1+rand(3)).id, confirmed_at: '2013-05-28 02:01:11.70392')
+          tmp.roles << part_role
+        end
         RegistrationsUser.create(instrument_id: instr.id, registration_id: reg.id, user_id: tmp.id)
       }
 

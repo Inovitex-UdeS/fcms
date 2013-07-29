@@ -132,7 +132,7 @@ function loadTimeslot(data) {
     for (var t in tables) {
         var container = $('#div-inscriptions-' + tables[t]).empty();
 
-        var table = $('<table></table>').addClass('table table-bordered table-inscriptions')
+        var table = $('<table></table>').addClass('table table-bordered table-clear table-inscriptions')
             .attr('id', 'table-inscriptions-' + tables[t]).appendTo(container);
 
         var thead = $('<thead></thead>').appendTo(table);

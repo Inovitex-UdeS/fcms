@@ -46,122 +46,79 @@ class Admin::PlanificationController < ApplicationController
   end
 
   def ProduceExcel
-    # Beau guide : http://spreadsheet.rubyforge.org/files/GUIDE_txt.html
-    require 'spreadsheet'
+    require 'axlsx'
+    Axlsx::Package.new do |p|
+      p.workbook.styles do |s|
+        header_format = s.add_style :sz => 12, :b => true, :alignment => {  :wrap_text => true}
+        string_cell = s.add_style :sz => 12, :alignment => {  :wrap_text => true}
 
-    excel_doc = Spreadsheet::Workbook.new # Créer le book!
+        # Main tab
+        p.workbook.add_worksheet(:name => "TOUT") do |sheet|
+
+          sheet.add_row ["#", "Catégorie", "Bloc associé", "Participants", "Instrument",  "Durée", "Compositeur", "Oeuvre", "Courriel", "#Tel",
+                         "Rue","Ville", "Code postal", "Institution scolaire","École musique",  "Professeur","Courriel Prof", "Montant à payer", "Payé","#chq","Date Paiment",  "Résultat", "Note" ], :style => header_format
 
 
-    ## MAIN SHEET ##
-
-    header_format = Spreadsheet::Format.new :weight => :bold, :size => 12
-    timeslot_format = Spreadsheet::Format.new :weight => :bold, :size => 12
-
-    sheet_All = excel_doc.create_worksheet  :name => "TOUT" # On crée un TAB Excel avec un nom :)
-
-    # On set les colonnes du workbook
-    sheet_All.row(0).replace  ["#", "Catégorie", "Bloc associé", "Participants", "Instrument",  "Durée", "Compositeur", "Oeuvre", "Courriel", "#Tel",
-                               "Rue","Ville", "Code postal", "Institution scolaire","École musique",  "Professeur","Courriel Prof", "Montant à payer", "Payé","#chq","Date Paiment",  "Résultat", "Note" ]
-
-    sheet_All.row(0).each_index do |i|
-      sheet_All.column(i).width = sheet_All.row(0).at(i).to_s.length+3
-    end
-
-    it = 1
-    Registration.order(:category_id)[0..-1].each do |reg|
-      instruments = participants = courriels = tels = composers = pieces = ""
-      civils = cities = postals = teacher =  teacher_email = ""
-      montant = 0
-
-      if (group = Agegroup.where(edition_id: Setting.find_by_key('current_edition_id').value , :category_id=> reg.category).where("#{reg.age_max} BETWEEN min and max").first)
-        montant = group.fee * reg.users.count
-      end
-
-      tslot = reg.timeslot ? reg.timeslot.label : ""
-      teacher = reg.teacher ? reg.teacher.name : ""
-      teacher_email = reg.teacher ? reg.teacher.email : ""
-
-      reg.users.each do |u|
-        participants += "#{u.name}" + "\n"
-        courriels +=  "#{u.email}"+"\n"
-        ctact = Contactinfo.find(u.contactinfo.id)
-        tels +=     "#{ctact.telephone}"  + "\n"
-        civils +=   "#{ctact.address}"+ "\n"
-        cities +=   "#{ctact.city.name}"+ "\n"
-        postals +=  "#{ctact.postal_code}" + "\n"
-      end
-
-      reg.instruments.order(:user_id).each do |i|
-        instruments +=  "#{i.name}" + "\n"
-      end
-
-      reg.performances.order(:id).each do |p|
-        composers +=  "#{p.piece.composer.name}" + "\n"
-        pieces +=  "#{p.piece.title}" + "\n"
-      end
-
-      sheet_All.row(it).replace       [reg.id, reg.category.name, tslot, participants, instruments,  reg.duration, composers, pieces, courriels, tels, civils, cities, postals, reg.school.name ," ", teacher ,teacher_email, montant, " "," "," "," "," " ]
-
-      it = it + 1
-    end
-
-    sheet_All.row(0).default_format = header_format
-
-    unless false
-      ## OTHER SHEETS ##
-      Category.order(:name).each do |cat|
-        unless cat.timeslots.empty?
-          irow = 0
-          # Create subtab
-          sheet = excel_doc.create_worksheet  :name =>  cat.name.truncate(12)
-          # Adjust column width
-          headers = ["", "#", "Catégorie", "Participants", "Instruments",  "Durée", "Âge", "Compositeur", "Oeuvre"]
-          sheet.column(0).width = 20
-          headers[1..-1].each_index do |i|
-            sheet.column(i).width = headers.at(i).to_s.length+3
-          end
-
-          # Fill sheet
-          cat.timeslots.each do |ts|
-            sheet.row(irow).replace [ts.label]
-            sheet.row(irow).default_format = timeslot_format
-            irow+=1
-            sheet.row(irow).replace headers
-
-            sheet.row(irow).default_format = header_format
-            irow+=1
-
-            ts.registrations.each do |reg|
-              participants = instruments = ''
-              pieces = ""
-              composers = ""
-
-              reg.performances.each do |perf|
-                pieces += "#{perf.piece.title}" + "\n"
-                composers += "#{perf.piece.composer.name}" + "\n"
-              end
-
-              reg.users.each do |u|
-                participants += "#{u.name}" + "\n"
-              end
-
-              reg.instruments.order(:user_id).each do |i|
-                instruments += "#{i.name}" + "\n"
-              end
-
-              sheet.row(irow).replace ['', reg.id, reg.category.name, participants, instruments, reg.duration,  reg.age_max, composers, pieces]
-              irow+=1
+          Registration.order(:category_id).each do |reg|
+            montant = 0
+            if (group = Agegroup.where(edition_id: Setting.find_by_key('current_edition_id').value , :category_id=> reg.category).where("#{reg.age_max} BETWEEN min and max").first)
+              montant = group.fee * reg.users.count
             end
-            sheet.row(irow).replace ['','','','','','Durée totale:', ts.duration ]
-            irow+=2
+
+            tslot = reg.timeslot ? reg.timeslot.label : ''
+            teacher = reg.teacher ? reg.teacher.name : ''
+            teacher_email = reg.teacher ? reg.teacher.email : ''
+
+            participants = reg.users.map  {|u| u.name}.join("\r\n")
+            courriels = reg.users.map     {|u| u.email}.join("\r\n")
+            tels = reg.users.map          {|u| u.contactinfo.telephone}.join("\r\n")
+            civils = reg.users.map        {|u| u.contactinfo.address}.join("\r\n")
+            cities = reg.users.map        {|u| u.contactinfo.city.name}.join("\r\n")
+            postals = reg.users.map       {|u| u.contactinfo.postal_code}.join("\r\n")
+            instruments = reg.instruments.order(:user_id).map {|i| i.name}.join("\r\n")
+            composers = reg.performances.order(:id).map {|p| p.piece.composer.name}.join("\r\n")
+            pieces = reg.performances.order(:id).map {|p| p.piece.title}.join("\r\n")
+
+            sheet.add_row   [reg.id, reg.category.name, tslot, participants, instruments,  reg.duration, composers, pieces, courriels, tels, civils, cities, postals, reg.school.name ," ", teacher ,teacher_email, montant, " "," "," "," "," " ], :style => string_cell
+
+            end
+          sheet.to_xml_string
+        end
+
+        # Other tabs
+        Category.order(:name).each do |cat|
+          unless cat.timeslots.empty?
+            headers = [nil, "#", "Catégorie", "Participants", "Instruments",  "Durée", "Âge", "Compositeur", "Oeuvre"]
+            p.workbook.add_worksheet(:name => cat.name.truncate(12)) do |sheet|
+              cat.timeslots.each do |ts|
+                sheet.add_row [ts.label], :style => header_format
+                sheet.add_row headers, :style => header_format
+
+
+                ts.registrations.each do |reg|
+
+                  pieces = reg.performances.map {|p| p.piece.title}.join("\r\n")
+                  composers = reg.performances.map {|p| p.piece.composer.name}.join("\r\n")
+                  participants = reg.users.map {|u| u.name}.join("\r\n")
+                  instruments = reg.instruments.order(:user_id).map {|i| i.name}.join("\r\n")
+
+                  sheet.add_row [nil, reg.id, reg.category.name, participants, instruments, reg.duration,  reg.age_max, composers, pieces], :style => string_cell
+                end
+                sheet.add_row [nil,nil,nil,nil,nil,'Durée totale:', ts.duration ]
+                sheet.add_row [""]
+              end
+              sheet.to_xml_string
+            end
           end
         end
       end
+
+      p.use_shared_strings = true     # THAT'S FOR LINE RETURNS FORMATTING...
+
+      # This writes the file locally. I don't think we need it on the server
+      #p.serialize("FCMS-Inscriptions-#{Edition.find(Setting.find_by_key('current_edition_id').value).year}.xlsx")
+      send_data p.to_stream.read, :filename => "FCMS-Inscriptions-#{Edition.find(Setting.find_by_key('current_edition_id').value).year}.xlsx", :type => "application/vnd.openxmlformates-officedocument.spreadsheetml.sheet"
     end
 
-    # Sauvegarder le fichier excel
-    spreadsheet = StringIO.new
-    excel_doc.write spreadsheet
-    send_data spreadsheet.string, :filename => "FCMS-Inscriptions-#{Edition.find(Setting.find_by_key('current_edition_id').value).year}.xls", :type =>  "application/vnd.ms-excel"
   end
 end

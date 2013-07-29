@@ -15,12 +15,12 @@ class RegistrationsController < ApplicationController
       @registrations += Registration.where(edition_id:@current_edition, :user_teacher_id =>  current_user.id )
     end
 
-    if current_user.is_judge?
-      @registrations = Registration.where(edition_id:@current_edition)
+    if current_user.is_accompanist?
+      @registrations += Registration.where(edition_id: @current_edition, :user_accompanist_id => current_user.id)
     end
 
-    if current_user.is_accompanist?
-      @registrations = Registration.where(edition_id: @current_edition, :user_accompanist_id => current_user.id)
+    if current_user.is_judge?
+      @registrations = Registration.where(edition_id:@current_edition)
     end
 
   end
@@ -100,6 +100,11 @@ class RegistrationsController < ApplicationController
 
   def edit
     @registration = Registration.find(params[:id])
+
+    if not @registration
+      render :json => { :message => "L'enregistrement n'a pas été trouvé" }, :status => :unprocessable_entity
+    end
+
     if @registration.user_owner_id  != current_user.id
       redirect_to root_path, :alert => "Vous n'êtes pas autorisé à consulter les inscriptions des autres"
     end
@@ -115,6 +120,10 @@ class RegistrationsController < ApplicationController
   def update
     begin
       @registration = Registration.find(params[:id])
+
+      if not @registration
+        render :json => { :message => "L'enregistrement n'a pas été trouvé" }, :status => :unprocessable_entity
+      end
 
       if current_user.id != @registration.user_owner_id
         render :json => { :message => "Vous n'êtes pas le propriétaire de l'enregistrement" }, :status => :unprocessable_entity
@@ -167,6 +176,35 @@ class RegistrationsController < ApplicationController
     rescue => e
       render :json => { :message => e.message }, :status => :unprocessable_entity
     end
+  end
+
+  def cancel
+    begin
+      @registration = Registration.find(params[:id])
+
+      if not @registration
+        render :json => { :message => "L'enregistrement n'a pas été trouvé" }, :status => :unprocessable_entity
+      end
+
+      if current_user.id != @registration.user_owner_id
+        render :json => { :message => "Vous n'êtes pas le propriétaire de l'enregistrement" }, :status => :unprocessable_entity
+      end
+
+      RegistrationsUser.delete_all("registration_id = #{@registration.id}")
+      Performance.delete_all("registration_id = #{@registration.id}")
+
+      @registration.delete
+
+      redirect_to registrations_path, :notice => "L'inscription a été supprimée avec succès!"
+    rescue => e
+      redirect_to registrations_path, :alert => "L'inscription n'a pas été supprimée..."
+    end
+  end
+
+  def show
+    @registration = Registration.find(params[:id])
+    @users = RegistrationsUser.joins(:user).where("registrations_users.registration_id =#{@registration.id} AND NOT registrations_users.user_id = #{@registration.user_owner_id}")
+    render :json => {:registration =>@registration.to_json(:include => {:performances => {:include => {:piece => {:include => {:composer => {}}}}}}), :users => @users.to_json(:include => {:user => {}}) }
   end
 
 end

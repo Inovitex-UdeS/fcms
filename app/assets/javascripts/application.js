@@ -29,6 +29,9 @@
 //= require select2_locale_fr
 //= require underscore
 
+// for pie charts
+//= require d3
+
 /*  --- SCRIPT --- */
 
 // Create fcms object for global functions and variables

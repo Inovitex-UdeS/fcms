@@ -44,7 +44,7 @@
             <div class="controls">
               <div class="input-prepend">
                 <span class="add-on"><i class="icon-user"></i></span>
-                <%= f.select :gender, options_for_select([['Masculin', true], ['Féminin', false]]), {:class => 'input-xlarge select'}%>
+                <%= f.select :gender, options_for_select([['Masculin', true], ['Féminin', false]]), {:selected => @user.gender}, {:class => 'input-xlarge'}%>
               </div>
             </div>
           </label>

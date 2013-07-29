@@ -2,8 +2,8 @@ class PiecesDatatable < AjaxDatatablesRails
   
   def initialize(view)
     @model_name = Piece
-    @columns = ["pieces.id", "pieces.title", "pieces.composer.name", "pieces.created_at", "pieces.updated_at"]
-    @searchable_columns = ["pieces.id", "pieces.title"]
+    @columns = ["pieces.id", "pieces.title", "composers.name", "pieces.created_at", "pieces.updated_at"]
+    @searchable_columns = ["pieces.id", "pieces.title", "composers.name"]
     super(view)
   end
   
@@ -25,7 +25,7 @@ private
     end
 
     def get_raw_records
-      Piece
+      Piece.joins(:composer)
     end
     
     def get_raw_record_count

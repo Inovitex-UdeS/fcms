@@ -2,6 +2,10 @@
 class Admin::UsersController < ApplicationController
   before_filter :prevent_non_admin
 
+  def index
+    render json: UsersDatatable.new(view_context)
+  end
+
   def new
     @users  = User.all
     @user = User.new
@@ -93,47 +97,42 @@ class Admin::UsersController < ApplicationController
 
 
   def ProduceExcel
-    require 'spreadsheet'
-    excel_doc = Spreadsheet::Workbook.new
+    require 'axlsx'
 
-    header_format = Spreadsheet::Format.new :weight => :bold, :size => 12
+    headers = ["Nom", "Prénom", "Âge", "Rôle(s)", "Nombre d'inscriptions", "Courriel", "#Tel", "Rue", "Ville", "Code postal"]
 
-    sheet_user = excel_doc.create_worksheet  :name =>  "USERS"
-    headers = ["Nom", "Prénom", "Âge", "Rôle(s)", "Nombre d'inscriptions", "Courriel","#Tel",
-               "Rue","Ville", "Code postal",]
-    sheet_user.row(0).replace headers
-    sheet_user.column(0).width = 20
-    headers.each_index do |i|
-      sheet_user.column(i).width = headers.at(i).to_s.length+3
-    end
-    sheet_user.row(0).default_format = header_format
+    Axlsx::Package.new do |p|
+      p.workbook.styles do |s|
 
-    i = 1
-    User.all.each do |u|
-      roles = ""
-      u.roles.each do |role|
-        roles += "#{role.name} \n"
+        string_cell = s.add_style :sz => 12, :alignment => {  :wrap_text => true}
+
+        p.workbook.add_worksheet(:name => "USERS") do |sheet|
+          sheet.add_row headers
+          User.all.each do |u|
+
+            roles = u.roles.map {|r| r.name}.join("\r\n")
+
+            if c = u.contactinfo
+              tel = c.telephone
+              rue = c.address
+              ville = c.city.name
+              post = c.postal_code
+            else
+              tel   =  rue   =  ville =  post  = ""
+            end
+            regcount = u.registrations.where(edition_id: Setting.find_by_key('current_edition_id')).size
+            sheet.add_row [u.last_name, u.first_name, u.age , roles, regcount, u.email, tel,rue, ville, post], :style => string_cell
+
+          end
+
+          sheet.to_xml_string
+        end
       end
 
-      if c = u.contactinfo
-        tel = c.telephone
-        rue = c.address
-        ville = c.city.name
-        post = c.postal_code
-      else
-        tel   = ""
-        rue   = ""
-        ville = ""
-        post  = ""
-      end
-      regcount = u.registrations.where(edition_id: Setting.find_by_key('current_edition_id')).size
-      sheet_user.row(i).replace [u.last_name, u.first_name, u.age , roles, regcount, u.email, tel,rue, ville, post]
-      i += 1
+      p.use_shared_strings = true     # THAT'S FOR LINE RETURNS FORMATTING...
+      # This writes the file locally. I don't think we need it on the server
+      #p.serialize("FCMS-Utilisateurs-#{Edition.find(Setting.find_by_key('current_edition_id').value).year}.xls")
+      send_data p.to_stream.read, :filename => "FCMS-Utilisateurs-#{Edition.find(Setting.find_by_key('current_edition_id').value).year}.xls", :type => "application/vnd.openxmlformates-officedocument.spreadsheetml.sheet"
     end
-
-    # Sauvegarder le fichier excel
-    spreadsheet = StringIO.new
-    excel_doc.write spreadsheet
-    send_data spreadsheet.string, :filename => "FCMS-Utilisateurs-#{Edition.find(Setting.find_by_key('current_edition_id').value).year}.xls", :type =>  "application/vnd.ms-excel"
   end
 end

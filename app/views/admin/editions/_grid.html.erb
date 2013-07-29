@@ -14,10 +14,10 @@
       <tr>
         <td><%= edition.id %></td>
         <td><%= edition.year %></td>
-        <td><%= edition.start_date %></td>
-        <td><%= edition.end_date %></td>
-        <td><%= edition.limit_date %></td>
-        <td><%= edition.edit_limit_date %></td>
+        <td><%= edition.start_date.strftime("%d/%m/%Y") %></td>
+        <td><%= edition.end_date.strftime("%d/%m/%Y") %></td>
+        <td><%= edition.limit_date.strftime("%d/%m/%Y") %></td>
+        <td><%= edition.edit_limit_date.strftime("%d/%m/%Y") %></td>
         <td><%= edition.created_at.strftime("%d/%m/%Y") %></td>
         <td><%= edition.updated_at.strftime("%d/%m/%Y") %></td>
       </tr>

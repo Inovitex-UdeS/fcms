@@ -1,23 +1,14 @@
 <h5>Utilisateurs existants</h5>
-<table class="table table-bordered" id="tableUsers">
+<table class="table table-bordered" id="users-table" data-source="<%= admin_users_path %>">
   <thead><tr>
     <th>#</th>
     <th>Nom</th>
+    <th>Prénom</th>
     <th>Adresse courriel</th>
     <th>Compte confirmé</th>
     <th>Date de création</th>
     <th>Dernière de mise à jour</th>
   </tr></thead>
   <tbody>
-  <% @users.each do |user| %>
-      <tr>
-        <td><%= user.id %></label></td>
-        <td><%= user.first_name %> <%= user.last_name %></td>
-        <td><%= user.email %></td>
-        <td><%= user.confirmed_at != nil ? 'Oui' : 'Non' %></td>
-        <td><%= user.created_at.strftime("%d/%m/%Y") %></td>
-        <td><%= user.updated_at.strftime("%d/%m/%Y") %></td>
-      </tr>
-  <% end %>
   </tbody>
 </table>

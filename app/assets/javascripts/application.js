@@ -28,6 +28,7 @@
 //= require select2
 //= require select2_locale_fr
 //= require underscore
+//= require bootstrap-bigmodal
 
 // for pie charts
 //= require d3

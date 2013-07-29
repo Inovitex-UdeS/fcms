@@ -172,7 +172,7 @@ class RegistrationsController < ApplicationController
       end
       @registration.update_attribute(:age_max, age_max)
 
-      render :json => {:registration => @registration, :message => 'L\'inscription a été crée avec succès'}
+      render :json => {:registration => @registration, :message => 'L\'inscription a été modifiée avec succès'}
     rescue => e
       render :json => { :message => e.message }, :status => :unprocessable_entity
     end

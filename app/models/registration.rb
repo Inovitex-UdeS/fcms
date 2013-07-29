@@ -6,6 +6,8 @@ class Registration < ActiveRecord::Base
   has_many :registrations_users
   has_many :instruments, :through => :registrations_users
   has_many :users, :through => :registrations_users
+  has_many :pieces, :through => :performances
+  has_many :composers, :through => :pieces
 
   belongs_to :category
   belongs_to :edition
@@ -48,4 +50,71 @@ class Registration < ActiveRecord::Base
 
     return reg_obj.as_json
   end
+
+  def print_instruments
+    instruments_string = '';
+    self.instruments.each { |inst| instruments_string += inst.name + '<br>'}
+    return instruments_string
+  end
+
+  def print_users
+    users_string = '';
+    users_string += '<b>' + self.owner.last_name + ', ' + self.owner.first_name + '</b> <br>'
+    self.users.each do |user|
+      if user.id == self.owner.id
+        next
+      end
+      users_string += user.last_name + ', ' + user.first_name + '<br>'
+    end
+    return users_string
+  end
+
+  def print_pieces
+    pieces_string = '';
+    self.pieces.each { |piece| pieces_string += piece.title + '<br>' }
+    return pieces_string
+  end
+
+  def print_composers
+    composers_string = '';
+    self.composers.each { |comp| composers_string += comp.name + '<br>' }
+    return composers_string
+  end
+
+
+  def print_accompanist_name
+    if self.accompanist
+      self.accompanist.first_name + ' ' + self.accompanist.last_name + ' (' + self.accompanist.email + ')'
+    else
+      return ''
+    end
+  end
+
+  def print_accompanist_id
+    if self.accompanist
+      self.accompanist.id.to_s
+    else
+      return ''
+    end
+  end
+
+  def print_teacher_name
+    if self.teacher
+      return self.teacher.first_name + ' ' + self.teacher.last_name + ' (' + self.teacher.email + ')'
+    else
+      return ''
+    end
+  end
+  def print_teacher_id
+    if self.teacher
+      return self.teacher.id.to_s
+    else
+      return ''
+    end
+  end
+
 end
+
+
+
+

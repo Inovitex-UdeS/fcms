@@ -149,6 +149,8 @@ fcms.initTable = function (customSettings) {
     // Init the table
     oTable = $(oTable).dataTable(fcms.mergeObjects({
         "bInfo": false,
+        "sScrollX": "98%",
+        "bScrollCollapse": true,
         "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
         "sPaginationType": "bootstrap" ,
         "oLanguage": {
@@ -176,7 +178,7 @@ fcms.initTable = function (customSettings) {
     }, customSettings));
 
     // Update search box styling
-    var filterDiv = oTable.parents('.dataTables_wrapper').find('.dataTables_filter');
+    var filterDiv = oTable.parents('.dataTables_wrapper:first').find('.dataTables_filter');
     var contents = $('<div class="input-prepend"></div>')
         .append('<span class="add-on"><i class="icon-search"></i></span>')
         .append(filterDiv.find('input').attr('id', 'datatables-search'));

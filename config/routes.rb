@@ -58,6 +58,8 @@ devise_for :users, :controllers => {:registrations => 'devise_registrations', :i
   get 'autocomplete/users'
   get 'autocomplete/composers'
   get 'autocomplete/participants'
+  get 'autocomplete/teachers'
+  get 'autocomplete/accompanists'
 
   get 'users/juges/new', to: 'users#new', as: '/juges/new'
 

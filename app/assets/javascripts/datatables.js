@@ -182,7 +182,7 @@ fcms.initTable = function (customSettings) {
     var filterDiv = oTable.parents('.dataTables_wrapper').find('.dataTables_filter');
     var contents = $('<div class="input-prepend"></div>')
         .append('<span class="add-on"><i class="icon-search"></i></span>')
-        .append(filterDiv.find('input'));
+        .append(filterDiv.find('input').attr('id', 'datatables-search'));
     filterDiv.html('').append(contents).css({
         textAlign: "right",
         marginBottom: 5

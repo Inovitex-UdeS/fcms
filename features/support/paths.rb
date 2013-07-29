@@ -37,6 +37,12 @@ module NavigationHelpers
     when /^the edition\s?page$/
       new_admin_edition_path
 
+    when /^the admin registration\s?page$/
+      new_admin_registration_path
+
+    when /^the admin schoolboards\s?page$/
+        new_admin_schoolboard_path
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #

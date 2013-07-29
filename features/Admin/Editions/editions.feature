@@ -1,5 +1,5 @@
 @ok
-Feature: Editions
+Feature: Admin/Editions
   In order to manage editions
   An Admin
   Should be able to modify and add editions
@@ -11,7 +11,7 @@ Feature: Editions
     And I am logged in
     And I am on the edition page
 
-  Scenario: Verify if I'm on the profile page
+  Scenario: Verify if I'm on the admin edition page
     Then I should see "Gestion des éditions"
 
   @javascript

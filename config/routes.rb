@@ -27,6 +27,7 @@ devise_for :users, :controllers => {:registrations => 'devise_registrations', :i
      resources :timeslots
      resources :categories
      resources :participants
+     resources :custom_mail
 
      resources :juges do
        member do

@@ -1,7 +1,6 @@
 <h3><i class="icon-envelope"></i> Messagerie</h3>
 
-<form accept-charset="UTF-8" action= "<%= new_admin_custom_mail_path %>" class= "new-email" data-validate="true" id="send_email_form" method="GET" novalidate="novalidate">
-
+<form accept-charset="UTF-8" action="<%= admin_create_email_path %>" class= "create-email" data-validate="true" id="send_email_form" method="GET" novalidate="novalidate">
 
   <h4>Destinataires</h4>
   <select name="custom_mail[mailto][]" multiple>
@@ -16,14 +15,13 @@
     <span class="add-on"><i class="icon-font"></i></span>
     <input autofocus="autofocus" class="input-xlarge" id="custom_mail_title" name="custom_mail[title]" size="30" type="text" >
   </div>
+
   <h4>Corps</h4>
   <div class="input-prepend">
     <span class="add-on"><i class="icon-tag"></i></span>
     <textarea class="input-xlarge" cols="40" id="custom_mail_body" name="custom_mail[body]" rows="7"></textarea>
   </div>
 
-
-
-  <div><input class="button btn btn-primary" name="commit" type="submit" value="Envoyer"></div>
+  <div><input class="button btn btn-primary" name="commit" id="submit-button" type="submit" value="Envoyer"></div>
 
 </form>

@@ -109,7 +109,7 @@ SimpleNavigation::Configuration.run do |navigation|
       sub_nav.item :key_5_22,'Inviter un utilisateur', '/users/invitation/new'
       sub_nav.item :key_5_23,'Gérer les utilisateurs', new_admin_user_path
       sub_nav.item :key_5_24,'', nil, :class=> 'divider'
-      sub_nav.item :key_5_22,'Batch email', '/admin/custom_mail'
+      sub_nav.item :key_5_22,'Batch email', new_admin_custom_mail_path
 
     end
 

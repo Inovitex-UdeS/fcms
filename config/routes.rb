@@ -28,6 +28,7 @@ devise_for :users, :controllers => {:registrations => 'devise_registrations', :i
      resources :categories
      resources :participants
      resources :custom_mail
+     match 'create_email' => 'custom_mail#create_email'
 
      resources :juges do
        member do

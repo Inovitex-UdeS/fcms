@@ -20,5 +20,5 @@ $(document).ready(function(){
 
     fcms.bindTable($('#composers-table'));
     fcms.initTable(tsDTOptions);
-    fcms.bindForm($('form'), 3);
+    fcms.bindForm($('form'), 4);
 });

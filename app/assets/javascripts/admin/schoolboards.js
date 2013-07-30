@@ -6,5 +6,5 @@
 $(document).ready(function(){
     fcms.bindTable($('.table'));
     fcms.initTable();
-    fcms.bindForm($('form'), 3);
+    fcms.bindForm($('form'), 4);
 });

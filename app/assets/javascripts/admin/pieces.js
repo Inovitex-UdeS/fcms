@@ -20,7 +20,7 @@ $(document).ready(function(){
 
     fcms.bindTable($('#pieces-table'));
     fcms.initTable(tsDTOptions);
-    fcms.bindForm($('form'), 3);
+    fcms.bindForm($('form'), 4);
 
 
     // Remove default behavior and put logic for this specific page

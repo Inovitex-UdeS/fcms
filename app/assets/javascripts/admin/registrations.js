@@ -21,7 +21,7 @@ $(document).ready(function(){
     $("#AutresParticipants").hide();
     fcms.bindTable($('#all-registrations-table'));
     fcms.initTable(tsDTOptions);
-    fcms.bindForm($('form'), 3);
+    fcms.bindForm($('form'), 4);
     $('#formModal').bigmodal('hide');
 
     $('#registration_user_owner_id').select2({

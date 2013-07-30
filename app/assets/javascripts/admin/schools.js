@@ -6,7 +6,7 @@
 $(document).ready(function(){
     fcms.bindTable($('.table'));
     fcms.initTable();
-    fcms.bindForm($('form'), 3);
+    fcms.bindForm($('form'), 4);
 
     // Remove default behavior and put logic for this specific page
     fcms.fnSuccessAddItem = function( data ) {

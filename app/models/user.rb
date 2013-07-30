@@ -5,25 +5,68 @@ class User < ActiveRecord::Base
 
   ##
   # First_name and last_name are required when creating a user
+  #
+  # @ return [String]
   validates :last_name, :first_name ,:length => {maximum: 64}, :presence => true
 
   ##
   # Birthday is required when creating a user (to be able to match him in an [Agegroup])
+  #
+  # @ return [date]
   validates :birthday, :presence => true
 
   ##
   # First_name and last_name are required when creating a user (unique id for user, will connect with it)
+  #
+  # @ return [String]
   validates :email, :presence => true, :uniqueness => true
 
-  # Association macros
+  ##
+  # Payments associated with the user (all registrations, all editions)
+  #
+  # @ return [Payment]
   has_many :payments
+
+  ##
+  # Association table to map user and roles
+  #
+  # @ return [RolesUser]
   has_many :roles_users
+
+  ##
+  # Association table to map user and registrations
+  #
+  # @ return [RegistrationsUser]
   has_many :registrations_users
+
+  ##
+  # Directly get the roles of the user through roles_users association table
+  #
+  # @ return [Role]
   has_many :roles, :through => :roles_users
+
+  ##
+  # Directly get all the instruments from every registrations of the users (all editions)
+  #
+  # @ return [Instrument]
   has_many :instruments, :through => :registrations_users
+
+  ##
+  # Directly get all the registrations of the user (all editions)
+  #
+  # @ return [Registration]
   has_many :registrations, :through => :registrations_users
 
+  ##
+  # Get the Contactinfo the user
+  #
+  # @ return [Contactinfo]
   belongs_to :contactinfo
+
+  ##
+  # Get the current school of the user
+  #
+  # @ return [School]
   belongs_to :school
 
   accepts_nested_attributes_for :contactinfo, :allow_destroy => true
@@ -104,7 +147,7 @@ class User < ActiveRecord::Base
   ##
   # Utility method to find if the user has the role
   #
-  # @return [TrueClass, FalseClass]
+  # @return [Boolean]
   #  Will return true if user has the role and false otherwise
   #
   # @example
@@ -134,7 +177,7 @@ class User < ActiveRecord::Base
   ##
   # Find if the user is participant
   #
-  # @return [TrueClass, FalseClass]
+  # @return [Boolean]
   #  Will return true if user has the role participant
   def is_participant?
     return self.has_role?('Participant')
@@ -143,7 +186,7 @@ class User < ActiveRecord::Base
   ##
   # Find if the user is accompanist
   #
-  # @return [TrueClass, FalseClass]
+  # @return [Boolean]
   #  Will return true if user has the role accompanist
   def is_accompanist?
     return self.has_role?('Accompagnateur')
@@ -152,7 +195,7 @@ class User < ActiveRecord::Base
   ##
   # Find if the user is a teacher
   #
-  # @return [TrueClass, FalseClass]
+  # @return [Boolean]
   #  Will return true if user has the role teacher
   def is_teacher?
     return self.has_role?('Professeur')
@@ -161,7 +204,7 @@ class User < ActiveRecord::Base
   ##
   # Utility method to concatenate first_name and last_name
   #
-  # @return [TrueClass, FalseClass]
+  # @return [Boolean]
   #  Will return the concatenated string
   def name
     self.first_name + " " + self.last_name

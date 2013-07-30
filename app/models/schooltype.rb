@@ -1,6 +1,12 @@
+##
+# This class represents the data from schooltypes table in database.
+# Contains all school types of schools (like 'Secondaire, Primaire, ....')
 class Schooltype < ActiveRecord::Base
 
-  # Association macros
+  ##
+  # Get the associated school
+  #
+  # @ return [School]
   has_many :school
 
 end

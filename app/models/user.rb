@@ -28,13 +28,13 @@ class User < ActiveRecord::Base
   has_many :payments
 
   ##
-  # Association table to map user and roles
+  # Association table to map [User] and [Role]
   #
   # @ return [RolesUser]
   has_many :roles_users
 
   ##
-  # Association table to map user and registrations
+  # Association table to map [User] and [Registration]
   #
   # @ return [RegistrationsUser]
   has_many :registrations_users

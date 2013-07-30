@@ -1,6 +1,6 @@
 <%= simple_form_for [:admin, @category], :validate => true do |f| %>
   <hr>
-  <h5>AJOUTER OU MODIFIER UNE CLASSE</h5>
+  <h5>Ajouter ou modifier une classe</h5>
   <div class="form-horizontal">
     <div class="control-group">
       <label class="control-label"><b>Identifiant</b></label>
@@ -38,7 +38,7 @@
     <div class="control-group">
       <label class="control-label"><b>Participants</b></label>
       <div class="input-prepend">
-        <label class="checkbox"> <%= f.text_field :nb_participants, :class => 'input-small', :type => :number %> participant(s) par inscription (minimum)</label>
+        <label class="checkbox">Maximum de <%= f.text_field :nb_participants, :class => 'input-small', :type => :number %> participant(s) par inscription</label>
         <br />
       </div>
       <br />
@@ -54,17 +54,18 @@
     <div class="control-group">
       <label class="control-label"><b>Nombre de pièces</b></label>
       <div class="input-prepend">
-        <label class="checkbox"> <%= f.text_field :nb_piece_lim1, :class => 'input-small', :type => :number %> pièces par classe d'inscription</label>
+        <label class="checkbox">Permettre jusqu'à <%= f.text_field :nb_piece_lim1, :class => 'input-small', :type => :number %> pièces par inscription</label>
       </div>
       <br />
 
       <div class="input-prepend" id="chant">
-        <label class="checkbox"> <%= f.text_field :nb_piece_lim2, :class => 'input-small', :type => :number %> pièces <b>de chant</b> par classe d'inscription</label>
+        <label class="checkbox">Permettre jusqu'à <%= f.text_field :nb_piece_lim2, :class => 'input-small', :type => :number %> pièces <b>de chant</b> par inscription</label>
         <br />
       </div>
       <br />
     </div>
 
+    <label class="control-label"><b>Groupes d'âges</b></label>
     <div id="div-agegroups-table"></div>
   </div>
   <div class="form-actions">

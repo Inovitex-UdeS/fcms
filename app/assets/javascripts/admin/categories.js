@@ -42,7 +42,7 @@ function initCategoriesTable() {
 
     // Add 'Add' and 'Delete' buttons to categories table
     $('#classes_list_wrapper .row-fluid:last .span6:first').html(
-        "<a id='categories_addItem' class='btn btn-primary' href='#'>Ajouter</a>&nbsp;<a id='categories_deleteItem' class='btn' href='#'>Supprimer</a></div>"
+        "<a id='categories_addItem' class='btn btn-primary btn-small' href='#'><i class='icon-plus'></i> Ajouter</a>&nbsp;<a id='categories_deleteItem' class='btn btn-small' href='#'><i class='icon-remove'></i> Supprimer</a></div>"
     );
 
     // On click event

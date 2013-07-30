@@ -99,7 +99,7 @@ $(document).ready(function() {
 
     fcms.bindTable($('.table'));
     fcms.initTable();
-    fcms.bindForm($('#new_edition'), 3);
+    fcms.bindForm($('#new_edition'), 4);
 
     $('form[action="/admin/currenteditions"]').on('ajax:success', function(evt, data, status, xhr) {
         fcms.showMessage('La mise à jour de l\'édition courante a été complétée avec succès!');

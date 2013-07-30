@@ -49,6 +49,14 @@ module NavigationHelpers
     when /^the admin schools\s?page$/
       new_admin_school_path
 
+    when /^the admin instruments\s?page$/
+      new_admin_instrument_path
+
+    when /^the admin rooms\s?page$/
+      new_admin_room_path
+
+    when /^the admin pieces\s?page$/
+      new_admin_piece_path
 
 
     # Add more mappings here.

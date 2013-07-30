@@ -9,6 +9,8 @@
 
 require 'csv'
 
+TESTS_CUCUMBER = true
+
 # Do not load all composers and pieces by default
 load_all_composers_and_pieces = false
 
@@ -187,7 +189,7 @@ accom.roles << accom_role
 judge.roles << judge_role
 RolesUser.where("user_id=#{judge.id} AND role_id=#{judge_role.id}").first.update_attribute(:confirmed, true)
 
-unless false  #test Laurens pour exportation excel
+if TESTS_CUCUMBER  #test Laurens pour exportation excel
              # Composers
   composer1 = Composer.create(name: 'SOR F.')
   composer2 = Composer.create(name: 'SANZ G.')
@@ -213,8 +215,7 @@ unless false  #test Laurens pour exportation excel
   performance2 = Performance.create(piece_id: Piece.find(2).id, registration_id: registration1.id)
 end
 
-DEMO_PLANIF = true
-if DEMO_PLANIF
+if TESTS_CUCUMBER
   puts "Loading 2013 Excel Data..."
 
   demo_edition = Edition.find_by_year(2013)

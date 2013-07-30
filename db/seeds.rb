@@ -140,21 +140,46 @@ CSV.foreach("#{Rails.root}/tools/eastern_schools.csv", :headers => true) do |row
 end
 
 # Instruments
-inst1  = Instrument.create(name: "Guitare")
-inst2  = Instrument.create(name: "Piano")
-inst3  = Instrument.create(name: "Flûte")
-inst5  = Instrument.create(name: "Violon")
-inst6  = Instrument.create(name: "Violoncelle")
-inst7  = Instrument.create(name: "Clarinette")
-inst8  = Instrument.create(name: "Contrebasse")
-inst9  = Instrument.create(name: "Trombonne")
-inst12 = Instrument.create(name: "Chant classique")
-inst13 = Instrument.create(name: "Comédie musicale")
-inst14 = Instrument.create(name: "Clavecin")
-inst15 = Instrument.create(name: "Trompette")
-inst17 = Instrument.create(name: "Flûte traversière")
-inst17 = Instrument.create(name: "Harpe")
+# Guitars
+inst1  = Instrument.create(name: 'Guitare')
 
+# Keyboards
+Instrument.create name: 'Piano'
+Instrument.create name: 'Orgue'
+Instrument.create name: 'Clavecin'
+Instrument.create name: 'Clavicorde'
+
+# Strings
+Instrument.create name: 'Guitare basse'
+Instrument.create name: 'Mandoline'
+Instrument.create name: 'Banjo'
+Instrument.create name: 'Cithare'
+Instrument.create name: 'Harpe'
+
+# Violin family
+Instrument.create name: 'Violon'
+Instrument.create name: 'Violon alto'
+Instrument.create name: 'Violoncelle'
+Instrument.create name: 'Contrebasse'
+
+# Woodwinds
+Instrument.create name: 'Flûte'
+Instrument.create name: 'Flûte traversière'
+Instrument.create name: 'Cor anglais'
+Instrument.create name: 'Hautbois'
+Instrument.create name: 'Piccolo'
+Instrument.create name: 'Clarinette'
+Instrument.create name: 'Saxophone'
+
+# Voice
+Instrument.create name: 'Chant classique'
+Instrument.create name: 'Comédie musicale'
+
+# Brass
+Instrument.create name: 'Trompette'
+Instrument.create name: 'Trombone'
+Instrument.create name: 'Tuba'
+Instrument.create name: 'Cor français'
 
 # Roles
 part_role = Role.create(name: 'Participant')

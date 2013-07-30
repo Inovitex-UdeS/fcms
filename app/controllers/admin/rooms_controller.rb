@@ -1,12 +1,19 @@
 #encoding: utf-8
+
+##
+# Controller to manipulate rooms in the application
 class Admin::RoomsController < ApplicationController
   before_filter :prevent_non_admin
 
+  ##
+  # Display the page to see all the rooms in the application
   def new
     @room = Room.new
     @rooms = Room.all
   end
 
+  ##
+  # Create a room that will be used by FCMS
   def create
     begin
       @room = Room.new(params[:room])
@@ -21,6 +28,8 @@ class Admin::RoomsController < ApplicationController
     end
   end
 
+  ##
+  # Delete the room
   def destroy
     begin
       @room = Room.find(params[:id])
@@ -35,6 +44,8 @@ class Admin::RoomsController < ApplicationController
     end
   end
 
+  ##
+  # Update information about the room
   def update
     begin
       @room = Room.find(params[:id])
@@ -52,6 +63,8 @@ class Admin::RoomsController < ApplicationController
     end
   end
 
+  ##
+  # JSON request to return basic information of a room
   def show
     @room = Room.find(params[:id])
     render :json => @room

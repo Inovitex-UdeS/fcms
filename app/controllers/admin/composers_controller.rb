@@ -1,16 +1,25 @@
 #encoding: utf-8
+
+##
+# Controller to manipulate composers in the application
 class Admin::ComposersController < ApplicationController
   before_filter :prevent_non_admin
 
+  ##
+  # Handle JSON request for ajax dataTables
   def index
     render json: ComposersDatatable.new(view_context)
   end
 
+  ##
+  # Get the page to display all the current composers in the application
   def new
     @composer = Composer.new
     @composers = Composer.all
   end
 
+  ##
+  # Create new composer
   def create
     begin
       @composer = Composer.new(params[:composer])
@@ -24,6 +33,8 @@ class Admin::ComposersController < ApplicationController
     end
   end
 
+  ##
+  # Delete composer, will fail if composer is linked to a composer
   def destroy
     begin
       @composer = Composer.find(params[:id])
@@ -38,6 +49,8 @@ class Admin::ComposersController < ApplicationController
     end
   end
 
+  ##
+  # Update composer
   def update
     begin
       @composer = Composer.find(params[:id])
@@ -55,6 +68,8 @@ class Admin::ComposersController < ApplicationController
     end
   end
 
+  ##
+  # JSON request to return basic information of a piece
   def show
     @composer = Composer.find(params[:id])
     render :json => @composer

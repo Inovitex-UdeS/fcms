@@ -1,7 +1,12 @@
 #encoding: utf-8
+
+##
+# Controller to manipulate current edition in the application
 class Admin::CurrenteditionsController < ApplicationController
   before_filter :prevent_non_admin
 
+  ##
+  # Update current edition
   def create
     begin
       @current_edition = Setting.find_by_key('current_edition_id')

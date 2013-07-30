@@ -1,18 +1,27 @@
 #encoding: utf-8
+
+##
+# Admin controller to give or remove accompanist role to a user
 class Admin::AccompanistsController < ApplicationController
   before_filter :prevent_non_admin
 
+  ##
+  # Get the page to see all the accompanists and to assign new accompanists
   def new
     @role = Role.new
     @accompanists = User.accompanists
     @users = (User.all - @accompanists)
   end
 
+  ##
+  # JSON request to return basic information to user
   def show
     @accompanist = User.find(params[:id])
     render :json => @accompanist
   end
 
+  ##
+  # Give accompanist role to a specific user
   def create
     begin
       @accompanist = User.find(params[:role][:user_ids])
@@ -34,6 +43,8 @@ class Admin::AccompanistsController < ApplicationController
     end
   end
 
+  ##
+  # Remove accompanist role to a specific user
   def destroy
     begin
       accompanist = User.find(params[:id])
@@ -50,5 +61,4 @@ class Admin::AccompanistsController < ApplicationController
       render :json => {:message => "Erreur lors de la suppression de l'accompagnateur"}, :status => :unprocessable_entity
     end
   end
-
 end

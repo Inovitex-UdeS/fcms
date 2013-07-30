@@ -1,12 +1,19 @@
 #encoding: utf-8
+
+##
+# Controller to manipulate instruments in the application
 class Admin::InstrumentsController < ApplicationController
   before_filter :prevent_non_admin
 
+  ##
+  # Get the page to display all the current instruments in the application
   def new
     @instrument = Instrument.new
     @instruments = Instrument.all
   end
 
+  ##
+  # Create an instrument
   def create
     begin
       @instrument = Instrument.new(params[:instrument])
@@ -21,6 +28,8 @@ class Admin::InstrumentsController < ApplicationController
     end
   end
 
+  ##
+  # Delete an instrument, will fail if it is linked in registrations
   def destroy
     begin
       instrument = Instrument.find(params[:id])
@@ -35,6 +44,8 @@ class Admin::InstrumentsController < ApplicationController
     end
   end
 
+  ##
+  # Update an instrument name
   def update
     begin
       @instrument = Instrument.find(params[:id])
@@ -52,6 +63,8 @@ class Admin::InstrumentsController < ApplicationController
     end
   end
 
+  ##
+  # JSON request to return basic information about an instrument
   def show
     @instrument = Instrument.find(params[:id])
     render :json => @instrument

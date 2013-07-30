@@ -1,11 +1,18 @@
 #encoding: utf-8
+
+##
+# Admin controller to creat, edit or delete registrations
 class Admin::RegistrationsController < ApplicationController
   before_filter :prevent_non_admin
 
+  ##
+  # Handle JSON request for ajax dataTables
   def index
     render json: RegistrationsDatatable.new(view_context)
   end
 
+  ##
+  # Display the page for all the registrations in the application (all editions included)
   def new
     @user = User.new
     @user_school_id =
@@ -17,6 +24,8 @@ class Admin::RegistrationsController < ApplicationController
     @accompanists = User.accompanists
   end
 
+  ##
+  # Create new registration
   def create
     begin
       @registration = Registration.new(params[:registration])
@@ -73,6 +82,7 @@ class Admin::RegistrationsController < ApplicationController
       end
       @registration.update_attribute(:age_max, age_max)
 
+      # Format string for dataTables
       users_string = '<b>' + @registration.owner.last_name + ', ' + @registration.owner.first_name + '</b><br>'
 
       @registration.users.where("users.id != #{@registration.user_owner_id}").each do |user|
@@ -120,6 +130,8 @@ class Admin::RegistrationsController < ApplicationController
     end
   end
 
+  ##
+  # JSON request to return basic information about the registration
   def show
     @registration = Registration.find(params[:id])
     @users = RegistrationsUser.where("registrations_users.registration_id =#{@registration.id} AND NOT registrations_users.user_id = #{@registration.user_owner_id}")
@@ -130,6 +142,8 @@ class Admin::RegistrationsController < ApplicationController
     render :json => {:registration => @registration.to_json(:include => {:performances => {:include => {:piece => {:include => {:composer => {}}}}}}), :users => @users.to_json(:include => {:user => {}}), :owner => @owner.to_json, :teacher => @teacher.to_json, :accompanist => @accompanist.to_json,  :instrument => @instrument.to_json }
   end
 
+  ##
+  # Update
   def update
     begin
       @registration = Registration.find(params[:id])
@@ -182,6 +196,7 @@ class Admin::RegistrationsController < ApplicationController
       end
       @registration.update_attribute(:age_max, age_max)
 
+      # Format string for dataTables
       users_string = '<b>' + @registration.owner.last_name + ', ' + @registration.owner.first_name + '</b><br>'
 
       @registration.users.where("users.id != #{@registration.user_owner_id}").each do |user|
@@ -221,6 +236,8 @@ class Admin::RegistrationsController < ApplicationController
     end
   end
 
+  ##
+  # Delete a registrations, all performances and all rows in registrations_users table
   def destroy
     begin
       @registration = Registration.find(params[:id])

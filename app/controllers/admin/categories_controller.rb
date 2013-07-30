@@ -1,7 +1,12 @@
 #encoding: utf-8
+
+##
+# Controller to manipulate categories
 class Admin::CategoriesController < ApplicationController
   before_filter :prevent_non_admin
 
+  ##
+  # Display all the categories
   def index
     if params[:id]
       @category = Category.find(params[:id])
@@ -12,9 +17,10 @@ class Admin::CategoriesController < ApplicationController
     else
       @categories = Category.all
     end
-
   end
 
+  ##
+  # Display the page to create new categories
   def new
     @categories = Category.all
     @category = Category.new
@@ -23,6 +29,8 @@ class Admin::CategoriesController < ApplicationController
     @agegroup  = Agegroup.new
   end
 
+  ##
+  # JSON request to reuturn information about a specific category
   def show
     @category = Category.find(params[:id])
     @agegroups = Agegroup.where(:category_id => @category[:id]).where(:edition_id => Setting.find_by_key('current_edition_id').value)
@@ -32,6 +40,8 @@ class Admin::CategoriesController < ApplicationController
     }
   end
 
+  ##
+  # Destory a category, will fail if the category is linked to registrations
   def destroy
     begin
       category = Category.find(params[:id])
@@ -52,6 +62,8 @@ class Admin::CategoriesController < ApplicationController
     end
   end
 
+  ##
+  # Update information related to a category, will call custom method to handle this
   def update
     begin
       category = Category.find(params[:id])
@@ -75,6 +87,8 @@ class Admin::CategoriesController < ApplicationController
     end
   end
 
+  ##
+  # Create request for categories
   def create
     begin
       category = Category.new(params[:category])
@@ -95,6 +109,8 @@ class Admin::CategoriesController < ApplicationController
     end
   end
 
+  ##
+  # Custom method to handle update of age groups
   def update_age_groups(new_age_groups, category)
     existing_age_groups = []
     new_age_groups.each do |i, ag|

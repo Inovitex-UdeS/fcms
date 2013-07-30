@@ -1,7 +1,12 @@
 #encoding: utf-8
+
+##
+# Controller to manipulate schools in the application
 class Admin::SchoolsController < ApplicationController
   before_filter :prevent_non_admin
 
+  ##
+  # Get the page to display all the schools in the applications
   def new
     @school = School.new
     @school.contactinfo ||= Contactinfo.new
@@ -9,6 +14,8 @@ class Admin::SchoolsController < ApplicationController
     @schools = School.all
   end
 
+  ##
+  # Create new school
   def create
     begin
       @school = School.new(params[:school])
@@ -22,6 +29,8 @@ class Admin::SchoolsController < ApplicationController
     end
   end
 
+  ##
+  # Delete school, will fail if schools is linked to users or registrations
   def destroy
     begin
       @school = School.find(params[:id])
@@ -36,6 +45,8 @@ class Admin::SchoolsController < ApplicationController
     end
   end
 
+  ##
+  # Update information about the school
   def update
     begin
       @school = School.find(params[:id])
@@ -53,9 +64,10 @@ class Admin::SchoolsController < ApplicationController
     end
   end
 
+  ##
+  # JSON request to return basic information about school
   def show
     @school = School.find(params[:id])
     render :json => @school.to_json(:include => {:contactinfo => {:include => :city}, :schooltype => {}, :schoolboard => {} } ), :status => :ok
   end
-
 end

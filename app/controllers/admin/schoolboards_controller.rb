@@ -1,12 +1,19 @@
 #encoding: utf-8
+
+##
+# Controller to manipulate schoolboards in the application
 class Admin::SchoolboardsController < ApplicationController
   before_filter :prevent_non_admin
 
+  ##
+  # Get the page to display all the schoolboards
   def new
     @schoolboard = Schoolboard.new
     @schoolboards = Schoolboard.all
   end
 
+  ##
+  # Create a schoolboard, that will later be linked to a school
   def create
     begin
       @schoolboard = Schoolboard.new(params[:schoolboard])
@@ -20,6 +27,8 @@ class Admin::SchoolboardsController < ApplicationController
     end
   end
 
+  ##
+  # Delete the schoolboard, will fail if it is linked to a school
   def destroy
     begin
       @schoolboard = Schoolboard.find(params[:id])
@@ -34,6 +43,8 @@ class Admin::SchoolboardsController < ApplicationController
     end
   end
 
+  ##
+  # Update name of schoolboard
   def update
     begin
       @schoolboard = Schoolboard.find(params[:id])
@@ -51,9 +62,10 @@ class Admin::SchoolboardsController < ApplicationController
     end
   end
 
+  ##
+  # JSON request to return basic information about schoolboard
   def show
     @schoolboard = Schoolboard.find(params[:id])
     render :json => @schoolboard
   end
-
 end

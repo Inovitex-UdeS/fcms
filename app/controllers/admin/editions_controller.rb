@@ -1,13 +1,20 @@
 #encoding: utf-8
+
+##
+# Controller to manipulate editions in the application
 class Admin::EditionsController < ApplicationController
   before_filter :prevent_non_admin
 
+  ##
+  # Get the page to display all editions
   def new
     @edition = Edition.new
     @editions = Edition.all
     @current_edition = Setting.find_by_key('current_edition_id').value
   end
 
+  ##
+  # Controller to manipulate editions in the application
   def create
     begin
       @edition = Edition.new(params[:edition])
@@ -21,6 +28,8 @@ class Admin::EditionsController < ApplicationController
     end
   end
 
+  ##
+  # Delete the edition, will fail if the edition is linked to a registration
   def destroy
     begin
       @edition = Edition.find(params[:id])
@@ -35,6 +44,8 @@ class Admin::EditionsController < ApplicationController
     end
   end
 
+  ##
+  # Update information about the edition
   def update
     begin
       @edition = Edition.find(params[:id])
@@ -52,6 +63,8 @@ class Admin::EditionsController < ApplicationController
     end
   end
 
+  ##
+  # JSON request to return basic information about the edition
   def show
     @edition = Edition.find(params[:id])
     render :json => @edition

@@ -1,18 +1,27 @@
 #encoding: utf-8
+
+##
+# Admin controller to give or remove teacher role to a user
 class Admin::TeachersController < ApplicationController
   before_filter :prevent_non_admin
 
+  ##
+  # Get the page to see all the teachers and to assign new teachers
   def new
     @role = Role.new
     @teachers = User.teachers
     @users = (User.all - @teachers)
   end
 
+  ##
+  # JSON request to return basic information about a user
   def show
     @teacher = User.find(params[:id])
     render :json => @teacher
   end
 
+  ##
+  # Give teacher role to a specific user
   def create
     begin
       @teacher = User.find(params[:role][:user_ids])
@@ -34,6 +43,8 @@ class Admin::TeachersController < ApplicationController
     end
   end
 
+  ##
+  # Remove teacher role to a specific user
   def destroy
     begin
       teacher = User.find(params[:id])

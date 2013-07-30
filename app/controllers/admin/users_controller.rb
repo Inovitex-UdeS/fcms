@@ -1,11 +1,18 @@
 #encoding: utf-8
+
+##
+# Admin controller to edit or delete users registered to web application
 class Admin::UsersController < ApplicationController
   before_filter :prevent_non_admin
 
+  ##
+  # Handle JSON request for ajax dataTables
   def index
     render json: UsersDatatable.new(view_context)
   end
 
+  ##
+  # Show the list of all users and a form to edit them
   def new
     @users  = User.all
     @user = User.new
@@ -13,6 +20,8 @@ class Admin::UsersController < ApplicationController
     @user.contactinfo.city ||= City.new
   end
 
+  ##
+  # Update specific information about the user (not permitting complete editing of user)
   def update
     begin
       @user = User.find(params[:id])
@@ -27,10 +36,13 @@ class Admin::UsersController < ApplicationController
     end
   end
 
+  ##
+  # Destroy all traces of a user. Delete roles, registrations, performances, ...
   def destroy
     begin
       @user = User.find(params[:id])
 
+      # Manually delete everything since we weren't aware of cascade delete rails models
       @user.roles.each do |role|
         @user.roles.delete(role)
       end
@@ -90,12 +102,15 @@ class Admin::UsersController < ApplicationController
     end
   end
 
+  ##
+  # JSON request to return basic information about a user
   def show
     @user = User.find(params[:id])
     render :json => @user.to_json(:include => {:contactinfo => {:include => :city}})
   end
 
-
+  ##
+  # Create excel with all information about users in the application with roles, emails, infos, ...
   def ProduceExcel
     require 'axlsx'
 

@@ -1,12 +1,19 @@
 #encoding: utf-8
+
+##
+# Controller to manipulate agegroups bound to a category
 class Admin::AgegroupsController < ApplicationController
   before_filter :prevent_non_admin
 
+  ##
+  # Page to see all the current agegroups
   def new
     @agegroups = Agegroup.all
     @agegroup = Agegroup.new
   end
 
+  ##
+  # Handle update request
   def update
     begin
       @agegroup = Agegroup.find(params[:id])
@@ -24,8 +31,11 @@ class Admin::AgegroupsController < ApplicationController
     end
   end
 
+  ##
+  # Handle create request for agegroup.
   def create
     begin
+      #We needed to user JSON.decode since the form was weirdly build we couldn't user $('form').serialize() directly
       @agegroup = Agegroup.new(ActiveSupport::JSON.decode(params[:agegroup]))
 
       if @agegroup.save
@@ -38,6 +48,8 @@ class Admin::AgegroupsController < ApplicationController
     end
   end
 
+  ##
+  # Destroy an agegroup, will fail if agegroup has links to categories
   def destroy
     begin
       agegroup = Agegroup.find(params[:id])
@@ -48,7 +60,7 @@ class Admin::AgegroupsController < ApplicationController
         render :json => {:message =>  "Le groupe d'âge n'a pas été trouvé"}, :status => :unprocessable_entity
       end
     rescue
-      render :json => {:message => "Erreur lors de la suppression du groupe d'âge"}, :status => :unprocessable_entity
+      render :json => {:message => "Le groupe d'âge est lié à d'autres objets dans la base de données (categories, inscriptions, ...). Veuillez les supprimer en premier."}, :status => :unprocessable_entity
     end
   end
 end

@@ -1,17 +1,26 @@
 #encoding: utf-8
+
+##
+# Controller to manipulate pieces in the application
 class Admin::PiecesController < ApplicationController
   before_filter :prevent_non_admin
 
+  ##
+  # Handle JSON request for ajax dataTables
   def index
     render json: PiecesDatatable.new(view_context)
   end
 
+  ##
+  # Get the page to display all the current pieces in the application
   def new
     @piece = Piece.new
     @piece.composer ||= Composer.new
     @pieces = Piece.all
   end
 
+  ##
+  # Create a new piece
   def create
     begin
       @piece = Piece.new(params[:piece])
@@ -25,6 +34,8 @@ class Admin::PiecesController < ApplicationController
     end
   end
 
+  ##
+  # Delete a piece, will fail if piece is linked to performances
   def destroy
     begin
       @piece = Piece.find(params[:id])
@@ -39,6 +50,8 @@ class Admin::PiecesController < ApplicationController
     end
   end
 
+  ##
+  # Update information of a piece
   def update
     begin
       @piece = Piece.find(params[:id])
@@ -56,6 +69,8 @@ class Admin::PiecesController < ApplicationController
     end
   end
 
+  ##
+  # JSON request to return basic information of a piece
   def show
     @piece = Piece.find(params[:id])
     render :json => @piece.to_json(:include => {:composer => {}} )

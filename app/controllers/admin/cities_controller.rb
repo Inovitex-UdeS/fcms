@@ -1,12 +1,19 @@
 #encoding: utf-8
+
+##
+# Controller to manipulate cities in the application
 class Admin::CitiesController < ApplicationController
   before_filter :prevent_non_admin
 
+  ##
+  # Show the page of all cities in the application
   def new
     @city = City.new
     @cities = City.all
   end
 
+  ##
+  # Handle create request for new cities
   def create
     begin
       @city = City.new(params[:city])
@@ -20,6 +27,8 @@ class Admin::CitiesController < ApplicationController
     end
   end
 
+  ##
+  # Delete a city, will fail if it is already linked to contactinfo of users or schools
   def destroy
     begin
       @city = City.find(params[:id])
@@ -34,6 +43,8 @@ class Admin::CitiesController < ApplicationController
     end
   end
 
+  ##
+  # Update information of the city (name)
   def update
     begin
       @city = City.find(params[:id])
@@ -51,9 +62,10 @@ class Admin::CitiesController < ApplicationController
     end
   end
 
+  ##
+  # JSON request to return basic information about the city
   def show
     @city = City.find(params[:id])
     render :json => @city
   end
-
 end

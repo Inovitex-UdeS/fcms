@@ -1,12 +1,19 @@
 #encoding: utf-8
+
+##
+# Controller to manipulate cities in the application
 class Admin::SchooltypesController < ApplicationController
   before_filter :prevent_non_admin
 
+  ##
+  # Get the page to display all the current school types in the application
   def new
     @schooltype = Schooltype.new
     @schooltypes = Schooltype.all
   end
 
+  ##
+  # Create a schooltype that will later be linked to a school
   def create
     begin
       @schooltype = Schooltype.new(params[:schooltype])
@@ -20,6 +27,8 @@ class Admin::SchooltypesController < ApplicationController
     end
   end
 
+  ##
+  # Delete a schooltype, will fail if it is already linked to a school
   def destroy
     begin
       @schooltype = Schooltype.find(params[:id])
@@ -34,6 +43,8 @@ class Admin::SchooltypesController < ApplicationController
     end
   end
 
+  ##
+  # Update the name of the schooltype
   def update
     begin
       @schooltype = Schooltype.find(params[:id])
@@ -51,6 +62,8 @@ class Admin::SchooltypesController < ApplicationController
     end
   end
 
+  ##
+  # JSON request to return basic information about the schooltype
   def show
     @schooltype = Schooltype.find(params[:id])
     render :json => @schooltype

@@ -1,7 +1,12 @@
 #encoding: utf-8
+
+##
+# Admin controller to give or remove judge role to a user
 class Admin::JugesController < ApplicationController
   before_filter :prevent_non_admin
 
+  ##
+  # Get the page to see all the judges and to assign new judges
   def new
     @role = Role.new
     @ujuges = User.unconfirmed_juges
@@ -9,11 +14,15 @@ class Admin::JugesController < ApplicationController
     @users = (User.all - @juges)
   end
 
+  ##
+  # JSON request to return basic information about a user
   def show
     @juge = User.find(params[:id])
     render :json => @juge
   end
 
+  ##
+  # Give judge role to a specific user
   def create
     begin
       @juge = User.find(params[:role][:user_ids])
@@ -38,6 +47,8 @@ class Admin::JugesController < ApplicationController
     end
   end
 
+  ##
+  # Remove judge role to a specific user
   def destroy
     begin
       juge = User.find(params[:id])
@@ -55,6 +66,8 @@ class Admin::JugesController < ApplicationController
     end
   end
 
+  ##
+  # Request to handle confirmations of judges
   def confirm
     begin
       user_id = params[:id]
@@ -73,6 +86,8 @@ class Admin::JugesController < ApplicationController
     end
   end
 
+  ##
+  # Request to reject confirmations of judges
   def reject
     begin
       user_id = params[:id]
@@ -90,5 +105,4 @@ class Admin::JugesController < ApplicationController
       redirect_to new_admin_juge_path, :alert => 'Le juge n\'a pas été rejeté...'
     end
   end
-
 end

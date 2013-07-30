@@ -79,12 +79,13 @@ function initEditRegistrations() {
                     minimumInputLength: 2,
                     id: function(e) { return e.value},
                     ajax: {
-                        url: '/autocomplete/composers',
+                        url: '/autocomplete/participants',
                         dataType: 'json',
                         type: "GET",
                         data: function (term, page) {
                             return {
-                                composer: term
+                                user: term,
+                                noUser: userList
                             };
                         },
                         results: function (data, page) {

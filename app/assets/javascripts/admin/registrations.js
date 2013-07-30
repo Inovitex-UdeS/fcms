@@ -33,7 +33,7 @@ $(document).ready(function(){
             type: "GET",
             data: function (term, page) {
                 return {
-                    composer: term
+                    query: term
                 };
             },
             results: function (data, page) {
@@ -187,7 +187,7 @@ fcms.fnSuccessGetData = function( data ) {
                 type: "GET",
                 data: function (term, page) {
                     return {
-                        composer: term
+                        query: term
                     };
                 },
                 results: function (data, page) {
@@ -235,12 +235,13 @@ fcms.fnSuccessGetData = function( data ) {
             minimumInputLength: 2,
             id: function(e) { return e.value},
             ajax: {
-                url: '/autocomplete/composers',
+                url: '/autocomplete/participants',
                 dataType: 'json',
                 type: "GET",
                 data: function (term, page) {
                     return {
-                        composer: term
+                        query: term,
+                        noUser: userList
                     };
                 },
                 results: function (data, page) {

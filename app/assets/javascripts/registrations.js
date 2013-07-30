@@ -34,7 +34,7 @@ $(document).ready(function(){
             type: "GET",
             data: function (term, page) {
                 return {
-                    composer: term
+                    user: term
                 };
             },
             results: function (data, page) {
@@ -69,7 +69,7 @@ $(document).ready(function(){
             type: "GET",
             data: function (term, page) {
                 return {
-                    composer: term
+                    user: term
                 };
             },
             results: function (data, page) {

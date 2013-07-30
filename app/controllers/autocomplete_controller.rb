@@ -19,7 +19,7 @@ class AutocompleteController < ApplicationController
   ##
   # Return all the composers corresponding to search
   def composers
-    search = params[:composer]
+    search = params[:query]
 
     if search
       search = search.upcase
@@ -49,14 +49,16 @@ class AutocompleteController < ApplicationController
   end
 
   def users
-    @users = User.all
+    search = params[:query]
+
+    @users = User.where("(first_name LIKE '%#{search}%' OR last_name LIKE '%#{search}%' OR email LIKE '%#{search}%')")
     render :json => @users.collect {|o| {:label => o.first_name + ' ' + o.last_name, :value => o.id.to_s}}
   end
 
   ##
   # Return all the pieces corresponding to search and already used users
   def participants
-    search = params[:user]
+    search = params[:query]
     userInReg = params[:noUser]
 
     if search
@@ -82,14 +84,18 @@ class AutocompleteController < ApplicationController
   ##
   # Return all the teachers
   def teachers
-    @teachers = User.teachers
+    search = params[:query]
+
+    @teachers = User.teachers.where("(first_name LIKE '%#{search}%' OR last_name LIKE '%#{search}%' OR email LIKE '%#{search}%')")
     render :json => @teachers.collect {|o| {:label => o.first_name + ' ' + o.last_name + ' (' + o.email + ')', :value => o.id.to_s}}
   end
 
   ##
   # Return all the accompanists
   def accompanists
-    @accompanist = User.accompanists
+    search = params[:query]
+
+    @accompanist = User.accompanists.where("(first_name LIKE '%#{search}%' OR last_name LIKE '%#{search}%' OR email LIKE '%#{search}%')")
     render :json => @accompanist.collect {|o| {:label => o.first_name + ' ' + o.last_name + ' (' + o.email + ')', :value => o.id.to_s}}
   end
 end

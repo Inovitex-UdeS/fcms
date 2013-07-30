@@ -1,10 +1,11 @@
-class Admin::CustomMailController < ApplicationController
-
+#encoding: utf-8
+class Admin::CustomMailsController < ApplicationController
   def new
+    @role = Role.new
     @roles = Role.all(:conditions => (["name != ?", 'Administrateur']))
   end
 
-  def create_email
+  def create
     begin
       @mailtos = params['custom_mail']['mailto']
       @body = params['custom_mail']['body']
@@ -15,11 +16,7 @@ class Admin::CustomMailController < ApplicationController
         UserMailer.batch_email(Role.find(role_id).users, @body, @subject)
       end
 
-
-      #hack
-      @roles = Role.all(:conditions => (["name != ?", 'Administrateur']))
-      redirect_to new_admin_custom_mail_path
+      render :json => {"message" => "Le message a été envoyé à tous les destinataires!"}
     end
   end
 end
-

@@ -47,7 +47,7 @@ body {
 /* Sub-navigation */
 .section-submenu h4 { margin: 0 0 10px 0; padding: 0; }
 .section-submenu ul { margin: 0 -20px; list-style: none; }
-.section-submenu li { padding: 5px 0; line-height: 18px; }
+.section-submenu li { padding: 0; line-height: 18px; }
 .section-submenu li:hover {
   color: #fff;
   font-weight: 600;
@@ -75,7 +75,21 @@ body {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffaa0911',endColorstr='#ff8a2003',GradientType=0);
 }
 .section-submenu li:hover > a, .section-submenu li.active > a { color: #fff; text-decoration: none; }
-.section-submenu li a { padding: 0 20px; display: inline-block; }
+.section-submenu li a { padding: 5px 22px 5px 20px; display: block; }
+
+.section-submenu .dropdown-submenu>a:after { margin-top: 4px; }
+.section-submenu .dropdown-submenu.active>a:after { border-left-color: #fff; }
+
+.section-submenu .dropdown-menu>li>a:hover,
+.section-submenu .dropdown-menu>li>a:focus,
+.section-submenu .dropdown-submenu:hover>a,
+.section-submenu .dropdown-submenu:focus>a,
+.section-submenu .dropdown-menu>.active>a,
+.section-submenu .dropdown-menu>.active>a:hover,
+.section-submenu .dropdown-menu>.active>a:focus {
+  background: none;
+}
+
 .section-submenu li.divider {
     height: 1px;
     margin: 5px 1px;

@@ -28,6 +28,12 @@ a:hover, a:focus {
     text-decoration: none;
 }
 
+/* remove pointer on anchor links */
+a[href="#"],
+.navbar .nav>li>a[href="#"]:hover {
+    cursor: default;
+}
+
 /* Remove round borders from inputs */
 textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
     -webkit-border-radius: 0px;
@@ -256,7 +262,6 @@ input.input-hidden {
 }
 
 .form-horizontal .control-label { width: auto; }
-
 
 /* DataTables fixes */
 #addItem { margin-right:5px; }

@@ -60,66 +60,70 @@ SimpleNavigation::Configuration.run do |navigation|
     #       the user clicks on an item, it actually opens a sub_nav link.
     # icon - Adds a bootstrap icon with the specified class before the title
 
-    primary.item :key_1, 'Accueil', root_path, :icon => 'icon-home'
+    primary.item :nav_home, 'Accueil', root_path, :icon => 'icon-home'
     
     primary.item :divider_1, nil, nil, :class => 'divider-vertical'
 
-    primary.item :key_2, 'Inscriptions', new_registration_path, :icon => 'icon-edit' do |sub_nav|
-      sub_nav.item :key_2_1, 'Voir ses inscriptions', registrations_path
-      sub_nav.item :key_2_2, 'S\'inscrire au concours', new_registration_path
+    primary.item :nav_registrations, 'Inscriptions', new_registration_path, :icon => 'icon-edit' do |sub_nav|
+      sub_nav.item :nav_registrations_view, 'Voir ses inscriptions', registrations_path
+      sub_nav.item :nav_registrations_new,  'S\'inscrire au concours', new_registration_path
     end
     
     primary.item :divider_2, nil, nil, :class => 'divider-vertical'
 
-    primary.item :key_3, 'Horaire', '#', :icon => 'icon-calendar', :class => 'menu-disabled', :onclick => 'return false;' do |sub_nav|
-      sub_nav.item :key_3_1, 'Élément de menu 1', '#'
+    primary.item :nav_schedule, 'Horaire', '#', :icon => 'icon-calendar', :class => 'menu-disabled', :onclick => 'return false;' do |sub_nav|
+      # sub_nav.item :key_3_1, 'Élément de menu 1', '#'
     end
 
     primary.item :divider_3, nil, nil, :class => 'divider-vertical'
 
-    primary.item :key_4, 'Résultats', '#', :icon => 'icon-bar-chart', :class => 'menu-disabled', :onclick => 'return false;' do |sub_nav|
-      sub_nav.item :key_4_1, 'Élément de menu 1', '#'
+    primary.item :nav_results, 'Résultats', '#', :icon => 'icon-bar-chart', :class => 'menu-disabled', :onclick => 'return false;' do |sub_nav|
+      # sub_nav.item :key_4_1, 'Élément de menu 1', '#'
     end
 
     primary.item :divider_4, nil, nil, :class => 'divider-vertical', :if => Proc.new { current_user.is_admin? }
 
-    # TODO: Replace 'user_signed_in?' with actual admin permissions lookup   --> Genre  current_user.has_role?(:administrateur)
-    primary.item :key_5, 'Administration' , '/admin', :icon => 'icon-cog', :if => Proc.new { current_user.is_admin? } do |sub_nav|
-      sub_nav.item :key_5_1, 'Vue d\'ensemble', '/admin', :icon => 'iconic-chart'
-      sub_nav.item :key_5_2, 'Gérer les inscriptions', new_admin_registration_path
-      sub_nav.item :key_5_3, '', nil, :class=> 'divider'
-      sub_nav.item :key_5_4, 'Gérer les classes', new_admin_category_path
-      sub_nav.item :key_5_5, 'Gérer les commissions scolaires', new_admin_schoolboard_path
-      sub_nav.item :key_5_6, 'Gérer les compositeurs', new_admin_composer_path
-      sub_nav.item :key_5_7, 'Gérer les éditions', new_admin_edition_path
-      sub_nav.item :key_5_8, 'Gérer les institutions scolaires', new_admin_school_path
-      sub_nav.item :key_5_9, 'Gérer les instruments', new_admin_instrument_path
-      sub_nav.item :key_5_10, 'Gérer les locaux', new_admin_room_path
-      sub_nav.item :key_5_11, 'Gérer les oeuvres', new_admin_piece_path
-      sub_nav.item :key_5_12, 'Gérer les types d\'écoles', new_admin_schooltype_path
-      sub_nav.item :key_5_13, 'Gérer les villes', new_admin_city_path
-      sub_nav.item :key_5_14,'', nil, :class=> 'divider'
-      sub_nav.item :key_5_15, 'Planifier le concours', '/admin/planification'
-      sub_nav.item :key_5_16,'', nil, :class=> 'divider'
-      sub_nav.item :key_5_17, 'Gérer les accompagnateurs', new_admin_accompanist_path
-      sub_nav.item :key_5_18, 'Gérer les juges', new_admin_juge_path
-      sub_nav.item :key_5_19, 'Gérer les participants', new_admin_participant_path
-      sub_nav.item :key_5_20, 'Gérer les professeurs', new_admin_teacher_path
-      sub_nav.item :key_5_21,'', nil, :class=> 'divider'
-      sub_nav.item :key_5_22,'Inviter un utilisateur', '/users/invitation/new'
-      sub_nav.item :key_5_23,'Gérer les utilisateurs', new_admin_user_path
-      sub_nav.item :key_5_24,'', nil, :class=> 'divider'
-      sub_nav.item :key_5_22,'Envoyer message', new_admin_custom_mail_path
+    primary.item :nav_admin, 'Administration' , '/admin', :icon => 'icon-cog', :if => Proc.new { current_user.is_admin? } do |sub_nav|
+      sub_nav.item :nav_admin_dashboard, 'Vue d\'ensemble', '/admin', :icon => 'iconic-chart'
+      sub_nav.item :nav_admin_divider_1, '', nil, :class=> 'divider'
+      sub_nav.item :nav_admin_edition,   'Choix de l\'édition', new_admin_edition_path
+      sub_nav.item :nav_admin_category,  'Classes d\'inscription', new_admin_category_path
+      sub_nav.item :nav_admin_data,      'Données d\'inscription', '#', :class => 'dropdown-submenu' do |sub_sub_nav|
+        sub_sub_nav.dom_class = 'dropdown-menu'
+        sub_sub_nav.item :nav_admin_data_instruments,  'Gérer les instruments', new_admin_instrument_path
+        sub_sub_nav.item :nav_admin_data_composers,    'Gérer les compositeurs', new_admin_composer_path
+        sub_sub_nav.item :nav_admin_data_pieces,       'Gérer les oeuvres', new_admin_piece_path
+        sub_sub_nav.item :nav_admin_data_cities,       'Gérer les villes', new_admin_city_path
+        sub_sub_nav.item :nav_admin_data_schoolboards, 'Gérer les commissions scolaires', new_admin_schoolboard_path
+        sub_sub_nav.item :nav_admin_data_schooltypes,  'Gérer les types d\'écoles', new_admin_schooltype_path
+        sub_sub_nav.item :nav_admin_data_schools,      'Gérer les institutions scolaires', new_admin_school_path
+        # sub_nav.item :nav_admin_data_rooms,          'Gérer les locaux', new_admin_room_path
+      end
+      sub_nav.item :nav_admin_divider_2,     '', nil, :class=> 'divider'
+      sub_nav.item :nav_admin_registrations, 'Voir les inscriptions', new_admin_registration_path
+      sub_nav.item :nav_admin_planification, 'Planifier le concours', '/admin/planification'
+      sub_nav.item :nav_admin_divider_3,     '', nil, :class=> 'divider'
+      sub_nav.item :nav_admin_users,         'Gérer les utilisateurs', new_admin_user_path
+      sub_nav.item :nav_admin_types,         'Types d\'utilisateurs', '#', :class => 'dropdown-submenu' do |sub_sub_nav|
+        sub_sub_nav.dom_class = 'dropdown-menu'
+        sub_sub_nav.item :nav_admin_types_participants, 'Participants', new_admin_participant_path
+        sub_sub_nav.item :nav_admin_types_accompanists, 'Accompagnateurs', new_admin_accompanist_path
+        sub_sub_nav.item :nav_admin_types_teachers,     'Professeurs', new_admin_teacher_path
+        sub_sub_nav.item :nav_admin_types_judges,       'Juges', new_admin_juge_path
+      end
+      sub_nav.item :nav_admin_divider_4, '', nil, :class=> 'divider'
+      sub_nav.item :nav_admin_invite,    'Inviter un utilisateur', '/users/invitation/new'
+      sub_nav.item :nav_admin_message,   'Envoyer un message', new_admin_custom_mail_path
 
     end
 
-    primary.item :divider_6, nil, nil, :class => 'divider-vertical'
+    primary.item :divider_5, nil, nil, :class => 'divider-vertical'
 
-    primary.item :key_7, 'Compte', nil, :icon => 'icon-user', :link => {:onclick => 'return false;'} do |sub_nav|
-      sub_nav.item :key_7_1, 'Profil', edit_user_path(current_user)
-      sub_nav.item :key_7_2, 'Courriel et mot de passe', edit_user_registration_path
-      sub_nav.item :key_7_3, '', nil, :class=> 'divider'
-      sub_nav.item :key_7_4, 'Déconnexion', destroy_user_session_path, :method => :delete
+    primary.item :nav_user, 'Compte', nil, :icon => 'icon-user' do |sub_nav|
+      sub_nav.item :nav_user_edit,       'Profil', edit_user_path(current_user)
+      sub_nav.item :nav_user_profile,    'Courriel et mot de passe', edit_user_registration_path
+      sub_nav.item :nav_user_divider_1,  '', nil, :class=> 'divider'
+      sub_nav.item :nav_user_disconnect, 'Déconnexion', destroy_user_session_path, :method => :delete
     end
 
     # you can also specify a css id or class to attach to this particular level

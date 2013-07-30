@@ -349,7 +349,7 @@ fcms.fnInjectDeleteButton = function (deletePath, select) {
     });
 
     // Add  - button
-    $('.row-fluid:last > .span6:first').html('<a id="deleteItem" class="btn btn-primary" href="#">Supprimer</a></div>');
+    $('.row-fluid:last > .span6:first').html('<a id="deleteItem" class="btn btn-primary btn-small" href="#"><i class="icon-minus"></i> Supprimer</a></div>');
 
     // Prevent scrolling top
     $('#deleteItem').click(function(e){ e.preventDefault(); $.get(deletePath) });

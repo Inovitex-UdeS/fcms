@@ -121,3 +121,10 @@ jQuery.fn.serializeObject = function()
 
     return o;
 };
+
+// Remove the '#' action from links
+$(document).ready(function() {
+    $('a[href="#"]').click(function(e) {
+        e.preventDefault();
+    });
+});

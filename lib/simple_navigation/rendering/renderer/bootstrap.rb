@@ -33,7 +33,7 @@ module SimpleNavigation
         unless item.url or include_sub_navigation?(item)
           return item.name
         end
-        url = item.url
+        url = item.url || '#'
         link = Array.new
         link << content_tag(:i, '', :class => [icon].flatten.compact.join(' ')) unless icon.nil?
         link << item.name
@@ -47,7 +47,7 @@ module SimpleNavigation
           link << content_tag(:b, '', :class => 'caret') if dropdown
         end
         #content_tag(:a, link.join(' '), options_for(item).merge(:href => url))
-        link_to(link.join(" "), url, options_for(item))
+        link_to(link.join(' '), url, options_for(item))
       end
     end
   end

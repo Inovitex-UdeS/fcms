@@ -35,7 +35,7 @@
       <% else %>
         <div class="section section-submenu">
           <h4><%= active_navigation_item_name(:level => 1) %></h4>
-          <%= render_navigation(:expand_all => true, :level => 2) %>
+          <%= render_navigation(:expand_all => true, :level => 2..3) %>
         </div>
         <div class="section section-subpage">
           <%= yield %>

@@ -382,7 +382,7 @@ fcms.fnInjectDeleteButton = function (deletePath, select) {
     });
 };
 
-// Confirm modal window
+// Confirm modal window for all basic forms
 fcms.confirm = function(callback) {
 
     var confirmModal =
@@ -419,6 +419,7 @@ fcms.confirm = function(callback) {
     confirmModal.modal('show');
 };
 
+// Confirm modal window for delete registrations
 fcms.confirmRegDel = function (obj) {
 
     var confirmModal =

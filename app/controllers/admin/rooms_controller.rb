@@ -31,7 +31,7 @@ class Admin::RoomsController < ApplicationController
         render :json => {:message =>  "La salle n'a pas été trouvée"}, :status => :unprocessable_entity
       end
     rescue
-      render :json => {:message => "Erreur lors de la suppression de la salle"}, :status => :unprocessable_entity
+      render :json => {:message => "La pièce est liée à d'autres objets dans la base de données. Veuillez les supprimer en premier."}, :status => :unprocessable_entity
     end
   end
 

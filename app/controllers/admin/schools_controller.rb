@@ -32,7 +32,7 @@ class Admin::SchoolsController < ApplicationController
         render :json => {:message => "L'école'n'a pas été trouvée"}, :status => :unprocessable_entity
       end
     rescue
-      render :json => {:message => "Erreur lors de la suppression de l'école"}, :status => :unprocessable_entity
+      render :json => {:message => "L'école est liée à d'autres objets dans la base de données (utilisateurs, inscriptions, ...). Veuillez les supprimer en premier."}, :status => :unprocessable_entity
     end
   end
 

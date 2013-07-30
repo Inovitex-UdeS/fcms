@@ -91,7 +91,10 @@ fcms.bindForm = function (form, type) {
                     $.ajax({
                         url: modelUrl + id,
                         type: 'DELETE',
-                        complete: fcms.fnSuccessRemoveData
+                        success: fcms.fnSuccessRemoveData,
+                        error: function( xhr, err ) {
+                            fcms.showMessage($.parseJSON(xhr.responseText)['message'], 3);
+                        }
                     });
                 });
             }
@@ -117,7 +120,7 @@ fcms.bindForm = function (form, type) {
                 data    : oForm.serialize(),
                 success : fcms.fnSuccessUpdateData,
                 error   : function( xhr, err ) {
-                    fcms.showMessage(xhr.responseText, 3);
+                    fcms.showMessage($.parseJSON(xhr.responseText)['message'], 3);
                 }
             });
         }
@@ -131,7 +134,7 @@ fcms.bindForm = function (form, type) {
                     data    : oForm.serialize(),
                     success : fcms.fnSuccessAddItem,
                     error   : function( xhr, err ) {
-                        fcms.showMessage(xhr.responseText, 3);
+                        fcms.showMessage($.parseJSON(xhr.responseText)['message'], 3);
                     }
                 });
             }

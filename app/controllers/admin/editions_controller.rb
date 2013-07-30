@@ -31,7 +31,7 @@ class Admin::EditionsController < ApplicationController
         render :json => {:message => "L'édition n'a pas été trouvé"}, :status => :unprocessable_entity
       end
     rescue
-      render :json => {:message => "Erreur lors de la suppression de l'édition"}, :status => :unprocessable_entity
+      render :json => {:message => "L'édition est liée à d'autres objets dans la base de données (inscriptions, catégories, ...). Veuillez les supprimer en premier."}, :status => :unprocessable_entity
     end
   end
 

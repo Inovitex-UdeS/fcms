@@ -35,7 +35,7 @@ class Admin::PiecesController < ApplicationController
         render :json => {:message => "La pièce n'a pas été trouvée"}, :status => :unprocessable_entity
       end
     rescue
-      render :json => {:message => "Erreur lors de la suppression de la pièce"}, :status => :unprocessable_entity
+      render :json => {:message => "L'oeuvre est liée à d'autres objets dans la base de données (inscriptions). Veuillez les supprimer en premier."}, :status => :unprocessable_entity
     end
   end
 

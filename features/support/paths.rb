@@ -41,7 +41,15 @@ module NavigationHelpers
       new_admin_registration_path
 
     when /^the admin schoolboards\s?page$/
-        new_admin_schoolboard_path
+      new_admin_schoolboard_path
+
+    when /^the admin composers\s?page$/
+      new_admin_composer_path
+
+    when /^the admin schools\s?page$/
+      new_admin_school_path
+
+
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

@@ -16,6 +16,10 @@ When /^(?:|I )js change the input "([^"]*)" value for "([^"]*)"$/ do |field, val
   page.execute_script("$('input[id=#{field}]').val('#{value}')")
 end
 
+When /^(?:|I )js change the fucked-up input "([^"]*)" value for "([^"]*)"$/ do |field, value|
+  page.execute_script("$('select[id=#{field}]').children('option').eq(#{value}).prop('selected', true)")
+end
+
 When /^(?:|I )js fill the datatables-search for "([^"]*)"$/ do |value|
   page.execute_script("$('input[id=datatables-search]').val('#{value}')")
   find('#datatables-search').native.send_keys(:return)

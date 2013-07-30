@@ -187,7 +187,7 @@ accom.roles << accom_role
 judge.roles << judge_role
 RolesUser.where("user_id=#{judge.id} AND role_id=#{judge_role.id}").first.update_attribute(:confirmed, true)
 
-unless true  #test Laurens pour exportation excel
+unless false  #test Laurens pour exportation excel
              # Composers
   composer1 = Composer.create(name: 'SOR F.')
   composer2 = Composer.create(name: 'SANZ G.')

@@ -10,7 +10,7 @@ end
 
 Given /^I exist as a user$/ do
 
-  DatabaseCleaner.clean
+  DatabaseCleaner[:active_record, :connection => :test]
   load "#{Rails.root}/db/seeds.rb"
 
   @city = City.create(name: "TestCity")

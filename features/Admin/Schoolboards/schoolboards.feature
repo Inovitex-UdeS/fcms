@@ -11,10 +11,10 @@ Feature: Admin/Schoolboards
     And I am on the admin schoolboards page
 
   Scenario: Verify if I'm on the schoolboard page
-    Then I should see "Gestion des comissions scolaires"
+    Then I should see "Gestion des commissions scolaires"
 
   @javascript
-  Scenario: Add a new schoolboards
+  Scenario: Add a new schoolboard
     When I js click on "addItem"
     And I fill in "schoolboard_name" with "Saint-Venu-De-Paquette"
     And I js click on "formSave"
@@ -29,7 +29,7 @@ Feature: Admin/Schoolboards
     Then I should not see "Collège Notre-Dame-des-Servites"
 
   @javascript
-  Scenario: Modify an Edition
+  Scenario: Modify a schoolboard
     When I js double click on the table row containing "Collège Notre-Dame-des-Servites"
     And I js change the input "schoolboard_name" value for "JPASS"
     And I js click on "formSave"

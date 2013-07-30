@@ -284,7 +284,7 @@ function ajaxLoadCategory(id) {
 // Remove a category from the service
 function ajaxRemoveCategory(id, row) {
     $.ajax({
-        url: '/admin/categories/' + id,
+        url: fcms.categoryURL + id,
         type: 'DELETE',
         success: function() {
             fcms.tableCategories.fnDeleteRow(row);
@@ -301,7 +301,7 @@ function ajaxRemoveCategory(id, row) {
 // Save a category in the service
 function ajaxSaveCategory(params, categoryId) {
     $.ajax({
-        url: '/admin/categories/' + (categoryId > -1 ? categoryId : ''),
+        url: fcms.categoryURL + (categoryId > -1 ? categoryId : ''),
         type: (categoryId > -1 ? 'PUT' : 'POST'),
         data: $.param(params),
         success: function(data) {

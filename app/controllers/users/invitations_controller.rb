@@ -1,5 +1,10 @@
 #encoding: utf-8
+
+##
+# Invite users controller when creating a registration
 class Users::InvitationsController < Devise::InvitationsController
+  ##
+  # Form to write user to invite
   def new
     @user = User.new
     @user.contactinfo ||= Contactinfo.new
@@ -8,6 +13,8 @@ class Users::InvitationsController < Devise::InvitationsController
     @roles = Role.all
   end
 
+  ##
+  # Send the email to invite the user
   def create
     begin
       @user = User.new(params[:user])

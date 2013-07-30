@@ -13,10 +13,10 @@ class RegistrationsController < ApplicationController
 
   ##
   # Populate registrations grid
-  #  * If participant -> Add registrations involved in
-  #  * If teacher -> + Add registrations you are the teacher
-  #  * If accompanist -> + Add registrations you are the accompanist
-  #  * If judge -> See all the registrations of the current edition
+  # If participant -> Add registrations involved in
+  # If teacher -> + Add registrations you are the teacher
+  # If accompanist -> + Add registrations you are the accompanist
+  # If judge -> See all the registrations of the current edition
   def index
     @current_edition = Setting.find_by_key('current_edition_id').value
     @registrations = []

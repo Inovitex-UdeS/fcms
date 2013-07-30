@@ -77,51 +77,51 @@ puts "Loading default categories and settings..."
 # Categories
 category1 = Category.create(name: 'Répertoire', 					nb_participants:01,   accompanist:true,	description:"Les instrumentistes doivent interpréter deux pièces de caractère et de style contrastant. En chant, les candidats doivent présenter trois pièces.")
 category2 = Category.create(name: 'Musique canadienne',   			nb_participants:01, accompanist:false,	description:"Cette classe, s'adresse à la fois aux solistes et aux participants en musique d'ensemble. Les participants doivent interpréter une oeuvre d'un compositeur canadien choisie au catalogue du Centre de musique canadienne (CMC) pour recevoir la bourse. La liste des œuvres autorisées se trouve sur le site du CMC : www.centremusique.ca Les oeuvres non inscrites au catalogue du CMC peuvent être acceptées dans cette catégorie, mais ne seront pas accessibles à la bource du CMC." )
-category3 = Category.create(name: 'Festival',  						nb_participants:12, accompanist:false,	description:"Cette classe est ouverte aux élèves désirant participer au FCMS sans l’aspect compétition. Les participants peuvent présenter une ou deux pièces (inst11.id trois pièces). Les participants ne sont pas admissibles aux bourses d’excellence. Ils reçoivent toutefois commentaires, note et certificat de participation. Ils sont également admissibles aux bourses de participation données lors des concerts des finalistes.")
-category4 = Category.create(name: 'Récital',  						nb_participants:12, accompanist:false,	description:"Cette classe s’adresse aux musiciens de 15 ans et plus qui participent au Concours de musique du Canada ou qui sont inscrits en interprétation (Cégep, Conservatoire ou Université). Les participants doivent interpréter deux ou trois pièces  de style et d’époque contrastants. Une de ces pièces doit être de l’époque baroque ou classique. Pour les instruments plus récents (percussions, saxophone..) le répertoire doit couvrir au moins deux périodes différentes. Les participants en chant classique doivent présenter trois à cinq pièces de styles et d’époque contrastants dans trois langues différentes.")
-category5 = Category.create(name: 'Ensemble',		group:true , 	nb_participants:01, accompanist:false,	description:"Les ensembles devront être composés d’un maximum de 12 musiciens et/ou chanteurs. Les participants peuvent présenter une ou deux pièces. L’ensemble vocal peut présenter une à cinq pièces.")
+category3 = Category.create(name: 'Festival',  						nb_participants:01, accompanist:false,	description:"Cette classe est ouverte aux élèves désirant participer au FCMS sans l’aspect compétition. Les participants peuvent présenter une ou deux pièces (inst11.id trois pièces). Les participants ne sont pas admissibles aux bourses d’excellence. Ils reçoivent toutefois commentaires, note et certificat de participation. Ils sont également admissibles aux bourses de participation données lors des concerts des finalistes.")
+category4 = Category.create(name: 'Récital',  						nb_participants:01, accompanist:false,	description:"Cette classe s’adresse aux musiciens de 15 ans et plus qui participent au Concours de musique du Canada ou qui sont inscrits en interprétation (Cégep, Conservatoire ou Université). Les participants doivent interpréter deux ou trois pièces  de style et d’époque contrastants. Une de ces pièces doit être de l’époque baroque ou classique. Pour les instruments plus récents (percussions, saxophone..) le répertoire doit couvrir au moins deux périodes différentes. Les participants en chant classique doivent présenter trois à cinq pièces de styles et d’époque contrastants dans trois langues différentes.")
+category5 = Category.create(name: 'Ensemble',		group:true , 	nb_participants:12, accompanist:false,	description:"Les ensembles devront être composés d’un maximum de 12 musiciens et/ou chanteurs. Les participants peuvent présenter une ou deux pièces. L’ensemble vocal peut présenter une à cinq pièces.")
 category6 = Category.create(name: 'Concerto/Concertino',  			nb_participants:01, accompanist:false,	description:"Les participants doivent présenter un concertino ou un ou plusieurs mouvements de petit concerto non orchestrés. Ces participants ne sont pas éligibles au concours de l’OSJS.")
 category7 = Category.create(name: 'Concerto OSJS',  				nb_participants:01, accompanist:false,	description:"Les membres du jury déterminent parmi les participants au concours les solistes de la prochaine saison de l'OSJS. Un premier prix sera décerné chez les 16 ans et moins, un autre chez les 17 ans et plus et un troisième prix sera décerné à un des participants, indépendamment de sa catégorie. Les gagnants d'une édition ne pourront se présenter l'année suivante. Ils pourront toutefois se présenter à nouveau par la suite. Les participants doivent présenter un ou plusieurs mouvements d'un concerto ou d'une oeuvre concertante. En inst11.id, les candidats peuvent présenter un ou deux airs d'opéra, d'oratorio, ou toute oeuvre pour voix et orchestre. Les résultats de la catégorie Concerto seront dévoilés lors du concert des finalistes, dimanche le 5 mai et non à la fin des auditions, comme dans les autres catégories.œ")
 
 # Répertoire
-agegroup1 = Agegroup.create(edition_id: edition.id, category_id: category1.id, min:7, max: 9, fee: 33,  max_duration: 5)# (7 à 9 ans)
-agegroup2 = Agegroup.create(edition_id: edition.id, category_id: category1.id, min:10, max:11 , fee: 36, max_duration:7)# (10 à 11 ans)
-agegroup3 = Agegroup.create(edition_id: edition.id, category_id: category1.id, min:12, max:13 , fee: 38, max_duration:10)#(12 à 13 ans)
-agegroup4 = Agegroup.create(edition_id: edition.id, category_id: category1.id, min:14, max:16 , fee: 39, max_duration:15)#(14 à 16 ans)
-agegroup5 = Agegroup.create(edition_id: edition.id, category_id: category1.id, min:17, max:99 , fee: 40, max_duration:15)#(17 ans et plus)
+agegroup1 = Agegroup.create(edition_id: edition.id, description: '7-9 ans',        category_id: category1.id, min:7, max: 9, fee: 33,  max_duration: 5)
+agegroup2 = Agegroup.create(edition_id: edition.id, description: '10-11 ans',      category_id: category1.id, min:10, max:11 , fee: 36, max_duration:7)
+agegroup3 = Agegroup.create(edition_id: edition.id, description: '12-13 ans',      category_id: category1.id, min:12, max:13 , fee: 38, max_duration:10)
+agegroup4 = Agegroup.create(edition_id: edition.id, description: '14-16 ans',      category_id: category1.id, min:14, max:16 , fee: 39, max_duration:15)
+agegroup5 = Agegroup.create(edition_id: edition.id, description: '17 ans et plus', category_id: category1.id, min:17, max:99 , fee: 40, max_duration:15)
 
 # Concerto/concertino
-agegroup6 = Agegroup.create(edition_id: edition.id, category_id: category6.id, min: 0, max: 11, fee: 40, max_duration: 15)# 11- ans
-agegroup7 = Agegroup.create(edition_id: edition.id, category_id: category6.id, min: 12 , max: 17, fee: 50, max_duration: 20)# 12-17 ans
+agegroup6 = Agegroup.create(edition_id: edition.id, description: '11 ans et moins', category_id: category6.id, min: 0, max: 11, fee: 40, max_duration: 15)
+agegroup7 = Agegroup.create(edition_id: edition.id, description: '12-17 ans',       category_id: category6.id, min: 12 , max: 17, fee: 50, max_duration: 20)
 
 # Festival
-agegroup8 =  Agegroup.create(edition_id: edition.id, category_id: category3.id, min: 07, max: 9, fee: 25, max_duration: 5) # 7-9 ans
-agegroup9 =  Agegroup.create(edition_id: edition.id, category_id: category3.id, min: 10, max: 11, fee: 27, max_duration: 7) # 10-11 ans
-agegroup10 = Agegroup.create(edition_id: edition.id, category_id: category3.id, min: 12, max: 13, fee: 30, max_duration: 10)# 12-13 ans
-agegroup11 = Agegroup.create(edition_id: edition.id, category_id: category3.id, min: 14, max: 16, fee: 32, max_duration: 15)# 14-16 ans
-agegroup12 = Agegroup.create(edition_id: edition.id, category_id: category3.id, min: 17, max: 99, fee: 35, max_duration: 15)# 17+ ans
+agegroup8 =  Agegroup.create(edition_id: edition.id, description: '7-9 ans',        category_id: category3.id, min:  7, max: 9, fee: 25, max_duration: 5)
+agegroup9 =  Agegroup.create(edition_id: edition.id, description: '10-11 ans',      category_id: category3.id, min: 10, max: 11, fee: 27, max_duration: 7)
+agegroup10 = Agegroup.create(edition_id: edition.id, description: '12-13 ans',      category_id: category3.id, min: 12, max: 13, fee: 30, max_duration: 10)
+agegroup11 = Agegroup.create(edition_id: edition.id, description: '14-16 ans',      category_id: category3.id, min: 14, max: 16, fee: 32, max_duration: 15)
+agegroup12 = Agegroup.create(edition_id: edition.id, description: '17 ans et plus', category_id: category3.id, min: 17, max: 99, fee: 35, max_duration: 15)
 
 # Récital
-agegroup13 = Agegroup.create(edition_id: edition.id, category_id: category4.id, min: 15, max: 16, fee:55, max_duration: 20)# 15-16 ans
-agegroup14 = Agegroup.create(edition_id: edition.id, category_id: category4.id, min: 17, max: 99, fee:65, max_duration: 30)# 17+ ans
+agegroup13 = Agegroup.create(edition_id: edition.id, description: '15-16 ans',      category_id: category4.id, min: 15, max: 16, fee:55, max_duration: 20)
+agegroup14 = Agegroup.create(edition_id: edition.id, description: '17 ans et plus', category_id: category4.id, min: 17, max: 99, fee:65, max_duration: 30)
 
 # Ensemble
-agegroup15 = Agegroup.create(edition_id: edition.id, category_id: category5.id, min: 07, max: 9, fee: 20, max_duration: 5) # (7 à 9 ans)
-agegroup16 = Agegroup.create(edition_id: edition.id, category_id: category5.id, min: 10, max: 11, fee: 20, max_duration: 7) # (10 à 11 ans)
-agegroup17 = Agegroup.create(edition_id: edition.id, category_id: category5.id, min: 12, max: 13, fee: 25, max_duration: 10)# (12 à 13 ans)
-agegroup18 = Agegroup.create(edition_id: edition.id, category_id: category5.id, min: 14, max: 16, fee: 25, max_duration: 15)# (14 à 16 ans)
-agegroup19 = Agegroup.create(edition_id: edition.id, category_id: category5.id, min: 17, max: 99, fee: 25, max_duration: 15)# (17 ans et plus)
+agegroup15 = Agegroup.create(edition_id: edition.id, description: '7-9 ans',        category_id: category5.id, min: 07, max: 9, fee: 20, max_duration: 5) # (7 à 9 ans)
+agegroup16 = Agegroup.create(edition_id: edition.id, description: '10-11 ans',      category_id: category5.id, min: 10, max: 11, fee: 20, max_duration: 7) # (10 à 11 ans)
+agegroup17 = Agegroup.create(edition_id: edition.id, description: '12-13 ans',      category_id: category5.id, min: 12, max: 13, fee: 25, max_duration: 10)# (12 à 13 ans)
+agegroup18 = Agegroup.create(edition_id: edition.id, description: '14-16 ans',      category_id: category5.id, min: 14, max: 16, fee: 25, max_duration: 15)# (14 à 16 ans)
+agegroup19 = Agegroup.create(edition_id: edition.id, description: '17 ans et plus', category_id: category5.id, min: 17, max: 99, fee: 25, max_duration: 15)# (17 ans et plus)
 
 # Concerto OSJS
-agegroup20 = Agegroup.create(edition_id: edition.id, category_id: category7.id, min: 00, max: 16, fee:55, max_duration: 30)# (16 ans et moins)
-agegroup21 = Agegroup.create(edition_id: edition.id, category_id: category7.id, min: 17, max: 99, fee:65, max_duration: 30)# (17 ans et plus)
+agegroup20 = Agegroup.create(edition_id: edition.id, description: '16 ans et moins', category_id: category7.id, min: 00, max: 16, fee:55, max_duration: 30)# (16 ans et moins)
+agegroup21 = Agegroup.create(edition_id: edition.id, description: '17 ans et plus',  category_id: category7.id, min: 17, max: 99, fee:65, max_duration: 30)# (17 ans et plus)
 
 # Musique canadienne
-agegroup27 = Agegroup.create(edition_id: edition.id, category_id: category2.id, min: 07, max: 9, fee: 33, max_duration: 5) # (7 à 9 ans)
-agegroup28 = Agegroup.create(edition_id: edition.id, category_id: category2.id, min: 10, max: 11, fee: 36, max_duration: 7) # (10 à 11 ans)
-agegroup29 = Agegroup.create(edition_id: edition.id, category_id: category2.id, min: 12, max: 13, fee: 38, max_duration: 10)# (12 à 13 ans)
-agegroup30 = Agegroup.create(edition_id: edition.id, category_id: category2.id, min: 14, max: 16, fee: 39, max_duration: 15)# (14 à 16 ans)
-agegroup31 = Agegroup.create(edition_id: edition.id, category_id: category2.id, min: 17, max: 99, fee: 40, max_duration: 15)# (17 ans et plus)
+agegroup27 = Agegroup.create(edition_id: edition.id, description: '7-9 ans',        category_id: category2.id, min:  7, max: 9, fee: 33, max_duration: 5) # (7 à 9 ans)
+agegroup28 = Agegroup.create(edition_id: edition.id, description: '10-11 ans',      category_id: category2.id, min: 10, max: 11, fee: 36, max_duration: 7) # (10 à 11 ans)
+agegroup29 = Agegroup.create(edition_id: edition.id, description: '12-13 ans',      category_id: category2.id, min: 12, max: 13, fee: 38, max_duration: 10)# (12 à 13 ans)
+agegroup30 = Agegroup.create(edition_id: edition.id, description: '14-16 ans',      category_id: category2.id, min: 14, max: 16, fee: 39, max_duration: 15)# (14 à 16 ans)
+agegroup31 = Agegroup.create(edition_id: edition.id, description: '17 ans et plus', category_id: category2.id, min: 17, max: 99, fee: 40, max_duration: 15)# (17 ans et plus)
 
 puts "Loading school data..."
 # Schools

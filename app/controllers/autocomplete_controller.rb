@@ -67,4 +67,14 @@ class AutocompleteController < ApplicationController
     render :json => @participants.collect {|o| {:label => o.first_name + ' ' + o.last_name + ' (' + o.email + ')', :value => o.id.to_s}}
   end
 
+  def teachers
+    @teachers = User.teachers
+    render :json => @teachers.collect {|o| {:label => o.first_name + ' ' + o.last_name + ' (' + o.email + ')', :value => o.id.to_s}}
+  end
+
+  def accompanists
+    @accompanist = User.accompanists
+    render :json => @accompanist.collect {|o| {:label => o.first_name + ' ' + o.last_name + ' (' + o.email + ')', :value => o.id.to_s}}
+  end
+
 end

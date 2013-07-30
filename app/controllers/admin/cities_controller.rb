@@ -25,12 +25,12 @@ class Admin::CitiesController < ApplicationController
       @city = City.find(params[:id])
       if @city
         @city.destroy
-        render :json => {:message => "La ville a été supprimée avec succès"}, :status => :ok
+        render :json => {:message => "La ville a été supprimée avec succès"}
       else
         render :json => {:message => "La ville n'a pas été trouvée"}, :status => :unprocessable_entity
       end
-    rescue
-      render :json => {:message => "Erreur lors de la suppression de la ville"}, :status => :unprocessable_entity
+    rescue => e
+      render :json => {:message => "La ville est liée à d'autres objets dans la base de données (utilisateurs, écoles, ...). Veuillez les supprimer en premier." }, :status => :unprocessable_entity
     end
   end
 

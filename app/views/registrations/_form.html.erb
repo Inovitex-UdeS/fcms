@@ -1,16 +1,7 @@
 <%= f.hidden_field :edition_id, :value => @current_edition %>
 
-
     <h5>Professeur</h5>
-    <div class="control-group">
-      <div class="controls">
-        <div class="input-prepend">
-          <span class="add-on"><i class="icon-user"></i></span>
-          <%= f.association :teacher, wrapper: false, collection: @teachers, label_method: lambda { |usr| usr.first_name + " " + usr.last_name + " (" + usr.email + ")"}, label: false, :input_html => {:class => "input-large"} %>f
-        </div>
-        <br />
-      </div>
-    </div>
+    <input type="hidden" class="select optional input-large" id="registration_user_teacher_id" name="registration[user_teacher_id]" data-placeholder="Choisir un professeur" data-option="<%= @registration.print_teacher_name %>" <% if @registration.teacher %> value=<%= @registration.print_teacher_id %> <% end %> />
 
     <%= f.hidden_field :school_id, :value => @current_edition %>
 
@@ -25,20 +16,10 @@
 
     <div id="registration-accompanist">
       <h5>Accompagnateur</h5>
-      <div class="control-group">
-        <div class="controls">
-          <div class="input-prepend">
-            <span class="add-on"><i class="icon-user"></i></span>
-            <%= f.association :accompanist, wrapper: false, collection: @accompanists, label_method: lambda { |usr| usr.first_name + " " + usr.last_name + " (" + usr.email + ")"}, label: false, :input_html => {:class => "input-large"} %>
-          </div>
-          <br />
-        </div>
-      </div>
+      <input type="hidden" class="select optional input-large" id="registration_user_accompanist_id" name="registration[user_accompanist_id]" data-placeholder="Choisir un accompagnateur" data-option="<%= @registration.print_accompanist_name %>" <% if @registration.accompanist %> value=<%= @registration.print_accompanist_id %> <% end %>/>
     </div>
 
-
     <h5>Pièces performées</h5>
-
     <div id='performances-container'>
       <table id='performances' class='table'>
         <thead><tr>
@@ -84,9 +65,4 @@
         </table>
         <%= f.link_to_add " Ajouter une personne", :registrations_users, :id => 'btn-add-users' , :data => { :target => '#users' }, :class => 'icon-plus btn' %>
       </div><br/>
-    </div>
-
-    <div class="form-actions">
-      <%= f.button :submit, 'Enregistrer' , :class => 'btn btn-primary' %>
-      <%= button_tag "Recommencer", type: :reset %>
     </div>

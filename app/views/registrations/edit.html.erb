@@ -1,131 +1,8 @@
 <% content_for(:head) do %>
 <script type="text/javascript">
-    //= require datatables
-    //= require registrations
-
     $(document).ready(function(){
-
-        //$("#performances > tbody").children().remove();
-        //$("#users > tbody").children().remove();
-
-        var registration_id = $('#registration_id').val()
-
-        $("#AutresParticipants").hide();
-        changeCategory($('#registration_category_id').val());
-
-        $.ajax({
-            url: '/registrations/' + registration_id,
-            type: 'get',
-            success: function( data ) {
-
-                var users = $.parseJSON(data['users']);
-                var registration = $.parseJSON(data['registration']);
-
-                $.each($("#performances > tbody tr"), function(index, value){
-
-                    var composer_id = registration['performances'][index]['piece']['composer']['id'];
-                    var composer_name = registration['performances'][index]['piece']['composer']['name'];
-                    var piece_title = registration['performances'][index]['piece']['title'];
-                    var duration = registration['duration'];
-
-                    var td = $(value).children().first();
-                    td.find('input').val(composer_id);
-                    td.find('input').attr('data-option', composer_name);
-
-                    td.find('input').select2({
-                        minimumInputLength: 2,
-                        id: function(e) { return e.value},
-                        ajax: {
-                            url: '/autocomplete/composers',
-                            dataType: 'json',
-                            type: "GET",
-                            data: function (term, page) {
-                                return {
-                                    composer: term
-                                };
-                            },
-                            results: function (data, page) {
-                                return {
-                                    results: data
-                                };
-                            }
-                        },
-                        initSelection: function (item, callback) {
-                            var id = item.val();
-                            var text = item.data('option');
-                            var data = { value: id, label: text };
-                            callback(data);
-                        },
-                        formatResult: function (item) {
-                            return ('<div>' + item.label + '</div>');
-                        },
-                        formatSelection: function (item) {
-                            return (item.label);
-                        },
-                        escapeMarkup: function (m) {
-                            return m;
-                        }
-                    });
-
-                    td = td.next();
-                    td.find('input').val(piece_title);
-                    td = td.next();
-                    td.find('input').val(duration);
-                });
-
-                $("#users > tbody > tr:first").remove();
-
-                $.each($("#users > tbody tr"), function(index, value){
-
-                    var user_id = users[index]['user']['id'];
-                    var user_name = users[index]['user']['first_name'] + ' ' + users[index]['user']['last_name'] + ' (' + users[index]['user']['email'] + ')';
-
-                    var td = $(value).children().first();
-                    td.find('input').val(user_id);
-                    td.find('input').attr('data-option', user_name);
-
-                    td.find('input').select2({
-                        minimumInputLength: 2,
-                        id: function(e) { return e.value},
-                        ajax: {
-                            url: '/autocomplete/composers',
-                            dataType: 'json',
-                            type: "GET",
-                            data: function (term, page) {
-                                return {
-                                    composer: term
-                                };
-                            },
-                            results: function (data, page) {
-                                return {
-                                    results: data
-                                };
-                            }
-                        },
-                        initSelection: function (item, callback) {
-                            var id = item.val();
-                            var text = item.data('option');
-                            var data = { value: id, label: text };
-                            callback(data);
-                        },
-                        formatResult: function (item) {
-                            return ('<div>' + item.label + '</div>');
-                        },
-                        formatSelection: function (item) {
-                            return (item.label);
-                        },
-                        escapeMarkup: function (m) {
-                            return m;
-                        }
-                    });
-
-                });
-                $('#totUsers').text($('#users .fields').length);
-                maxDuration = 999;
-                calculateTotDuration();
-            }
-        });
-
+        initEditRegistrations();
+        $('.section-submenu').html("<h4><p><i class=\"icon-edit\"></i> Inscriptions</p></h4><ul><li id=\"key_2_1\"><a href=\"/registrations\">Voir ses inscriptions</a></li><li class=\"active simple-navigation-active-leaf\" id=\"key_2_2\"><a href=\"/registrations/new\" class=\"active\">S'inscrire au concours</a></li><li class=\"divider\" id=\"key_2_4\"><span></span></li></ul>");
         $('.edit_registration').on('ajax:success', function(evt, data, status, xhr) {
             fcms.showMessage('La modification de l\'inscription au festival a été complétée avec succès!');
         });
@@ -133,10 +10,7 @@
         $('.edit_registration').on('ajax:error', function(event, xhr, status) {
             fcms.showMessage(xhr.responseText, 3);
         });
-
-        $('.section-submenu').html("<h4><p><i class=\"icon-edit\"></i> Inscriptions</p></h4><ul><li id=\"key_2_1\"><a href=\"/registrations\">Voir ses inscriptions</a></li><li class=\"active simple-navigation-active-leaf\" id=\"key_2_2\"><a href=\"/registrations/new\" class=\"active\">S'inscrire au concours</a></li><li class=\"divider\" id=\"key_2_4\"><span></span></li><li id=\"key_2_5\"><a href=\"#\">Payer son inscription</a></li></ul>");
     });
-
 </script>
 
 <% end %>
@@ -145,9 +19,9 @@
 
 <% if not isEndOfEditRegistrations? %>
     <%= simple_nested_form_for @registration, :remote => true, :validate => true do |f| %>
-        <%= f.hidden_field :id, :value => @registration.id, :disabled => true %>
         <%= f.hidden_field :user_owner_id, :value => @registration.user_owner_id %>
         <%= render :partial => '/registrations/form', :locals => {:f => f} %>
+        <%= f.hidden_field :id, :value => @registration.id, :disabled => true %>
     <% end %>
     <%= render :partial => '/registrations/addcomposer' %>
     <%= render :partial => '/registrations/inviteuser' %>

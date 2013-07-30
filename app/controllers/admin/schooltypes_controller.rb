@@ -30,7 +30,7 @@ class Admin::SchooltypesController < ApplicationController
         render :json => {:message => "Le type d'école n'a pas été trouvé"}, :status => :unprocessable_entity
       end
     rescue
-      render :json => {:message => "Erreur lors de la suppression du type d'école"}, :status => :unprocessable_entity
+      render :json => {:message => "Le type d'école est lié à d'autres objets dans la base de données (écoles). Veuillez les supprimer en premier."}, :status => :unprocessable_entity
     end
   end
 

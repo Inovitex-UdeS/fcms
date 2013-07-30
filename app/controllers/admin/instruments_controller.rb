@@ -31,7 +31,7 @@ class Admin::InstrumentsController < ApplicationController
         render :json => {:message =>  "L'instrument n'a pas été trouvé"}, :status => :unprocessable_entity
       end
     rescue
-      render :json => {:message => "Erreur lors de la suppression de l'instrument"}, :status => :unprocessable_entity
+      render :json => {:message => "L'instrument est lié à d'autres objets dans la base de données (inscriptions). Veuillez les supprimer en premier."}, :status => :unprocessable_entity
     end
   end
 

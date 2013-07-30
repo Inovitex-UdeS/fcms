@@ -1,4 +1,4 @@
-<table id="registrations_table" class="table table-bordered">
+<table id="all-registrations-table" class="table table-bordered"  data-source="<%= admin_registrations_path %>">
   <thead>
   <tr>
     <th>#</th>
@@ -16,47 +16,5 @@
   </tr>
   </thead>
   <tbody>
-  <% @registrations.each do |reg| %>
-      <tr>
-        <td><%= reg.id %></td>
-        <td><%= reg.category.name %></td>
-        <td>
-          <% reg.registrations_users.each do |reg_user| %>
-              <%= reg_user.instrument.name %>
-              <br />
-          <% end %>
-        </td>
-        <td>
-          <% reg.registrations_users.each do |reg_user| %>
-              <% if reg_user.user.id == reg.owner.id %>
-                  <b>
-              <% end %>
-
-              <%= reg_user.user.first_name %> <%= reg_user.user.last_name %>
-
-              <% if reg_user.user.id == reg.owner.id %>
-                  </b>
-              <% end %>
-              <br />
-          <% end %>
-        </td>
-        <td><%= reg.age_max %></td>
-        <td>
-          <% reg.performances.each do |perf| %>
-              <%= perf.piece.title %> <br />
-          <% end %>
-        </td>
-        <td>
-          <% reg.performances.each do |perf| %>
-              <%= perf.piece.composer.name %> <br />
-          <% end %>
-        </td>
-        <td><%= reg.teacher.first_name %> <%= reg.teacher.last_name %></td>
-        <td> <%= reg.duration %> min. </td>
-        <td> <%= reg.edition.year %> </td>
-        <td><%= reg.created_at.strftime("%d/%m/%Y") %></td>
-        <td><%= reg.updated_at.strftime("%d/%m/%Y") %></td>
-      </tr>
-  <% end %>
   </tbody>
 </table>

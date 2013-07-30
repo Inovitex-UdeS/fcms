@@ -27,6 +27,8 @@ devise_for :users, :controllers => {:registrations => 'devise_registrations', :i
      resources :timeslots
      resources :categories
      resources :participants
+     resources :custom_mail
+     match 'create_email' => 'custom_mail#create_email'
 
      resources :juges do
        member do
@@ -56,6 +58,8 @@ devise_for :users, :controllers => {:registrations => 'devise_registrations', :i
   get 'autocomplete/users'
   get 'autocomplete/composers'
   get 'autocomplete/participants'
+  get 'autocomplete/teachers'
+  get 'autocomplete/accompanists'
 
   get 'users/juges/new', to: 'users#new', as: '/juges/new'
 

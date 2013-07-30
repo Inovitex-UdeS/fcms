@@ -1,17 +1,22 @@
 <h3><i class="icon-edit"></i> Gestion des inscriptions au festival</h3>
 
-<% if notice -%>
-    <p class="alert alert-success"><%= notice %><a class="close" data-dismiss="alert" href="#">&times;</a></p>
-<% end -%>
-<% if alert -%>
-    <p class="alert alert-danger"><%= alert %><a class="close" data-dismiss="alert" href="#">&times;</a></p>
-<% end -%>
-
 <h4>Inscriptions existantes au festival</h4>
     <%= render :partial => '/admin/registrations/grid' %>
-<h4>Ajouter une inscription au festival</h4>
-    <%= simple_nested_form_for [:admin, @registration], :validate=>true do |f| %>
-        <h5>Utilisateur</h5>
-        <%= f.association :owner, collection: @participants, prompt: "Choisissez un utilisateur", label_method: lambda { |usr| usr.first_name + " " + usr.last_name + " (" + usr.email + ")"}, label: false %>
+    <div id="formModal" class="modal hide fade">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Ajouter ou modifier une inscription au festival</h3>
+      </div>
+      <div class="modal-body">
+        <%= simple_nested_form_for [:admin, @registration], :validate => true do |f| %>
+            <h5>Choisir un propriétaire</h5>
+            <input type="hidden" class="select optional input-large" id="registration_user_owner_id" name="registration[user_owner_id]" data-placeholder="Choisir un participant"/>
         <%= render :partial => '/registrations/form', :locals => {:f => f} %>
-    <% end %>
+        <%= f.hidden_field :id, :value => @registration.id, :disabled => true %>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn" data-dismiss="modal">Fermer</button>
+          <%= f.button :submit, 'Enregistrer', :id =>'formSave' , :class => 'btn btn-primary' %>
+      </div>
+<% end %>
+</div>

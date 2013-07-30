@@ -33,8 +33,8 @@ class Admin::ComposersController < ApplicationController
       else
         render :json => {:message => "Le compositeur n'a pas été trouvé"}, :status => :unprocessable_entity
       end
-    rescue
-      render :json => {:message => "Erreur lors de la suppression du compositeur"}, :status => :unprocessable_entity
+    rescue => e
+      render :json => {:message => "Le compositeur est lié à d'autres objets dans la base de données (oeuvres). Veuillez les supprimer en premier."}, :status => :unprocessable_entity
     end
   end
 

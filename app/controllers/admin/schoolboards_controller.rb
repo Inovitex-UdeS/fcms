@@ -30,7 +30,7 @@ class Admin::SchoolboardsController < ApplicationController
         render :json => {:message => "La commission scolaire n'a pas été trouvée"}, :status => :unprocessable_entity
       end
     rescue
-      render :json => {:message => "Erreur lors de la suppression de la commission scolaire"}, :status => :unprocessable_entity
+      render :json => {:message => "La commission scolaire est liée à d'autres objets dans la base de données (écoles). Veuillez les supprimer en premier."}, :status => :unprocessable_entity
     end
   end
 

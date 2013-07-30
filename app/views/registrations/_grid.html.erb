@@ -58,7 +58,7 @@
           <td>
             <% if reg.user_owner_id == current_user.id %>
                 <a class="btn reg_edit" href="/registrations/<%= reg.id %>/edit"><i class="icon-edit"></i> </a>
-                <a class="btn reg_cancel" href="/registrations/<%= reg.id %>/cancel"><i class="icon-remove"></i> </a>
+                <a class="btn reg_cancel" href="/registrations/<%= reg.id %>/cancel" onclick="fcms.confirmRegDel($(this)); return false;"><i class="icon-remove"></i> </a>
             <% end %>
           </td>
         </tr>

@@ -2,6 +2,7 @@
 // All this logic will automatically be available in application.js.
 
 //= require datatables
+//= require edit_registration
 
 var nbPerfMax = 0;
 var nbPerfMin = 0;
@@ -13,17 +14,85 @@ var userList = [];
 
 // Autocomplete
 $(document).ready(function(){
-    $('#registration_user_teacher_id').typeahead();
     $('#registration_school_id').typeahead();
-    $('#registration_user_accompanist_id').typeahead();
 
     $('#new_registration').on('ajax:success', function(evt, data, status, xhr) {
         fcms.showMessage('L\'enregistrement au festival a été complété avec succès!');
-        $('#new_registration')[0].reset();
+        clearForm();
     });
 
     $('#new_registration').on('ajax:error', function(event, xhr, status) {
         fcms.showMessage(xhr.responseText, 3);
+    });
+
+    $('#registration_user_teacher_id').select2({
+        minimumInputLength: 2,
+        id: function(e) { return e.value},
+        ajax: {
+            url: '/autocomplete/teachers',
+            dataType: 'json',
+            type: "GET",
+            data: function (term, page) {
+                return {
+                    composer: term
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data
+                };
+            }
+        },
+        initSelection: function (item, callback) {
+            var id = item.val();
+            var text = item.data('option');
+            var data = { value: id, label: text };
+            callback(data);
+        },
+        formatResult: function (item) {
+            return ('<div>' + item.label + '</div>');
+        },
+        formatSelection: function (item) {
+            return (item.label);
+        },
+        escapeMarkup: function (m) {
+            return m;
+        }
+    });
+
+    $('#registration_user_accompanist_id').select2({
+        minimumInputLength: 2,
+        id: function(e) { return e.value},
+        ajax: {
+            url: '/autocomplete/accompanists',
+            dataType: 'json',
+            type: "GET",
+            data: function (term, page) {
+                return {
+                    composer: term
+                };
+            },
+            results: function (data, page) {
+                return {
+                    results: data
+                };
+            }
+        },
+        initSelection: function (item, callback) {
+            var id = item.val();
+            var text = item.data('option');
+            var data = { value: id, label: text };
+            callback(data);
+        },
+        formatResult: function (item) {
+            return ('<div>' + item.label + '</div>');
+        },
+        formatSelection: function (item) {
+            return (item.label);
+        },
+        escapeMarkup: function (m) {
+            return m;
+        }
     });
 
     userList = [$('#registration_user_owner_id').val()];
@@ -220,13 +289,14 @@ function AddNewComposer() {
     });
 }
 
-function ResetSelect2() {
-    $.each($('#performances .fields'), function(index, value) {
-        $(value).remove();
-    });
+function clearForm() {
+    $('#performances > tbody > tr').remove();
+    $('#users > tbody > tr').remove();
 
-    $.each($('#users .fields'), function(index, value) {
-        $(value).remove();
-    });
+    $('#registration_user_teacher_id').select2('data', null);
+    $('#registration_user_accompanist_id').select2('data', null);
+
+    calculateTotDuration();
     $('#totUsers').text($('#users .fields').length);
+    $('form')[0].reset();
 }

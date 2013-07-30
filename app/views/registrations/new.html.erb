@@ -5,6 +5,11 @@
         <%= simple_nested_form_for @registration, :remote => true do |f| %>
             <%= f.hidden_field :user_owner_id, :value => @owner_id %>
             <%= render :partial => '/registrations/form', :locals => {:f => f} %>
+            <%= f.hidden_field :id, :value => @registration.id, :disabled => true %>
+            <div class="form-actions">
+              <%= f.button :submit, 'Enregistrer' , :class => 'btn btn-primary' %>
+              <%= button_tag 'Recommencer', type: :reset, onclick:'clearForm()' %>
+            </div>
         <% end %>
         <%= render :partial => '/registrations/addcomposer' %>
         <%= render :partial => '/registrations/inviteuser' %>

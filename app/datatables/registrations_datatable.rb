@@ -1,5 +1,9 @@
+##
+# Needed by ajax-dataTables gem. Will respond and send information to populate registrations dataTables
 class RegistrationsDatatable < AjaxDatatablesRails
-  
+
+  ##
+  # Constructor to get information needed to create subset of registrations table
   def initialize(view)
     @model_name = Registration
     @columns = ["registrations.id", "categories.name", "instruments.name", "users.last_name", "registrations.age_max", "pieces.title", "composers.name", "users._last_name", "registrations.duration", "editions.year", "registrations.created_at", "registrations.updated_at"]
@@ -8,7 +12,8 @@ class RegistrationsDatatable < AjaxDatatablesRails
   end
   
 private
-
+    ##
+    # Get all the fields
     def data
       registrations.map do |registration|
         [
@@ -28,14 +33,20 @@ private
       end
     end
 
+    ##
+    # Post-process data
     def registrations
       @registrations ||= fetch_records.order('categories.name ASC, instruments.name ASC, registrations.age_max ASC')
     end
 
+    ##
+    # Pre-process data
     def get_raw_records
       Registration.joins(:edition).joins(:users).joins(:instruments).joins(:category).joins('LEFT JOIN performances ON performances.registration_id = registrations.id LEFT JOIN pieces ON pieces.id = performances.piece_id LEFT JOIN composers ON composers.id = pieces.composer_id').uniq
     end
-    
+
+    ##
+    # Get the count of rows in the query
     def get_raw_record_count
       search_records(get_raw_records).count
     end

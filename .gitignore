@@ -12,4 +12,4 @@ log/
 /coverage/
 doc/
 
-.yardoc
+.yardoc/

@@ -1,7 +1,7 @@
-.table tr.even.row_edited td { background-color: #FFBABA; }
-.table tr.odd.row_edited td { background-color: #FFBABA; }
+.table tr.even.row_edited td, .table tr.odd.row_edited td { background-color: #f5f5f5; }
 .table tr td label { display: block; }
 .table tr.row_edited td label { display: none; }
+.table tr.row_edited input { font-size: 13px; }
 
 .form-horizontal .control-label { width: 300px; text-align: left; }
 .input-small {

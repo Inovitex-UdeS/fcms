@@ -201,8 +201,11 @@ td.dataTables_empty { background: #fff; cursor: auto; }
     border-bottom-right-radius: 0px;
 }
 
-.table tr.even.row_selected td { background-color: #FFBABA; }
-.table tr.odd.row_selected td { background-color: #FFBABA; }
+.table tr.even.row_selected td, .table tr.odd.row_selected td {
+    background-color: #E26E6E;
+    border-color: #CF5F5F;
+    color: #FFF;
+}
 .btn-grid { margin-right: 5px}
 
 .pagination ul>li>a, .pagination ul>li>span {

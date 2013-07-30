@@ -119,6 +119,7 @@ function initAgeGroupTable() {
         "oLanguage": {
             "sEmptyTable": "Aucun groupe d'âge n'existe pour cette classe d'inscription."
         },
+        "sScrollX": "",
         "bSort": false,
         "fnCreatedRow": function(row) {
             $(row).addClass('selectable');

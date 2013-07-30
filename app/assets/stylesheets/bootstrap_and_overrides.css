@@ -260,6 +260,12 @@ input.input-hidden {
 
 /* DataTables fixes */
 #addItem { margin-right:5px; }
+#editItem { margin-right:5px; }
 .datepicker{z-index:1151;}
 .fcms-message.alert{z-index:1151;}
 div.table_buttons { float: left; }
+.form-inline select { margin-bottom: 0px; }
+
+.btn-small [class^="icon-"], .btn-small [class*=" icon-"] {
+    margin-right: 2px;
+}

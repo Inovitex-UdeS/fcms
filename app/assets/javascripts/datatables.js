@@ -25,6 +25,7 @@ fcms.bindTable = function (table) {
 //   - 1 For add button only
 //   - 2 For remove button only
 //   - 3 For add & remove buttons
+//   - 4 For add, edit & remove buttons
 // ALWAYS CALL BINDFORM AFTER INITTABLE
 fcms.bindForm = function (form, type) {
 
@@ -52,13 +53,16 @@ fcms.bindForm = function (form, type) {
     switch(type)
     {
         case 1:
-            htmlToInput = '<a id="addItem" class="btn btn-primary" href="#" onclick="$(\'#formModal\').modal(\'show\')">Nouveau</a>';
+            htmlToInput = '<a id="addItem" class="btn btn-primary btn-small" href="#" onclick="$(\'#formModal\').modal(\'show\')"><i class="icon-plus"></i> Ajouter</a>';
             break;
         case 2:
-            htmlToInput = '<a id="deleteItem" class="btn" href="#">Supprimer</a></div>';
+            htmlToInput = '<a id="deleteItem" class="btn btn-small" href="#"><i class="icon-remove"></i> Supprimer</a></div>';
             break;
         case 3:
-            htmlToInput = '<a id="addItem" class="btn btn-primary" href="#" onclick="$(\'#formModal\').modal(\'show\')">Nouveau</a><a id="deleteItem" class="btn" href="#">Supprimer</a></div>';
+            htmlToInput = '<a id="addItem" class="btn btn-primary btn-small" href="#" onclick="$(\'#formModal\').modal(\'show\')"><i class="icon-plus"></i> Ajouter</a><a id="deleteItem" class="btn btn-small" href="#"><i class="icon-remove"></i> Supprimer</a></div>';
+            break;
+        case 4:
+            htmlToInput = '<a id="addItem" class="btn btn-primary btn-small" href="#" onclick="$(\'#formModal\').modal(\'show\')"><i class="icon-plus"></i> Ajouter</a><a id="editItem" class="btn btn-small" href="#"><i class="icon-pencil"></i> Modifier</a><a id="deleteItem" class="btn btn-small" href="#"><i class="icon-remove"></i> Supprimer</a></div>';
             break;
     }
 
@@ -66,7 +70,7 @@ fcms.bindForm = function (form, type) {
     $('.row-fluid:last > .span6:first').html(htmlToInput);
 
     // Add button section
-    if(type == 1 || type == 3){
+    if(type == 1 || type == 3 || type == 4){
         // Prevent scrolling top when clicking on button
         $('#addItem').click(function(e){ e.preventDefault(); $.get(modelUrl) });
 
@@ -78,7 +82,7 @@ fcms.bindForm = function (form, type) {
     }
 
     // Delete button section
-    if(type == 2 || type == 3){
+    if(type == 2 || type == 3 || type == 4){
         // Prevent scrolling top
         $('#deleteItem').click(function(e){ e.preventDefault(); $.get(modelUrl) });
 
@@ -98,6 +102,18 @@ fcms.bindForm = function (form, type) {
                     });
                 });
             }
+        });
+    }
+
+    // Edit button section
+    if(type == 4){
+        // Add click handler (will open editor)
+        $('#editItem').click( function(e) {
+            $('tr.row_selected').eq(0).each(function() {
+                fcms.fnEditableRows.call(this, event);
+            });
+
+            e.preventDefault();
         });
     }
 

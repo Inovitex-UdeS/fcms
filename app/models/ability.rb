@@ -1,3 +1,7 @@
+##
+# NOT IMPLEMENTED
+# This class is suppose to define all the permissions in the application
+
 class Ability
   include CanCan::Ability
 

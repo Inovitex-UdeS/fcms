@@ -1,15 +1,23 @@
+##
+# Controller to respond to all the autocomplete calls from all the pages
 class AutocompleteController < ApplicationController
 
+  ##
+  # Return all the cities
   def cities
     @cities = City.all
     render :json => @cities.collect {|o| {:label => o.name, :value => o.id.to_s}}
   end
 
+  ##
+  # Return all the schools
   def schools
     @schools = School.all
     render :json => @schools.collect {|o| {:label => o.name, :value => o.id.to_s}}
   end
 
+  ##
+  # Return all the composers corresponding to search
   def composers
     search = params[:composer]
 
@@ -23,6 +31,8 @@ class AutocompleteController < ApplicationController
     render :json => @composers.collect {|o| {:label => o.name, :value => o.id.to_s}}
   end
 
+  ##
+  # Return all the pieces corresponding to search
   def pieces
     search = params[:q]
     composer = params[:c]
@@ -43,6 +53,8 @@ class AutocompleteController < ApplicationController
     render :json => @users.collect {|o| {:label => o.first_name + ' ' + o.last_name, :value => o.id.to_s}}
   end
 
+  ##
+  # Return all the pieces corresponding to search and already used users
   def participants
     search = params[:user]
     userInReg = params[:noUser]
@@ -67,14 +79,17 @@ class AutocompleteController < ApplicationController
     render :json => @participants.collect {|o| {:label => o.first_name + ' ' + o.last_name + ' (' + o.email + ')', :value => o.id.to_s}}
   end
 
+  ##
+  # Return all the teachers
   def teachers
     @teachers = User.teachers
     render :json => @teachers.collect {|o| {:label => o.first_name + ' ' + o.last_name + ' (' + o.email + ')', :value => o.id.to_s}}
   end
 
+  ##
+  # Return all the accompanists
   def accompanists
     @accompanist = User.accompanists
     render :json => @accompanist.collect {|o| {:label => o.first_name + ' ' + o.last_name + ' (' + o.email + ')', :value => o.id.to_s}}
   end
-
 end

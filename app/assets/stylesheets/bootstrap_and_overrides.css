@@ -23,6 +23,10 @@ html, body {
 a {
     color: #8A2003;
 }
+a:hover, a:focus {
+    color: #5c1206;
+    text-decoration: none;
+}
 
 /* Remove round borders from inputs */
 textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
@@ -163,6 +167,7 @@ div.dataTables_length select { margin: auto 4px; }
 table.dataTable th, .dataTable td {
     padding: 5px 6px;
     line-height: normal;
+    height: 18px;
 }
 table.dataTable th, table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTable thead .sorting_desc {
     background-color: #e8e5e5;
@@ -254,3 +259,4 @@ input.input-hidden {
 #addItem { margin-right:5px; }
 .datepicker{z-index:1151;}
 .fcms-message.alert{z-index:1151;}
+div.table_buttons { float: left; }

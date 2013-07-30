@@ -102,3 +102,22 @@ jQuery.fn.single_double_click = function(single_click_callback, double_click_cal
         });
     });
 }
+
+// Serialize an HTML form to JavaScript object using jQuery.serializeArray
+jQuery.fn.serializeObject = function()
+{
+    var o = {};
+    var a = this.serializeArray();
+    $.each(a, function() {
+        if (o[this.name] && !$('input[name="' + this.name + '"][type="checkbox"]').length) {
+            if (!o[this.name].push) {
+                o[this.name] = [o[this.name]];
+            }
+            o[this.name].push(this.value || '');
+        } else {
+            o[this.name] = this.value || '';
+        }
+    });
+
+    return o;
+};

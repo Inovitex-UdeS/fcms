@@ -1,63 +1,73 @@
-<h5>AJOUTER OU MODIFIER UNE CLASSE</h5>
-<div class="col">
-  <%= simple_form_for [:admin, @category], :validate=>true do |f| %>
-      <div class="form-horizontal">
-          <div class="control-group">
-            <label class="control-label"><b>Nom de la classe d'inscription</b></label>
-            <div class="controls">
-              <div class="input-prepend">
-                <span class="add-on"><i class="icon-font"></i></span>
-                <%= f.text_field :name, :autofocus => true, :class => 'input-xlarge' %>
-              </div>
-              <br />
-            </div>
-          </div>
-
-          <div class="control-group">
-            <label class="control-label"><b>Description</b></label>
-            <div class="controls">
-              <div class="input-prepend">
-                <span class="add-on"><i class="icon-tag"></i></span>
-               <%= f.text_area :description, :rows=>'3', :class=> 'input-xlarge' %>
-              </div>
-              <br />
-            </div>
-          </div>
-
-          <div class="control-group">
-            <label class="control-label"><b>Participants</b></label>
-            <div class="input-prepend">
-              <label class="checkbox"> <%= f.text_field :nb_participants, :class => 'input-small' %> participant(s) par inscription (minimum)</label>
-              <br />
-            </div>
-            <br />
-
-            <div class="controls">
-              <div class="input-prepend">
-                <label class="checkbox"> <%= f.check_box :accompanist%> <label>Demander un accompagnateur à l'inscription</label></label>
-              </div>
-              <br />
-            </div>
-          </div>
-
-          <div class="control-group">
-            <label class="control-label"><b>Nombre de pièces</b></label>
-            <div class="input-prepend">
-              <label class="checkbox"> <%= f.text_field :nb_piece_lim1, :class => 'input-small' %> pièces par classe d'inscription</label>
-            </div>
-            <br />
-
-            <div class="input-prepend" id="chant">
-              <label class="checkbox"> <%= f.text_field :nb_piece_lim2, :class => 'input-small' %> pièces <b>de chant</b> par classe d'inscription</label>
-              <br />
-            </div>
-            <br />
-          </div>
-
-          <%= render :partial => '/admin/agegroups/editableGrid' %>
+<%= simple_form_for [:admin, @category], :validate => true do |f| %>
+  <hr>
+  <h5>AJOUTER OU MODIFIER UNE CLASSE</h5>
+  <div class="form-horizontal">
+    <div class="control-group">
+      <label class="control-label"><b>Identifiant</b></label>
+      <div class="controls">
+        <div class="input-prepend">
+          <span class="add-on"><i class="iconic-hash"></i></span>
+          <%= f.text_field :id, :class => 'input-medium', :disabled => true %>
+        </div>
+        <br />
       </div>
-      <div class="form-actions">
-        <%= f.button :submit, 'Enregistrer la classe d\'inscription' , :class => 'btn btn-primary', :id => 'saveCategories' %>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label"><b>Nom de la classe d'inscription</b></label>
+      <div class="controls">
+        <div class="input-prepend">
+          <span class="add-on"><i class="icon-font"></i></span>
+          <%= f.text_field :name, :class => 'input-xlarge' %>
+        </div>
+        <br />
       </div>
-  <% end %>
-</div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label"><b>Description</b></label>
+      <div class="controls">
+        <div class="input-prepend">
+          <span class="add-on"><i class="icon-tag"></i></span>
+         <%= f.text_area :description, :rows=>'3', :class=> 'input-xlarge' %>
+        </div>
+        <br />
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label"><b>Participants</b></label>
+      <div class="input-prepend">
+        <label class="checkbox"> <%= f.text_field :nb_participants, :class => 'input-small', :type => :number %> participant(s) par inscription (minimum)</label>
+        <br />
+      </div>
+      <br />
+
+      <div class="controls">
+        <div class="input-prepend">
+          <label class="checkbox"> <%= f.check_box :accompanist %> <label>Demander un accompagnateur à l'inscription</label></label>
+        </div>
+        <br />
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label"><b>Nombre de pièces</b></label>
+      <div class="input-prepend">
+        <label class="checkbox"> <%= f.text_field :nb_piece_lim1, :class => 'input-small', :type => :number %> pièces par classe d'inscription</label>
+      </div>
+      <br />
+
+      <div class="input-prepend" id="chant">
+        <label class="checkbox"> <%= f.text_field :nb_piece_lim2, :class => 'input-small', :type => :number %> pièces <b>de chant</b> par classe d'inscription</label>
+        <br />
+      </div>
+      <br />
+    </div>
+
+    <div id="div-agegroups-table"></div>
+  </div>
+  <div class="form-actions">
+    <%= f.button :submit, 'Enregistrer la classe d\'inscription' , :class => 'btn btn-primary', :id => 'categories_saveItem' %>
+  </div>
+<% end %>

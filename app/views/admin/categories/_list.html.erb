@@ -3,11 +3,15 @@
   <thead><tr>
     <th>#</th>
     <th>Nom de la classe</th>
+    <th>Date de création</th>
+    <th>Dernière mise à jour</th>
   </tr></thead>
   <% @categories.each do |category| %>
       <tr>
         <td><%= category.id %></td>
         <td><%= category.name %></td>
+        <td><%= category.created_at.strftime("%d/%m/%Y") %></td>
+        <td><%= category.updated_at.strftime("%d/%m/%Y") %></td>
       </tr>
   <% end %>
-</table><hr>
+</table>

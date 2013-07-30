@@ -3,8 +3,6 @@ class Agegroup < ActiveRecord::Base
   validates :category_id, :presence => true
   validates :description, :length =>  { :maximum => 128 }
 
-
-
   # Association macros
   belongs_to :category
   belongs_to :edition

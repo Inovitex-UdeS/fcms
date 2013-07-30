@@ -25,7 +25,7 @@ class Admin::CategoriesController < ApplicationController
 
   def show
     @category = Category.find(params[:id])
-    @agegroups = Agegroup.where(:category_id => @category[:id])
+    @agegroups = Agegroup.where(:category_id => @category[:id]).where(:edition_id => Setting.find_by_key('current_edition_id').value)
     render :json => {
       :category => @category,
       :agegroups => @agegroups
@@ -37,13 +37,18 @@ class Admin::CategoriesController < ApplicationController
       category = Category.find(params[:id])
 
       if category
+        Agegroup.find_all_by_category_id(category.id).each do |ag|
+          Agegroup.delete(ag)
+        end
+
         category.destroy
-        render :json => {:message => "La catégorie a été supprimé avec succès"}, :status => :ok
+
+        render :json => {:message => "La classe a été supprimé avec succès."}, :status => :ok
       else
-        render :json => {:message =>  "La catégorie n'a pas été trouvé"}, :status => :unprocessable_entity
+        render :json => {:message =>  "La classe n'a pas été trouvée."}, :status => :unprocessable_entity
       end
     rescue
-      render :json => {:message => "Erreur lors de la suppression de la catégorie"}, :status => :unprocessable_entity
+      render :json => {:message => "Impossible de procéder: il existe déjà des inscriptions pour cette classe d'inscription."}, :status => :unprocessable_entity
     end
   end
 
@@ -52,7 +57,13 @@ class Admin::CategoriesController < ApplicationController
       category = Category.find(params[:id])
       if category
         if category.update_attributes(params[:category])
-          render :json => category
+          update_age_groups(params[:agegroups], category)
+          render :json => {
+              :id => category[:id],
+              :name => category[:name],
+              :created_at => category.created_at.strftime("%d/%m/%Y"),
+              :updated_at => category.updated_at.strftime("%d/%m/%Y")
+          }
         else
           render :json =>{:message => "La catégorie n'a pu être mise à jour"}, :status => :unprocessable_entity
         end
@@ -67,8 +78,15 @@ class Admin::CategoriesController < ApplicationController
   def create
     begin
       category = Category.new(params[:category])
+
       if category.save
-        render :json => category
+        update_age_groups(params[:agegroups], category)
+        render :json => {
+            :id => category[:id],
+            :name => category[:name],
+            :created_at => category.created_at.strftime("%d/%m/%Y"),
+            :updated_at => category.updated_at.strftime("%d/%m/%Y")
+        }
       else
         render :json => {:message => category.errors.full_messages}, :status => :unprocessable_entity
       end
@@ -76,4 +94,37 @@ class Admin::CategoriesController < ApplicationController
       render :json => {:message => category.errors.full_messages}, :status => :unprocessable_entity
     end
   end
+
+  def update_age_groups(new_age_groups, category)
+    existing_age_groups = []
+    new_age_groups.each do |i, ag|
+      # Skip if there's no description
+      if ag[:description].empty?
+        next
+      end
+
+      # Create or update age group
+      if ag[:id].empty?
+        agegroup = Agegroup.new(ag)
+        agegroup.category = category
+        agegroup.edition_id = Setting.find_by_key('current_edition_id').value
+      else
+        agegroup = Agegroup.find(ag[:id])
+        agegroup.update_attributes(ag)
+      end
+
+      # Save updated age group
+      agegroup.save
+      existing_age_groups.push agegroup.id
+    end
+
+    # Remove inexisting age groups
+    all_age_groups = category.agegroups.where(:edition_id => Setting.find_by_key('current_edition_id').value)
+    all_age_groups.each do |ag|
+      unless existing_age_groups.include? ag.id
+        ag.destroy
+      end
+    end
+  end
+
 end

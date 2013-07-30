@@ -1,8 +1,6 @@
-.table tr.even.row_edited td { background-color: #ADADAD; }
-.table tr.odd.row_edited td { background-color: #ADADAD; }
-.table tr td input { display: none; }
+.table tr.even.row_edited td { background-color: #FFBABA; }
+.table tr.odd.row_edited td { background-color: #FFBABA; }
 .table tr td label { display: block; }
-.table tr.row_edited td input { display: block; }
 .table tr.row_edited td label { display: none; }
 
 .form-horizontal .control-label { width: 300px; text-align: left; }
@@ -16,3 +14,12 @@ input[type="checkbox"] { left: 146px; }
 
 .control-hidden  { display: none;  }
 #chant { margin-left: 300px; }
+
+.table tr.row_edited td { line-height: 25px; }
+.table tr.row_edited td input {
+    padding: 1px 3px;
+    margin: 0;
+    vertical-align: bottom;
+}
+
+input.input-small2 { width: 90%; }

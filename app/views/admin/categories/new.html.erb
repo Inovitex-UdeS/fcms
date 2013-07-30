@@ -1,11 +1,7 @@
 <h3><i class="icon-flag-alt"></i> Classes d'inscription</h3><hr />
-<div class="container-fluid">
-  <div class="row-fluid">
-    <div class="span2">
-      <%= render :partial => '/admin/categories/list' %>
-    </div>
-    <div class="span10">
-      <%= render :partial => '/admin/categories/form' %>
-    </div>
-  </div>
+<div id="categories-list">
+  <%= render :partial => '/admin/categories/list' %>
+</div>
+<div id="categories-form">
+  <%= render :partial => '/admin/categories/form' %>
 </div>

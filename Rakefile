@@ -5,3 +5,5 @@
 require File.expand_path('../config/application', __FILE__)
 
 Fcms::Application.load_tasks
+
+Dir['tasks/**/*.rake'].each { |rake| load rake }

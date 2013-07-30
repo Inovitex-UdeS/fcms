@@ -1,16 +1,8 @@
 //= require datatables
 //= require dataTables/extras/TableTools
 
-// DataTables options for timeslots table
-var tsDTOptions = {
-    "bPaginate": false,
-    "oLanguage": {
-        "sEmptyTable": "Aucune plage horaire n'a encore été ajoutée pour cette classe."
-    },
-    "fnCreatedRow": function(row) {
-        $(row).addClass('selectable');
-    }
-};
+// Global variable to store the current category
+fcms.currentCategory = [];
 
 // DataTables options for registrations tables
 var regDTOptions = {
@@ -24,7 +16,50 @@ var regDTOptions = {
     }
 };
 
-// Loads a category in memory and displays each timeslots in a table
+// DataTables options for timeslots table
+var tsDTOptions = {
+    "bPaginate": false,
+    "sScrollX": "",
+    "oLanguage": {
+        "sEmptyTable": "Aucune plage horaire n'a encore été ajoutée pour cette classe."
+    },
+    "fnCreatedRow": function(row) {
+        $(row).addClass('selectable');
+    }
+};
+
+$(document).ready(function() {
+    // Hide the planification section
+    $('#section-2').hide();
+
+    // On category selection
+    $('#input-planned-category').on('change', function() {
+        var selectedOption = $(this).children("option:selected");
+        var categoryId = selectedOption.attr('value');
+        if (!categoryId || categoryId < 0)
+            $('#section-2').hide('fast');
+        else
+            ajaxLoadCategory(categoryId);
+    });
+
+    // Enable select-all and select-none buttons
+    $('#btn-select-all-down')     .click(function() { $('#table-inscriptions-selected tr.draggable').addClass('selected'); });
+    $('#btn-select-none-down')    .click(function() { $('#table-inscriptions-selected tr.draggable').removeClass('selected'); });
+
+    $('#btn-select-all-up')       .click(function() { $('#table-inscriptions-all      tr.draggable').addClass('selected'); });
+    $('#btn-select-none-up')      .click(function() { $('#table-inscriptions-all      tr.draggable').removeClass('selected'); });
+
+    // Enable arrow buttons
+    $('#btn-move-all-down')       .click(function() { moveRows($('#table-inscriptions-selected tr.draggable'),          fcms.table_selected, fcms.table_all); });
+    $('#btn-move-selected-down')  .click(function() { moveRows($('#table-inscriptions-selected tr.draggable.selected'), fcms.table_selected, fcms.table_all); });
+    $('#btn-move-all-up')         .click(function() { moveRows($('#table-inscriptions-all      tr.draggable'),          fcms.table_all, fcms.table_selected); });
+    $('#btn-move-selected-up')    .click(function() { moveRows($('#table-inscriptions-all      tr.draggable.selected'), fcms.table_all, fcms.table_selected); });
+
+    // Enable save timeslot button
+    $('#btn-save-timeslot').click(saveTimeslot);
+});
+
+// Load a category in memory and displays each timeslots in a table
 function loadCategory(data) {
     fcms.currentCategory = data;
 
@@ -63,14 +98,15 @@ function loadCategory(data) {
 
     // Append add/remove buttons
     var btnAdd = $('<button></button>').attr('id', 'btn-add-timeslot')
-        .addClass('btn btn-primary')
-        .text('Ajouter une plage horaire')
+        .addClass('btn btn-primary btn-small')
+        .html('<i class="icon-plus"></i> Ajouter une plage horaire')
         .click(function() {
             table.find('tr.selectable').removeClass('row_selected');
             loadTimeslot()
         });
     var btnRmv = $('<button></button>').attr('id', 'btn-remove-timeslot')
-        .addClass('btn').text('Supprimer')
+        .addClass('btn btn-small')
+        .html('<i class="icon-minus"></i> Supprimer')
         .click(function() {
             var row = table.find('tr.selectable.row_selected')[0];
             var tsId = parseInt(row.children[0].innerHTML);
@@ -83,7 +119,7 @@ function loadCategory(data) {
     $('#panel-all').children('h4').html('Inscriptions non-planifiées pour la classe <b>' + data.name + '</b>');
 }
 
-// Creates a row for the timeslot in the category table
+// Create a row for the timeslot in the category table
 function createTimeslotRow(timeslot) {
     if (!timeslot) {
         return $('<tr></tr>')
@@ -99,6 +135,7 @@ function createTimeslotRow(timeslot) {
     }
 }
 
+// Get an array representing the columns of a timeslot in the timeslot table
 function getTimeslotObjectForRow(timeslot) {
     return [
         timeslot.id,
@@ -110,7 +147,7 @@ function getTimeslotObjectForRow(timeslot) {
     ];
 }
 
-// Loads a timeslot and generates the timeslot editor
+// Load a timeslot and generates the timeslot editor
 function loadTimeslot(data) {
     // Process timeslot data
     data = data || { registrations: [] };
@@ -179,43 +216,12 @@ function loadTimeslot(data) {
     refreshTableFooters();
 
     // Add/remove selection on table row click
-    $('.dataTable').on('click', 'tr.draggable', function(e) {
-
-        // Toggle the clicked element
+    $('.dataTable').on('click', 'tr.draggable', function() {
         $(this).toggleClass('selected');
-
-        // If shift key is down, toggle elements before and after
-        /*if (e.shiftKey) {
-            var selected = $(this).hasClass('selected');
-            var filter = selected ? '.selected' : ':not(.selected)';
-            var allRows = $(this).parent('tbody').children('tr');
-
-            // Toggle rows from top to current
-            var first = $(this).prevAll('tr'+filter).last().index();
-            if (first > -1) {
-                for (var i = $(this).index(allRows)-1; i >= first; i--)
-                    allRows.eq(i).toggleClass('selected');
-            }
-
-            // Toggle rows from current to bottom
-            var last = $(this).nextAll('tr'+filter).first().index();
-            if (last > -1) {
-                for (var i = $(this).index(allRows)+1; i <= last; i++)
-                    allRows.eq(i).toggleClass('selected');
-            }
-
-            // Prevent mouse selection
-            // TODO: MAKE SURE THIS WORKS
-            if(e.stopPropagation) e.stopPropagation();
-            if(e.preventDefault) e.preventDefault();
-            e.cancelBubble=true;
-            e.returnValue=false;
-            return false;
-        }*/
     });
 }
 
-// Creates a row in a registrations table
+// Create a row in a registrations table
 function createRegistrationRow(regId) {
     if (!regId || regId < 0) {
         return $('<tr></tr>')
@@ -310,7 +316,7 @@ function resizeTable(e) {
     });
 }
 
-// Saves a timeslot
+// Save a timeslot
 function saveTimeslot() {
     // Build the save object
     obj = {};
@@ -328,12 +334,89 @@ function saveTimeslot() {
     ajaxSaveTimeslot(obj);
 }
 
+// Clear all previous registrations for the specified category
 function clearRegistrations(id) {
-    // Clear all previous registrations for this category
     for (var r in fcms.currentCategory.registrations) {
         var reg = fcms.currentCategory.registrations[r];
         if (reg && reg.timeslot_id == id) {
             reg.timeslot_id = null;
         }
     }
+}
+
+// AJAX request to load a category with all its registrations
+function ajaxLoadCategory(category_id) {
+    $.ajax({
+        url: fcms.planificationURL + category_id,
+        success: function(data) {
+            $('.panel:not(#panel-categories)').hide();
+            $('#section-2').show('fast');
+
+            loadCategory(data);
+        },
+        error: function() {
+            alert("Les sous-catégories pour la classe " + category_id + " n'ont pas pu être chargées.")
+        }
+    })
+}
+
+// AJAX request to load a specific timeslot associated to the selected category
+function ajaxLoadTimeslot(timeslot_id) {
+    $.ajax({
+        url: fcms.timeslotURL + timeslot_id,
+        success: function(data) {
+            loadTimeslot(data);
+        },
+        error: function() {
+            alert("La sous-catégorie " + timeslot_id + " n'a pas pu être chargée.");
+        }
+    });
+}
+
+// AJAX request to save the current timeslot
+function ajaxSaveTimeslot(obj) {
+    $.ajax({
+        url: fcms.timeslotURL,
+        type: "POST",
+        contentType: 'application/json',
+        dataType: 'json',
+        data: JSON.stringify(obj),
+        success: function(data) {
+            clearRegistrations(obj.id);
+
+            // Put all current registrations in this timeslot
+            for (var r in obj.registrations)
+                fcms.currentCategory.registrations[obj.registrations[r]].timeslot_id = data.id;
+
+            if (obj.id < 0) {
+                $('#input-timeslot-id').val(data.id);
+                var index = fcms["table_timeslots"].fnAddData(getTimeslotObjectForRow(data));
+                fcms["table_timeslots"].find('tr.selectable:eq(' + index[0] + ')').addClass('row_selected');
+            }
+            else {
+                fcms["table_timeslots"].fnUpdate(getTimeslotObjectForRow(data), fcms.fnGetSelected(fcms["table_timeslots"])[0]);
+            }
+
+            fcms.showMessage("Les modifications ont été enregistrées.");
+        },
+        error: function() {
+            fcms.showMessage("Les modifications n'ont pas pu être enregistrées.", "error");
+        }
+    })
+}
+
+// AJAX request to delete a timeslot
+function ajaxRemoveTimeslot(tsId, row) {
+    $.ajax({
+        url: fcms.timeslotURL + tsId,
+        type: "DELETE",
+        success: function() {
+            fcms["table_timeslots"].fnDeleteRow(row);
+            $('.panel:not(#panel-categories)').hide('fast');
+            fcms.showMessage("La catégorie a été supprimée avec succès.");
+        },
+        error: function() {
+            fcms.showMessage("La catégorie n'a pas pu être supprimée.", "error");
+        }
+    })
 }

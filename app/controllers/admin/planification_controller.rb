@@ -2,9 +2,13 @@
 class Admin::PlanificationController < ApplicationController
   before_filter :prevent_non_admin
 
+  ##
+  # No default action is necessary
   def index
   end
 
+  ##
+  # Returns a category with all its associated registrations, in an array using their ID as index
   def show
     # Get the selected category
     selected_category = Category.find(params[:id])
@@ -45,6 +49,8 @@ class Admin::PlanificationController < ApplicationController
     }
   end
 
+  ##
+  # Generates an Excel worksheet containing all the registrations
   def ProduceExcel
     require 'axlsx'
     Axlsx::Package.new do |p|

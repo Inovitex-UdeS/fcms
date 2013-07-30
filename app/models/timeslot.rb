@@ -6,6 +6,8 @@ class Timeslot < ActiveRecord::Base
 
   has_many :registrations
 
+  ##
+  # Custom serializer for timeslots, returning associated registrations as a simple array of IDs
   def as_json(options=nil)
     calculated_duration = 0
     regs = []

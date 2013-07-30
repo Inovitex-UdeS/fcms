@@ -30,7 +30,7 @@ class Admin::CategoriesController < ApplicationController
   end
 
   ##
-  # JSON request to reuturn information about a specific category
+  # JSON request to return information about a specific category
   def show
     @category = Category.find(params[:id])
     @agegroups = Agegroup.where(:category_id => @category[:id]).where(:edition_id => Setting.find_by_key('current_edition_id').value)
@@ -88,7 +88,7 @@ class Admin::CategoriesController < ApplicationController
   end
 
   ##
-  # Create request for categories
+  # Custom method to handle create requests for categories including age groups
   def create
     begin
       category = Category.new(params[:category])
@@ -110,7 +110,7 @@ class Admin::CategoriesController < ApplicationController
   end
 
   ##
-  # Custom method to handle update of age groups
+  # Custom method to handle updated requests for categories including age groups
   def update_age_groups(new_age_groups, category)
     existing_age_groups = []
     new_age_groups.each do |i, ag|

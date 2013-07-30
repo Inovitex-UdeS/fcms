@@ -87,10 +87,12 @@ fcms.bindForm = function (form, type) {
             var anSelected = fcms.fnGetSelected( oTable );
             if ( anSelected.length !== 0 ) {
                 var id = oTable.fnGetData(oTable.fnGetPosition(anSelected[0]))[0];
-                $.ajax({
-                    url: modelUrl + id,
-                    type: 'DELETE',
-                    complete: fcms.fnSuccessRemoveData
+                fcms.confirm(function(){
+                    $.ajax({
+                        url: modelUrl + id,
+                        type: 'DELETE',
+                        complete: fcms.fnSuccessRemoveData
+                    });
                 });
             }
         });
@@ -336,25 +338,123 @@ fcms.fnInjectDeleteButton = function (deletePath, select) {
         if ( anSelected.length !== 0 ) {
             var id = oTable.fnGetData(oTable.fnGetPosition(anSelected[0]))[0];
             var nameEmail = oTable.fnGetData(oTable.fnGetPosition(anSelected[0]))[1] + ' (' + oTable.fnGetData(oTable.fnGetPosition(anSelected[0]))[2] + ')' ;
-            $.ajax({
-                url: deletePath + id,
-                type: 'DELETE',
-                complete: function(result) {
-                    oTable.fnDeleteRow(anSelected[0]);
+            fcms.confirm(function(){
+                $.ajax({
+                    url: deletePath + id,
+                    type: 'DELETE',
+                    complete: function(result) {
+                        oTable.fnDeleteRow(anSelected[0]);
 
-                    fcms.showMessage('L\'item a été supprimé avec succès');
+                        fcms.showMessage('L\'item a été supprimé avec succès');
 
-                    select.append($('<option>', {
-                        value: id,
-                        text: nameEmail
-                    }));
+                        select.append($('<option>', {
+                            value: id,
+                            text: nameEmail
+                        }));
 
-                    select.data('typeahead').source[id] = nameEmail;
-                }
+                        select.data('typeahead').source[id] = nameEmail;
+                    }
+                });
             });
         }
     });
+};
 
+// Confirm modal window
+fcms.confirm = function(callback) {
 
+    var confirmModal =
+        $('<div class="modal hide fade">' +
+            '<div class="modal-header">' +
+            '<a class="close" data-dismiss="modal" >&times;</a>' +
+            '<h3>Êtes-vous sûr de vouloir supprimer l\'item sélectionné?</h3>' +
+            '</div>' +
 
+            '<div class="modal-body">' +
+            '<p style="text-align:justify">' + 'Vous pouvez supprimer définitivement des objets de base de données sélectionnés. '
+                  + 'Cette suppression supprime les objets de la base de données. '
+                  + 'Ils ne seront plus énumérés dans l\'application web. '
+                  + 'Il se peut qu\'une contrainte de clé étrangère soit appliquée à certains des objets sélectionnés, ce qui empêche la suppression. '
+                  + 'Dans cette situation, veuillez supprimer en premier temps les références et ensuite, recommencer cette suppression. ' +
+            '</p>' +
+            '</div>' +
+
+            '<div class="modal-footer">' +
+            '<a href="#" class="btn" data-dismiss="modal">' +
+                'Fermer' +
+            '</a>' +
+            '<a href="#" id="okButton" class="btn btn-primary">' +
+                'Supprimer' +
+            '</a>' +
+            '</div>' +
+            '</div>');
+
+    confirmModal.find('#okButton').click(function(event) {
+        callback();
+        confirmModal.modal('hide');
+    });
+
+    confirmModal.modal('show');
+};
+
+fcms.confirmRegDel = function (obj) {
+
+    var confirmModal =
+        $('<div class="modal hide fade">' +
+            '<div class="modal-header">' +
+            '<a class="close" data-dismiss="modal" >&times;</a>' +
+            '<h3>' + 'Êtes-vous sûr de vouloir supprimer l\'inscription?' +'</h3>' +
+            '</div>' +
+
+            '<div class="modal-body">' +
+            '<p>' + 'En appuyant sur le bouton supprimer, vous allez annuler votre inscription pour cette édition du Festival Concours de Musique de Sherbrooke.' + '</p>' +
+            '</div>' +
+
+            '<div class="modal-footer">' +
+            '<a href="#" id="cancelButton" class="btn" data-dismiss="modal">' +
+            'Fermer' +
+            '</a>' +
+            '<a href="#" id="okButton" class="btn btn-primary">' +
+            'Supprimer' +
+            '</a>' +
+            '</div>' +
+            '</div>');
+
+    confirmModal.find('#okButton').click(function(event) {
+        window.location = obj.attr('href');
+        confirmModal.modal('hide');
+    });
+
+    confirmModal.modal('show');
+};
+
+fcms.confirm = function (heading, question, callback) {
+
+    var confirmModal =
+        $('<div class="modal hide fade">' +
+            '<div class="modal-header">' +
+            '<a class="close" data-dismiss="modal" >&times;</a>' +
+            '<h3>' + heading +'</h3>' +
+            '</div>' +
+
+            '<div class="modal-body">' +
+            '<p>' + question + '</p>' +
+            '</div>' +
+
+            '<div class="modal-footer">' +
+            '<a href="#" class="btn" data-dismiss="modal">' +
+                'Fermer' +
+            '</a>' +
+            '<a href="#" id="okButton" class="btn btn-primary">' +
+                'Supprimer' +
+            '</a>' +
+            '</div>' +
+            '</div>');
+
+    confirmModal.find('#okButton').click(function(event) {
+        callback();
+        confirmModal.modal('hide');
+    });
+
+    confirmModal.modal('show');
 };

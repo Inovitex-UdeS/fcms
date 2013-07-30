@@ -18,7 +18,7 @@ $(document).ready(function(){
 
     $('#new_registration').on('ajax:success', function(evt, data, status, xhr) {
         fcms.showMessage('L\'enregistrement au festival a été complété avec succès!');
-        $('#new_registration')[0].reset();
+        clearForm();
     });
 
     $('#new_registration').on('ajax:error', function(event, xhr, status) {
@@ -298,4 +298,5 @@ function clearForm() {
 
     calculateTotDuration();
     $('#totUsers').text($('#users .fields').length);
+    $('form')[0].reset();
 }

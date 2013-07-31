@@ -107,8 +107,7 @@ function changeCategory(category_id) {
         nbPerfMax = data['category']['nb_perf_max'];
         nbPerfMin = data['category']['nb_perf_min'];
         $("#category-description").hide('fast', function() {
-            $(this).html('<strong>' + data['category']['name'] + ':</strong><div class="description-inset">'
-                + data['category']['description'] + '</div>');
+            $(this).html(data['category']['description']);
         }).show('fast');
 
         if (data['agegroup']) maxDuration = data['agegroup']['max_duration'];

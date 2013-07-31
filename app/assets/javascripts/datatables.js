@@ -142,7 +142,7 @@ fcms.bindForm = function (form, type) {
         }
         // Add item
         else {
-            if (type == 1 || type == 3) {
+            if (type == 1 || type == 3 || type == 4 ) {
                 $.ajax({
                     url     : modelUrl,
                     type    : 'post',

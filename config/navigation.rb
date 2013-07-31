@@ -81,9 +81,9 @@ SimpleNavigation::Configuration.run do |navigation|
       # sub_nav.item :key_4_1, 'Élément de menu 1', '#'
     end
 
-    primary.item :divider_4, nil, nil, :class => 'divider-vertical', :highlights_on => /admin/, :if => Proc.new { current_user.is_admin? }
+    primary.item :divider_4, nil, nil, :class => 'divider-vertical', :if => Proc.new { current_user.is_admin? }
 
-    primary.item :nav_admin, 'Administration' , '/admin', :icon => 'icon-cog', :if => Proc.new { current_user.is_admin? } do |sub_nav|
+    primary.item :nav_admin, 'Administration' , '/admin', :icon => 'icon-cog', :highlights_on => /admin/, :if => Proc.new { current_user.is_admin? } do |sub_nav|
       sub_nav.item :nav_admin_dashboard, 'Vue d\'ensemble', '/admin', :icon => 'iconic-chart'
       sub_nav.item :nav_admin_divider_1, '', nil, :class=> 'divider'
       sub_nav.item :nav_admin_edition,   'Choix de l\'édition', new_admin_edition_path

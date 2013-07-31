@@ -64,7 +64,7 @@ SimpleNavigation::Configuration.run do |navigation|
     
     primary.item :divider_1, nil, nil, :class => 'divider-vertical'
 
-    primary.item :nav_registrations, 'Inscriptions', new_registration_path, :icon => 'icon-edit', :highlights_on => /^registrations/ do |sub_nav|
+    primary.item :nav_registrations, 'Inscriptions', new_registration_path, :icon => 'icon-edit', :highlights_on => /^\/registrations/ do |sub_nav|
       sub_nav.item :nav_registrations_view, 'Voir ses inscriptions', registrations_path
       sub_nav.item :nav_registrations_new,  'S\'inscrire au concours', new_registration_path
     end
@@ -83,7 +83,7 @@ SimpleNavigation::Configuration.run do |navigation|
 
     primary.item :divider_4, nil, nil, :class => 'divider-vertical', :if => Proc.new { current_user.is_admin? }
 
-    primary.item :nav_admin, 'Administration' , '/admin', :icon => 'icon-cog', :highlights_on => /^admin/, :if => Proc.new { current_user.is_admin? } do |sub_nav|
+    primary.item :nav_admin, 'Administration' , '/admin', :icon => 'icon-cog', :highlights_on => /^\/admin/, :if => Proc.new { current_user.is_admin? } do |sub_nav|
       sub_nav.item :nav_admin_dashboard, 'Vue d\'ensemble', '/admin', :icon => 'iconic-chart'
       sub_nav.item :nav_admin_divider_1, '', nil, :class=> 'divider'
       sub_nav.item :nav_admin_edition,   'Choix de l\'édition', new_admin_edition_path
@@ -119,7 +119,7 @@ SimpleNavigation::Configuration.run do |navigation|
 
     primary.item :divider_5, nil, nil, :class => 'divider-vertical'
 
-    primary.item :nav_user, 'Compte', nil, :icon => 'icon-user', :highlights_on => /^users/ do |sub_nav|
+    primary.item :nav_user, 'Compte', nil, :icon => 'icon-user', :highlights_on => /^\/users/ do |sub_nav|
       sub_nav.item :nav_user_edit,       'Profil', edit_user_path(current_user)
       sub_nav.item :nav_user_profile,    'Courriel et mot de passe', edit_user_registration_path
       sub_nav.item :nav_user_divider_1,  '', nil, :class=> 'divider'

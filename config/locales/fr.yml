@@ -13,3 +13,4 @@ fr:
         email: L'adresse courriel
         password: Le mot de passe
         captcha: La validation visuelle
+        current_password: Mot de passe actuel

@@ -8,20 +8,28 @@
 <table class="table table-bordered">
   <thead>
       <tr>
+        <th></th>
         <th>Catégorie</th>
-        <th>Instrument</th>
-        <th>Participants</th>
-        <th>Pièces</th>
-        <th>Compositeurs</th>
+        <th>Instrument(s)</th>
+        <th>Participant(s)</th>
+        <th>Pièce(s)</th>
+        <th>Compositeur(s)</th>
         <th>Professeur</th>
         <th>Durée</th>
         <th>Année de l'édition</th>
-        <th></th>
       </tr>
   </thead>
   <tbody>
       <% @registrations.each do |reg| %>
         <tr>
+          <td style="vertical-align: middle;">
+            <% if reg.user_owner_id == current_user.id %>
+              <div class="btn-group">
+                <a class="btn btn-mini reg_edit" href="/registrations/<%= reg.id %>/edit" title="Modifier l'inscription"><i class="icon-pencil"></i> </a>
+                <a class="btn btn-mini reg_cancel" href="/registrations/<%= reg.id %>/cancel"  title="Supprimer l'inscription" onclick="fcms.confirmRegDel($(this)); return false;"><i class="icon-remove"></i> </a>
+              </div>
+            <% end %>
+          </td>
           <td><%= reg.category.name %></td>
            <td>
             <% reg.registrations_users.each do |reg_user| %>
@@ -55,12 +63,6 @@
           <td><%= reg.teacher.first_name %> <%= reg.teacher.last_name %></td>
           <td><%= reg.duration %> min. </td>
           <td><%= reg.edition.year %> </td>
-          <td>
-            <% if reg.user_owner_id == current_user.id %>
-                <a class="btn reg_edit" href="/registrations/<%= reg.id %>/edit"><i class="icon-edit"></i> </a>
-                <a class="btn reg_cancel" href="/registrations/<%= reg.id %>/cancel" onclick="fcms.confirmRegDel($(this)); return false;"><i class="icon-remove"></i> </a>
-            <% end %>
-          </td>
         </tr>
       <% end %>
   </tbody>

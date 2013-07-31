@@ -37,7 +37,7 @@ function initEditRegistrations() {
                         type: "GET",
                         data: function (term, page) {
                             return {
-                                composer: term
+                                query: term
                             };
                         },
                         results: function (data, page) {
@@ -89,7 +89,7 @@ function initEditRegistrations() {
                         type: "GET",
                         data: function (term, page) {
                             return {
-                                user: term,
+                                query: term,
                                 noUser: userList
                             };
                         },

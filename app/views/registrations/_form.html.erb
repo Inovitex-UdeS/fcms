@@ -6,7 +6,7 @@
       Lorsque son compte est créé, recherchez-le dans la boîte ci-dessous.</p>
       <input type="hidden" class="select optional input-xlarge" id="registration_user_teacher_id" name="registration[user_teacher_id]" data-placeholder="-- Choisir un professeur --" data-option="<%= @registration.print_teacher_name %>" <% if @registration.teacher %> value=<%= @registration.print_teacher_id %> <% end %> />
     </div>
-    <%= f.hidden_field :school_id, :value => @current_edition %>
+    <%= f.hidden_field :school_id, :value => @user_school %>
 
     <div class="registration-section" id="registration-category">
       <h5>Classe d'inscription</h5>

@@ -34,8 +34,8 @@ class AutocompleteController < ApplicationController
   ##
   # Return all the pieces corresponding to search
   def pieces
-    search = params[:q]
-    composer = params[:c]
+    search = params[:query]
+    composer = params[:composer]
 
     if search && composer
       @pieces = Piece.where("composer_id = #{composer}").where("title LIKE '%#{search}%'")
@@ -59,7 +59,7 @@ class AutocompleteController < ApplicationController
   # Return all the pieces corresponding to search and already used users
   def participants
     search = params[:query]
-    userInReg = params[:noUser]
+    userInReg = params[:users]
 
     if search
       query = "(first_name LIKE '%#{search}%' OR last_name LIKE '%#{search}%' OR email LIKE '%#{search}%')"

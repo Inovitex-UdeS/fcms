@@ -43,7 +43,7 @@ class RegistrationsController < ApplicationController
   def new
     @registration = Registration.new
     @owner_id = current_user.id
-    @user_school = User.find(@owner_id).school_id
+    @user_school = current_user.school_id
     @current_edition = Setting.find_by_key('current_edition_id').value
     @teachers = User.teachers
     @accompanists = User.accompanists

@@ -241,7 +241,7 @@ fcms.fnSuccessGetData = function( data ) {
                 data: function (term, page) {
                     return {
                         query: term,
-                        noUser: userList
+                        users: userList
                     };
                 },
                 results: function (data, page) {

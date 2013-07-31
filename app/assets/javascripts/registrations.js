@@ -34,7 +34,7 @@ $(document).ready(function(){
             type: "GET",
             data: function (term, page) {
                 return {
-                    user: term
+                    query: term
                 };
             },
             results: function (data, page) {
@@ -61,6 +61,7 @@ $(document).ready(function(){
     });
 
     $('#registration_user_accompanist_id').select2({
+        allowClear: true,
         minimumInputLength: 2,
         id: function(e) { return e.value},
         ajax: {
@@ -69,7 +70,7 @@ $(document).ready(function(){
             type: "GET",
             data: function (term, page) {
                 return {
-                    user: term
+                    query: term
                 };
             },
             results: function (data, page) {
@@ -156,7 +157,7 @@ $(document).on('nested:fieldAdded:performances', function(event){
             type: "GET",
             data: function (term, page) {
                 return {
-                    composer: term
+                    query: term
                 };
             },
             results: function (data, page) {
@@ -186,7 +187,7 @@ $(document).on('nested:fieldAdded:performances', function(event){
         source: function (query, process) {
 
 
-            $.get('/autocomplete/pieces', { q: query, c: this.$element.attr('data-composer') }, function (data) {
+            $.get('/autocomplete/pieces', { query: query, composer: this.$element.attr('data-composer') }, function (data) {
                 labels = []
 
                 $.each(data, function (i, item) {
@@ -218,8 +219,8 @@ $(document).on('nested:fieldAdded:registrations_users', function(event){
             type: "GET",
             data: function (term, page) {
                 return {
-                    user: term,
-                    noUser: userList
+                    query: term,
+                    users: userList
                 };
             },
             results: function (data, page) {

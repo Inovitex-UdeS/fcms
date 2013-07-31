@@ -4,7 +4,7 @@
 class Instrument < ActiveRecord::Base
 
   ##
-  # Instrument needs to have a unique name in order to create it
+  # Model [Instrument] requires a unique length with a maximum of 64 characters
   #
   # @ return [String]
   validates :name, :presence => true, :uniqueness => true,  :length => { maximum: 64}
@@ -16,13 +16,13 @@ class Instrument < ActiveRecord::Base
   has_many :registrations_users
 
   ##
-  # Get all the users playing this instruments
+  # Get all the users playing this instrument
   #
   # @ return [User]
   has_many :users, :through => :registrations_users
 
   ##
-  # Get all the registrations with this instrument in it
+  # Get all the registrations using this instrument
   #
   # @ return [Registration]
   has_many :registrations, :through => :registrations_users

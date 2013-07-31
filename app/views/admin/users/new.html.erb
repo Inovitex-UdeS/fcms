@@ -3,6 +3,8 @@
     <a href="<%=  admin_users_excel_path %>" class="btn" ><i class="icon-download"></i> Télécharger la liste des utilisateurs au format Excel</a>
   </span>
 </h3>
-<p>Un utilisateur n'est toujours pas inscrit au portail ? <%= link_to "Cliquez ici pour l'inviter", new_user_invitation_path %></p>
+<p>Cette page regroupe tous les utilisateurs inscrits au portail du FCMS.</p>
+<p>Un utilisateur n'est toujours pas inscrit? <%= link_to "Cliquez ici pour l'inviter'", new_user_invitation_path %>.</p>
+<hr>
 <%= render :partial => '/admin/users/grid' %>
 <%= render :partial => '/admin/users/form' %>

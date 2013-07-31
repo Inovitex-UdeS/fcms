@@ -13,7 +13,8 @@
   </span>
 </h3>
 <div class="form-inline" id="section-1">
-  <label for="input-planned-category">Sélectionner la classe à planifier: </label>&nbsp;&nbsp;
+  <p>Cette page permet de planifier le Festival-Concours une fois la période d'inscriptions terminée.</p>
+  <label for="input-planned-category">Sélectionner une classe à planifier: </label>&nbsp;&nbsp;
   <%= select_tag 'input-planned-category', options_from_collection_for_select(Category.all(:order => "name ASC"), 'id', 'name'), :include_blank => true %>
 </div>
 

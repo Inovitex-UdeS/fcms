@@ -1,6 +1,9 @@
-<h3><i class="icon-edit"></i> Gestion des inscriptions au festival</h3>
-
-<h4>Inscriptions existantes au festival</h4>
+<h3><i class="icon-edit"></i> Inscriptions au festival</h3>
+<p>Cette page permet de gérer les inscriptions soumises à l'application du Festival-Concours de Musique de Sherbrooke.<p>
+<p>Pour obtenir la liste complète des inscriptions à l'édition <i>courante</i>, visiter la page <%= link_to 'Planifier le concours', '/admin/planification' %>.</p>
+<p></p>
+<hr />
+<h5>Inscriptions existantes au festival</h5>
     <%= render :partial => '/admin/registrations/grid' %>
     <div id="formModal" class="modal hide fade">
       <div class="modal-header">

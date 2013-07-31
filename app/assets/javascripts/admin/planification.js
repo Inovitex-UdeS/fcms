@@ -21,7 +21,7 @@ var tsDTOptions = {
     "bPaginate": false,
     "sScrollX": "",
     "oLanguage": {
-        "sEmptyTable": "Aucune plage horaire n'a encore été ajoutée pour cette classe."
+        "sEmptyTable": "Aucune plage horaire n'a encore été ajoutée pour cette classe d'inscriptions."
     },
     "fnCreatedRow": function(row) {
         $(row).addClass('selectable');

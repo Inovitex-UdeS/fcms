@@ -68,7 +68,10 @@ $(document).ready(function() {
             function(){
                 var field = $(this).attr('id').replace(/^[a-zA-Z0-9]+_/g, '');
                 if (field in data) {
-                    aItem.push(data[field]);
+                    if ($(this).data('datepicker'))
+                        aItem.push(fcms.fnFormatDate(data[field]));
+                    else
+                        aItem.push(data[field]);
                 }
             }
         );

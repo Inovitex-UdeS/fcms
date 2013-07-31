@@ -1,7 +1,7 @@
 function initEditRegistrations() {
     var registration_id = $('#registration_id').val()
 
-    $("#AutresParticipants").hide();
+    $("#registration-users").hide();
     changeCategory($('#registration_category_id').val());
 
     $.ajax({

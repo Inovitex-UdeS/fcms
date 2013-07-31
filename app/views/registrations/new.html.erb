@@ -1,4 +1,7 @@
 <h3>Inscription au festival</h3>
+<p>Utilisez le formulaire ci-dessous pour soumettre votre inscription à l'édition <%= Edition.get_current_edition_year %> du FCMS.</p>
+<p>Pour toute question concernant les inscriptions, communiquez avec Madeleine Tremblay par courriel à <%= mail_to 'madeleine.tremblay@videotron.ca' %> ou par téléphone au 819-864-9438.</p>
+<hr>
 
 <% if current_user.is_participant? %>
     <% if not isEndOfRegistrations? %>

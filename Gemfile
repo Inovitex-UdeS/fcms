@@ -93,6 +93,9 @@ gem 'igs_pie_chart'
 # Prevent old browser
 gem 'browser', '0.2.0'
 
+# WYSIWYG editor
+gem 'ckeditor_rails', '4.1.3'
+
 # YARD documentation
 gem 'yard', '0.8.7'
 gem 'redcarpet', '3.0.0'

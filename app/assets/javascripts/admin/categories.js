@@ -1,3 +1,4 @@
+//= require ckeditor
 //= require datatables
 //= require dataTables/extras/TableTools
 
@@ -21,6 +22,12 @@ $(document).ready(function() {
     // Initialize DataTables
     initCategoriesTable();
     initAgeGroupTable();
+
+    // Enable ckeditor
+    fcms.ckeditor('#category_description', {
+        height: 160,
+        width: 358
+    });
 
     // Hide the category form
     fcms.formCategory.hide();

@@ -99,18 +99,24 @@ $(document).ready(function(){
 });
 
 function changeCategory(category_id) {
-    if (category_id=="" || category_id=="Classe") return; // please select - possibly you want something else here
+    if (category_id=="" || category_id=="Classe") { // please select - possibly you want something else here
+        $("#category-description").hide('fast').text("");
+        return;
+    }
     $.getJSON('/categories/' + category_id, function(data) {
         nbPerfMax = data['category']['nb_perf_max'];
         nbPerfMin = data['category']['nb_perf_min'];
-        $("#category-description").text(data['category']['description'])
+        $("#category-description").hide('fast', function() {
+            $(this).html('<strong>' + data['category']['name'] + ':</strong><div class="description-inset">'
+                + data['category']['description'] + '</div>');
+        }).show('fast');
 
         if (data['agegroup']) maxDuration = data['agegroup']['max_duration'];
         else maxDuration = null;
 
         group = data.category.group;
-        if (group) $("#AutresParticipants").show();
-        else $("#AutresParticipants").hide();
+        if (group) $("#registration-users").show();
+        else $("#registration-users").hide();
 
         accomp = data.category.accompanist;
         if (accomp) $("#registration-accompanist").show();

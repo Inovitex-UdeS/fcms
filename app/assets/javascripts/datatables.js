@@ -159,16 +159,6 @@ fcms.bindForm = function (form, type) {
     });
 };
 
-fcms.mergeObjects = function(obj1, obj2) {
-    if (obj2)
-        for (var i in obj2) {
-            if (obj1[i] != null && typeof obj1[i] === 'object')
-                fcms.mergeObjects(obj1[i], obj2[i]);
-            else obj1[i] = obj2[i];
-        }
-    return obj1;
-}
-
 fcms.initTable = function (customSettings) {
     // Init the table
     oTable = $(oTable).dataTable(fcms.mergeObjects({

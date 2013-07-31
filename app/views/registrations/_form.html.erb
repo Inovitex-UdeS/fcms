@@ -1,49 +1,24 @@
 <%= f.hidden_field :edition_id, :value => @current_edition %>
 
-    <h5>Professeur</h5>
-    <input type="hidden" class="select optional input-large" id="registration_user_teacher_id" name="registration[user_teacher_id]" data-placeholder="Choisir un professeur" data-option="<%= @registration.print_teacher_name %>" <% if @registration.teacher %> value=<%= @registration.print_teacher_id %> <% end %> />
-
+    <div class="registration-section" id="registration-teacher">
+      <h5>Professeur</h5>
+      <p>Pour vous inscrire au FCMS, votre professeur de musique doit avoir un compte sur ce site.<br />
+      Lorsque son compte est créé, recherchez-le dans la boîte ci-dessous.</p>
+      <input type="hidden" class="select optional input-xlarge" id="registration_user_teacher_id" name="registration[user_teacher_id]" data-placeholder="Choisir un professeur" data-option="<%= @registration.print_teacher_name %>" <% if @registration.teacher %> value=<%= @registration.print_teacher_id %> <% end %> />
+    </div>
     <%= f.hidden_field :school_id, :value => @current_edition %>
 
-    <div class="programme-musical">
-      <h5>Programme musical</h5>
-      <div class="programme-musical-selectors">
-        <%= f.association :category, prompt: "Classe", label: false, :input_html => {:onchange => "changeCategory(this.value)"} %>
-        <%= f.association :instruments, prompt: "Instrument", label: false,  as: :collection_select %>
-      </div>
+    <div class="registration-section" id="registration-category">
+      <h5>Classe d'inscription</h5>
+      <p>Choisir la classe pour laquelle vous souhaitez soumettre votre inscription:</p>
+      <%= f.association :category, collection: Category.order('name ASC'), prompt: '-- Choisir une classe d\'inscription --', label: false, :input_html => {:onchange => "changeCategory(this.value)", :class => 'input-xlarge'} %>
       <div id="category-description"></div>
     </div>
 
-    <div id="registration-accompanist">
-      <h5>Accompagnateur</h5>
-      <input type="hidden" class="select optional input-large" id="registration_user_accompanist_id" name="registration[user_accompanist_id]" data-placeholder="Choisir un accompagnateur" data-option="<%= @registration.print_accompanist_name %>" <% if @registration.accompanist %> value=<%= @registration.print_accompanist_id %> <% end %>/>
-    </div>
+    <!-- TODO: DÉPLACER! -->
+    <%= f.association :instruments, collection: Instrument.order('name ASC'), prompt: '-- Choisir un instrument --', label: false,  as: :collection_select, :input_html => { :class => 'input-xlarge'}  %>
 
-    <h5>Pièces performées</h5>
-    <div id='performances-container'>
-      <table id='performances' class='table'>
-        <thead><tr>
-          <th>Compositeur</th>
-          <th>Oeuvre</th>
-          <th>Durée (minutes)</th>
-          <th></th>
-        </tr></thead>
-        <tbody>
-            <%= f.fields_for :performances, :wrapper => false %>
-        </tbody>
-        <tfoot>
-            <tr>
-              <td colspan="2">Durée totale:</td>
-              <td><%= f.number_field :duration, :value => '0', :readonly => true, :class => 'input-small' %></td>
-              <td></td>
-            </tr>
-        </tfoot>
-      </table>
-      <%= f.link_to_add " Ajouter une performance", :performances, :id => 'btn-add-performance' , :data => { :target => '#performances' }, :class => 'icon-plus btn' %>
-    </div>
-    <br/>
-
-    <div id="AutresParticipants">
+    <div class="registration-section" id="registration-users">
       <h4>Autres participants</h4>
       <div id='users-container'>
         <table id='users' class='table'>
@@ -55,14 +30,44 @@
           <tbody>
           <%= f.fields_for :registrations_users, :wrapper => false %>
           </tbody>
-        <tfoot>
-            <tr>
-              <td>Nombre de participants</td>
-              <td><label id='totUsers'>0</label></td>
-              <td></td>
-            </tr>
-        </tfoot>
+          <tfoot>
+          <tr>
+            <td>Nombre de participants</td>
+            <td><label id='totUsers'>0</label></td>
+            <td></td>
+          </tr>
+          </tfoot>
         </table>
         <%= f.link_to_add " Ajouter une personne", :registrations_users, :id => 'btn-add-users' , :data => { :target => '#users' }, :class => 'icon-plus btn' %>
       </div><br/>
+    </div>
+
+    <div class="registration-section" id="registration-accompanist">
+      <h5>Accompagnateur</h5>
+      <input type="hidden" class="select optional input-large" id="registration_user_accompanist_id" name="registration[user_accompanist_id]" data-placeholder="Choisir un accompagnateur" data-option="<%= @registration.print_accompanist_name %>" <% if @registration.accompanist %> value=<%= @registration.print_accompanist_id %> <% end %>/>
+    </div>
+
+    <div class="registration-section" id="registration-pieces">
+    <h5>Pièces performées</h5>
+      <div id='performances-container'>
+        <table id='performances' class='table'>
+          <thead><tr>
+            <th>Compositeur</th>
+            <th>Oeuvre</th>
+            <th>Durée (minutes)</th>
+            <th></th>
+          </tr></thead>
+          <tbody>
+              <%= f.fields_for :performances, :wrapper => false %>
+          </tbody>
+          <tfoot>
+              <tr>
+                <td colspan="2">Durée totale:</td>
+                <td><%= f.number_field :duration, :value => '0', :readonly => true, :class => 'input-small' %></td>
+                <td></td>
+              </tr>
+          </tfoot>
+        </table>
+        <%= f.link_to_add " Ajouter une performance", :performances, :id => 'btn-add-performance' , :data => { :target => '#performances' }, :class => 'icon-plus btn' %>
+      </div>
     </div>

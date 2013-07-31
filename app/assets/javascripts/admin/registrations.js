@@ -18,7 +18,7 @@ $(document).ready(function(){
         }
     };
 
-    $("#AutresParticipants").hide();
+    $("#registration-users").hide();
     fcms.bindTable($('#all-registrations-table'));
     fcms.initTable(tsDTOptions);
     fcms.bindForm($('form'), 4);
@@ -154,7 +154,7 @@ fcms.fnSuccessGetData = function( data ) {
     var instrument = $.parseJSON(data['instrument']);
     var duration = registration['duration'];
 
-    $("#AutresParticipants").hide();
+    $("#registration-users").hide();
 
     $('#registration_id').val(registration['id']);
 

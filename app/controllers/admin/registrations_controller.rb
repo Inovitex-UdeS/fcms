@@ -155,7 +155,7 @@ class Admin::RegistrationsController < ApplicationController
       # Manually update registration
       @registration.user_owner_id = params[:registration][:user_owner_id]
       @registration.user_teacher_id = params[:registration][:user_teacher_id]
-      @registration.duration = params[:registration][:duration].to_i.ceil
+      @registration.duration = params[:registration][:duration].to_f.ceil
       @registration.category_id = params[:registration][:category_id]
 
       if !@registration.save

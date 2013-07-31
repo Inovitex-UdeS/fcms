@@ -157,7 +157,7 @@ class RegistrationsController < ApplicationController
 
       # Manually update registration
       @registration.user_teacher_id = params[:registration][:user_teacher_id]
-      @registration.duration = params[:registration][:duration].to_i.ceil
+      @registration.duration = params[:registration][:duration].to_f.ceil
       @registration.category_id = params[:registration][:category_id]
 
       if !@registration.save
@@ -169,6 +169,11 @@ class RegistrationsController < ApplicationController
       # Manually create performances
       if params[:registration][:performances_attributes]
         params[:registration][:performances_attributes].each do |perf|
+
+          if not perf[1][:piece_attributes]
+              next
+          end
+
           composer_id = perf[1][:piece_attributes][:composer_id]
           piece_title = perf[1][:piece_attributes][:title]
 
@@ -198,9 +203,9 @@ class RegistrationsController < ApplicationController
       end
       @registration.update_attribute(:age_max, age_max)
 
-      render :json => {:registration => @registration, :message => 'L\'inscription a été modifiée avec succès'}
+      redirect_to  registrations_path, :notice => 'La modification de l\'inscription a été complétée avec succès'
     rescue => e
-      render :json => { :message => e.message }, :status => :unprocessable_entity
+      redirect_to  registrations_path, :alert => 'La modification de l\'inscription n\'a pas été complétée avec succès'
     end
   end
 

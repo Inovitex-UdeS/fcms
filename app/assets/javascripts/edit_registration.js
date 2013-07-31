@@ -1,5 +1,5 @@
 function initEditRegistrations() {
-    var registration_id = $('#registration_id').val()
+    var registration_id = $('#registration_id').val();
 
     $("#registration-users").hide();
     changeCategory($('#registration_category_id').val());
@@ -13,13 +13,18 @@ function initEditRegistrations() {
             var registration = $.parseJSON(data['registration']);
             var duration = registration['duration'];
 
-            $.each($("#performances > tbody > tr"), function(index, value){
+            // Clean rails auto genrating stuff
+            $('#performances > tbody > input').remove();
+            $('#performances > tbody > tr').remove();
 
-                var composer_id = registration['performances'][index]['piece']['composer']['id'];
-                var composer_name = registration['performances'][index]['piece']['composer']['name'];
-                var piece_title = registration['performances'][index]['piece']['title'];
+            $.each(registration['performances'], function(index, value){
+                $('#btn-add-performance').click();
 
-                var td = $(value).children().first();
+                var composer_id = value['piece']['composer']['id'];
+                var composer_name = value['piece']['composer']['name'];
+                var piece_title = value['piece']['title'];
+
+                var td = $('#performances > tbody > tr').eq(index).children().first();
                 td.find('input').val(composer_id);
                 td.find('input').attr('data-option', composer_name);
 
@@ -64,14 +69,14 @@ function initEditRegistrations() {
                 td.find('input').val(0);
             });
 
-            $("#users > tbody > tr:first").remove();
+            $('#users > tbody > tr').remove();
 
-            $.each($("#users > tbody > tr"), function(index, value){
+            $.each(users, function(index, value){
 
-                var user_id = users[index]['user']['id'];
-                var user_name = users[index]['user']['first_name'] + ' ' + users[index]['user']['last_name'] + ' (' + users[index]['user']['email'] + ')';
+                var user_id = value['user']['id'];
+                var user_name = value['user']['first_name'] + ' ' + value['user']['last_name'] + ' (' + value['user']['email'] + ')';
 
-                var td = $(value).children().first();
+                var td = $('#users > tbody > tr').eq(index).children().first();
                 td.find('input').val(user_id);
                 td.find('input').attr('data-option', user_name);
 
@@ -115,7 +120,6 @@ function initEditRegistrations() {
             });
             $('#totUsers').text($('#users .fields').length);
             $('#registration_duration').val(duration);
-
         }
     });
 }

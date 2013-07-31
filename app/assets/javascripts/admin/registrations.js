@@ -174,7 +174,7 @@ fcms.fnSuccessGetData = function( data ) {
         var composer_name = perf['piece']['composer']['name'];
         var piece_title = perf['piece']['title'];
 
-        var td = $('#performances > tbody > tr:nth-child('+ (index+1) + ')').children().first();
+        var td = $('#performances > tbody > tr').eq(index).children().first();
         td.find('input').val(composer_id);
         td.find('input').attr('data-option', composer_name);
 
@@ -219,7 +219,7 @@ fcms.fnSuccessGetData = function( data ) {
         td.find('input').val(0);
     });
 
-    $("#users > tbody > tr:first").remove();
+    $('#users > tbody > tr:first').remove();
 
     $.each(users, function(index, user){
         $('#btn-add-users').click();
@@ -227,7 +227,7 @@ fcms.fnSuccessGetData = function( data ) {
         var user_id = user['user']['id'];
         var user_name = user['user']['first_name'] + ' ' + user['user']['last_name'] + ' (' + user['user']['email'] + ')';
 
-        var td = $('#users > tbody > tr:nth-child('+ (index+1) + ')').children().first();
+        var td = $('#users > tbody > tr').eq(index).children().first();
         td.find('input').val(user_id);
         td.find('input').attr('data-option', user_name);
 

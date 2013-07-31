@@ -96,8 +96,6 @@ $(document).ready(function(){
     });
 
     userList = [$('#registration_user_owner_id').val()];
-
-    $('#btn-add-performance').click();
 });
 
 function changeCategory(category_id) {

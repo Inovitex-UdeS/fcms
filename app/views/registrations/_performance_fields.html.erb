@@ -4,8 +4,8 @@
     <a href="#addNewComposer" class="icon-plus" data-toggle="modal"/>
   </td>
   <td>
-    <input class="input-large" id="registration_performances_attributes_new_performances_piece_attributes_title" name="registration[performances_attributes][new_performances][piece_attributes][title]" data-composer=""/>
+    <input class="input-large" id="registration_performances_attributes_new_performances_piece_attributes_title" name="registration[performances_attributes][new_performances][piece_attributes][title]" data-composer="" type="text" placeholder="Titre de l'oeuvre" />
   </td>
-  <td><%= number_field_tag 'unit_duration', nil, :step => 0.5, :in => 0..30, :onchange => 'calculateTotDuration()', :class => 'input-small unit_duration' %></td>
-  <td><%= f.link_to_remove 'Supprimer', :class => 'btn' %></td>
+  <td><%= number_field_tag 'unit_duration', nil, :step => 0.5, :in => 0..30, :onchange => 'calculateTotDuration()', :class => 'input-small unit_duration', :placeholder => '0' %></td>
+  <td><%= f.link_to_remove raw('<i class="icon-remove"></i> Enlever'), :class => 'btn btn-small' %></td>
 </tr>

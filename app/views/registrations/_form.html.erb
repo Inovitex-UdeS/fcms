@@ -46,7 +46,7 @@
               </tr>
           </tfoot>
         </table>
-        <%= f.link_to_add " Ajouter une performance", :performances, :id => 'btn-add-performance' , :data => { :target => '#performances' }, :class => 'icon-plus btn' %>
+        <%= f.link_to_add raw('<i class="icon-plus"></i> Ajouter une performance'), :performances, :id => 'btn-add-performance' , :data => { :target => '#performances' }, :class => 'btn btn-small' %>
       </div>
     </div>
 
@@ -65,12 +65,12 @@
           </tbody>
           <tfoot>
           <tr>
-            <td>Nombre de participants</td>
+            <td>Nombre de participants supplémentaires:</td>
             <td><label id='totUsers'>0</label></td>
             <td></td>
           </tr>
           </tfoot>
         </table>
-        <%= f.link_to_add " Ajouter une personne", :registrations_users, :id => 'btn-add-users' , :data => { :target => '#users' }, :class => 'icon-plus btn' %>
+        <%= f.link_to_add raw('<i class="icon-plus"></i> Ajouter un participant'), :registrations_users, :id => 'btn-add-users' , :data => { :target => '#users' }, :class => 'btn btn-small' %>
       </div><br/>
     </div>

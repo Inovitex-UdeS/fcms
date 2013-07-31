@@ -96,11 +96,14 @@ $(document).ready(function(){
     });
 
     userList = [$('#registration_user_owner_id').val()];
+
+    $('#btn-add-performance').click();
 });
 
 function changeCategory(category_id) {
     if (category_id=="" || category_id=="Classe") { // please select - possibly you want something else here
         $("#category-description").hide('fast').text("");
+        $("#registration-pieces").hide('fast');
         return;
     }
     $.getJSON('/categories/' + category_id, function(data) {
@@ -120,6 +123,8 @@ function changeCategory(category_id) {
         accomp = data.category.accompanist;
         if (accomp) $("#registration-accompanist").show();
         else $("#registration-accompanist").hide();
+
+        $("#registration-pieces").show('fast');
 
         if (maxDuration == null) fcms.showMessage('Vous ne correspondez pas à une catégorie d\'âge, vous n\'avez donc pas le droit de vous inscrire dans cette classe', 3);
         $('input[type=submit]').attr('disabled', (maxDuration == null));

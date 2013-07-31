@@ -1,8 +1,8 @@
 <tr class="fields">
   <td>
-      <input type="hidden" class="select optional input-large user_select" id="registration_registrations_users_attributes_new_registrations_users_user_id" name="registration[registrations_users_attributes][new_registrations_users][user_id]" data-placeholder="Choisir un participant"/>
+      <input type="hidden" class="select optional input-large user_select" id="registration_registrations_users_attributes_new_registrations_users_user_id" name="registration[registrations_users_attributes][new_registrations_users][user_id]" type="text" data-placeholder="Choisir un participant"/>
       <a href="#inviteNewUser" class="icon-plus" data-toggle="modal"/>
   </td>
   <td><%= f.association :instrument, prompt: "Instrument du participant", :label => false %></td>
-  <td><%= f.link_to_remove 'Supprimer', :class => 'btn' %></td>
+  <td><%= f.link_to_remove raw('<i class="icon-remove"></i> Enlever'), :class => 'btn btn-small' %></td>
 </tr>

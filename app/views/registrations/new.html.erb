@@ -10,8 +10,8 @@
             <%= render :partial => '/registrations/form', :locals => {:f => f} %>
             <%= f.hidden_field :id, :value => @registration.id, :disabled => true %>
             <div class="form-actions">
-              <%= f.button :submit, 'Enregistrer' , :class => 'btn btn-primary' %>
-              <%= button_tag 'Recommencer', type: :reset, onclick:'clearForm()' %>
+              <%= f.button :submit, 'Soumettre l\'inscription'.html_safe , :class => 'btn btn-primary' %>
+              <%= button_tag 'Réinitialiser le formulaire', type: :reset, :class => 'btn', onclick:'clearForm()' %>
             </div>
         <% end %>
         <%= render :partial => '/registrations/addcomposer' %>

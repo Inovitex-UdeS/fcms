@@ -13,6 +13,9 @@
 #registration-accompanist{
     display: none;
 }
+#registration-pieces{
+    display: none;
+}
 #category-description {
     display: none;
     font-size: 13px;
@@ -23,4 +26,20 @@
     padding: 5px 10px;
     margin: 2px 0 0 16px;
     border: 1px solid #eee;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+.table td [class^="icon-"] {
+    vertical-align: middle;
+}
+
+table select, table textarea, table input[type="text"], table input[type="password"], table input[type="datetime"], table input[type="datetime-local"], table input[type="date"], table input[type="month"], table input[type="time"], table input[type="week"], table input[type="number"], table input[type="email"], table input[type="url"], table input[type="search"], table input[type="tel"], table input[type="color"], table .uneditable-table input {
+    margin-bottom: 0;
+}
+
+table#performances tr:first-child a.remove_nested_fields {
+    display: none;
 }

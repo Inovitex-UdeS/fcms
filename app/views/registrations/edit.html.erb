@@ -21,6 +21,9 @@
         <%= f.hidden_field :user_owner_id, :value => @registration.user_owner_id %>
         <%= render :partial => '/registrations/form', :locals => {:f => f} %>
         <%= f.hidden_field :id, :value => @registration.id, :disabled => true %>
+        <div class="form-actions">
+          <%= f.button :submit, 'Enregistrer' , :class => 'btn btn-primary' %>
+        </div>
     <% end %>
     <%= render :partial => '/registrations/addcomposer' %>
     <%= render :partial => '/registrations/inviteuser' %>

@@ -32,6 +32,7 @@
 
 // for pie charts
 //= require d3
+//= require ckeditor-jquery
 
 /*  --- SCRIPT --- */
 

@@ -7,7 +7,7 @@ $(document).ready(function() {
     $('#role_user_ids').typeahead();
     fcms.bindTable($('.table'));
     fcms.initTable();
-    fcms.fnInjectDeleteButton('/admin/accompanyists/', $('#role_user_ids'));
+    fcms.fnInjectDeleteButton('/admin/accompanists/', $('#role_user_ids'));
 
     $('form').on('ajax:success', function(evt, data, status, xhr) {
         fcms.showMessage('L\'item a été ajouté avec succès!');

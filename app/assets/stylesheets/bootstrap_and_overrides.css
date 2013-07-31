@@ -41,6 +41,10 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
     border-radius: 0px;
 }
 
+textarea {
+    font-size: 13px;
+}
+
 /* Remove round borders from buttons */
 .btn, .input-prepend .add-on:first-child, .input-prepend .btn:first-child, .input-append .add-on:last-child, .input-append .btn:last-child {
     -webkit-border-radius: 0px;

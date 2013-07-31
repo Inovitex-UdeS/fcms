@@ -117,7 +117,7 @@ function initAgeGroupTable() {
     fcms.bindTable(table);
     fcms.initTable({
         "oLanguage": {
-            "sEmptyTable": "Aucun groupe d'âge n'existe pour cette classe d'inscription."
+            "sEmptyTable": "Les groupes d'âges n'ont pas encore été définis pour cette classe d'inscription."
         },
         "sScrollX": "",
         "bSort": false,

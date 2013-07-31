@@ -12,22 +12,9 @@
 
 # Description
 
-Application web développée dans le cadre d'un projet [EPICS](https://engineering.purdue.edu/EPICS) par des étudiants en Génie Informatique de l'Université de Sherbrooke
+Application web développée dans le cadre d'un projet [EPICS](https://engineering.purdue.edu/EPICS) par des étudiants en Génie Informatique de l'Université de Sherbrooke.
 
 # Comment débuter
-
-```console
-$ sudo gem install addressable
-```
-
-You may optionally turn on native IDN support by installing libidn and the
-idn gem:
-
-
-$ sudo apt-get install idn # Debian/Ubuntu
-$ sudo brew install libidn # OS X
-$ sudo gem install idn
-
 
 Installer tous les gems
 
@@ -75,6 +62,7 @@ metric_fu -r
 
 # Articles intéressants
 
+* [Rails Style Guide](https://github.com/bbatsov/rails-style-guide)
 * [Getting Started with Rails](http://guides.rubyonrails.org/getting_started.html)
 * [Ruby on Rails Guides](http://guides.rubyonrails.org)
 * [The API Documentation](http://api.rubyonrails.org)

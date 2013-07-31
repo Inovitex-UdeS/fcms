@@ -2,7 +2,6 @@
 <script type="text/javascript">
     $(document).ready(function(){
         initEditRegistrations();
-        $('.section-submenu').html("<h4><p><i class=\"icon-edit\"></i> Inscriptions</p></h4><ul><li id=\"key_2_1\"><a href=\"/registrations\">Voir ses inscriptions</a></li><li class=\"active simple-navigation-active-leaf\" id=\"key_2_2\"><a href=\"/registrations/new\" class=\"active\">S'inscrire au concours</a></li><li class=\"divider\" id=\"key_2_4\"><span></span></li></ul>");
         $('.edit_registration').on('ajax:success', function(evt, data, status, xhr) {
             fcms.showMessage('La modification de l\'inscription au festival a été complétée avec succès!');
         });

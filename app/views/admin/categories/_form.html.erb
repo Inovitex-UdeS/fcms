@@ -65,7 +65,7 @@
       <br />
     </div>
 
-    <label class="control-label"><b>Groupes d'âges pour l'édition <%= Edition.find_by_id(Setting.find_by_key('current_edition_id').value).year %></b></label>
+    <label class="control-label"><b>Groupes d'âges pour l'édition <%= Edition.get_current_edition_year %></b></label>
     <div id="div-agegroups-table"></div>
   </div>
   <div class="form-actions">

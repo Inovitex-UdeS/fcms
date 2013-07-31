@@ -34,4 +34,10 @@ class Edition < ActiveRecord::Base
   def dates_are_okay?
     return self.end_date > self.start_date
   end
+
+  ##
+  # Utility method to get the year of the current edition
+  def self.get_current_edition_year
+    Edition.find_by_id(Setting.find_by_key('current_edition_id').value).year
+  end
 end

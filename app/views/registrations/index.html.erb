@@ -2,7 +2,14 @@
     <script type="text/javascript">
         $(document).ready(function() {
             fcms.bindTable($('.table'));
-            fcms.initTable();
+            fcms.initTable({
+              aoColumnDefs: [
+                {
+                  bSortable: false,
+                  aTargets: [ 0 ]
+                }
+              ]
+            });
         });
     </script>
 <% end %>

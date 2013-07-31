@@ -350,9 +350,9 @@ function ajaxLoadCategory(category_id) {
         url: fcms.planificationURL + category_id,
         success: function(data) {
             $('.panel:not(#panel-categories)').hide();
-            $('#section-2').show('fast');
-
-            loadCategory(data);
+            $('#section-2').show('fast', function() {
+                loadCategory(data);
+            });
         },
         error: function() {
             alert("Les sous-catégories pour la classe " + category_id + " n'ont pas pu être chargées.")

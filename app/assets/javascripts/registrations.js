@@ -17,11 +17,13 @@ $(document).ready(function(){
     $('#registration_school_id').typeahead();
 
     $('#new_registration').on('ajax:success', function(evt, data, status, xhr) {
+        $('fcms-message').remove();
         fcms.showMessage('L\'enregistrement au festival a été complété avec succès!');
         clearForm();
     });
 
     $('#new_registration').on('ajax:error', function(event, xhr, status) {
+        $('fcms-message').remove();
         fcms.showMessage(xhr.responseText, 3);
     });
 
@@ -97,6 +99,10 @@ $(document).ready(function(){
     });
 
     userList = [$('#registration_user_owner_id').val()];
+
+    $('form').submit(function(e) {
+        return validateRegForm();
+    });
 });
 
 function changeCategory(category_id) {
@@ -307,5 +313,83 @@ function clearForm() {
 
     calculateTotDuration();
     $('#totUsers').text($('#users .fields').length);
+    $('#category-description').remove();
     $('form')[0].reset();
+}
+
+
+function validateRegForm() {
+    var errorString = '';
+
+    if ( !$('#registration_user_teacher_id').val() ) {
+        errorString += "<li>Un professeur doit être sélectionné</li>"
+    }
+
+    if ( !$('#registration_category_id').val() ) {
+        errorString += "<li>Une classe d'inscription doit être sélectionnée</li>"
+    }
+
+    if ( !$('#registration_instrument_ids').val() ) {
+        errorString += "<li>Un instrument doit être sélectionné</li>"
+    }
+
+    if ( !($('#performances > tbody > tr').length > 0) ) {
+        errorString += "<li>L'inscription doit contenir au moins une oeuvre performée</li>"
+    }
+
+    $.each($('input.composer_select'), function(index, value) {
+        if ( !$(value).val() ) {
+            errorString += "<li>Une ou plusieurs oeuvres performées n'ont pas de compositeur</li>"
+            return false;
+        }
+    });
+
+    $.each($('input.piece_select'), function(index, value) {
+        if ( !$(value).val() ) {
+            errorString += "<li>Une ou plusieurs oeuvres performées n'ont pas de titre</li>"
+            return false;
+        }
+    });
+
+    $.each($('input.unit_duration'), function(index, value) {
+        if ( !$(value).val() ) {
+            errorString += "<li>Une ou plusieurs oeuvres performées ont une durée nulle</li>"
+            return false;
+        }
+    });
+
+    if ( !($('#registration_duration').val() > 0) ) {
+        errorString += "<li>L'inscription doit avoir une durée totale plus grande que 0</li>"
+    }
+
+    if ( ($('#users > tbody > tr').length > 0) ) {
+
+        $.each($('input.user_select'), function(index, value) {
+            if ( !$(value).val() ) {
+                errorString += "<li>Un ou plusieurs participants supplémentaires n'ont pas été sélectionnés</li>"
+                return false;
+            }
+        });
+
+        $.each($('input.instrument_select'), function(index, value) {
+            if ( !$(value).val() ) {
+                errorString += "<li>Un ou plusieurs participants supplémentaires n'ont pas d'instrument</li>"
+                return false;
+            }
+        });
+    }
+
+    if ( errorString )  {
+        errorString = "<h4>La ou les raisons suivantes empêchent l'enregistrement de l'inscription:</h4> <ul>" + errorString + "</ul>";
+
+        var curmsg = $('<div></div>').addClass('fcms-message alert alert-error')
+            .html(errorString).appendTo('body');
+
+        curmsg.css({ 'marginLeft': -curmsg.width() / 2, 'left': '50%' })
+            .prepend('<button type="button" class="close" data-dismiss="alert">&times;</button>');
+
+        return false;
+    }
+
+    return true;
 }

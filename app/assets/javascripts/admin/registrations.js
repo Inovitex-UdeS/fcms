@@ -4,6 +4,14 @@
 //= require registrations
 
 $(document).ready(function(){
+
+    $('#formSave').click(function(e) {
+        if(!validateRegForm()) {
+            e.stopImmediatePropagation();
+            return false;
+        }
+    });
+
     var tsDTOptions = {
         "aaSorting": [ [1,'asc'], [2,'asc'], [4,'asc'] ],
         "bInfo": false,
@@ -58,6 +66,10 @@ $(document).ready(function(){
             return m;
         }
     });
+
+    $('#formModal').on('hide', function () {
+        $('.fcms-message').remove();
+    });
 });
 
 fcms.fnClearForm = function () {
@@ -68,6 +80,7 @@ fcms.fnClearForm = function () {
     $('#registration_user_accompanist_id').select2('data', null);
     $('#performances > tbody > tr').remove();
     $('#users > tbody > tr').remove();
+    $('#category-description').remove();
 };
 
 fcms.fnSuccessAddItem = function( data ) {

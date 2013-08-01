@@ -242,6 +242,7 @@ fcms.fnSelectableRows = function ( e ) {
 };
 
 fcms.fnSuccessAddItem = function( data ) {
+    $('fcms-message').remove();
     $('#formModal').modal('hide');
 
     var aItem = new Array();
@@ -271,6 +272,7 @@ fcms.fnSuccessAddItem = function( data ) {
 };
 
 fcms.fnSuccessUpdateData = function( data ) {
+    $('fcms-message').remove();
     $('#formModal').modal('hide');
 
     var aItem = new Array();
@@ -308,6 +310,7 @@ fcms.fnSuccessGetData = function( data ) {
 
 
 fcms.fnSuccessRemoveData = function(result) {
+    $('fcms-message').remove();
     var selected = fcms.fnGetSelected( oTable );
     fcms.showMessage('L\'item a été supprimé avec succès');
     oTable.fnDeleteRow(selected[0]);
@@ -317,6 +320,7 @@ fcms.fnSuccessRemoveData = function(result) {
 // Clear the form
 fcms.fnClearForm = function () {
     if (oForm) {
+        $('fcms-message').remove();
         oForm[0].reset();
     }
 };
@@ -355,6 +359,7 @@ fcms.fnInjectDeleteButton = function (deletePath, select) {
                     url: deletePath + id,
                     type: 'DELETE',
                     complete: function(result) {
+                        $('fcms-message').remove();
                         oTable.fnDeleteRow(anSelected[0]);
 
                         fcms.showMessage('L\'item a été supprimé avec succès');

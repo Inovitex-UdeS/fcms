@@ -3,10 +3,12 @@
     $(document).ready(function(){
         initEditRegistrations();
         $('.edit_registration').on('ajax:success', function(evt, data, status, xhr) {
+            $('fcms-message').remove();
             fcms.showMessage('La modification de l\'inscription au festival a été complétée avec succès!');
         });
 
         $('.edit_registration').on('ajax:error', function(event, xhr, status) {
+            $('fcms-message').remove();
             fcms.showMessage(xhr.responseText, 3);
         });
     });
@@ -22,7 +24,7 @@
         <%= render :partial => '/registrations/form', :locals => {:f => f} %>
         <%= f.hidden_field :id, :value => @registration.id, :disabled => true %>
         <div class="form-actions">
-          <%= f.button :submit, 'Enregistrer' , :class => 'btn btn-primary' %>
+          <%= f.button :submit, 'Enregistrer' , :class => 'btn btn-primary', :onclick => 'return validateRegForm();' %>
         </div>
     <% end %>
     <%= render :partial => '/registrations/addcomposer' %>

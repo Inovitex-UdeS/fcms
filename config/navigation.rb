@@ -120,7 +120,7 @@ SimpleNavigation::Configuration.run do |navigation|
 
     primary.item :divider_5, nil, nil, :class => 'divider-vertical'
 
-    primary.item :nav_user, 'Compte', nil, :icon => 'icon-user', :highlights_on => /^\/users/ do |sub_nav|
+    primary.item :nav_user, current_user.name, nil, :icon => 'icon-user', :highlights_on => /^\/users/ do |sub_nav|
       sub_nav.item :nav_user_edit,       'Profil', edit_user_path(current_user)
       sub_nav.item :nav_user_profile,    'Courriel et mot de passe', edit_user_registration_path
       sub_nav.item :nav_user_divider_1,  '', nil, :class=> 'divider'

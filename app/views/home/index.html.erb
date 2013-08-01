@@ -2,12 +2,15 @@
     <p class="alert alert-danger"><%= alert %></p>
 <% end -%>
 
-<div class="dash-page"><center><h1>Bienvenue<%= ", cher " + current_user.roles.first.name  unless current_user.roles.empty?%> !</h1></center>
-  <div class="dash-left">
-    <h2>Liens utiles</h2> <br/>
-    <ul>
-      <li><a href="<%= new_registration_path %>" >S'inscrire à la prochaine édition</a></li>
-      <li><a href="http://www.fcmsherbrooke.com" >Le site officiel du FCMS</a></li>
-    </ul>
-  </div>
+<div class="home-message">
+  <h3>Bienvenue, <%= current_user.name %>!</h3>
+  <%= Setting.find_by_key('home_message').value.html_safe %>
+</div>
+
+<div class="home-links">
+  <h4>Liens utiles</h4>
+  <ul>
+    <li><a href="<%= new_registration_path %>" >S'inscrire à la prochaine édition</a></li>
+    <li><a href="http://www.fcmsherbrooke.com" >Le site officiel du FCMS</a></li>
+  </ul>
 </div>

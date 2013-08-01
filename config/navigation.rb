@@ -85,6 +85,7 @@ SimpleNavigation::Configuration.run do |navigation|
 
     primary.item :nav_admin, 'Administration' , '/admin', :icon => 'icon-cog', :highlights_on => /^\/admin/, :if => Proc.new { current_user.is_admin? } do |sub_nav|
       sub_nav.item :nav_admin_dashboard, 'Vue d\'ensemble', '/admin', :icon => 'iconic-chart'
+      sub_nav.item :nav_admin_newspage,  'Page de nouvelles', '/admin/home'
       sub_nav.item :nav_admin_divider_1, '', nil, :class=> 'divider'
       sub_nav.item :nav_admin_edition,   'Choix de l\'édition', new_admin_edition_path
       sub_nav.item :nav_admin_category,  'Classes d\'inscription', new_admin_category_path

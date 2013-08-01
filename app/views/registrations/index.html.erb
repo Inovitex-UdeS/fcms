@@ -8,11 +8,16 @@
                   bSortable: false,
                   aTargets: [ 0 ]
                 }
-              ]
+              ],
+              "oLanguage": {
+                "sEmptyTable": "Vous n'êtes pas encore inscrit au Festival-Concours de Musique de Sherbrooke."
+              }
             });
         });
     </script>
 <% end %>
 
 <h3>Inscriptions au festival</h3>
+<p>Le tableau ci-dessous regroupe vos inscriptions au Festival-Concours de Musique de Sherbrooke.</p>
+<hr>
 <%= render :partial => 'registrations/grid' %>

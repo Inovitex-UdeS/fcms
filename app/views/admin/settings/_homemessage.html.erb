@@ -1,0 +1,35 @@
+<% content_for :head do %>
+  <%= javascript_include_tag 'ckeditor' %>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      // Enable ckeditor
+      fcms.ckeditor('#home_message', {
+        height: 250,
+        width: '100%',
+        toolbar: [
+          [ 'Undo', 'Redo' ],
+          [ 'Bold', 'Italic', 'Underline', 'Strike Through', '-', 'Subscript', 'Superscript' ],
+          [ 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ],
+          [ 'FontSize' ],
+          [ 'BulletedList', 'NumberedList', '-', 'Link', 'Unlink', '-', 'Image', 'Table' ],
+          [ 'Source' ]
+        ]
+      });
+
+      // Show message on success
+      $(window).on('ajax:complete', function(e, data) {
+        fcms.showMessage($.parseJSON(data.responseText).message, data.status == 200 ? 0 : 3);
+      });
+    });
+  </script>
+<% end %>
+
+<h5>Message de la page de nouvelles</h5>
+<%= form_tag admin_settings_path,
+             :remote => true,
+             :method => 'post' do %>
+
+  <p><%= text_area_tag 'home_message', Setting.find_by_key('home_message').value %></p>
+  <p><%= submit_tag 'Publier' , :class => 'btn btn-primary' %></p>
+<% end %>

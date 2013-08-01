@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130724210002) do
+ActiveRecord::Schema.define(:version => 20130801022842) do
 
   create_table "agegroups", :force => true do |t|
     t.integer  "edition_id",                  :null => false
@@ -258,8 +258,8 @@ ActiveRecord::Schema.define(:version => 20130724210002) do
   add_index "schooltypes", ["name"], :name => "ak_name_schoolty", :unique => true
 
   create_table "settings", :force => true do |t|
-    t.string "key",   :limit => 64,   :null => false
-    t.string "value", :limit => 1024
+    t.string "key",   :limit => 64, :null => false
+    t.text   "value"
   end
 
   add_index "settings", ["key"], :name => "configs_pk", :unique => true

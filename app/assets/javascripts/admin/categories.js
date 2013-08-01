@@ -26,7 +26,13 @@ $(document).ready(function() {
     // Enable ckeditor
     fcms.ckeditor('#category_description', {
         height: 160,
-        width: 358
+        width: 358,
+        resize_enabled: false,
+        toolbar: [
+            [ 'Undo', 'Redo' ],
+            [ 'Bold', 'Italic', 'Underline', 'Strike Through' ],
+            [ 'BulletedList', 'NumberedList', '-', 'Link', 'Unlink' ]
+        ]
     });
 
     // Hide the category form

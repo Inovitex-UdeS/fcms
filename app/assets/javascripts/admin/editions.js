@@ -104,11 +104,11 @@ $(document).ready(function() {
     fcms.initTable();
     fcms.bindForm($('#new_edition'), 4);
 
-    $('form[action="/admin/currenteditions"]').on('ajax:success', function(evt, data, status, xhr) {
+    $('form[action="/admin/settings"]').on('ajax:success', function(evt, data, status, xhr) {
         fcms.showMessage('La mise à jour de l\'édition courante a été complétée avec succès!');
     });
 
-    $('form[action="/admin/currenteditions"]').on('ajax:error', function(event, xhr, status) {
+    $('form[action="/admin/settings"]').on('ajax:error', function(event, xhr, status) {
         fcms.showMessage(xhr.responseText, 3);
     });
 });

@@ -57,4 +57,7 @@ class Admin::DashboardController < ApplicationController
   def piechart_age_title(age)
     "#{piechart_age(age)-1}-#{piechart_age(age)}"
   end
+
+  def home
+  end
 end

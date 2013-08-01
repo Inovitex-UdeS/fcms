@@ -2,3 +2,31 @@
   Place all the styles related to the matching controller here.
   They will automatically be included in application.css.
 */
+
+.home-message, .home-links {
+    vertical-align: top;
+    display: inline-block;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.home-message {
+    width: 700px;
+    padding-right: 60px;
+    padding-bottom: 20px;
+}
+.home-message h3 {
+    margin-bottom: 15px;
+}
+
+.home-links {
+    width: 250px;
+    padding-left: 15px;
+    border-left: 1px dotted #eee;
+    padding-bottom: 15px;
+    min-height: 200px;
+}
+.home-links ul {
+    list-style: none;
+    margin: 0 0 0 10px;
+}

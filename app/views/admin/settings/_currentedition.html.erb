@@ -1,13 +1,15 @@
 <h5>Édition en cours</h5>
 <div class="form-inline">
   <%= simple_form_for @editions, :remote => true,
-                      :url => admin_currenteditions_path,
+                      :url => admin_settings_path,
                       :method => 'post' do |f| %>
-      <p>Choisissez ici l'édition active de l'application du Festival-Concours de Musique de Sherbrooke.</p>
-      <p>Toutes les <strong>inscriptions</strong> et la <strong>planification</strong> du concours seront liés à cette édition sélectionnée.</p>
+    <p>Choisissez ici l'édition active de l'application du Festival-Concours de Musique de Sherbrooke.</p>
+    <p>Toutes les <strong>inscriptions</strong> et la <strong>planification</strong> du concours seront liés à cette édition sélectionnée.</p>
 
+    <p>
       <%= f.select(:id, options_for_select( Edition.all.collect {|p| [ p.year, p.id ] }, @current_edition ), {prompt: 'Choisissez une l\'édition courante'}) %>
       <%= f.button :submit, 'Enregistrer' , :class => 'btn' %>
+    </p>
+    <p>Pour ajouter une nouvelle édition du Festival-Concours de Musique de Sherbrooke, utilisez le tableau ci-dessous.</p>
   <% end %>
 </div>
-<p>Pour ajouter une nouvelle édition du Festival-Concours de Musique de Sherbrooke, utilisez le tableau ci-dessous.</p>

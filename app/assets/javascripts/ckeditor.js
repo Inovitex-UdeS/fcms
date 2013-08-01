@@ -3,14 +3,10 @@
 
 var defaultOptions = {
   contentsCss: '/assets/ckeditor.css',
-  linkShowAdvancedTab: false,
+  linkShowAdvancedTab: true,
   scayt_autoStartup: true,
   enterMode: Number(2),
-  toolbar: [
-    [ 'Bold', 'Italic', 'Underline', 'Strike Through', '-', 'Subscript', 'Superscript' ],
-    [ 'NumberedList', 'BulletedList' ],
-    [ 'Link', 'Unlink' ]
-  ]
+  removePlugins: 'elementspath'
 };
 
 fcms.ckeditor = function(control, options) {

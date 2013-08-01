@@ -11,6 +11,7 @@
 
 html, body {
     font-family: "Open Sans";
+    font-size: 13px;
     line-height: normal;
     height: 100%;
 }
@@ -84,6 +85,7 @@ abbr[title="required"] { color: #8A2003; border: none; }
 
 .navbar {
     z-index: 50;
+    font-size: 14px;
 }
 
 .navbar .divider-vertical {

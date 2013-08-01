@@ -64,6 +64,7 @@ function initEditRegistrations() {
                 });
 
                 td = td.next();
+                td.find('input').attr('data-composer', composer_id);
                 td.find('input').val(piece_title);
                 td = td.next();
                 td.find('input').val(0);

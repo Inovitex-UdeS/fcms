@@ -130,7 +130,7 @@ class Admin::UsersController < ApplicationController
             if c = u.contactinfo
               tel = c.telephone
               rue = c.address
-              ville = c.city.name
+              c.city ? ville = c.city.name : ville = ""
               post = c.postal_code
             else
               tel   =  rue   =  ville =  post  = ""

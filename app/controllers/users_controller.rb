@@ -1,11 +1,17 @@
-##
-# JSON request to get user information
-class UsersController < ApplicationController
+#encoding: utf-8
 
+##
+# Controller to edit and update profile page
+class UsersController < ApplicationController
   ##
   # Will return profile page to edit personal information
   def edit
     @user  = User.find(params[:id])
+
+    if (@user != current_user)
+      redirect_to root_path, :alert => 'Accès non-autorisé!'
+    end
+
     @user.contactinfo ||= Contactinfo.new
     @user.contactinfo.city ||= City.new
   end
@@ -14,6 +20,10 @@ class UsersController < ApplicationController
   # Handle modifications to profile
   def update
     @user = User.find(params[:id])
+
+    if (@user != current_user)
+      redirect_to root_path, :alert => 'Accès non-autorisé!'
+    end
 
     # Right now we handle only html request, but in later iteration, we will handle json
     respond_to do |format|

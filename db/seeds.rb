@@ -9,10 +9,10 @@
 
 require 'csv'
 
-TESTS_CUCUMBER = true
+TESTS_CUCUMBER = false
 
 # Do not load all composers and pieces by default
-load_all_composers_and_pieces = false
+load_all_composers_and_pieces = true
 
 # Composers and pieces
 if load_all_composers_and_pieces
